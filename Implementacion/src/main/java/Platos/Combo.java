@@ -2,14 +2,12 @@ package Platos;
 
 import java.util.List;
 
-public class Combo implements Plato{
-    String nombre;
+public class Combo extends Plato {
+
     List<PlatoSimple> platos;
-    List<String> fotos;
-    boolean disponible;
 
     @Override
     public double getPrecio() {
-        return platos.stream().mapToDouble(p -> getPrecio()).sum();
+        return platos.stream().mapToDouble(Plato::getPrecio).sum();
     }
 }

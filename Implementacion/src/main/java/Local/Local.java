@@ -1,15 +1,17 @@
 package Local;
 
+import Pedidos.Pedido;
 import Platos.Plato;
+import Repositorios.Identificable;
 
 import java.util.List;
 
-public class Local {
+public class Local extends Identificable {
     String nombre;
     String direccion;
     Contacto contacto;
     List<Plato> menu;
-    //List<Pedido> pedidos;
+    List<Pedido> pedidosRealizados;
     List<String> fotos;
     List<CategoriaLocal> categorias;
 

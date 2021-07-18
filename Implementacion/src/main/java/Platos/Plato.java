@@ -1,7 +1,12 @@
 package Platos;
 
-public interface Plato {
+import java.util.LinkedList;
+import java.util.List;
 
-    public double getPrecio();
+public abstract class Plato {
+    String nombre;
+    List<String> fotos = new LinkedList<>();
+    boolean disponible;
 
+    public abstract double getPrecio();
 }
