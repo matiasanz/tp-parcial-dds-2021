@@ -1,4 +1,9 @@
 package MediosContacto;
 
-public class Mail {
+public class Mail implements MedioDeContacto{
+    /*
+    @Override
+    public void notificar() {
+    }
+     */
 }

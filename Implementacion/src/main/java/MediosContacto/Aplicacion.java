@@ -1,4 +1,9 @@
 package MediosContacto;
 
-public class Aplicacion {
+public class Aplicacion implements MedioDeContacto{
+    /*
+    @Override
+    public void notificar() {
+    }
+     */
 }
