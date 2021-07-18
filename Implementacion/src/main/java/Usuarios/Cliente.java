@@ -1,4 +1,4 @@
-package Cliente;
+package Usuarios;
 
 import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;

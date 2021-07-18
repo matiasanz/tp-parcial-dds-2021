@@ -1,5 +1,6 @@
 package Pedidos;
 
+import Usuarios.Repartidor;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Identificable;
@@ -16,7 +17,7 @@ public class Pedido extends Identificable {
     LocalDateTime horaInicio = LocalDateTime.now();
     LocalDateTime horaFin;
     Direccion direccion;
-
+    Repartidor repartidor;
 
     public Pedido(Direccion direccion, Local local, List<Item> items){
         this.local = local;

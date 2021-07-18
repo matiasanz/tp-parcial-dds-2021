@@ -1,5 +1,5 @@
 package Repositorios;
-import Cliente.Cliente;
+import Usuarios.Cliente;
 
 public class RepoClientes extends RepoMemoria<Cliente> {}
 

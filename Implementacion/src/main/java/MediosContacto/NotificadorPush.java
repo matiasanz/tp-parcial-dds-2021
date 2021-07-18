@@ -1,6 +1,6 @@
 package MediosContacto;
 
-import Cliente.Cliente;
+import Usuarios.Cliente;
 
 public class NotificadorPush implements MedioDeContacto{
 

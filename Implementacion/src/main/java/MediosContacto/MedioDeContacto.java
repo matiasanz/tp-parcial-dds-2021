@@ -1,6 +1,6 @@
 package MediosContacto;
 
-import Cliente.Cliente;
+import Usuarios.Cliente;
 
 public interface MedioDeContacto {
     public void notificar(Cliente cliente, Notificacion notificacion);
