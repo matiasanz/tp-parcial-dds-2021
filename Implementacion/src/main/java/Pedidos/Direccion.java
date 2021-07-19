@@ -1,5 +1,5 @@
 package Pedidos;
 
-class Direccion{
+public class Direccion{
     String direccion;
 }

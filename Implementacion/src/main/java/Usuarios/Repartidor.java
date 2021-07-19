@@ -1,6 +1,5 @@
 package Usuarios;
 
-public class Repartidor {
-    private String nombre;
+public class Repartidor extends Usuario{
     private Ubicacion ubicacionActual;
 }
