@@ -3,7 +3,7 @@ package Pedidos;
 import Usuarios.Repartidor;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
-import Repositorios.Identificable;
+import Repositorios.Templates.Identificable;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

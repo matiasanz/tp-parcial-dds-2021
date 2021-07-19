@@ -2,7 +2,7 @@ package Local;
 
 import Pedidos.Pedido;
 import Platos.Plato;
-import Repositorios.Identificable;
+import Repositorios.Templates.Identificable;
 
 import java.util.List;
 
