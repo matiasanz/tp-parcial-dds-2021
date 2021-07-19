@@ -19,7 +19,6 @@ public abstract class RepoMemoria<T extends Identificable>{
         contenido.add(elemento);
     }
 
-    //TODO: Testear bien
     public Optional<T> find(long id){
         return findBy(id, Identificable::getId);
     }
