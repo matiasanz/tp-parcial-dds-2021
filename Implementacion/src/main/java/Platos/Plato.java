@@ -1,5 +1,6 @@
 package Platos;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,5 +9,5 @@ public abstract class Plato {
     List<String> fotos = new LinkedList<>();
     boolean disponible;
 
-    public abstract double getPrecio();
+    public abstract BigDecimal getPrecio();
 }
