@@ -27,7 +27,7 @@ public abstract class RepoMemoria<T extends Identificable>{
         return findBy(elem->getter.apply(elem).equals(valor));
     }
 
-    protected <S> Optional<T> findBy(Predicate<T> predicate){
+    protected Optional<T> findBy(Predicate<T> predicate){
         return contenido.stream().filter(predicate).findAny();
     }
 }
