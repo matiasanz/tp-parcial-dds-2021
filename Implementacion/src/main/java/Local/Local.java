@@ -2,25 +2,29 @@ package Local;
 
 import Pedidos.Pedido;
 import Platos.Plato;
-import Repositorios.Identificable;
+import Repositorios.Templates.Identificable;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Local extends Identificable {
     String nombre;
     String direccion;
     Contacto contacto;
-    List<Plato> menu;
-    List<Pedido> pedidosRealizados;
-    List<String> fotos;
+    List<Pedido> pedidosRecibidos = new LinkedList<>();
+    List<Plato> menu = new ArrayList<>();
+    List<String> fotos = new LinkedList<>();
     List<CategoriaLocal> categorias;
 
-    public Local(String nombre, String direccion, Contacto contacto, List<Plato> menu, List<String> fotos, List<CategoriaLocal> categorias) {
+    public Local(String nombre, String direccion, Contacto contacto, List<CategoriaLocal> categorias) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.contacto = contacto;
-        this.menu = menu;
-        this.fotos = fotos;
         this.categorias = categorias;
+    }
+
+    public void notificarPedido(Pedido pedido){
+        pedidosRecibidos.add(pedido);
     }
 }

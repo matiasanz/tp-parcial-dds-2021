@@ -1,10 +1,12 @@
 package MediosContacto;
 
 import Usuarios.Cliente;
+import Usuarios.Usuario;
+import Utils.Exceptions.PendingException;
 
 public class MailSender implements MedioDeContacto{
     @Override
-    public void notificar(Cliente cliente, Notificacion notificacion) {
-        throw new RuntimeException("Falta implementar el notificador de mail");
+    public void enviarNotificacion(Usuario usuario, Notificacion notificacion) {
+        throw new PendingException("notificador de mail");
     }
 }

@@ -1,8 +1,11 @@
 package MediosContacto;
 
+import java.time.LocalDateTime;
+
 public class Notificacion {
     String asunto;
     String cuerpo;
+    LocalDateTime fechaHora = LocalDateTime.now();
 
     public Notificacion(String asunto, String cuerpo){
         this.asunto=asunto;
@@ -18,7 +21,7 @@ public class Notificacion {
         }
 
     public String toString(){
-            return "["+getAsunto()+"]"+getCuerpo();
+            return "["+getAsunto()+"] "+getCuerpo();
         }
 
 }

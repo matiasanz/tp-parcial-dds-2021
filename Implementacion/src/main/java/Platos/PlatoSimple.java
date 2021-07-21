@@ -1,13 +1,14 @@
 package Platos;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PlatoSimple extends Plato {
     List<String> ingredientes; //TODO: ver despues como implementamos esto
-    double precio;
+    BigDecimal precio;
 
     @Override
-    public double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 }

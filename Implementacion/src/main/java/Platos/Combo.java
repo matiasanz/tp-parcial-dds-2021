@@ -1,5 +1,6 @@
 package Platos;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Combo extends Plato {
@@ -7,7 +8,7 @@ public class Combo extends Plato {
     List<PlatoSimple> platos;
 
     @Override
-    public double getPrecio() {
-        return platos.stream().mapToDouble(Plato::getPrecio).sum();
+    public BigDecimal getPrecio() {
+        return platos.stream().map(Plato::getPrecio).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

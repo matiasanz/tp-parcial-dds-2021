@@ -3,7 +3,7 @@ package Pedidos;
 import Usuarios.Repartidor;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
-import Repositorios.Identificable;
+import Repositorios.Templates.Identificable;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -20,8 +20,10 @@ public class Pedido extends Identificable {
     Repartidor repartidor;
 
     public Pedido(Direccion direccion, Local local, List<Item> items){
+        this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
+        local.notificarPedido(this);
     }
 
     public Duration tiempoEntrega(){

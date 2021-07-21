@@ -1,4 +1,4 @@
-package Repositorios;
+package Repositorios.Templates;
 
 public abstract class Identificable {
     private Long id;
