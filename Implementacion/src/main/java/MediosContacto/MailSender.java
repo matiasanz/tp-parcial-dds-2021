@@ -6,7 +6,7 @@ import Utils.Exceptions.PendingException;
 
 public class MailSender implements MedioDeContacto{
     @Override
-    public void notificar(Usuario usuario, Notificacion notificacion) {
+    public void enviarNotificacion(Usuario usuario, Notificacion notificacion) {
         throw new PendingException("notificador de mail");
     }
 }

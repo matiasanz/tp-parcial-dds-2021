@@ -20,8 +20,10 @@ public class Pedido extends Identificable {
     Repartidor repartidor;
 
     public Pedido(Direccion direccion, Local local, List<Item> items){
+        this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
+        local.notificarPedido(this);
     }
 
     public Duration tiempoEntrega(){

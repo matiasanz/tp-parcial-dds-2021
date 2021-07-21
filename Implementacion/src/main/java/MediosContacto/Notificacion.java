@@ -21,7 +21,7 @@ public class Notificacion {
         }
 
     public String toString(){
-            return "["+getAsunto()+"]"+getCuerpo();
+            return "["+getAsunto()+"] "+getCuerpo();
         }
 
 }
