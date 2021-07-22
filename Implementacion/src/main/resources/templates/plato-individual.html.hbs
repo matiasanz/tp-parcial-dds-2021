@@ -13,6 +13,16 @@
             <li><Strong>Precio: </Strong>${{precio}}</li>
         </ul>
     </div>
+
+    <div id="compra">
+        <form action="/carrito" method="POST">
+            <label>Cantidad</label>
+            <input type="number" name="cantidad" required="required"> <br>
+            <label>Aclaraciones</label>
+            <input type="text" name="aclaraciones" id="idAclaraciones"> <br>
+            <input type="submit" value="Agregar al carrito"><p style="color:Red;">{{mensaje}}</p>
+        </form>
+    </div>
 </nav>
 </body>
 </html>

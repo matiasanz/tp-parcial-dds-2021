@@ -56,7 +56,7 @@ public class LocalesController {
             idLocal = parseId("id", req);
             Local local = repoLocales.getLocal(idLocal);
             Plato plato = local.getPlato(parseId("idPlato", req));
-            return new ModelAndView(parseModel(plato), Templates.PLATO);
+            return new ModelAndView(parseModel(plato).con("idLocal", idLocal), Templates.PLATO);
         } catch ( PlatoInexistenteException | NumberFormatException e){
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
             res.redirect(URIs.LOCAL(idLocal));

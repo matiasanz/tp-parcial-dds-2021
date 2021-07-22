@@ -16,11 +16,9 @@ import java.util.Map;
 public class LoginController {
 
     public LoginController(RepoClientes repoClientes){
-        this.repoClientes=repoClientes;
         this.autenticador = new Autenticador<>(repoClientes);
     }
 
-    private final RepoClientes repoClientes;
     private final Autenticador<Cliente> autenticador;
     private final String ARCHIVO_LOGIN = "login.html.hbs";
     private final String MENSAJE_TOKEN = "mensaje";
@@ -32,7 +30,7 @@ public class LoginController {
 
     public ModelAndView tryLogin(Request req, Response res) {
         try{
-            autenticar(req,res);
+            autenticador.autenticar(req,res);
             res.status(HttpURLConnection.HTTP_ACCEPTED);
             res.redirect(URIs.HOME);
 
@@ -43,15 +41,6 @@ public class LoginController {
         }
 
         return null;
-    }
-
-    public void autenticar(Request request, Response response){
-        Cliente cliente = repoClientes.getCliente(request.queryParams("username"));
-        String contrasenia = request.queryParams("password");
-        if(!cliente.getPassword().equals(contrasenia))
-            throw new ContraseniaIncorrectaException();
-
-        autenticador.guardarCredenciales(request, cliente);
     }
 
     private Map<String, Object> generarModelo(Request req, Response res){

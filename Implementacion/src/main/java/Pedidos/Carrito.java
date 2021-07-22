@@ -11,8 +11,9 @@ public class Carrito {
     private List<Item> items = new LinkedList<>();
     private Direccion direccion;
 
-    public Carrito(Local local){
+    public Carrito conLocal(Local local){
         this.local=local;
+        return this;
     }
 
     public Carrito conDireccion(Direccion direccion){
@@ -26,6 +27,7 @@ public class Carrito {
     }
 
     public Pedido build(){
+        if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         return new Pedido(direccion, local, items);
     }

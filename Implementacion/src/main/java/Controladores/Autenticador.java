@@ -3,7 +3,9 @@ package Controladores;
 import Controladores.Utils.URIs;
 import Repositorios.RepoClientes;
 import Repositorios.Templates.RepoUsuarios;
+import Usuarios.Cliente;
 import Usuarios.Usuario;
+import Utils.Exceptions.ContraseniaIncorrectaException;
 import Utils.Exceptions.NingunaSesionAbiertaException;
 import Utils.Exceptions.UsuarioInexistenteException;
 import spark.Request;
@@ -28,6 +30,16 @@ public class Autenticador<T extends Usuario> {
         request.session().removeAttribute(USER_ID);
     }
 
+    public void autenticar(Request request, Response response){
+        T usuario = repoUsuarios.getUsuario(request.queryParams("username"));
+        String contrasenia = request.queryParams("password");
+        if(!usuario.getPassword().equals(contrasenia))
+            throw new ContraseniaIncorrectaException();
+
+        guardarCredenciales(request, usuario);
+    }
+
+
     public void reautenticar(Request pedido, Response respuesta){
         Long id = pedido.session().attribute(USER_ID);
 
@@ -45,7 +57,7 @@ public class Autenticador<T extends Usuario> {
 
     public T getUsuario(Request request){
         Long id = request.session().attribute(USER_ID);
-        return repoUsuarios.find(id).get();
+        return repoUsuarios.find(id).orElseThrow(UsuarioInexistenteException::new);
     }
 
     private void validarSesionEnCurso(Request pedido){

@@ -1,9 +1,6 @@
 package Main;
 
-import Controladores.Autenticador;
-import Controladores.HomeController;
-import Controladores.LocalesController;
-import Controladores.LoginController;
+import Controladores.*;
 import Controladores.Utils.URIs;
 import Repositorios.RepoClientes;
 import Repositorios.RepoLocales;
@@ -25,6 +22,7 @@ public class Routes {
     private HomeController homeController = new HomeController(repoLocales);
     private LocalesController localesController = new LocalesController(repoLocales);
     private Autenticador<Cliente> autenticadorClientes = new Autenticador<>(repoClientes);
+    private CarritoController carritoController = new CarritoController();
 
     public static void main(String[] args) {
         new Routes().execute(args);
@@ -57,6 +55,7 @@ public class Routes {
         Spark.get("/locales", localesController::getLocales, engine);
         Spark.get("/locales/:id", localesController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localesController::getPlato, engine);
+        Spark.post("/carrito", carritoController::agregarItem, engine);
 
         System.out.println("Servidor iniciado correctamente");
     }

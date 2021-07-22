@@ -13,4 +13,8 @@ public class RepoUsuarios<T extends Usuario> extends RepoMemoria<T>{
     public T getUsuario(long id){
         return find(id).orElseThrow(UsuarioInexistenteException::new);
     }
+
+    public T getUsuario(String nombre){
+        return findBy(nombre, Usuario::getUsername).orElseThrow(UsuarioInexistenteException::new);
+    }
 }
