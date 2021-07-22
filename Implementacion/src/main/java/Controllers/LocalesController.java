@@ -14,6 +14,7 @@ import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import Local.*;
 
@@ -39,7 +40,6 @@ public class LocalesController {
             return new ModelAndView(parseModel(local), Templates.LOCAL_INDIVIDUAL);
 
         } catch (LocalInexistenteException | NumberFormatException e) {
-            System.out.println(e);
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
             res.redirect(URIs.LOCALES);
             return null;
@@ -66,14 +66,16 @@ public class LocalesController {
 
     private Modelo parseModel(Local local){
         return new Modelo("nombre", local.getNombre())
+            .con("idLocal", local.getId())
             .con("categorias", local.getCategorias())
-            .con("Platos", local.getMenu())
+            .con("Platos", local.getMenu().stream().map(this::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion().getCalle());
     }
 
     private Modelo parseModel(Plato plato){
         return new Modelo("nombre", plato.getNombre())
-            .con("precio", plato.getPrecio());
+            .con("precio", plato.getPrecio())
+            .con("idPlato", plato.getId());
     }
 
     private Long parseId(String id, Request req){
