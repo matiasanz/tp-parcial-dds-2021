@@ -1,7 +1,7 @@
-package Controllers;
+package Controladores;
 
-import Controllers.Utils.Modelo;
-import Controllers.Utils.URIs;
+import Controladores.Utils.Modelo;
+import Controladores.Utils.URIs;
 import Repositorios.RepoClientes;
 import Usuarios.Cliente;
 import Utils.Exceptions.ClienteInexistenteException;
@@ -11,15 +11,17 @@ import spark.Request;
 import spark.Response;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
 import java.util.Map;
 
 public class LoginController {
+
     public LoginController(RepoClientes repoClientes){
         this.repoClientes=repoClientes;
+        this.autenticador = new Autenticador<>(repoClientes);
     }
 
     private final RepoClientes repoClientes;
+    private final Autenticador<Cliente> autenticador;
     private final String ARCHIVO_LOGIN = "login.html.hbs";
     private final String MENSAJE_TOKEN = "mensaje";
 
@@ -48,6 +50,8 @@ public class LoginController {
         String contrasenia = request.queryParams("password");
         if(!cliente.getPassword().equals(contrasenia))
             throw new ContraseniaIncorrectaException();
+
+        autenticador.guardarCredenciales(request, cliente);
     }
 
     private Map<String, Object> generarModelo(Request req, Response res){

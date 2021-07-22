@@ -1,4 +1,4 @@
-package Controllers.Utils;
+package Controladores.Utils;
 
 public interface Templates {
     String HOME = "home.html.hbs";

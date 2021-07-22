@@ -1,8 +1,8 @@
-package Controllers;
+package Controladores;
 
-import Controllers.Utils.Modelo;
-import Controllers.Utils.Templates;
-import Controllers.Utils.URIs;
+import Controladores.Utils.Modelo;
+import Controladores.Utils.Templates;
+import Controladores.Utils.URIs;
 import Local.Local;
 import Platos.Plato;
 import Repositorios.RepoLocales;

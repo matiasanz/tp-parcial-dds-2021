@@ -1,7 +1,11 @@
 package Local;
 
 public enum CategoriaLocal {
+    PARRILLA,
     DESAYUNO,
     COMIDA_RAPIDA,
-    VEGANO;
+    VEGANO,
+    ARABE,
+    ORIENTAL,
+    VEGANA
 }

@@ -1,4 +1,4 @@
-package Controllers.Utils;
+package Controladores.Utils;
 
 public interface URIs {
     String LOGIN = "/";
