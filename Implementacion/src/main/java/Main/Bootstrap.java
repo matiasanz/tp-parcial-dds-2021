@@ -28,13 +28,13 @@ public class Bootstrap {
 
     private void cargarLocales(){
         Contacto contacto = new Contacto("jorge", "salomon", Collections.singletonList(new NotificadorPush()));
-        Local local = new Local("5 esquinas", new Direccion(), contacto, CategoriaLocal.DESAYUNO);
-        PlatoSimple plato =new PlatoSimple("Fideos con tuco", Arrays.asList("tuco"));
+        Local local = new Local("5 esquinas", new Direccion("Calle falsa 123"), contacto, CategoriaLocal.DESAYUNO);
+        PlatoSimple plato =new PlatoSimple("Fideos con tuco", 900.0, Arrays.asList("fideos", "tuco"));
         local.agregarPlato(plato);
         RepoLocales.instance.agregar(local);
     }
 
     private void cargarUsuarios(){
-        RepoClientes.instance.agregar(new Cliente("matiasanz", "123", "matias", "godinez", new Direccion()));
+        RepoClientes.instance.agregar(new Cliente("matiasanz", "123", "matias", "godinez", new Direccion("Mi casa")));
     }
 }

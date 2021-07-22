@@ -4,6 +4,7 @@ import Pedidos.Direccion;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
+import Utils.Exceptions.PlatoInexistenteException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,11 +51,15 @@ public class Local extends Identificable {
         return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
     }
 
-    public Optional<Plato> getPlato(Long idPlato) {
-        return getMenu().stream().filter(plato->plato.matchId(idPlato)).findAny();
+    public Plato getPlato(Long idPlato) {
+        return getMenu().stream().filter(plato->plato.matchId(idPlato)).findAny().orElseThrow(PlatoInexistenteException::new);
     }
 
     public void agregarPlato(Plato plato){
         menu.add(plato);
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
     }
 }

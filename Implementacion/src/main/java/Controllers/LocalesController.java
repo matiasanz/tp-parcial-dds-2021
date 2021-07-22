@@ -7,17 +7,13 @@ import Local.Local;
 import Platos.Plato;
 import Repositorios.RepoLocales;
 import Utils.Exceptions.LocalInexistenteException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import Utils.Exceptions.PlatoInexistenteException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import Local.*;
 
@@ -38,25 +34,16 @@ public class LocalesController {
     }
 
     public ModelAndView getLocal(Request req, Response res){
-        Optional<Modelo> local = findLocal(req).map(this::parseModel);
+        try{
+            Local local = repoLocales.getLocal(parseId("id", req));
+            return new ModelAndView(parseModel(local), Templates.LOCAL_INDIVIDUAL);
 
-        if(local.isPresent()){
-            return new ModelAndView(local.orElseGet(Modelo::new), Templates.LOCAL_INDIVIDUAL);
-        } else {
+        } catch (LocalInexistenteException | NumberFormatException e) {
+            System.out.println(e);
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
             res.redirect(URIs.LOCALES);
             return null;
         }
-    }
-
-    private Optional<Local> findLocal(Request req){
-        return repoLocales.find(Long.parseLong(req.params("id")));
-    }
-
-    private Modelo parseModel(Local local){
-        return new Modelo("nombre", local.getNombre())
-            .con("categorias", local.getCategorias())
-            .con("platos", local.getMenu());
     }
 
     private boolean perteneceACategoria(Local local, String categoria){
@@ -64,22 +51,32 @@ public class LocalesController {
     }
 
     public ModelAndView getPlato(Request req, Response res) {
-        long idLocal = Long.parseLong(req.params("id"));
-        Optional<Local> local = repoLocales.find(idLocal);
-        Long idPlato = Long.parseLong(req.params("idPlato"));
-        Optional<Modelo> plato = local.flatMap(l->l.getPlato(idPlato)).map(this::parseModel);
-
-        if(plato.isPresent()){
-            return new ModelAndView(plato.get(), Templates.PLATO);
-        } else{
+        Long idLocal = null;
+        try{
+            idLocal = parseId("id", req);
+            Local local = repoLocales.getLocal(idLocal);
+            Plato plato = local.getPlato(parseId("idPlato", req));
+            return new ModelAndView(parseModel(plato), Templates.PLATO);
+        } catch ( PlatoInexistenteException | NumberFormatException e){
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
             res.redirect(URIs.LOCAL(idLocal));
             return null;
         }
     }
 
+    private Modelo parseModel(Local local){
+        return new Modelo("nombre", local.getNombre())
+            .con("categorias", local.getCategorias())
+            .con("Platos", local.getMenu())
+            .con("Direccion", local.getDireccion().getCalle());
+    }
+
     private Modelo parseModel(Plato plato){
         return new Modelo("nombre", plato.getNombre())
             .con("precio", plato.getPrecio());
+    }
+
+    private Long parseId(String id, Request req){
+        return Long.parseLong(req.params(id));
     }
 }
