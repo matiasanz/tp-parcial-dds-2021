@@ -7,6 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Usuario extends Identificable {
+    public Usuario(String username, String contrasenia, String nombre, String apellido){
+        this.username=username;
+        this.password=contrasenia;
+        this.nombre=nombre;
+        this.apellido=apellido;
+    }
+
+
     private String username;
     private String password;
 
@@ -36,6 +44,10 @@ public abstract class Usuario extends Identificable {
 
     public void agregarNotificacionPush(Notificacion notificacion) {
         notificacionesPush.add(notificacion);
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
 

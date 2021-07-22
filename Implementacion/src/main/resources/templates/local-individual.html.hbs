@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Locales</title>
+</head>
+<body>
+
+<nav>
+    <H3>{{nombre}}</H3>
+    <div id="info-local">
+        Datos del Local:
+        <ul>
+            <li><Strong>Direccion: </Strong>{{direccion}}</li>
+        </ul>
+    </div>
+    <div id="Categorias">
+        <ul>
+            {{#categorias}}
+            <li>{{this}}</li>
+            {{/categorias}}
+        </ul>
+    </div>
+    <div id="Menu">
+        Menu:
+        <ul>
+            {{#Platos}}
+            <li><Strong>Nombre: </Strong>{{nombre}}</li>
+            <li><Strong>Precio: </Strong>{{precio}}</li>
+            {{/Platos}}
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

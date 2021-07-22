@@ -6,6 +6,7 @@ import Local.Local;
 import Repositorios.Templates.Identificable;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,5 +34,14 @@ public class Pedido extends Identificable {
 
     private void validarPedidoEntregado(){
         if(horaFin==null) throw new PedidoNoEntregadoException(this);
+    }
+
+    public LocalDateTime getFechaInicio() {
+        return horaInicio;
+    }
+
+    public Boolean mismoMesQue(LocalDate fechaActual) {
+        return horaInicio.getMonth() == fechaActual.getMonth()
+            && horaInicio.getYear() == fechaActual.getYear();
     }
 }

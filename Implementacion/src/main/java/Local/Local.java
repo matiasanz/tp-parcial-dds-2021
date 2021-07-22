@@ -1,30 +1,60 @@
 package Local;
 
+import Pedidos.Direccion;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Local extends Identificable {
     String nombre;
-    String direccion;
+    Direccion direccion;
     Contacto contacto;
     List<Pedido> pedidosRecibidos = new LinkedList<>();
     List<Plato> menu = new ArrayList<>();
     List<String> fotos = new LinkedList<>();
-    List<CategoriaLocal> categorias;
+    List<CategoriaLocal> categorias = new ArrayList<>();
 
-    public Local(String nombre, String direccion, Contacto contacto, List<CategoriaLocal> categorias) {
+    public Local(String nombre, Direccion direccion, Contacto contacto, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.contacto = contacto;
-        this.categorias = categorias;
+        this.categorias.add(categoria);
     }
 
     public void notificarPedido(Pedido pedido){
         pedidosRecibidos.add(pedido);
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public List<CategoriaLocal> getCategorias(){
+        return categorias;
+    }
+
+    public List<Pedido> getPedidosRecibidos(){
+        return pedidosRecibidos;
+    }
+
+    public List<Plato> getMenu(){
+        return menu;
+    }
+
+    public List<Pedido> pedidosDelMes(LocalDate fechaActual) {
+        return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
+    }
+
+    public Optional<Plato> getPlato(Long idPlato) {
+        return getMenu().stream().filter(plato->plato.matchId(idPlato)).findAny();
+    }
+
+    public void agregarPlato(Plato plato){
+        menu.add(plato);
     }
 }

@@ -8,7 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Cliente extends Usuario {
-    private List<Direccion> direccionesConocidas = new ArrayList<>(); //TODO: A futuro marcar en mapa
+    public Cliente(String usuario, String contrasenia, String nombre, String apellido, Direccion direccion){
+        super(usuario, contrasenia, nombre, apellido);
+        direccionesConocidas.add(direccion);
+    }
+
+    private List<Direccion> direccionesConocidas = new ArrayList<>();
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
 }

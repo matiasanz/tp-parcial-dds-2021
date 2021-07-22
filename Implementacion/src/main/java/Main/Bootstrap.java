@@ -1,11 +1,40 @@
 package Main;
 
+import Local.Local;
+import MediosContacto.MedioDeContacto;
+import MediosContacto.NotificadorPush;
+import Pedidos.Direccion;
+import Platos.PlatoSimple;
+import Repositorios.RepoClientes;
+import Repositorios.RepoLocales;
+import Usuarios.Cliente;
+import Local.Contacto;
+import Local.CategoriaLocal;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Bootstrap {
     public static void main(String[] args) {
         new Bootstrap().run();
+        System.out.println("Boostrap complete");
     }
 
     public void run() {
-        System.out.println("Boostrap complete");
+        cargarUsuarios();
+        cargarLocales();
+    }
+
+    private void cargarLocales(){
+        Contacto contacto = new Contacto("jorge", "salomon", Collections.singletonList(new NotificadorPush()));
+        Local local = new Local("5 esquinas", new Direccion(), contacto, CategoriaLocal.DESAYUNO);
+        PlatoSimple plato =new PlatoSimple("Fideos con tuco", Arrays.asList("tuco"));
+        local.agregarPlato(plato);
+        RepoLocales.instance.agregar(local);
+    }
+
+    private void cargarUsuarios(){
+        RepoClientes.instance.agregar(new Cliente("matiasanz", "123", "matias", "godinez", new Direccion()));
     }
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+<header>
+    <p>¡Saboreá las mejores comedias sin moverte de tu casa!</p>
+</header>
+
+<nav></nav>
+<nav>
+    <div id="top locales">
+        Top Locales:
+        <ol>
+        {{#Locales}}
+            <li><a href="/locales/{{id}}">{{nombre}}</a></li>
+        {{/Locales}}
+        </ol>
+    </div>
+
+    <div id="top Categorias">
+        Top Categorias:
+        <ol>
+        {{#Categorias}}
+            <li><a href="/locales?categoria={{this}}">{{this}}</a></li>
+        {{/Categorias}}
+        </ol>
+    </div>
+</nav>
+
+</body>
+</html>
