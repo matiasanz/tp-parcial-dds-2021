@@ -1,9 +1,14 @@
 package Usuarios.Categorias;
 
+import MediosContacto.MailSender;
+import MediosContacto.Notificacion;
+import MediosContacto.NotificadorPush;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
+import Utils.ProveedorDeNotif;
 
-public class Ocasional implements CategoriaCliente{
+public class Ocasional extends CategoriaCliente{
+    String nombre = "ocasional";
     int cantidadComprasParaPertenecer = 10;
     Frecuente frecuente;
 
@@ -14,7 +19,11 @@ public class Ocasional implements CategoriaCliente{
 
     public void notificarPedido(Pedido pedido, Cliente cliente) {
         if (cliente.getCantidadComprasHechas() > cantidadComprasParaPertenecer) {
-            cliente.setCategoria(frecuente); //TODO: aca mandarle notificacion de q pertenece a nueva categ
+            cliente.setCategoria(frecuente);
+            cliente.notificar(ProveedorDeNotif.notificacionAscensoDeCategoria(cliente, frecuente));
         }
     }
+
+
+
 }

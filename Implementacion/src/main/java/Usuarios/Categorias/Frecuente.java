@@ -2,8 +2,11 @@ package Usuarios.Categorias;
 
 import Pedidos.Pedido;
 import Usuarios.Cliente;
+import Utils.ProveedorDeNotif;
 
-public class Frecuente implements CategoriaCliente{
+public class Frecuente extends CategoriaCliente{
+
+    String nombre = "frecuente";
     int cantidadComprasParaPertenecer = 25;
     Habitual habitual;
 
@@ -19,7 +22,8 @@ public class Frecuente implements CategoriaCliente{
 
     public void notificarPedido(Pedido pedido, Cliente cliente) {
         if (cliente.getCantidadComprasHechas() > cantidadComprasParaPertenecer) {
-            cliente.setCategoria(habitual); //TODO: aca mandarle notificacion de q pertenece a nueva categ
+            cliente.setCategoria(habitual);
+            cliente.notificar(ProveedorDeNotif.notificacionAscensoDeCategoria(cliente, habitual));
         }
     }
 }

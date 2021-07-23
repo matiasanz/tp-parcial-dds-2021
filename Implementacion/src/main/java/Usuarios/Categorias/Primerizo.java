@@ -3,8 +3,10 @@ package Usuarios.Categorias;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Cliente;
+import Utils.ProveedorDeNotif;
 
-public class Primerizo implements CategoriaCliente {
+public class Primerizo extends CategoriaCliente {
+    String nombre = "primerizo";
     Ocasional ocasional;
 
     @Override
@@ -13,6 +15,7 @@ public class Primerizo implements CategoriaCliente {
     }
 
     public void notificarPedido(Pedido pedido, Cliente cliente){
-        cliente.setCategoria(ocasional); //TODO: aca mandarle notificacion de q pertenece a nueva categ
+        cliente.setCategoria(ocasional);
+        cliente.notificar(ProveedorDeNotif.notificacionAscensoDeCategoria(cliente, ocasional));
     }
 }

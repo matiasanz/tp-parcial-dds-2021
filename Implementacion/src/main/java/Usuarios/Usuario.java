@@ -1,5 +1,6 @@
 package Usuarios;
 
+import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;
 import Repositorios.Templates.Identificable;
 
@@ -14,6 +15,7 @@ public abstract class Usuario extends Identificable {
     public String nombre;
     private String apellido;
 
+    private List<MedioDeContacto> notificadores = new LinkedList<>();
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
     public Usuario(String mail, String nombre) {
@@ -44,6 +46,10 @@ public abstract class Usuario extends Identificable {
 
     public void agregarNotificacionPush(Notificacion notificacion) {
         notificacionesPush.add(notificacion);
+    }
+
+    public void notificar(Notificacion mensaje){
+        notificadores.forEach(n->n.notificar(this,mensaje));
     }
 }
 

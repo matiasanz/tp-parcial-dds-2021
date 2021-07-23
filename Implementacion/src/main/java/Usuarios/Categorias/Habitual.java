@@ -3,7 +3,9 @@ package Usuarios.Categorias;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
 
-public class Habitual implements CategoriaCliente {
+public class Habitual extends CategoriaCliente {
+
+    String nombre= "habitual";
     int cantidadComprasParaPertenecer = 50;
     int valorTope = 700;
 
