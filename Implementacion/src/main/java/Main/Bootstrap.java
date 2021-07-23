@@ -1,7 +1,6 @@
 package Main;
 
 import Local.Local;
-import MediosContacto.MedioDeContacto;
 import MediosContacto.NotificadorPush;
 import Pedidos.Direccion;
 import Platos.PlatoSimple;
@@ -13,7 +12,6 @@ import Local.CategoriaLocal;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public class Bootstrap {
     public static void main(String[] args) {

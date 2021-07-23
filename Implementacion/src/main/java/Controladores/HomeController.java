@@ -2,6 +2,7 @@ package Controladores;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Templates;
 import Repositorios.RepoLocales;
+import Usuarios.Cliente;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -12,9 +13,11 @@ import java.util.stream.Collectors;
 import Local.*;
 
 public class HomeController {
+    private Autenticador<Cliente> autenticador;
     private RepoLocales repoLocales;
 
-    public HomeController(RepoLocales repoLocales){
+    public HomeController(Autenticador<Cliente> autenticador, RepoLocales repoLocales){
+        this.autenticador = autenticador;
         this.repoLocales = repoLocales;
     }
 

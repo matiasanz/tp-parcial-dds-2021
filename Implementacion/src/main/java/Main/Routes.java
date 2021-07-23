@@ -15,16 +15,24 @@ import java.util.List;
 import static spark.Spark.after;
 
 public class Routes {
-    private RepoClientes repoClientes = RepoClientes.instance;
-    private RepoLocales repoLocales = RepoLocales.instance;
-    private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
-    private final LoginController loginController = new LoginController(repoClientes);
-    private HomeController homeController = new HomeController(repoLocales);
-    private LocalesController localesController = new LocalesController(repoLocales);
-    private Autenticador<Cliente> autenticadorClientes = new Autenticador<>(repoClientes);
-    private CarritoController carritoController = new CarritoController();
+    //Repositorios
+    private final RepoClientes repoClientes = RepoClientes.instance;
+    private final Autenticador<Cliente> autenticadorClientes = new Autenticador<>(repoClientes);
+    private final RepoLocales repoLocales = RepoLocales.instance;
 
+    //Controladores
+    private final SignupController signupController = new SignupController(repoClientes);
+    private final LoginController loginController = new LoginController(autenticadorClientes);
+    private final HomeController homeController = new HomeController(autenticadorClientes, repoLocales);
+    private final LocalesController localesController = new LocalesController(repoLocales);
+    private final CarritoController carritoController = new CarritoController();
+
+    //Spark
+    private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
+
+    //Ejecutable
     public static void main(String[] args) {
+        Bootstrap.main(args);
         new Routes().execute(args);
     }
 
@@ -33,22 +41,19 @@ public class Routes {
 
         Spark.port(8080);
 
-        Bootstrap.main(args);
-
         //Esta linea muestra el stack trace en el navegador, en caso de excepcion no manejada.
         DebugScreen.enableDebugScreen();
 
         Spark.staticFileLocation("/public");
 
-        //Descomentar la llamada al bootstrap para trabajar localmente pero no pushear al repo porque el schema no se debe crear todo el tiempo en el server
-//        Bootstrap.main(args);
-
         Spark.before((request, response)->{
             if(uriExceptuadaDeAutenticar(request.uri())){
-                new Autenticador<Cliente>(repoClientes).reautenticar(request, response);
+                autenticadorClientes.reautenticar(request, response);
             }
         });
 
+        Spark.get("/signup", signupController::getRegistroClientes, engine);
+        Spark.post("/clientes", signupController::registrarCliente, engine);
         Spark.get("/", loginController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);
@@ -64,6 +69,8 @@ public class Routes {
         List<String> urisExceptuadas = Arrays.asList(
             URIs.LOGIN
             , "/login"
+            , URIs.SIGNUP
+            , "/clientes"
         );
 
         return urisExceptuadas.stream().noneMatch(uri::equalsIgnoreCase);

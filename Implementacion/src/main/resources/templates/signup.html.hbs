@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pedidos Ya</title>
+    </head>
+
+    <body>
+        <section id="Registro-clientes">
+            <h2>Regsitrarse</h2>
+            <form action="/clientes" method="POST">
+                <label>Nombre: </label>
+                <input type="text" name="nombre"><br>
+
+                <label>Apellido: </label>
+                <input type="text" name="apellido"><br>
+
+                <label>Direccion: </label>
+                <input type="text" name="direccion"><br>
+
+                <label>Nuevo Usuario: </label>
+                <input type="text" name="usuario" required="required"><br>
+
+                <label>Nueva Contraseña: </label>
+                <input type="password" name="contrasenia" required="required"><br>
+
+                <label>Repita la contraseña: </label>
+                <input type="password" name="contraseniaDuplicada" required="required"><br>
+
+                <input type="checkbox" required="required"> He leido y acepto los términos y condiciones<br>
+
+                <input type="submit" value="Registrarme"><p style="color:Red;">{{mensaje}}</p>
+                <br>
+            </form>
+        </section>
+    </body>
+</html>
+

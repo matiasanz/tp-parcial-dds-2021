@@ -1,6 +1,7 @@
 package Controladores;
 
 import Controladores.Utils.Modelo;
+import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
 import Repositorios.RepoClientes;
 import Usuarios.Cliente;
@@ -15,17 +16,16 @@ import java.util.Map;
 
 public class LoginController {
 
-    public LoginController(RepoClientes repoClientes){
-        this.autenticador = new Autenticador<>(repoClientes);
+    public LoginController(Autenticador<Cliente> autenticador){
+        this.autenticador = autenticador;
     }
 
     private final Autenticador<Cliente> autenticador;
-    private final String ARCHIVO_LOGIN = "login.html.hbs";
     private final String MENSAJE_TOKEN = "mensaje";
 
 
     public ModelAndView getLogin(Request request, Response response) {
-        return new ModelAndView( generarModelo(request, response) , ARCHIVO_LOGIN);
+        return new ModelAndView( generarModelo(request, response) , Templates.LOGIN);
     }
 
     public ModelAndView tryLogin(Request req, Response res) {
