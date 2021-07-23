@@ -11,5 +11,8 @@ public class Cliente extends Usuario {
     private List<Direccion> direccionesConocidas = new ArrayList<>(); //TODO: A futuro marcar en mapa
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
+    public Cliente(String mail, String nombre) {
+        super(mail, nombre);
+    }
 }
 
