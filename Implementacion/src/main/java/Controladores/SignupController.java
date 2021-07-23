@@ -6,6 +6,9 @@ import Controladores.Utils.URIs;
 import Pedidos.Direccion;
 import Repositorios.RepoClientes;
 import Usuarios.Cliente;
+import Utils.Exceptions.ContraseniasDistintasException;
+import Utils.Exceptions.NombreOcupadoException;
+import Utils.Exceptions.PendingException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -35,19 +38,28 @@ public class SignupController {
         String apellido= req.queryParams("apellido");
         String direccion=req.queryParams("direccion");
 
-        if(!contrasenia.equals(req.queryParams("contraseniaDuplicada"))){
-            res.cookie(MENSAJE_TOKEN, "La segunda contraseña no se corresponde con la primera");
-            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
-            res.redirect(URIs.SIGNUP);
-        } else{
+        try{
+            validarContraseniasIguales(contrasenia, req.queryParams("contraseniaDuplicada"));
             Cliente nuevoCliente = new Cliente(usuario, contrasenia, nombre, apellido, new Direccion(direccion));
             repoClientes.agregar(nuevoCliente);
+
             autenticador.guardarCredenciales(req, nuevoCliente);
 
             res.status(java.net.HttpURLConnection.HTTP_ACCEPTED);
             res.redirect(URIs.HOME);
+
+        } catch (NombreOcupadoException | ContraseniasDistintasException e){
+            res.cookie(MENSAJE_TOKEN, e.getMessage());
+            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
+            res.redirect(URIs.SIGNUP);
         }
 
         return null;
+    }
+
+    private void validarContraseniasIguales(String contrasenia, String duplicada) {
+        if (!contrasenia.equals(duplicada)) {
+            throw new ContraseniasDistintasException();
+        }
     }
 }
