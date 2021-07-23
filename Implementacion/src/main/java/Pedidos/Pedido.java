@@ -24,6 +24,10 @@ public class Pedido extends Identificable {
         local.notificarPedido(this);
     }
 
+    public double subtotal(){
+        return 0; //TODO: lo puse asi pa q no rompa categ, desps modificar
+    }
+
     public Duration tiempoEntrega(){
         validarPedidoEntregado();
         return Duration.between(horaInicio, horaFin);

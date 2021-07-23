@@ -25,5 +25,9 @@ public class Cliente extends Usuario {
     public void setCategoria(CategoriaCliente categoria) {
         this.categoria = categoria;
     }
+
+    public int getCantidadComprasHechas() {
+        return cantidadComprasHechas;
+    }
 }
 

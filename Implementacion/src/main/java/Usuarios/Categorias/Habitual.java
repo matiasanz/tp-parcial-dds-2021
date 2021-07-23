@@ -1,8 +1,18 @@
 package Usuarios.Categorias;
 
-public class Habitual implements CategoriaCliente{
+import Pedidos.Pedido;
+import Usuarios.Cliente;
+
+public class Habitual implements CategoriaCliente {
+    int cantidadComprasParaPertenecer = 50;
+    int valorTope = 700;
+
     @Override
-    public double calcularTotal() {
-        return 0;
+    public double calcularTotal(Pedido pedido, Cliente cliente) {
+        if (pedido.subtotal() > valorTope) {
+            return pedido.subtotal() - pedido.subtotal() * 0.5;
+        } else {
+            return pedido.subtotal();
+        }
     }
 }
