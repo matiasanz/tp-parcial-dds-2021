@@ -16,6 +16,11 @@ public abstract class Usuario extends Identificable {
 
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
+    public Usuario(String mail, String nombre) {
+        this.mail = mail;
+        this.nombre = nombre;
+    }
+
     //Credenciales
     public String getUsername(){
         return username;

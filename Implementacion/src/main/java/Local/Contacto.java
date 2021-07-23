@@ -1,19 +1,16 @@
 package Local;
 
 import MediosContacto.MedioDeContacto;
+import Usuarios.Usuario;
 
 import java.util.List;
 
-public class Contacto {
-    String nombre;
+public class Contacto extends Usuario {
     String apellido;
     List<MedioDeContacto> mediosDeContacto;
-    String mail;
 
-    public Contacto(String nombre, String apellido, List<MedioDeContacto> mediosDeContacto, String mail) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.mediosDeContacto = mediosDeContacto;
-        this.mail=mail;
+
+    public Contacto(String mail, String nombre) {
+        super(mail, nombre);
     }
 }

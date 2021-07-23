@@ -1,6 +1,7 @@
 package MediosContacto;
 
-import Utils.Exceptions.MailException;
+import Utils.Exceptions.MailNoEnviadoException;
+import Utils.Exceptions.MailNoEnviadoException;
 import com.sun.activation.registries.MailcapParseException;
 import Usuarios.Usuario;
 import Utils.Exceptions.PendingException;
@@ -32,7 +33,7 @@ public class MailSender implements MedioDeContacto{
             Message msg = crearMensaje(mensaje, usuario, autenticador);
             Transport.send(msg);
         } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new MailException(mensaje,usuario);
+            throw new MailNoEnviadoException(mensaje,usuario);
         }
     }
 
@@ -64,5 +65,5 @@ public class MailSender implements MedioDeContacto{
         props.put("mail.smtp.starttls.enable", "true");
         return props;
     }
-    
+
 }
