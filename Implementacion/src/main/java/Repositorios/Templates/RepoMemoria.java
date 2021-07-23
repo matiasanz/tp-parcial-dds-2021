@@ -44,6 +44,6 @@ public abstract class RepoMemoria<T extends Identificable>{
 
     public <U extends Comparable<U>>
     List<T> ordenadosPor(Function<T, U> keyExtractor){
-        return stream().sorted(Comparator.comparing(keyExtractor)).collect(Collectors.toList());
+        return stream().sorted(Comparator.comparing(keyExtractor).reversed()).collect(Collectors.toList());
     }
 }

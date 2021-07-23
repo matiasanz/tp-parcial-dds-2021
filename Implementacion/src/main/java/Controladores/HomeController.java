@@ -21,7 +21,6 @@ public class HomeController {
         this.repoLocales = repoLocales;
     }
 
-    //TODO: No me fije si ordeno de mayor a menor o viceversa
     public ModelAndView getHome(Request req, Response res){
 
         Modelo modelo =

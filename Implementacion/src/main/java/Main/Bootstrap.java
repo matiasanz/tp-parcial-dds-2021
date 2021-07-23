@@ -2,7 +2,9 @@ package Main;
 
 import Local.Local;
 import MediosContacto.NotificadorPush;
+import Pedidos.Carrito;
 import Pedidos.Direccion;
+import Pedidos.Item;
 import Platos.PlatoSimple;
 import Repositorios.RepoClientes;
 import Repositorios.RepoLocales;
@@ -30,6 +32,12 @@ public class Bootstrap {
         PlatoSimple plato =new PlatoSimple("Fideos con tuco", 900.0, Arrays.asList("fideos", "tuco"));
         local.agregarPlato(plato);
         RepoLocales.instance.agregar(local);
+
+        Local local2 = new Local("Leble", new Direccion("por ahi"), contacto, CategoriaLocal.DESAYUNO);
+        local2.agregarPlato(plato);
+        RepoLocales.instance.agregar(local2);
+
+        new Carrito().conLocal(local2).conItem(new Item(plato, 4, null)).conDireccion(new Direccion("traelo aca")).build();
     }
 
     private void cargarUsuarios(){
