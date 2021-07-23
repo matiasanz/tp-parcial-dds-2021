@@ -9,8 +9,9 @@ import java.util.List;
 public abstract class Usuario extends Identificable {
     private String username;
     private String password;
+    public String mail;
 
-    private String nombre;
+    public String nombre;
     private String apellido;
 
     private List<Notificacion> notificacionesPush = new LinkedList<>();
@@ -28,6 +29,8 @@ public abstract class Usuario extends Identificable {
     public String getApellido() {
         return apellido;
     }
+
+    public String getMail() { return mail; }
 
     //Notificaciones
     public List<Notificacion> getNotificacionesPush() {
