@@ -7,7 +7,7 @@ public class Direccion{
         this.calle=calle;
     }
     String calle;
-//TODO    Ubicacion ubicacion
+//TODO Ubicacion ubicacion
 
     public String getCalle(){
         return calle;

@@ -8,4 +8,5 @@ public interface Templates {
     String PLATO = "plato-individual.html.hbs";
     String CLIENTE = "cliente.html.hbs";
     String SIGNUP = "signup.html.hbs";
+    String CARRITO = "carrito.html.hbs";
 }

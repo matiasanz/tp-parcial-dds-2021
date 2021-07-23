@@ -24,7 +24,6 @@ public class Pedido extends Identificable {
         this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
-        local.notificarPedido(this);
     }
 
     public Duration tiempoEntrega(){

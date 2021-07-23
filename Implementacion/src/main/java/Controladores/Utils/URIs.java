@@ -9,4 +9,8 @@ public interface URIs {
     static String LOCAL(Long idLocal) {
         return LOCALES+"/"+idLocal;
     }
+
+    static String CARRITO(Long id) {
+        return LOCALES+"/"+id;
+    }
 }

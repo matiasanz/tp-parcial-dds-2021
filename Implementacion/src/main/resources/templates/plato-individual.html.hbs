@@ -7,22 +7,23 @@
 
 <nav>
     <H3>{{nombre}}</H3>
-    <div id="plato">
+    <section id="plato">
         Datos del plato:
         <ul>
             <li><Strong>Precio: </Strong>${{precio}}</li>
         </ul>
-    </div>
+    </section>
 
-    <div id="compra">
-        <form action="/carrito" method="POST">
+    <section id="compra">
+        <form action="/locales/{{idLocal}}/carrito" method="POST">
+            <input type="hidden" name="idPlato" value="{{idPlato}}" />
             <label>Cantidad</label>
             <input type="number" name="cantidad" required="required"> <br>
             <label>Aclaraciones</label>
             <input type="text" name="aclaraciones" id="idAclaraciones"> <br>
             <input type="submit" value="Agregar al carrito"><p style="color:Red;">{{mensaje}}</p>
         </form>
-    </div>
+    </section>
 </nav>
 </body>
 </html>

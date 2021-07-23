@@ -2,14 +2,12 @@ package Main;
 
 import Controladores.*;
 import Controladores.Utils.URIs;
-import Repositorios.RepoClientes;
-import Repositorios.RepoLocales;
+import Repositorios.*;
 import Usuarios.Cliente;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static spark.Spark.after;
 
@@ -24,7 +22,7 @@ public class Routes {
     private final LoginController loginController = new LoginController(autenticadorClientes);
     private final HomeController homeController = new HomeController(autenticadorClientes, repoLocales);
     private final LocalesController localesController = new LocalesController(repoLocales);
-    private final CarritoController carritoController = new CarritoController();
+    private final CarritoController carritoController = new CarritoController(repoLocales, autenticadorClientes);
 
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -59,7 +57,8 @@ public class Routes {
         Spark.get("/locales", localesController::getLocales, engine);
         Spark.get("/locales/:id", localesController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localesController::getPlato, engine);
-        Spark.post("/carrito", carritoController::agregarItem, engine);
+        Spark.get("/locales/:idLocal/carrito", carritoController::getCarrito, engine);
+        Spark.post("/locales/:idLocal/carrito", carritoController::agregarItem, engine);
 
         System.out.println("Servidor iniciado correctamente");
     }

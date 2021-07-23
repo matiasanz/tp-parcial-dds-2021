@@ -25,7 +25,9 @@ public class SignupController {
     }
 
     public ModelAndView getRegistroClientes(Request req, Response res) {
-        return new ModelAndView(new Modelo(MENSAJE_TOKEN, req.cookie(MENSAJE_TOKEN)), Templates.SIGNUP);
+        String mensaje = req.cookie(MENSAJE_TOKEN);
+        res.removeCookie(MENSAJE_TOKEN);
+        return new ModelAndView(new Modelo(MENSAJE_TOKEN, mensaje), Templates.SIGNUP);
     }
 
     //TODO: No valide nada

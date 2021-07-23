@@ -37,7 +37,7 @@ public class Bootstrap {
         local2.agregarPlato(plato);
         RepoLocales.instance.agregar(local2);
 
-        new Carrito().conLocal(local2).conItem(new Item(plato, 4, null)).conDireccion(new Direccion("traelo aca")).build();
+        new Carrito(local2).conItem(new Item(plato, 4, null)).conDireccion(new Direccion("traelo aca")).build();
     }
 
     private void cargarUsuarios(){

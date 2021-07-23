@@ -5,30 +5,34 @@
 </head>
 <body>
 
-<nav>
     <H3>{{nombre}}</H3>
-    <div id="info-local">
-        Datos del Local:
-        <ul>
-            <li><Strong>Direccion: </Strong>{{Direccion}}</li>
-        </ul>
-    </div>
-    <div id="Categorias">
-        Categorias:
-        <ul>
-            {{#categorias}}
-            <li>{{this}}</li>
-            {{/categorias}}
-        </ul>
-    </div>
-    <div id="Menu">
+    <section id="carrito">
+        <a href="/locales/{{idLocal}}/carrito">Ver carrito</a>
+    </section>
+    <section id="info-local">
+        <div id="datos-localizacion">
+            Datos del Local:
+            <ul>
+                <li><Strong>Direccion: </Strong>{{Direccion}}</li>
+            </ul>
+        </div>
+        <div id="Categorias">
+            Categorias:
+            <ul>
+                {{#categorias}}
+                    <li>{{this}}</li>
+                {{/categorias}}
+            </ul>
+        </div>
+    </section>
+
+    <section id="Menu">
         Menu:
         <ul>
             {{#Platos}}
             <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}"><Strong>Nombre: </Strong>{{nombre}} ........... ${{precio}}</li>
             {{/Platos}}
         </ul>
-    </div>
-</nav>
+    </section>
 </body>
 </html>

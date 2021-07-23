@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Locales</title>
+</head>
+<body>
+
+<nav>
+    <H3>Carrito {{local}}</H3>
+    <section id="info de entrega">
+        Direccion: {{direccion}}
+    </section>
+    <section id="items">
+        Items:
+        <ul>
+            {{#items}}
+            <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li>
+            {{/items}}
+        </ul>
+    </section>
+</nav>
+</body>
+</html>
