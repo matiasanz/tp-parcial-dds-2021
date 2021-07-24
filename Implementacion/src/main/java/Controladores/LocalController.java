@@ -60,8 +60,6 @@ public class LocalController {
         return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
     }
 
-
-
     public ModelAndView getPlato(Request req, Response res) {
         Long idLocal = null;
         try{
@@ -88,21 +86,6 @@ public class LocalController {
             }
         );
 
-        return null;
-    }
-
-    public ModelAndView agregarLocal(Request request, Response response) {
-        String nombre = request.queryParams("nombre");
-        String calle = request.queryParams("calle");
-        Direccion direccion = new Direccion(calle);
-        String nombreContacto = request.queryParams("nombreContacto");
-        String mail = request.queryParams("mail");
-        Contacto contacto = new Contacto(mail,nombreContacto);
-        CategoriaLocal categoria = CategoriaLocal.valueOf((request.queryParams("categoria")));
-        Local local = new Local(nombre,direccion,contacto,categoria);
-        RepoLocales.instance.agregar(local);
-
-        response.redirect(URIs.LOCALES);
         return null;
     }
 
@@ -220,11 +203,5 @@ public class LocalController {
         } catch (NumberFormatException e){
             throw new PedidoIncompletoException("direccion");
         }
-    }
-
-    public ModelAndView formularioCreacionLocal(Request request, Response response) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("categorias",(CategoriaLocal.getNames(CategoriaLocal.class)));
-        return new ModelAndView(model, "local-crear-html.hbs");
     }
 }

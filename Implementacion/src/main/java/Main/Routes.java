@@ -24,6 +24,7 @@ public class Routes {
     private final LocalesController localesController = new LocalesController(repoLocales);
     private final LocalController localController = new LocalController(repoLocales, autenticadorClientes);
     private final PedidosController pedidosController = new PedidosController(autenticadorClientes);
+    private final DuenioLocalController duenioLocalController = new DuenioLocalController();
 
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -57,8 +58,8 @@ public class Routes {
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);
         Spark.get("/locales", localesController::getLocales, engine);
-        Spark.post("/locales", localController::agregarLocal, engine);
-        Spark.get("/locales/crear", localController::formularioCreacionLocal, engine);
+        Spark.post("/locales", duenioLocalController::agregarLocal, engine);
+        Spark.get("/locales/crear", duenioLocalController::formularioCreacionLocal, engine);
         Spark.get("/locales/:id", localController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localController::getPlato, engine);
         Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);

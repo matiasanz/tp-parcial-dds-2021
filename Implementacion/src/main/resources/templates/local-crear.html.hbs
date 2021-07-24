@@ -23,9 +23,9 @@
 
                 <label>Categoria </label>
                 <select class="form-control" name="categoria_id">
-                      {{#each categorias}}
-                      <option value="{{id}}">{{name}}</option>
-                      {{/each}}
+                      {{#categorias}}
+                      <option value="{{this}}">{{this}}</option>
+                      {{/categorias}}
                  </select>
 
                 <input type="submit" value="Crear Local"><p style="color:Red;">{{mensaje}}</p><br>
