@@ -46,7 +46,10 @@ public class Routes {
 
         Spark.before((request, response)->{
             System.out.println(request.requestMethod()+request.uri());
-            if(uriExceptuadaDeAutenticar(request.uri())){
+
+            if(request.uri().startsWith("/comerciantes")){
+
+            } else if(!uriExceptuadaDeAutenticar(request.uri())){
                 autenticadorClientes.reautenticar(request, response);
             }
         });
@@ -76,6 +79,6 @@ public class Routes {
             , "/clientes"
         );
 
-        return urisExceptuadas.stream().noneMatch(uri::equalsIgnoreCase);
+        return urisExceptuadas.stream().anyMatch(uri::equalsIgnoreCase);
     }
 }
