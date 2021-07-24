@@ -22,7 +22,7 @@ public class Routes {
     private final LoginController loginController = new LoginController(autenticadorClientes);
     private final HomeController homeController = new HomeController(autenticadorClientes, repoLocales);
     private final LocalesController localesController = new LocalesController(repoLocales);
-    private final CarritoController localController = new CarritoController(repoLocales, autenticadorClientes);
+    private final LocalController localController = new LocalController(repoLocales, autenticadorClientes);
     private final PedidosController pedidosController = new PedidosController(autenticadorClientes);
 
     //Spark

@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CarritoController {
+public class LocalController {
 
-    public CarritoController(RepoLocales repoLocales, Autenticador<Cliente> autenticador){
+    public LocalController(RepoLocales repoLocales, Autenticador<Cliente> autenticador){
         this.repoLocales = repoLocales;
         this.autenticadorClientes = autenticador;
         this.repoPedidos = repoPedidos;
@@ -36,6 +36,9 @@ public class CarritoController {
     private Autenticador<Cliente> autenticadorClientes;
     private RepoPedidos repoPedidos;
     private String ERROR_TOKEN = "error";
+
+    //TODO: unifique dos paginas y esta parte me quedo rara ************************************************
+    //TODO: Ver de reemplazar el findCarrito por findlocal
 
     public ModelAndView getLocal(Request req, Response res){
         try{
@@ -74,8 +77,7 @@ public class CarritoController {
         }
     }
 
-    //TODO: unifique dos paginas y esta parte me quedo rara ************************************************
-    //Ver de reemplazar el findCarrito por findlocal
+//TODO: Aca arrancaba la 2da ****************
 
     public ModelAndView agregarItem(Request request, Response response) {
         findCarrito(request.params("idLocal"), request, response).ifPresent(
@@ -100,8 +102,11 @@ public class CarritoController {
                 Pedido pedido = carrito
                     .conDireccion(getDireccion(request))
                     .build();
-                autenticadorClientes.getUsuario(request).agregarPedido(pedido);
-                response.redirect(URIs.PEDIDO(pedido.getId()));
+                Cliente cliente = autenticadorClientes.getUsuario(request);
+
+                cliente.agregarPedido(pedido);
+                int id = cliente.getPedidosRealizados().size() - 1;
+                response.redirect(URIs.PEDIDO((long) id));
             } catch (PedidoIncompletoException e){
                 request.session().attribute(ERROR_TOKEN, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
