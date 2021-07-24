@@ -42,9 +42,8 @@ public class Bootstrap {
     }
 
     private void cargarUsuarios(){
-        Cliente yo = new Cliente("matiasanz", "123", "matias", "godinez", new Direccion("Mi casa"));
+        Cliente yo = new Cliente("matiasanz", "123", "matias", "godinez", "_@mail.com", new Direccion("Mi casa"));
         yo.getDireccionesConocidas().add(new Direccion("La casa de mi tia"));
         RepoClientes.instance.agregar(yo);
-
     }
 }

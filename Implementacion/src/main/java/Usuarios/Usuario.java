@@ -12,11 +12,12 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 public abstract class Usuario extends Identificable {
-    public Usuario(String username, String contrasenia, String nombre, String apellido){
+    public Usuario(String username, String contrasenia, String nombre, String apellido, String mail){
         this.username=username;
         this.password=contrasenia;
         this.nombre=nombre;
         this.apellido=apellido;
+        this.mail=mail;
     }
 
     private String username;

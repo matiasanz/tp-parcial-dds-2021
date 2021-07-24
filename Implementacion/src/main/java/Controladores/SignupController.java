@@ -45,16 +45,15 @@ public class SignupController {
         String contrasenia = req.queryParams("contrasenia");
         String nombre = req.queryParams("nombre");
         String apellido= req.queryParams("apellido");
+        String mail = req.queryParams("mail");
         String direccion=req.queryParams("direccion");
-        System.out.println();
-
 
         try{
             validarContraseniasIguales(contrasenia, req.queryParams("contraseniaDuplicada"));
-            Cliente nuevoCliente = new Cliente(usuario, contrasenia, nombre, apellido, new Direccion(direccion));
+            Cliente nuevoCliente = new Cliente(usuario, contrasenia, nombre, apellido, mail, new Direccion(direccion));
 
             nuevoCliente.agregarMedioDeContacto(notificacionesPush);
-            Optional.ofNullable(req.queryParams("mail")).ifPresent(
+            Optional.ofNullable(req.queryParams("notif_mail")).ifPresent(
                 on->{
                     nuevoCliente.agregarMedioDeContacto(mailSender);
                 }//nuevoCliente.agregarMedioDeNotificacion(new NotificadorPush());

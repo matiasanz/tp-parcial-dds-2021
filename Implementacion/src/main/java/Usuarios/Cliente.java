@@ -9,8 +9,8 @@ import Usuarios.Categorias.CategoriaCliente;
 import java.util.*;
 
 public class Cliente extends Usuario {
-    public Cliente(String usuario, String contrasenia, String nombre, String apellido, Direccion direccion){
-        super(usuario, contrasenia, nombre, apellido);
+    public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, Direccion direccion){
+        super(usuario, contrasenia, nombre, apellido, mail);
         direccionesConocidas.add(direccion);
     }
 
