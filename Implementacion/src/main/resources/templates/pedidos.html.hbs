@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pedidos</title>
+</head>
+<body>
+    <section id="pedidos">
+        <ul>
+            {{#pedidos}}
+                <li>
+                    <h3> Pedido #{{numero}} - [{{estado}}]</h3>
+                    <strong> Fecha: </strong> {{fecha}} <br>
+                    <strong> Local: </strong> {{local}} <br>
+                    <strong> Importe: </strong> ${{importe}} <br>
+                </li>
+
+            {{else}}
+                <p>Aún no has realizado ningún pedido. ¿Qué esperas?</p>
+            {{/pedidos}}
+        </ul>
+    </section>
+</body>
+</html>

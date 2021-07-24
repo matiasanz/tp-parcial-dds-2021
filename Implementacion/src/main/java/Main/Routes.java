@@ -62,6 +62,7 @@ public class Routes {
         Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);
         Spark.post("/locales/:idLocal/carrito/:item", localController::eliminarItem, engine);
         Spark.post("/pedidos", localController::finalizarPedido, engine);
+        Spark.get("/pedidos", pedidosController::getPedidos, engine);
         Spark.get("/pedidos/:id", pedidosController::getPedido, engine);
 
         System.out.println("Servidor iniciado correctamente");

@@ -10,4 +10,5 @@ public interface Templates {
     String CLIENTE = "cliente"+ extension;
     String SIGNUP = "signup"+ extension;
     String PEDIDO = "pedido-individual"+ extension;
+    String PEDIDOS = "pedidos"+extension;
 }
