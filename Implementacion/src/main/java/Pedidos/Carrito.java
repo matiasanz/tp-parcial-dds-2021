@@ -40,7 +40,7 @@ public class Carrito {
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
-        Pedido pedido = new Pedido(direccion, local, items);
+        Pedido pedido = new Pedido(getPrecio(), direccion,  local, items);
         local.notificarPedido(pedido);
         return pedido;
     }
@@ -57,8 +57,8 @@ public class Carrito {
         return direccion;
     }
 
-    public BigDecimal getPrecio(){
-        return items.stream().map(Item::getPrecio).reduce(BigDecimal.ZERO, BigDecimal::add);
+    public Double getPrecio(){
+        return items.stream().mapToDouble(Item::getPrecio).sum();
     }
 
     public void sacarItem(int numero) {

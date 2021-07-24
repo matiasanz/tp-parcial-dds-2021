@@ -12,8 +12,8 @@ public class Combo extends Plato {
     List<Plato> platos = new LinkedList<>();
 
     @Override
-    public BigDecimal getPrecio() {
-        return platos.stream().map(Plato::getPrecio).reduce(BigDecimal.ZERO, BigDecimal::add);
+    public Double getPrecio() {
+        return platos.stream().mapToDouble(Plato::getPrecio).sum();
     }
 
     public void agregarPlato(Plato plato){

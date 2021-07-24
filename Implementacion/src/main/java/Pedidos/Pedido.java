@@ -5,6 +5,7 @@ import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Pedido extends Identificable {
+    Double precio;
     List<Item> items = new LinkedList<>();
     Local local;
     EstadoPedido estado = EstadoPedido.PENDIENTE;
@@ -19,14 +21,15 @@ public class Pedido extends Identificable {
     LocalDateTime horaFin;
     Direccion direccion;
 
-    public Pedido(Direccion direccion, Local local, List<Item> items){
+    public Pedido(double precio, Direccion direccion, Local local, List<Item> items){
+        this.precio = precio;
         this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
     }
 
-    public double subtotal(){
-        return 0; //TODO: lo puse asi pa q no rompa categ, desps modificar
+    public Double getImporte(){
+        return precio;
     }
 
     public Duration tiempoEntrega(){

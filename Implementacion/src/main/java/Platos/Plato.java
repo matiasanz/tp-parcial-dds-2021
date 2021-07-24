@@ -25,5 +25,5 @@ public abstract class Plato extends Identificable {
         return disponible;
     }
 
-    public abstract BigDecimal getPrecio();
+    public abstract Double getPrecio();
 }

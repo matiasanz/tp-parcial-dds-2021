@@ -3,10 +3,8 @@ package Controladores;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
-import Local.Local;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -48,14 +46,14 @@ public class PedidosController {
             .collect(Collectors.toList());
 
         int[] numero = {pedidos.size()}; //Hice esto para que me dejara usarlo en la lambda
-        pedidos.forEach(p->p.con("numero", numero[0]--));
+        pedidos.forEach(p->p.con("numero", numero[0]--).con("id", numero[0]));
 
         return new ModelAndView(new Modelo("pedidos", pedidos), Templates.PEDIDOS);
     }
 
     private Modelo parseModel(Pedido pedido){
         return new Modelo("local", pedido.getLocal().getNombre())
-            .con("importe", pedido.subtotal())
+            .con("importe", pedido.getImporte())
             .con("items", pedido.getItems().stream().map(carritoController::parseModel).collect(Collectors.toList()))
             .con("estado", pedido.getEstado())
             .con(parseModel(pedido.getFechaInicio()))

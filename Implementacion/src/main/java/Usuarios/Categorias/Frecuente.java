@@ -16,7 +16,7 @@ public class Frecuente extends CategoriaCliente{
             return 0;
         }
         else{
-            return pedido.subtotal();
+            return pedido.getImporte();
         }
     }
 

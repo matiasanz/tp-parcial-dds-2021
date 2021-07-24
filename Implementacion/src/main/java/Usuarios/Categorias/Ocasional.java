@@ -1,8 +1,5 @@
 package Usuarios.Categorias;
 
-import MediosContacto.MailSender;
-import MediosContacto.Notificacion;
-import MediosContacto.NotificadorPush;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
 import Utils.ProveedorDeNotif;
@@ -14,7 +11,7 @@ public class Ocasional extends CategoriaCliente{
 
     @Override
     public double calcularTotal(Pedido pedido, Cliente cliente) {
-        return pedido.subtotal()-pedido.subtotal()*0.1;
+        return pedido.getImporte()-pedido.getImporte()*0.1;
     }
 
     public void notificarPedido(Pedido pedido, Cliente cliente) {
