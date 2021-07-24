@@ -4,11 +4,7 @@
     <title>Locales</title>
 </head>
 <body>
-
     <H3>{{nombre}}</H3>
-    <section id="carrito">
-        <a href="/locales/{{idLocal}}/carrito">Ver carrito</a>
-    </section>
     <section id="info-local">
         <div id="datos-localizacion">
             Datos del Local:
@@ -34,9 +30,12 @@
             {{/Platos}}
         </ul>
     </section>
+
+    ---------------------------------------------
+
     <section id="carrito">
         <nav>
-            <H3>Carrito {{local}}</H3>
+            <H3>Carrito</H3>
             <section id="comprar">
                 <form id="form_envio" action="/pedidos" method="POST">
                     <input type="hidden" name="idLocal" value={{idLocal}}>
