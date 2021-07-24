@@ -22,7 +22,8 @@ public class Routes {
     private final LoginController loginController = new LoginController(autenticadorClientes);
     private final HomeController homeController = new HomeController(autenticadorClientes, repoLocales);
     private final LocalesController localesController = new LocalesController(repoLocales);
-    private final CarritoController carritoController = new CarritoController(repoLocales, autenticadorClientes);
+    private final CarritoController localController = new CarritoController(repoLocales, autenticadorClientes);
+    private final PedidosController pedidosController = new PedidosController(autenticadorClientes);
 
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -55,11 +56,11 @@ public class Routes {
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);
         Spark.get("/locales", localesController::getLocales, engine);
-        Spark.get("/locales/:id", carritoController::getLocal, engine);
-        Spark.get("/locales/:id/platos/:idPlato", carritoController::getPlato, engine);
-        Spark.post("/locales/:idLocal/carrito", carritoController::agregarItem, engine);
-        Spark.post("/pedidos", carritoController::finalizarPedido, engine);
-        Spark.get("/pedidos/:id", null, engine);
+        Spark.get("/locales/:id", localController::getLocal, engine);
+        Spark.get("/locales/:id/platos/:idPlato", localController::getPlato, engine);
+        Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);
+        Spark.post("/pedidos", localController::finalizarPedido, engine);
+        Spark.get("/pedidos/:id", pedidosController::getPedido, engine);
 
         System.out.println("Servidor iniciado correctamente");
     }

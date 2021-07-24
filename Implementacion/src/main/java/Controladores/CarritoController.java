@@ -20,6 +20,7 @@ import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -73,9 +74,8 @@ public class CarritoController {
         }
     }
 
-
-
-    //TODO: a partir de aca unificar al local ************************************************
+    //TODO: unifique dos paginas y esta parte me quedo rara ************************************************
+    //Ver de reemplazar el findCarrito por findlocal
 
     public ModelAndView agregarItem(Request request, Response response) {
         findCarrito(request.params("idLocal"), request, response).ifPresent(
@@ -100,6 +100,7 @@ public class CarritoController {
                 Pedido pedido = carrito
                     .conDireccion(getDireccion(request))
                     .build();
+                autenticadorClientes.getUsuario(request).agregarPedido(pedido);
                 response.redirect(URIs.PEDIDO(pedido.getId()));
             } catch (PedidoIncompletoException e){
                 request.session().attribute(ERROR_TOKEN, e.getMessage());
@@ -157,7 +158,7 @@ public class CarritoController {
             .con("items", carrito.getItems().stream().map(this::parseModel).collect(Collectors.toList()));
     }
 
-    private Modelo parseModel(Item item){
+    Modelo parseModel(Item item){
         return new Modelo("plato", item.getPlato().getNombre())
             .con("aclaraciones", item.getAclaraciones())
             .con("cantidad", item.getCantidad());
@@ -165,9 +166,12 @@ public class CarritoController {
 
     private Direccion getDireccion(Request req){
         try{
-            return autenticadorClientes.getUsuario(req)
-                .getDireccionesConocidas()
-                .get(Integer.parseInt(req.queryParams("direccion")));
+            List<Direccion> direcciones = autenticadorClientes.getUsuario(req)
+                .getDireccionesConocidas();
+            Direccion direccion = direcciones.get(Integer.parseInt(req.queryParams("direccion")));
+            direcciones.remove(direccion);
+            direcciones.add(0, direccion);
+            return direccion;
         } catch (NumberFormatException e){
             throw new PedidoIncompletoException("direccion");
         }

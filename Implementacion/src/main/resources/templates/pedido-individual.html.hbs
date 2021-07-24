@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pedido</title>
+</head>
+<body>
+
+<nav>
+    <H3>Pedido #{{id}}</H3>
+    <section id="datos_pedido">
+        <ul>
+            <li><strong>Local:</strong> {{local}}</li>
+            <li><strong>Estado:</strong> {{estado}}</li>
+            <li><strong>Precio:</strong> ${{precio}}</li>
+            <li><strong>Direccion:</strong> {{direccion}}</li>
+        </ul>
+    </section>
+    <section id="items">
+        Items:
+        <ul>
+            {{#items}}
+                <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li>
+            {{/items}}
+        </ul>
+    </section>
+</nav>
+</body>
+</html>

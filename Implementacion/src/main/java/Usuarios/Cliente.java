@@ -46,5 +46,13 @@ public class Cliente extends Usuario {
     public int getCantidadComprasHechas() {
         return cantidadComprasHechas;
     }
+
+    public List<Pedido> getPedidosRealizados() {
+        return pedidosRealizados;
+    }
+
+    public void agregarPedido(Pedido pedido) {
+        pedidosRealizados.add(pedido);
+    }
 }
 

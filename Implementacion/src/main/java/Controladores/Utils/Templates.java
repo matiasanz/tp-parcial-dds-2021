@@ -1,12 +1,13 @@
 package Controladores.Utils;
 
 public interface Templates {
-    String LOGIN = "login.html.hbs";
-    String HOME = "home.html.hbs";
-    String LOCALES = "locales.html.hbs";
-    String LOCAL_INDIVIDUAL = "local-individual.html.hbs";
-    String PLATO = "plato-individual.html.hbs";
-    String CLIENTE = "cliente.html.hbs";
-    String SIGNUP = "signup.html.hbs";
-    String CARRITO = "carrito.html.hbs";
+    String extension = ".html.hbs";
+    String LOGIN = "login"+ extension;
+    String HOME = "home"+ extension;
+    String LOCALES = "locales"+ extension;
+    String LOCAL_INDIVIDUAL = "local-individual"+ extension;
+    String PLATO = "plato-individual"+ extension;
+    String CLIENTE = "cliente"+ extension;
+    String SIGNUP = "signup"+ extension;
+    String PEDIDO = "pedido-individual"+ extension;
 }

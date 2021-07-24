@@ -1,5 +1,6 @@
 package Pedidos;
 
+import Platos.Plato;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
@@ -44,5 +45,21 @@ public class Pedido extends Identificable {
     public Boolean mismoMesQue(LocalDate fechaActual) {
         return horaInicio.getMonth() == fechaActual.getMonth()
             && horaInicio.getYear() == fechaActual.getYear();
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public List<Item> getItems(){
+        return items;
+    }
+
+    public EstadoPedido getEstado() {
+        return estado;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
     }
 }
