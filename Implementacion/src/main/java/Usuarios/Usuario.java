@@ -2,8 +2,10 @@ package Usuarios;
 
 import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;
+import MediosContacto.NotificadorPush;
 import Repositorios.Templates.Identificable;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +19,6 @@ public abstract class Usuario extends Identificable {
         this.apellido=apellido;
     }
 
-
     private String username;
     private String password;
     public String mail;
@@ -25,7 +26,8 @@ public abstract class Usuario extends Identificable {
     public String nombre;
     private String apellido;
 
-    private List<MedioDeContacto> notificadores = new LinkedList<>();
+    private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
+
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
     public Usuario(String mail, String nombre) {
@@ -64,11 +66,11 @@ public abstract class Usuario extends Identificable {
 
     public void agregarMedioDeContacto(MedioDeContacto nuevoMedio){
         requireNonNull(nuevoMedio);
-        notificadores.add(nuevoMedio);
+        mediosDeContacto.add(nuevoMedio);
     }
 
     public void notificar(Notificacion mensaje){
-        notificadores.forEach(n->n.notificar(this,mensaje));
+        mediosDeContacto.forEach(n->n.notificar(this,mensaje));
     }
 }
 
