@@ -7,6 +7,7 @@ import Repositorios.RepoClientes;
 import Usuarios.Cliente;
 import Utils.Exceptions.ClienteInexistenteException;
 import Utils.Exceptions.ContraseniaIncorrectaException;
+import Utils.Exceptions.UsuarioInexistenteException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -28,13 +29,14 @@ public class LoginController {
         return new ModelAndView( generarModelo(request, response) , Templates.LOGIN);
     }
 
+    //TODO: Esto se repite para todos, cambiando el LOGIN y el HOME
     public ModelAndView tryLogin(Request req, Response res) {
         try{
             autenticador.autenticar(req,res);
             res.status(HttpURLConnection.HTTP_ACCEPTED);
             res.redirect(URIs.HOME);
 
-        } catch(ClienteInexistenteException | ContraseniaIncorrectaException e) {
+        } catch(UsuarioInexistenteException | ContraseniaIncorrectaException e) {
             res.status(HttpURLConnection.HTTP_PROXY_AUTH);
             res.cookie(MENSAJE_TOKEN, "El usuario y/o la contraseña ingresada son incorrectos");
             res.redirect(URIs.LOGIN);
