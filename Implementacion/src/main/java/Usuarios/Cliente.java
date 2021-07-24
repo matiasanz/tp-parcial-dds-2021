@@ -27,5 +27,9 @@ public class Cliente extends Usuario {
 
         return carrito;
     }
+
+    public List<Direccion> getDireccionesConocidas() {
+        return direccionesConocidas;
+    }
 }
 

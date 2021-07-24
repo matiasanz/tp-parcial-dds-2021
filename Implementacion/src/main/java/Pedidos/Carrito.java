@@ -3,6 +3,7 @@ package Pedidos;
 import Local.Local;
 import Utils.Exceptions.PedidoIncompletoException;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,9 +26,15 @@ public class Carrito {
         return this;
     }
 
+    public void vaciar(){
+        items = new ArrayList<>();
+        direccion=null;
+    }
+
     public Pedido build(){
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
+        if(items.isEmpty()) throw new PedidoIncompletoException("items");
         Pedido pedido = new Pedido(direccion, local, items);
         local.notificarPedido(pedido);
         return pedido;

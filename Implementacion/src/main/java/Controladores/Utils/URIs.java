@@ -5,12 +5,17 @@ public interface URIs {
     String HOME = "/home";
     String LOCALES = "/locales";
     String SIGNUP = "/signup";
+    String PEDIDOS = "/pedidos";
 
     static String LOCAL(Long idLocal) {
         return LOCALES+"/"+idLocal;
     }
 
     static String CARRITO(Long id) {
-        return LOCALES+"/"+id;
+        return LOCAL(id)+"/carrito";
+    }
+
+    static String PEDIDO(Long id) {
+        return PEDIDOS+"/"+id;
     }
 }
