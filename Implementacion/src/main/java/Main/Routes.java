@@ -57,6 +57,8 @@ public class Routes {
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);
         Spark.get("/locales", localesController::getLocales, engine);
+        Spark.post("/locales", localController::agregarLocal, engine);
+        Spark.get("/locales/crear", localController::formularioCreacionLocal, engine);
         Spark.get("/locales/:id", localController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localController::getPlato, engine);
         Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);
@@ -64,6 +66,7 @@ public class Routes {
         Spark.post("/pedidos", localController::finalizarPedido, engine);
         Spark.get("/pedidos", pedidosController::getPedidos, engine);
         Spark.get("/pedidos/:id", pedidosController::getPedido, engine);
+
 
         System.out.println("Servidor iniciado correctamente");
     }

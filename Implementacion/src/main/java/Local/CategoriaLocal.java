@@ -1,5 +1,7 @@
 package Local;
 
+import java.util.Arrays;
+
 public enum CategoriaLocal {
     PARRILLA,
     DESAYUNO,
@@ -7,5 +9,9 @@ public enum CategoriaLocal {
     VEGANO,
     ARABE,
     ORIENTAL,
-    VEGANA
+    VEGANA;
+
+    public static String[] getNames(Class<? extends Enum<?>> e) {
+        return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
+    }
 }

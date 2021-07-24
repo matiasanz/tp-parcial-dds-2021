@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pedidos Ya</title>
+    </head>
+
+    <body>
+        <section id="Registro-locales">
+            <h2>Crear Local</h2>
+            <form action="/locales" method="POST">
+                <label>Nombre: </label>
+                <input type="text" name="nombre"><br>
+
+                <label>Calle: </label>
+                <input type="text" name="calle"><br>
+
+                <label>Nombre Conatacto: </label>
+                <input type="text" name="nombreContacto"><br>
+
+                <label>Correo Electrónico: </label>
+                <input type="text" name="mail"><br>
+
+                <label>Categoria </label>
+                <select class="form-control" name="categoria_id">
+                      {{#each categorias}}
+                      <option value="{{id}}">{{name}}</option>
+                      {{/each}}
+                 </select>
+
+                <input type="submit" value="Crear Local"><p style="color:Red;">{{mensaje}}</p><br>
+            </form>
+        </section>
+    </body>
+</html>
