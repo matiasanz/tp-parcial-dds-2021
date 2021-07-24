@@ -15,4 +15,5 @@ public abstract class CategoriaCliente {
 
     public abstract double calcularTotal(Pedido pedido, Cliente cliente);
 
+    public abstract void notificarPedido(Pedido pedido, Cliente cliente);
 }

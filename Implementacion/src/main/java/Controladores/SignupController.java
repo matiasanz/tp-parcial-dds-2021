@@ -10,12 +10,15 @@ import Pedidos.Direccion;
 import Repositorios.RepoClientes;
 import Usuarios.Cliente;
 import Utils.Exceptions.ContraseniasDistintasException;
+import Utils.Exceptions.DatosInvalidosException;
 import Utils.Exceptions.NombreOcupadoException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class SignupController {
@@ -48,6 +51,7 @@ public class SignupController {
         String direccion=req.queryParams("direccion");
 
         try{
+            validarNoNull(usuario, contrasenia, nombre, apellido, mail, direccion);
             validarContraseniasIguales(contrasenia, req.queryParams("contraseniaDuplicada"));
             Cliente nuevoCliente = new Cliente(usuario, contrasenia, nombre, apellido, mail, new Direccion(direccion));
 
@@ -68,6 +72,12 @@ public class SignupController {
         }
 
         return null;
+    }
+
+    private void validarNoNull(String ... args){
+        if(Arrays.asList(args).stream().anyMatch(Objects::isNull)){
+            throw new DatosInvalidosException();
+        }
     }
 
     private void validarContraseniasIguales(String contrasenia, String duplicada) {

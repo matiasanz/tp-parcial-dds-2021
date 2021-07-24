@@ -1,14 +1,13 @@
 package Pedidos;
 
 import Local.Local;
-import Platos.Plato;
+import Pedidos.Descuentos.Descuento;
+import Pedidos.Descuentos.SinDescuento;
 import Utils.Exceptions.PedidoIncompletoException;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 public class Carrito {
     static Long idPedido = 0L; //TODO: Esto se tiene que ir
@@ -16,6 +15,7 @@ public class Carrito {
     private Local local;
     private List<Item> items = new LinkedList<>();
     private Direccion direccion;
+    private Descuento descuento = new SinDescuento();
 
     public Carrito(Local local){
         this.local=local;
@@ -31,6 +31,11 @@ public class Carrito {
         return this;
     }
 
+    public Carrito conDescuento(Descuento descuento){
+        this.descuento = descuento;
+        return this;
+    }
+
     public void vaciar(){
         items = new ArrayList<>();
         direccion=null;
@@ -40,7 +45,7 @@ public class Carrito {
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
-        Pedido pedido = new Pedido(getPrecio(), direccion,  local, items);
+        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items);
         local.notificarPedido(pedido);
         return pedido;
     }
@@ -57,7 +62,12 @@ public class Carrito {
         return direccion;
     }
 
-    public Double getPrecio(){
+
+    public Double getPrecioFinal(){
+        return getPrecioBase() - descuento.calcularSobre(getPrecioBase());
+    }
+
+    public Double getPrecioBase(){
         return items.stream().mapToDouble(Item::getPrecio).sum();
     }
 

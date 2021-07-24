@@ -5,12 +5,12 @@ import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
 import Local.Local;
 import Pedidos.Carrito;
+import Pedidos.Descuentos.Descuento;
 import Pedidos.Direccion;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.RepoLocales;
-import Repositorios.RepoPedidos;
 import Usuarios.Cliente;
 import Utils.Exceptions.LocalInexistenteException;
 import Utils.Exceptions.PedidoIncompletoException;
@@ -22,6 +22,7 @@ import sun.net.www.protocol.http.HttpURLConnection;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class LocalController {
@@ -51,6 +52,7 @@ public class LocalController {
         Modelo modelo = parseModel(local.get())
             .con(parseModel(carrito))
             .con("direcciones", cliente.getDireccionesConocidas())
+            .con("descuentos", cliente.getDescuentos())
             .con(ERROR_TOKEN, mensaje);
 
         return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
@@ -112,11 +114,18 @@ public class LocalController {
             try {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
-                Pedido pedido = carrito.conDireccion(getDireccion(request)).build();
+                Descuento descuento = getDescuento(request);
+                Pedido pedido = carrito.conDireccion(getDireccion(request))
+                    .conDescuento(descuento)
+                    .build();
+
+                descuento.notificarUso(cliente);
                 cliente.agregarPedido(pedido);
-                int id = cliente.getPedidosRealizados().size() - 1;
-                response.redirect(URIs.PEDIDO((long) id));
+
+                int numeroDePedido = cliente.getPedidosRealizados().size() - 1;
+                response.redirect(URIs.PEDIDO((long) numeroDePedido));
                 carrito.vaciar();
+
             } catch (PedidoIncompletoException e){
                 request.session().attribute(ERROR_TOKEN, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
@@ -152,6 +161,41 @@ public class LocalController {
         });
     }
 
+    private Long parseIdFromParams(String id, Request req){
+        return Long.parseLong(req.params(id));
+    }
+
+    private Direccion getDireccion(Request request){
+        return getAtributoDeLista(request
+            , "direccion"
+            , Cliente::getDireccionesConocidas
+        );
+    }
+
+    private Descuento getDescuento(Request request){
+        return getAtributoDeLista(request
+            , "descuento"
+            , Cliente::getDescuentos
+        );
+    }
+
+    private <T> T getAtributoDeLista(Request req, String atributo, Function<Cliente, List<T>> obtencion){
+        try{
+            Cliente cliente = autenticadorClientes.getUsuario(req);
+
+            List<T> lista = obtencion.apply(cliente);
+
+            T elem = lista.get(Integer.parseInt(req.queryParams(atributo)));
+            lista.remove(elem);
+            lista.add(0, elem);
+            return elem;
+
+        } catch (NumberFormatException e){
+            throw new PedidoIncompletoException(atributo);
+        }
+    }
+
+
     //TODO: Modelos ************************************************
 
     private Modelo parseModel(Local local){
@@ -168,15 +212,11 @@ public class LocalController {
             .con("idPlato", plato.getId());
     }
 
-    private Long parseIdFromParams(String id, Request req){
-        return Long.parseLong(req.params(id));
-    }
-
     private Modelo parseModel(Carrito carrito){
         Direccion direccion = carrito.getDireccion();
 
         return new Modelo("local", carrito.getLocal().getNombre())
-            .con("precio", carrito.getPrecio())
+            .con("precio", carrito.getPrecioFinal())
             .con("idLocal", carrito.getLocal().getId())
             .con("direccion", (direccion==null)? null : direccion.getCalle())
             .con("items", carrito.getItems().stream().map(this::parseModel).collect(Collectors.toList()));
@@ -186,18 +226,5 @@ public class LocalController {
         return new Modelo("plato", item.getPlato().getNombre())
             .con("aclaraciones", item.getAclaraciones())
             .con("cantidad", item.getCantidad());
-    }
-
-    private Direccion getDireccion(Request req){
-        try{
-            List<Direccion> direcciones = autenticadorClientes.getUsuario(req)
-                .getDireccionesConocidas();
-            Direccion direccion = direcciones.get(Integer.parseInt(req.queryParams("direccion")));
-            direcciones.remove(direccion);
-            direcciones.add(0, direccion);
-            return direccion;
-        } catch (NumberFormatException e){
-            throw new PedidoIncompletoException("direccion");
-        }
     }
 }

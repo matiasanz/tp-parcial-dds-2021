@@ -16,4 +16,8 @@ public class Habitual extends CategoriaCliente {
             return pedido.getImporte();
         }
     }
+
+    @Override
+    public void notificarPedido(Pedido pedido, Cliente cliente){
+    }
 }

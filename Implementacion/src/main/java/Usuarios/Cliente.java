@@ -2,9 +2,12 @@ package Usuarios;
 
 import Local.Local;
 import Pedidos.Carrito;
+import Pedidos.Descuentos.Descuento;
+import Pedidos.Descuentos.SinDescuento;
 import Pedidos.Direccion;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
+import Usuarios.Categorias.Primerizo;
 
 import java.util.*;
 
@@ -12,22 +15,20 @@ public class Cliente extends Usuario {
     public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, Direccion direccion){
         super(usuario, contrasenia, nombre, apellido, mail);
         direccionesConocidas.add(direccion);
+        agregarDescuento(new SinDescuento());
     }
 
     private Map<Long, Carrito> carritos = new HashMap<>();
 
     private List<Direccion> direccionesConocidas = new ArrayList<>();
     private List<Pedido> pedidosRealizados = new LinkedList<>();
-    public CategoriaCliente categoria;
+    public CategoriaCliente categoria = new Primerizo();
     public int cantidadComprasHechas;
+    private List<Descuento> descuentosDisponibles = new ArrayList<>();
 
     public Carrito getCarrito(Local local) {
-        Carrito carrito = carritos.get(local.getId());
-        if(carrito==null){
-            carrito = new Carrito(local);
-            carritos.put(local.getId(), carrito);
-        }
-
+        Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(local));
+        carritos.put(local.getId(), carrito);
         return carrito;
     }
 
@@ -53,6 +54,19 @@ public class Cliente extends Usuario {
 
     public void agregarPedido(Pedido pedido) {
         pedidosRealizados.add(pedido);
+        categoria.notificarPedido(pedido, this);
+    }
+
+    public List<Descuento> getDescuentos(){
+        return descuentosDisponibles;
+    }
+
+    public void agregarDescuento(Descuento descuento){
+        descuentosDisponibles.add(descuento);
+    }
+
+    public void quitarDescuento(Descuento descuento) {
+        descuentosDisponibles.remove(descuento);
     }
 }
 

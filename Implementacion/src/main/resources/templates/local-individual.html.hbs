@@ -45,6 +45,15 @@
                             <option value={{@index}}>{{calle}}</option><br>
                         {{/direcciones}}
                     </select>
+                    <br>
+
+                    <label>Descuento </label>
+                    <select id="descuentos" name="descuento" form="form_envio">
+                        {{#descuentos}}
+                            <option value={{@index}}>{{detalle}}</option><br>
+                        {{/descuentos}}
+                    </select>
+                    <br>
                     <input type="submit" value="Finalizar" form="form_envio"><p style="color:Red;">{{error}}</p><br>
                 </form>
 
