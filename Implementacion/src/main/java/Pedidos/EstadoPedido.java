@@ -1,5 +1,5 @@
 package Pedidos;
 
 public enum EstadoPedido{
-    PENDIENTE, CONFIRMADO, ENTREGADO
+    PENDIENTE, CONFIRMADO, ENTREGADO, RECHAZADO
 }

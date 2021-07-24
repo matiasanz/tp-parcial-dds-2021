@@ -1,6 +1,7 @@
 package Local;
 
 import Pedidos.Direccion;
+import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
@@ -61,5 +62,13 @@ public class Local extends Identificable {
 
     public Direccion getDireccion() {
         return direccion;
+    }
+
+    public void aceptarPedido(Pedido pedido){
+        pedido.setEstado(EstadoPedido.CONFIRMADO);
+    }
+
+    public void rechazarPedido(Pedido pedido){
+        pedido.setEstado(EstadoPedido.RECHAZADO);
     }
 }

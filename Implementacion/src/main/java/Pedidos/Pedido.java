@@ -29,6 +29,10 @@ public class Pedido extends Identificable {
         return 0; //TODO: lo puse asi pa q no rompa categ, desps modificar
     }
 
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
+    }
+
     public Duration tiempoEntrega(){
         validarPedidoEntregado();
         return Duration.between(horaInicio, horaFin);
