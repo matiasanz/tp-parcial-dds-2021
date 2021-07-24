@@ -36,17 +36,11 @@ public class Carrito {
         direccion=null;
     }
 
-    public void hardCodearID(Pedido pedido){
-        pedido.setId(idPedido++);
-        System.out.println("#Provisoriamente hardcodeo el id del pedido en el carrito.\n Esto se tiene que ir!!!");
-    }
-
     public Pedido build(){
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
         Pedido pedido = new Pedido(direccion, local, items);
-        hardCodearID(pedido);
         local.notificarPedido(pedido);
         return pedido;
     }

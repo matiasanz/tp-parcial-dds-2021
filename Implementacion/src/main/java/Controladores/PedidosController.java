@@ -27,7 +27,7 @@ public class PedidosController {
         try{
             int id = Integer.parseInt(req.params("id"));
             Pedido pedido = cliente.getPedidosRealizados().get(id);
-            return new ModelAndView(parseModel(pedido).con("id", id), Templates.PEDIDO);
+            return new ModelAndView(parseModel(pedido).con("id", id+1), Templates.PEDIDO);
 
         } catch (NumberFormatException | IndexOutOfBoundsException e){
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
