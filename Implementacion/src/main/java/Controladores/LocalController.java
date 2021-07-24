@@ -29,46 +29,39 @@ public class LocalController {
     public LocalController(RepoLocales repoLocales, Autenticador<Cliente> autenticador){
         this.repoLocales = repoLocales;
         this.autenticadorClientes = autenticador;
-        this.repoPedidos = repoPedidos;
     }
 
     private RepoLocales repoLocales;
     private Autenticador<Cliente> autenticadorClientes;
-    private RepoPedidos repoPedidos;
     private String ERROR_TOKEN = "error";
 
-    //TODO: unifique dos paginas y esta parte me quedo rara ************************************************
-    //TODO: Ver de reemplazar el findCarrito por findlocal
-
     public ModelAndView getLocal(Request req, Response res){
-        try{
-            Local local = repoLocales.getLocal(parseId("id", req));
-            Cliente cliente = autenticadorClientes.getUsuario(req);
-            Carrito carrito = cliente.getCarrito(local);
+        Optional<Local> local = findLocal(req.params("id"), req, res);
 
-            String mensaje = req.session().attribute(ERROR_TOKEN);
-            req.session().removeAttribute(ERROR_TOKEN);
-
-            Modelo modelo = parseModel(local)
-                .con(parseModel(carrito))
-                .con("direcciones", cliente.getDireccionesConocidas())
-                .con(ERROR_TOKEN, mensaje);
-
-            return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
-
-        } catch (LocalInexistenteException | NumberFormatException e) {
-            res.status(HttpURLConnection.HTTP_NOT_FOUND);
-            res.redirect(URIs.LOCALES);
+        if(!local.isPresent()){
             return null;
         }
+
+        Cliente cliente = autenticadorClientes.getUsuario(req);
+        Carrito carrito = cliente.getCarrito(local.get());
+
+        String mensaje = req.session().attribute(ERROR_TOKEN);
+        req.session().removeAttribute(ERROR_TOKEN);
+
+        Modelo modelo = parseModel(local.get())
+            .con(parseModel(carrito))
+            .con("direcciones", cliente.getDireccionesConocidas())
+            .con(ERROR_TOKEN, mensaje);
+
+        return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
     }
 
     public ModelAndView getPlato(Request req, Response res) {
         Long idLocal = null;
         try{
-            idLocal = parseId("id", req);
+            idLocal = parseIdFromParams("id", req);
             Local local = repoLocales.getLocal(idLocal);
-            Plato plato = local.getPlato(parseId("idPlato", req));
+            Plato plato = local.getPlato(parseIdFromParams("idPlato", req));
             return new ModelAndView(parseModel(plato).con("idLocal", idLocal), Templates.PLATO);
         } catch (PlatoInexistenteException | NumberFormatException e){
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
@@ -76,8 +69,6 @@ public class LocalController {
             return null;
         }
     }
-
-//TODO: Aca arrancaba la 2da ****************
 
     public ModelAndView agregarItem(Request request, Response response) {
         findCarrito(request.params("idLocal"), request, response).ifPresent(
@@ -94,19 +85,38 @@ public class LocalController {
         return null;
     }
 
+    public ModelAndView eliminarItem(Request request, Response response) {
+
+        findCarrito(request.params("idLocal"), request, response).ifPresent(
+            carrito -> {
+                try {
+                    int numero = Integer.parseInt(request.params("item"));
+                    carrito.sacarItem(numero);
+                    response.status(HttpURLConnection.HTTP_OK);
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    request.session().attribute(ERROR_TOKEN, "Se produjo un error al intentar eliminar item");
+                    response.status(HttpURLConnection.HTTP_BAD_REQUEST);
+                } finally {
+                    response.redirect(URIs.LOCAL(carrito.getLocal().getId()));
+                }
+            }
+        );
+
+        return null;
+    }
+
     public ModelAndView finalizarPedido(Request request, Response response) {
         String idLocal = request.queryParams("idLocal");
 
-        findCarrito(idLocal, request, response).ifPresent(carrito -> {
+        findLocal(idLocal, request, response).ifPresent(local -> {
             try {
-                Pedido pedido = carrito
-                    .conDireccion(getDireccion(request))
-                    .build();
                 Cliente cliente = autenticadorClientes.getUsuario(request);
-
+                Carrito carrito = cliente.getCarrito(local);
+                Pedido pedido = carrito.conDireccion(getDireccion(request)).build();
                 cliente.agregarPedido(pedido);
                 int id = cliente.getPedidosRealizados().size() - 1;
                 response.redirect(URIs.PEDIDO((long) id));
+                carrito.vaciar();
             } catch (PedidoIncompletoException e){
                 request.session().attribute(ERROR_TOKEN, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
@@ -118,19 +128,28 @@ public class LocalController {
         return null;
     }
 
-    private Optional<Carrito> findCarrito(String local, Request req, Response res){
-        Carrito carrito = null;
-        try{
-            long idLocal = Long.parseLong(local);
-            Cliente cliente = autenticadorClientes.getUsuario(req);
-            carrito = cliente.getCarrito(repoLocales.getLocal(idLocal));
+//TODO: Auxiliares ************************************************
 
+
+    private Optional<Local> findLocal(String idLocalString, Request req, Response res){
+        Local local = null;
+
+        try{
+            long idLocal = Long.parseLong(idLocalString);
+            local = repoLocales.getLocal(idLocal);
         } catch (NumberFormatException | LocalInexistenteException e){
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
-            res.redirect(URIs.HOME);
+            res.redirect(URIs.LOCALES);
         }
 
-        return Optional.ofNullable(carrito);
+        return Optional.ofNullable(local);
+    }
+
+    private Optional<Carrito> findCarrito(String idLocal, Request req, Response res){
+        return findLocal(idLocal, req, res).map(local->{
+            Cliente cliente = autenticadorClientes.getUsuario(req);
+            return cliente.getCarrito(local);
+        });
     }
 
     //TODO: Modelos ************************************************
@@ -149,7 +168,7 @@ public class LocalController {
             .con("idPlato", plato.getId());
     }
 
-    private Long parseId(String id, Request req){
+    private Long parseIdFromParams(String id, Request req){
         return Long.parseLong(req.params(id));
     }
 

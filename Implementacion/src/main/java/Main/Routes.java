@@ -45,6 +45,7 @@ public class Routes {
         Spark.staticFileLocation("/public");
 
         Spark.before((request, response)->{
+            System.out.println(request.requestMethod()+request.uri());
             if(uriExceptuadaDeAutenticar(request.uri())){
                 autenticadorClientes.reautenticar(request, response);
             }
@@ -59,6 +60,7 @@ public class Routes {
         Spark.get("/locales/:id", localController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localController::getPlato, engine);
         Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);
+        Spark.post("/locales/:idLocal/carrito/:item", localController::eliminarItem, engine);
         Spark.post("/pedidos", localController::finalizarPedido, engine);
         Spark.get("/pedidos/:id", pedidosController::getPedido, engine);
 

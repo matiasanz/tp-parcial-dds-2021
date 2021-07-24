@@ -24,7 +24,6 @@ public class LoginController {
     private final Autenticador<Cliente> autenticador;
     private final String MENSAJE_TOKEN = "mensaje";
 
-
     public ModelAndView getLogin(Request request, Response response) {
         return new ModelAndView( generarModelo(request, response) , Templates.LOGIN);
     }

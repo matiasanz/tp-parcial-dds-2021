@@ -56,7 +56,13 @@
                 <p>Items:</p>
                 <ul>
                     {{#items}}
-                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li>
+                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}
+                            <!-- no me dejo usar DELETE -->
+                            <form method="POST" action="/locales/{{idLocal}}/carrito/{{@index}}?method=delete">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                            <br>
+                        </li>
                     {{else}}
                         <p>Aún no ha seleccionado ninguno</p>
                     {{/items}}

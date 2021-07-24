@@ -66,4 +66,8 @@ public class Carrito {
     public BigDecimal getPrecio(){
         return items.stream().map(Item::getPrecio).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    public void sacarItem(int numero) {
+        items.remove(numero);
+    }
 }
