@@ -1,6 +1,5 @@
 package Pedidos;
 
-import Usuarios.Repartidor;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
@@ -18,12 +17,15 @@ public class Pedido extends Identificable {
     LocalDateTime horaInicio = LocalDateTime.now();
     LocalDateTime horaFin;
     Direccion direccion;
-    Repartidor repartidor;
 
     public Pedido(Direccion direccion, Local local, List<Item> items){
         this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
+    }
+
+    public double subtotal(){
+        return 0; //TODO: lo puse asi pa q no rompa categ, desps modificar
     }
 
     public Duration tiempoEntrega(){

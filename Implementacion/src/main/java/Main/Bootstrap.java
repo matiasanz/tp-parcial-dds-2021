@@ -27,7 +27,8 @@ public class Bootstrap {
     }
 
     private void cargarLocales(){
-        Contacto contacto = new Contacto("jorge", "salomon", Collections.singletonList(new NotificadorPush()));
+        Contacto contacto = new Contacto("jorge", "salomon");
+        contacto.agregarMedioDeContacto(new NotificadorPush());
         Local local = new Local("5 esquinas", new Direccion("Calle falsa 123"), contacto, CategoriaLocal.PARRILLA);
         PlatoSimple plato =new PlatoSimple("Fideos con tuco", 900.0, Arrays.asList("fideos", "tuco"));
         local.agregarPlato(plato);

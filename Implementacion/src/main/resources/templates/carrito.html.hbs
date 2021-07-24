@@ -11,7 +11,7 @@
         <form id="form_envio" action="/pedidos" method="POST">
             <input type="hidden" name="idLocal" value={{idLocal}}>
             <label>Direccion </label>
-            <select id="direccion" name="direccion" form="form_envio" onchange="this.form.submit()">
+            <select id="direccion" name="direccion" form="form_envio">
                 {{#direcciones}}
                     <option value={{@index}}>{{calle}}</option><br>
                 {{/direcciones}}

@@ -4,6 +4,7 @@ import Local.Local;
 import Pedidos.Carrito;
 import Pedidos.Direccion;
 import Pedidos.Pedido;
+import Usuarios.Categorias.CategoriaCliente;
 
 import java.util.*;
 
@@ -17,6 +18,8 @@ public class Cliente extends Usuario {
 
     private List<Direccion> direccionesConocidas = new ArrayList<>();
     private List<Pedido> pedidosRealizados = new LinkedList<>();
+    public CategoriaCliente categoria;
+    public int cantidadComprasHechas;
 
     public Carrito getCarrito(Local local) {
         Carrito carrito = carritos.get(local.getId());
@@ -30,6 +33,18 @@ public class Cliente extends Usuario {
 
     public List<Direccion> getDireccionesConocidas() {
         return direccionesConocidas;
+    }
+
+    public CategoriaCliente getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaCliente categoria) {
+        this.categoria = categoria;
+    }
+
+    public int getCantidadComprasHechas() {
+        return cantidadComprasHechas;
     }
 }
 
