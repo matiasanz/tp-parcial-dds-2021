@@ -14,4 +14,9 @@ public class Modelo extends HashMap<String, Object>{
         put(key, value);
         return this;
     }
+
+    public Modelo con(Modelo modelo){
+        this.putAll(modelo);
+        return this;
+    }
 }

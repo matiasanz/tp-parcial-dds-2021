@@ -55,9 +55,8 @@ public class Routes {
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);
         Spark.get("/locales", localesController::getLocales, engine);
-        Spark.get("/locales/:id", localesController::getLocal, engine);
-        Spark.get("/locales/:id/platos/:idPlato", localesController::getPlato, engine);
-        Spark.get("/locales/:idLocal/carrito", carritoController::getCarrito, engine);
+        Spark.get("/locales/:id", carritoController::getLocal, engine);
+        Spark.get("/locales/:id/platos/:idPlato", carritoController::getPlato, engine);
         Spark.post("/locales/:idLocal/carrito", carritoController::agregarItem, engine);
         Spark.post("/pedidos", carritoController::finalizarPedido, engine);
         Spark.get("/pedidos/:id", null, engine);

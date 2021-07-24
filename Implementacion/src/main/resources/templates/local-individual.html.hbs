@@ -30,9 +30,40 @@
         Menu:
         <ul>
             {{#Platos}}
-            <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}"><Strong>Nombre: </Strong>{{nombre}} ........... ${{precio}}</li>
+                <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
             {{/Platos}}
         </ul>
+    </section>
+    <section id="carrito">
+        <nav>
+            <H3>Carrito {{local}}</H3>
+            <section id="comprar">
+                <form id="form_envio" action="/pedidos" method="POST">
+                    <input type="hidden" name="idLocal" value={{idLocal}}>
+                    <label>Direccion </label>
+                    <select id="direccion" name="direccion" form="form_envio">
+                        {{#direcciones}}
+                            <option value={{@index}}>{{calle}}</option><br>
+                        {{/direcciones}}
+                    </select>
+                    <input type="submit" value="Finalizar" form="form_envio"><p style="color:Red;">{{error}}</p><br>
+                </form>
+
+                <div>
+                    <p>Monto a pagar: ${{precio}}</p>
+                </div>
+            </section>
+            <section id="items">
+                <p>Items:</p>
+                <ul>
+                    {{#items}}
+                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li>
+                    {{else}}
+                        <p>Aún no ha seleccionado ninguno</p>
+                    {{/items}}
+                </ul>
+            </section>
+        </nav>
     </section>
 </body>
 </html>

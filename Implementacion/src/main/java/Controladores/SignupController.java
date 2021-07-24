@@ -11,7 +11,6 @@ import Repositorios.RepoClientes;
 import Usuarios.Cliente;
 import Utils.Exceptions.ContraseniasDistintasException;
 import Utils.Exceptions.NombreOcupadoException;
-import Utils.Exceptions.PendingException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -24,7 +23,7 @@ public class SignupController {
     Autenticador<Cliente> autenticador;
     private MedioDeContacto mailSender = new MailSender();
     private MedioDeContacto notificacionesPush = new NotificadorPush();
-    String MENSAJE_TOKEN = "mensaje";
+    String ERROR_TOKEN = "mensaje";
 
     public SignupController(RepoClientes repoClientes){
         this.repoClientes = repoClientes;
@@ -32,14 +31,14 @@ public class SignupController {
     }
 
     public ModelAndView getRegistroClientes(Request req, Response res) {
-        String mensaje = req.cookie(MENSAJE_TOKEN);
-        res.removeCookie(MENSAJE_TOKEN);
-        return new ModelAndView(new Modelo(MENSAJE_TOKEN, mensaje), Templates.SIGNUP);
+        String mensaje = req.cookie(ERROR_TOKEN);
+        res.removeCookie(ERROR_TOKEN);
+        return new ModelAndView(new Modelo(ERROR_TOKEN, mensaje), Templates.SIGNUP);
     }
 
     //TODO: No valide nada
     public ModelAndView registrarCliente(Request req, Response res){
-        res.removeCookie(MENSAJE_TOKEN);
+        res.removeCookie(ERROR_TOKEN);
 
         String usuario = req.queryParams("usuario");
         String contrasenia = req.queryParams("contrasenia");
@@ -54,9 +53,7 @@ public class SignupController {
 
             nuevoCliente.agregarMedioDeContacto(notificacionesPush);
             Optional.ofNullable(req.queryParams("notif_mail")).ifPresent(
-                on->{
-                    nuevoCliente.agregarMedioDeContacto(mailSender);
-                }//nuevoCliente.agregarMedioDeNotificacion(new NotificadorPush());
+                aceptado->nuevoCliente.agregarMedioDeContacto(mailSender)
             );
 
             repoClientes.agregar(nuevoCliente);
@@ -65,7 +62,7 @@ public class SignupController {
             res.redirect(URIs.HOME);
 
         } catch (NombreOcupadoException | ContraseniasDistintasException e){
-            res.cookie(MENSAJE_TOKEN, e.getMessage());
+            res.cookie(ERROR_TOKEN, e.getMessage());
             res.status(HttpURLConnection.HTTP_BAD_REQUEST);
             res.redirect(URIs.SIGNUP);
         }

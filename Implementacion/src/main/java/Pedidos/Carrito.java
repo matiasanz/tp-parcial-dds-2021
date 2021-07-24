@@ -1,8 +1,10 @@
 package Pedidos;
 
 import Local.Local;
+import Platos.Plato;
 import Utils.Exceptions.PedidoIncompletoException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,5 +53,9 @@ public class Carrito {
 
     public Direccion getDireccion(){
         return direccion;
+    }
+
+    public BigDecimal getPrecio(){
+        return items.stream().map(Item::getPrecio).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

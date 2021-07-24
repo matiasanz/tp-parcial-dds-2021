@@ -14,6 +14,7 @@ import Repositorios.RepoPedidos;
 import Usuarios.Cliente;
 import Utils.Exceptions.LocalInexistenteException;
 import Utils.Exceptions.PedidoIncompletoException;
+import Utils.Exceptions.PlatoInexistenteException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -26,33 +27,55 @@ public class CarritoController {
 
     public CarritoController(RepoLocales repoLocales, Autenticador<Cliente> autenticador){
         this.repoLocales = repoLocales;
-        this.autenticadorCliente = autenticador;
+        this.autenticadorClientes = autenticador;
         this.repoPedidos = repoPedidos;
     }
 
     private RepoLocales repoLocales;
-    private Autenticador<Cliente> autenticadorCliente;
+    private Autenticador<Cliente> autenticadorClientes;
     private RepoPedidos repoPedidos;
     private String ERROR_TOKEN = "error";
 
-    public ModelAndView getCarrito(Request req, Response res){
+    public ModelAndView getLocal(Request req, Response res){
+        try{
+            Local local = repoLocales.getLocal(parseId("id", req));
+            Cliente cliente = autenticadorClientes.getUsuario(req);
+            Carrito carrito = cliente.getCarrito(local);
 
-        Cliente cliente = autenticadorCliente.getUsuario(req);
-        Optional<Carrito> carrito = findCarrito(req.params("idLocal"), req, res);
+            String mensaje = req.session().attribute(ERROR_TOKEN);
+            req.session().removeAttribute(ERROR_TOKEN);
 
-        if(!carrito.isPresent()){
+            Modelo modelo = parseModel(local)
+                .con(parseModel(carrito))
+                .con("direcciones", cliente.getDireccionesConocidas())
+                .con(ERROR_TOKEN, mensaje);
+
+            return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
+
+        } catch (LocalInexistenteException | NumberFormatException e) {
+            res.status(HttpURLConnection.HTTP_NOT_FOUND);
+            res.redirect(URIs.LOCALES);
             return null;
         }
-
-        String mensaje = req.session().attribute(ERROR_TOKEN);
-        req.session().removeAttribute(ERROR_TOKEN);
-
-        Modelo modelo = parseModel(carrito.get())
-            .con("direcciones", cliente.getDireccionesConocidas())
-            .con(ERROR_TOKEN, mensaje);
-
-        return new ModelAndView(modelo, Templates.CARRITO);
     }
+
+    public ModelAndView getPlato(Request req, Response res) {
+        Long idLocal = null;
+        try{
+            idLocal = parseId("id", req);
+            Local local = repoLocales.getLocal(idLocal);
+            Plato plato = local.getPlato(parseId("idPlato", req));
+            return new ModelAndView(parseModel(plato).con("idLocal", idLocal), Templates.PLATO);
+        } catch (PlatoInexistenteException | NumberFormatException e){
+            res.status(HttpURLConnection.HTTP_NOT_FOUND);
+            res.redirect(URIs.LOCAL(idLocal));
+            return null;
+        }
+    }
+
+
+
+    //TODO: a partir de aca unificar al local ************************************************
 
     public ModelAndView agregarItem(Request request, Response response) {
         findCarrito(request.params("idLocal"), request, response).ifPresent(
@@ -62,7 +85,7 @@ public class CarritoController {
                 int cantidad = Integer.parseInt(request.queryParams("cantidad"));
                 String aclaraciones = request.queryParams("aclaraciones");
                 carrito.conItem(new Item(plato, cantidad, aclaraciones));
-                response.redirect(URIs.CARRITO(local.getId()));
+                response.redirect(URIs.LOCAL(local.getId()));
             }
         );
 
@@ -82,28 +105,18 @@ public class CarritoController {
                 request.session().attribute(ERROR_TOKEN, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 Long id = Long.parseLong(idLocal);
-                response.redirect(URIs.CARRITO(id));
+                response.redirect(URIs.LOCAL(id));
             }
         });
 
         return null;
     }
 
-    private Direccion getDireccion(Request req){
-        try{
-            return autenticadorCliente.getUsuario(req)
-                .getDireccionesConocidas()
-                .get(Integer.parseInt(req.queryParams("direccion")));
-        } catch (NumberFormatException e){
-            throw new PedidoIncompletoException("direccion");
-        }
-    }
-
     private Optional<Carrito> findCarrito(String local, Request req, Response res){
         Carrito carrito = null;
         try{
             long idLocal = Long.parseLong(local);
-            Cliente cliente = autenticadorCliente.getUsuario(req);
+            Cliente cliente = autenticadorClientes.getUsuario(req);
             carrito = cliente.getCarrito(repoLocales.getLocal(idLocal));
 
         } catch (NumberFormatException | LocalInexistenteException e){
@@ -114,10 +127,31 @@ public class CarritoController {
         return Optional.ofNullable(carrito);
     }
 
+    //TODO: Modelos ************************************************
+
+    private Modelo parseModel(Local local){
+        return new Modelo("nombre", local.getNombre())
+            .con("idLocal", local.getId())
+            .con("categorias", local.getCategorias())
+            .con("Platos", local.getMenu().stream().map(this::parseModel).collect(Collectors.toList()))
+            .con("Direccion", local.getDireccion().getCalle());
+    }
+
+    private Modelo parseModel(Plato plato){
+        return new Modelo("nombre", plato.getNombre())
+            .con("precio", plato.getPrecio())
+            .con("idPlato", plato.getId());
+    }
+
+    private Long parseId(String id, Request req){
+        return Long.parseLong(req.params(id));
+    }
+
     private Modelo parseModel(Carrito carrito){
         Direccion direccion = carrito.getDireccion();
 
         return new Modelo("local", carrito.getLocal().getNombre())
+            .con("precio", carrito.getPrecio())
             .con("idLocal", carrito.getLocal().getId())
             .con("direccion", (direccion==null)? null : direccion.getCalle())
             .con("items", carrito.getItems().stream().map(this::parseModel).collect(Collectors.toList()));
@@ -127,5 +161,15 @@ public class CarritoController {
         return new Modelo("plato", item.getPlato().getNombre())
             .con("aclaraciones", item.getAclaraciones())
             .con("cantidad", item.getCantidad());
+    }
+
+    private Direccion getDireccion(Request req){
+        try{
+            return autenticadorClientes.getUsuario(req)
+                .getDireccionesConocidas()
+                .get(Integer.parseInt(req.queryParams("direccion")));
+        } catch (NumberFormatException e){
+            throw new PedidoIncompletoException("direccion");
+        }
     }
 }

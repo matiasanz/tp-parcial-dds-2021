@@ -11,10 +11,6 @@ public interface URIs {
         return LOCALES+"/"+idLocal;
     }
 
-    static String CARRITO(Long id) {
-        return LOCAL(id)+"/carrito";
-    }
-
     static String PEDIDO(Long id) {
         return PEDIDOS+"/"+id;
     }

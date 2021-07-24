@@ -2,6 +2,7 @@ package Pedidos;
 
 import Platos.Plato;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
@@ -9,14 +10,14 @@ import static java.util.Objects.requireNonNull;
 public class Item {
     private Plato plato;
     private Integer cantidad;
-    private Optional<String> aclaraciones;
+    private String aclaraciones;
 
     public Item(Plato plato, int cantidad, String aclaraciones){
         this.plato=plato;
         requireNonNull(plato, "no aclara plato");
         this.cantidad=cantidad;
         requireNonNull(plato, "no aclara cantidad");
-        this.aclaraciones= Optional.ofNullable(aclaraciones);
+        this.aclaraciones= aclaraciones;
     }
 
     public Plato getPlato() {
@@ -28,6 +29,10 @@ public class Item {
     }
 
     public String getAclaraciones(){
-        return aclaraciones.orElse("-");
+        return aclaraciones.equals("")? "-": aclaraciones;
+    }
+
+    public BigDecimal getPrecio() {
+        return plato.getPrecio().multiply(BigDecimal.valueOf(cantidad));
     }
 }
