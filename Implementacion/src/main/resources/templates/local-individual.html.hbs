@@ -4,26 +4,25 @@
     <title>Locales</title>
 </head>
 <body>
-    <H3>{{nombre}}</H3>
+    <H2>{{nombre}}</H2>
     <section id="info-local">
-        <div id="datos-localizacion">
-            Datos del Local:
-            <ul>
-                <li><Strong>Direccion: </Strong>{{Direccion}}</li>
-            </ul>
-        </div>
-        <div id="Categorias">
-            Categorias:
-            <ul>
-                {{#categorias}}
-                    <li>{{this}}</li>
-                {{/categorias}}
-            </ul>
-        </div>
+        <h3>Datos del Local:</h3>
+        <ul>
+            <li><Strong>Direccion: </Strong>{{Direccion}}</li>
+            <br>
+            <li><strong>Categorias:</strong>
+                <br>
+                <ul>
+                    {{#categorias}}
+                        <li><a href="/locales?categoria={{this}}">{{this}}</a></li><br>
+                    {{/categorias}}
+                </ul>
+            </li>
+        </ul>
     </section>
 
     <section id="Menu">
-        Menu:
+        <h3>Menu:</h3>
         <ul>
             {{#Platos}}
                 <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
