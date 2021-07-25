@@ -18,8 +18,10 @@ import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class SignupController {
     private RepoClientes repoClientes;
@@ -75,7 +77,8 @@ public class SignupController {
     }
 
     private void validarNoNull(String ... args){
-        if(Arrays.asList(args).stream().anyMatch(Objects::isNull)){
+        Stream<String> recibidos = Arrays.asList(args).stream();
+        if(recibidos.anyMatch(Objects::isNull) || recibidos.anyMatch(String::isEmpty)){
             throw new DatosInvalidosException();
         }
     }
