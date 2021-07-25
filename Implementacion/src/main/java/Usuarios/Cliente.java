@@ -27,7 +27,7 @@ public class Cliente extends Usuario {
     private List<Descuento> descuentosDisponibles = new ArrayList<>();
 
     public Carrito getCarrito(Local local) {
-        Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(local));
+        Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
         carritos.put(local.getId(), carrito);
         return carrito;
     }
@@ -67,6 +67,10 @@ public class Cliente extends Usuario {
 
     public void quitarDescuento(Descuento descuento) {
         descuentosDisponibles.remove(descuento);
+    }
+
+    public Double descuentoPorCategoria(Double precioFinal) {
+        return categoria.descuentoPorCategoria(precioFinal, this);
     }
 }
 

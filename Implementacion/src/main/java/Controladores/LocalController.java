@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import static Controladores.Utils.Modelos.parseModel;
 
 public class LocalController {
 
@@ -51,6 +52,7 @@ public class LocalController {
 
         Modelo modelo = parseModel(local.get())
             .con(parseModel(carrito))
+            .con("categoria", cliente.getCategoria().getNombre())
             .con("direcciones", cliente.getDireccionesConocidas())
             .con("descuentos", cliente.getDescuentos())
             .con(ERROR_TOKEN, mensaje);
@@ -193,38 +195,5 @@ public class LocalController {
         } catch (NumberFormatException e){
             throw new PedidoIncompletoException(atributo);
         }
-    }
-
-
-    //TODO: Modelos ************************************************
-
-    private Modelo parseModel(Local local){
-        return new Modelo("nombre", local.getNombre())
-            .con("idLocal", local.getId())
-            .con("categorias", local.getCategorias())
-            .con("Platos", local.getMenu().stream().map(this::parseModel).collect(Collectors.toList()))
-            .con("Direccion", local.getDireccion().getCalle());
-    }
-
-    private Modelo parseModel(Plato plato){
-        return new Modelo("nombre", plato.getNombre())
-            .con("precio", plato.getPrecio())
-            .con("idPlato", plato.getId());
-    }
-
-    private Modelo parseModel(Carrito carrito){
-        Direccion direccion = carrito.getDireccion();
-
-        return new Modelo("local", carrito.getLocal().getNombre())
-            .con("precio", carrito.getPrecioFinal())
-            .con("idLocal", carrito.getLocal().getId())
-            .con("direccion", (direccion==null)? null : direccion.getCalle())
-            .con("items", carrito.getItems().stream().map(this::parseModel).collect(Collectors.toList()));
-    }
-
-    Modelo parseModel(Item item){
-        return new Modelo("plato", item.getPlato().getNombre())
-            .con("aclaraciones", item.getAclaraciones())
-            .con("cantidad", item.getCantidad());
     }
 }

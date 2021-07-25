@@ -3,21 +3,27 @@ package Pedidos;
 import Local.Local;
 import Pedidos.Descuentos.Descuento;
 import Pedidos.Descuentos.SinDescuento;
+import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class Carrito {
     static Long idPedido = 0L; //TODO: Esto se tiene que ir
 
+    private Cliente cliente;
     private Local local;
     private List<Item> items = new LinkedList<>();
     private Direccion direccion;
     private Descuento descuento = new SinDescuento();
 
-    public Carrito(Local local){
+    public Carrito(Cliente cliente, Local local){
+        this.cliente = cliente;
         this.local=local;
     }
 
@@ -50,6 +56,10 @@ public class Carrito {
         return pedido;
     }
 
+    public void sacarItem(int numero) {
+        items.remove(numero);
+    }
+
     public Local getLocal(){
         return local;
     }
@@ -62,16 +72,26 @@ public class Carrito {
         return direccion;
     }
 
-
     public Double getPrecioFinal(){
-        return getPrecioBase() - descuento.calcularSobre(getPrecioBase());
+        double pf = getSubtotal() - descuento.calcularSobre(getSubtotal());
+        return redondear(pf);
+    }
+
+    public Double getSubtotal(){
+        double st = getPrecioBase() - cliente.descuentoPorCategoria(getPrecioBase());
+        return redondear(st);
     }
 
     public Double getPrecioBase(){
-        return items.stream().mapToDouble(Item::getPrecio).sum();
+        double pb = items.stream().mapToDouble(Item::getPrecio).sum();
+        return redondear(pb);
     }
 
-    public void sacarItem(int numero) {
-        items.remove(numero);
+    private Double redondear(double precio){
+        BigDecimal bd = BigDecimal.valueOf(precio);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+        return bd.doubleValue();
     }
+
 }

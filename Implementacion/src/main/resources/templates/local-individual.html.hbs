@@ -57,9 +57,13 @@
                     <input type="submit" value="Finalizar" form="form_envio"><p style="color:Red;">{{error}}</p><br>
                 </form>
 
-                <div>
-                    <p>Monto a pagar: ${{precio}}</p>
+                <div id="precio">
+                    <p>Precio Base: ${{precioBase}}</p>
+                    <p>>     Descuento por cliente {{categoria}}: -${{dtoCategoria}}</p>
+                    <p>>     Descuento por cupones: -${{dtoCupon}}</p>
+                    <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
                 </div>
+
             </section>
             <section id="items">
                 <p>Items:</p>

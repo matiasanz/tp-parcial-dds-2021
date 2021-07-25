@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 
 import Local.*;
 
+import static Controladores.Utils.Modelos.unparseEnum;
+
 public class LocalesController {
     RepoLocales repoLocales;
     public LocalesController(RepoLocales repoLocales){
@@ -36,6 +38,6 @@ public class LocalesController {
     }
 
     private boolean perteneceACategoria(Local local, String categoria){
-        return local.getCategorias().stream().map(CategoriaLocal::toString).anyMatch(s->s.equals(categoria));
+        return local.getCategorias().stream().map(CategoriaLocal::toString).anyMatch(s->unparseEnum(categoria).equals(s));
     }
 }

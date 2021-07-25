@@ -11,9 +11,9 @@ import Repositorios.RepoLocales;
 import Usuarios.Cliente;
 import Local.Contacto;
 import Local.CategoriaLocal;
+import Utils.Factory.ProveedorDeClientes;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class Bootstrap {
     public static void main(String[] args) {
@@ -38,12 +38,13 @@ public class Bootstrap {
         local2.agregarPlato(plato);
         RepoLocales.instance.agregar(local2);
 
-        new Carrito(local2).conItem(new Item(plato, 4, null)).conDireccion(new Direccion("traelo aca")).build();
+        Local local3 = new Local("McConals", new Direccion("alla a la vuelta"), contacto, CategoriaLocal.COMIDA_RAPIDA);
+        local3.agregarPlato(plato);
+        RepoLocales.instance.agregar(local3);
     }
 
     private void cargarUsuarios(){
-        Cliente yo = new Cliente("matiasanz", "123", "matias", "godinez", "_@mail.com", new Direccion("Mi casa"));
-        yo.getDireccionesConocidas().add(new Direccion("La casa de mi tia"));
+        Cliente yo = ProveedorDeClientes.matias();
         RepoClientes.instance.agregar(yo);
     }
 }
