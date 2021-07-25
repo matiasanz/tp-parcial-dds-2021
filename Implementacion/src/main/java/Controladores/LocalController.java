@@ -192,7 +192,7 @@ public class LocalController {
             lista.add(0, elem);
             return elem;
 
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException |IndexOutOfBoundsException e){
             throw new PedidoIncompletoException(atributo);
         }
     }
