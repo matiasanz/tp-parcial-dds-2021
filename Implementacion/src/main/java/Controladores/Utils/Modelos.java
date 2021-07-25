@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public interface Modelos {
+
     static String parseEnum(Enum<?> unEnum){
         String string = unEnum.toString().toLowerCase().replace('_', ' ');
         return StringUtils.capitalize(string);
