@@ -60,6 +60,8 @@ public class Routes {
         Spark.get("/locales", localesController::getLocales, engine);
         Spark.post("/locales", duenioLocalController::agregarLocal, engine);
         Spark.get("/locales/crear", duenioLocalController::formularioCreacionLocal, engine);
+        Spark.post("/locales/:id/platos", duenioLocalController::agregarPlato, engine);
+        Spark.get("/locales/:id/platos/crear", duenioLocalController::formularioCreacionPlato, engine);
         Spark.get("/locales/:id", localController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localController::getPlato, engine);
         Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);

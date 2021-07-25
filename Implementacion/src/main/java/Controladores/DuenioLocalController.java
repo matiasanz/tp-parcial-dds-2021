@@ -5,6 +5,7 @@ import Local.CategoriaLocal;
 import Local.Contacto;
 import Local.Local;
 import Pedidos.Direccion;
+import Platos.PlatoSimple;
 import Repositorios.RepoLocales;
 import spark.ModelAndView;
 import spark.Request;
@@ -32,6 +33,27 @@ public class DuenioLocalController {
         return null;
     }
 
+    public ModelAndView agregarPlato(Request request, Response response) {
+        Long id = new Long(request.params("id"));
+        Local local = RepoLocales.instance.getLocal(id);
+        String nombre = request.queryParams("nombre");
+        Double precio = new Double(request.queryParams("precio"));
+
+        PlatoSimple platoSimple = new PlatoSimple(nombre,precio);
+        local.agregarPlato(platoSimple);
+
+        response.redirect(URIs.LOCAL(local.getId()));
+        return null;
+    }
+
+    public ModelAndView formularioCreacionPlato(Request request, Response response) {
+        Long id = new Long(request.params("id"));
+        Local local = RepoLocales.instance.getLocal(id);
+        Map<String, Object> model = new HashMap<>();
+        model.put("id",id);
+        return new ModelAndView(model, "plato-crear.html.hbs");
+    }
+
     public ModelAndView formularioCreacionLocal(Request request, Response response) {
         Map<String, Object> model = new HashMap<>();
         model.put("categorias",(getCategorias()));
@@ -41,4 +63,6 @@ public class DuenioLocalController {
     public List<CategoriaLocal> getCategorias(){
         return Arrays.asList(CategoriaLocal.values());
     }
+
+
 }

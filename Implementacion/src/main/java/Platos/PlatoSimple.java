@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class PlatoSimple extends Plato {
-    public PlatoSimple(String nombre, Double precio, List<String> ingredientes){
+    public PlatoSimple(String nombre, Double precio){
         super(nombre);
         this.precio = BigDecimal.valueOf(precio);
     }
