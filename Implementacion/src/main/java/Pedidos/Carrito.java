@@ -73,12 +73,12 @@ public class Carrito {
     }
 
     public Double getPrecioFinal(){
-        double pf = getSubtotal() - descuento.calcularSobre(getSubtotal());
+        double pf = getSubtotal() - descuentoPorCupon();
         return redondear(pf);
     }
 
     public Double getSubtotal(){
-        double st = getPrecioBase() - cliente.descuentoPorCategoria(getPrecioBase());
+        double st = getPrecioBase() - descuentoPorCategoria();
         return redondear(st);
     }
 
@@ -87,11 +87,20 @@ public class Carrito {
         return redondear(pb);
     }
 
+    public Double descuentoPorCupon(){
+        double dp = descuento.calcularSobre(getSubtotal());
+        return redondear(dp);
+    }
+
+    public Double descuentoPorCategoria(){
+        double dc = cliente.descuentoPorCategoria(getPrecioBase());
+        return redondear(dc);
+    }
+
     private Double redondear(double precio){
         BigDecimal bd = BigDecimal.valueOf(precio);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
 
         return bd.doubleValue();
     }
-
 }

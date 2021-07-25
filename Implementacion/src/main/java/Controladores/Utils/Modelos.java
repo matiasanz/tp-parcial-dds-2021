@@ -47,8 +47,8 @@ public interface Modelos {
             .con("direccion"     , (direccion==null)? null : direccion.getCalle())
             .con("items"         , carrito.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("precioBase"    , carrito.getPrecioBase())
-            .con("dtoCategoria"  , carrito.getPrecioBase() - carrito.getSubtotal())
-            .con("dtoCupon"      , carrito.getSubtotal()   - carrito.getPrecioFinal())
+            .con("dtoCategoria"  , carrito.descuentoPorCategoria())
+            .con("dtoCupon"      , carrito.descuentoPorCupon())
             .con("precioFinal"   , carrito.getPrecioFinal())
             ;
     }
