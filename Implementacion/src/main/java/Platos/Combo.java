@@ -18,6 +18,10 @@ public class Combo extends Plato {
         return platos.stream().mapToDouble(Plato::getPrecio).sum();
     }
 
+    public List<Plato> getPlatos() {
+        return platos;
+    }
+
     public void agregarPlato(Plato plato){
         platos.add(plato);
     }
