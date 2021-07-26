@@ -1,4 +1,5 @@
-package Controladores;
+package Controladores.Cliente;
+import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Controladores.Utils.Templates;
@@ -43,7 +44,7 @@ public class HomeController {
         return pedidosPorCategoria().entrySet().stream()
             .sorted(Map.Entry.comparingByValue())
             .map(Map.Entry::getKey)
-            .map(Modelos::parseEnum)
+            .map(Modelos::parseModel)
             .collect(Collectors.toList());
     }
 

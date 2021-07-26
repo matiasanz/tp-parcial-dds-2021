@@ -1,6 +1,8 @@
 package Main;
 
 import Controladores.*;
+import Controladores.Cliente.*;
+import Controladores.Locales.DuenioLocalController;
 import Controladores.Utils.URIs;
 import Repositorios.*;
 import Usuarios.Cliente;
@@ -11,7 +13,7 @@ import java.util.*;
 
 import static spark.Spark.after;
 
-public class Routes {
+public class RoutesClientes {
     //Repositorios
     private final RepoClientes repoClientes = RepoClientes.instance;
     private final Autenticador<Cliente> autenticadorClientes = new Autenticador<>(repoClientes);
@@ -32,7 +34,7 @@ public class Routes {
     //Ejecutable
     public static void main(String[] args) {
         Bootstrap.main(args);
-        new Routes().execute(args);
+        new RoutesClientes().execute(args);
     }
 
     public void execute(String[] args) {
@@ -55,8 +57,6 @@ public class Routes {
             }
         });
 
-        rutasDelLocal();
-
         Spark.get("/signup", signupController::getRegistroClientes, engine);
         Spark.post("/clientes", signupController::registrarCliente, engine);
         Spark.get("/", loginController::getLogin, engine);
@@ -73,15 +73,6 @@ public class Routes {
 
 
         System.out.println("Servidor iniciado correctamente");
-    }
-
-    private void rutasDelLocal(){
-        Spark.post("/locales", duenioLocalController::agregarLocal, engine);
-        Spark.get("/locales/crear", duenioLocalController::formularioCreacionLocal, engine);
-        Spark.post("/locales/:id/platos", duenioLocalController::agregarPlato, engine);
-        Spark.get("/locales/:id/platos/nuevo", duenioLocalController::formularioCreacionPlato, engine);
-        Spark.get("/locales/:id/platos/nuevo-combo", duenioLocalController::formularioCreacionCombo, engine);
-        Spark.post("/locales/:id/platos/nuevo-combo", duenioLocalController::agregarComponenteACombo, engine);
     }
 
     private boolean uriExceptuadaDeAutenticar(String uri) {

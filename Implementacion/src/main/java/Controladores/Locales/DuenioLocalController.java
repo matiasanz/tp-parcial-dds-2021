@@ -1,4 +1,4 @@
-package Controladores;
+package Controladores.Locales;
 
 import Controladores.Utils.Modelo;
 import Controladores.Utils.URIs;
@@ -106,7 +106,7 @@ public class DuenioLocalController {
         return new ModelAndView(modelo, "combo-crear.html.hbs");
     }
 
-    public ModelAndView agregarComponenteACombo(Request req, Response res){
+    public ModelAndView agregarPlatoACombo(Request req, Response res){
         Optional<ComboBorrador> comboBorrador = getBorrador(req, res);
         comboBorrador.ifPresent(
             borrador -> {

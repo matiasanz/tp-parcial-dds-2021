@@ -1,5 +1,6 @@
-package Controladores;
+package Controladores.Cliente;
 
+import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;

@@ -1,20 +1,13 @@
-package Controladores;
+package Controladores.Cliente;
 
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Controladores.Utils.Templates;
-import Controladores.Utils.URIs;
 import Local.Local;
-import Pedidos.Carrito;
-import Platos.Plato;
 import Repositorios.RepoLocales;
-import Usuarios.Cliente;
-import Utils.Exceptions.LocalInexistenteException;
-import Utils.Exceptions.PlatoInexistenteException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import sun.net.www.protocol.http.HttpURLConnection;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,7 +47,7 @@ public class LocalesController {
 
     private List<String> getCategorias(){
         List<String> categorias = Arrays.stream(CategoriaLocal.values())
-            .map(Modelos::parseEnum)
+            .map(Modelos::parseModel)
             .collect(Collectors.toList());
 
         categorias.add(0, "Todas");

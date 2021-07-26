@@ -7,14 +7,13 @@ import Pedidos.Pedido;
 import Platos.Plato;
 import com.sun.xml.internal.ws.util.StringUtils;
 
-import javax.jws.WebParam;
 import java.time.LocalDateTime;
-import java.util.Locale;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public interface Modelos {
 
-    static String parseEnum(Enum<?> unEnum){
+    static String parseModel(Enum<?> unEnum){
         String string = unEnum.toString().toLowerCase().replace('_', ' ');
         return StringUtils.capitalize(string);
     }
@@ -28,7 +27,7 @@ public interface Modelos {
     static Modelo parseModel(Local local){
         return new Modelo("nombre", local.getNombre())
             .con("idLocal", local.getId())
-            .con("categorias", local.getCategorias().stream().map(Modelos::parseEnum).collect(Collectors.toList()))
+            .con("categorias", local.getCategorias().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion().getCalle());
     }
