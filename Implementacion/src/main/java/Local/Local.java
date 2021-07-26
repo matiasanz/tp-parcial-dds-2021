@@ -3,6 +3,7 @@ package Local;
 import Pedidos.Direccion;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
+import Platos.ComboBorrador;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
 import Utils.Exceptions.PlatoInexistenteException;
@@ -20,6 +21,7 @@ public class Local extends Identificable {
     List<Plato> menu = new ArrayList<>();
     List<String> fotos = new LinkedList<>();
     List<CategoriaLocal> categorias = new ArrayList<>();
+    ComboBorrador borrador = new ComboBorrador(this);
 
     public Local(String nombre, Direccion direccion, Contacto contacto, CategoriaLocal categoria) {
         this.nombre = nombre;
@@ -70,5 +72,13 @@ public class Local extends Identificable {
 
     public void rechazarPedido(Pedido pedido){
         pedido.setEstado(EstadoPedido.RECHAZADO);
+    }
+
+    public ComboBorrador getBorrador(){
+        return borrador;
+    }
+
+    public void resetBorrador(){
+        borrador = new ComboBorrador(this);
     }
 }

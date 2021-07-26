@@ -52,16 +52,14 @@ public class Routes {
             }
         });
 
+        rutasDelLocal();
+
         Spark.get("/signup", signupController::getRegistroClientes, engine);
         Spark.post("/clientes", signupController::registrarCliente, engine);
         Spark.get("/", loginController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);
         Spark.get("/locales", localesController::getLocales, engine);
-        Spark.post("/locales", duenioLocalController::agregarLocal, engine);
-        Spark.get("/locales/crear", duenioLocalController::formularioCreacionLocal, engine);
-        Spark.post("/locales/:id/platos", duenioLocalController::agregarPlato, engine);
-        Spark.get("/locales/:id/platos/crear", duenioLocalController::formularioCreacionPlato, engine);
         Spark.get("/locales/:id", localController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localController::getPlato, engine);
         Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);
@@ -72,6 +70,15 @@ public class Routes {
 
 
         System.out.println("Servidor iniciado correctamente");
+    }
+
+    private void rutasDelLocal(){
+        Spark.post("/locales", duenioLocalController::agregarLocal, engine);
+        Spark.get("/locales/crear", duenioLocalController::formularioCreacionLocal, engine);
+        Spark.post("/locales/:id/platos", duenioLocalController::agregarPlato, engine);
+        Spark.get("/locales/:id/platos/nuevo", duenioLocalController::formularioCreacionPlato, engine);
+        Spark.get("/locales/:id/platos/nuevo-combo", duenioLocalController::formularioCreacionCombo, engine);
+        Spark.post("/locales/:id/platos/nuevo-combo", duenioLocalController::agregarComponenteACombo, engine);
     }
 
     private boolean uriExceptuadaDeAutenticar(String uri) {
