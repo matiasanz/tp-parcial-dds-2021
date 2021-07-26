@@ -5,15 +5,24 @@ import Usuarios.Cliente;
 
 public class Habitual extends CategoriaCliente {
 
-    String nombre= "habitual";
-    int valorTope = 700;
+    double precioMinimoDescuento = 700.0;
 
     @Override
-    public double calcularTotal(Pedido pedido, Cliente cliente) {
-        if (pedido.subtotal() > valorTope) {
-            return pedido.subtotal() - pedido.subtotal() * 0.5;
-        } else {
-            return pedido.subtotal();
-        }
+    public String getNombre(){
+        return "Habitual";
+    }
+
+    @Override
+    public double descuentoPorCategoria(double importe, Cliente cliente) {
+        return porcentajeDescuento(importe)*importe;
+    }
+
+    private float porcentajeDescuento(double importe){
+        return importe>precioMinimoDescuento? 0.5f: 0f;
+    }
+
+    @Override
+    public void notificarPedido(Pedido pedido, Cliente cliente){
+        //Estado final
     }
 }

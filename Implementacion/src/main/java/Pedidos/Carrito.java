@@ -1,23 +1,29 @@
 package Pedidos;
 
 import Local.Local;
-import Platos.Plato;
+import Pedidos.Descuentos.Descuento;
+import Pedidos.Descuentos.SinDescuento;
+import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Locale;
 
 public class Carrito {
     static Long idPedido = 0L; //TODO: Esto se tiene que ir
 
+    private Cliente cliente;
     private Local local;
     private List<Item> items = new LinkedList<>();
     private Direccion direccion;
+    private Descuento descuento = new SinDescuento();
 
-    public Carrito(Local local){
+    public Carrito(Cliente cliente, Local local){
+        this.cliente = cliente;
         this.local=local;
     }
 
@@ -31,6 +37,11 @@ public class Carrito {
         return this;
     }
 
+    public Carrito conDescuento(Descuento descuento){
+        this.descuento = descuento;
+        return this;
+    }
+
     public void vaciar(){
         items = new ArrayList<>();
         direccion=null;
@@ -40,9 +51,13 @@ public class Carrito {
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
-        Pedido pedido = new Pedido(direccion, local, items);
+        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items);
         local.notificarPedido(pedido);
         return pedido;
+    }
+
+    public void sacarItem(int numero) {
+        items.remove(numero);
     }
 
     public Local getLocal(){
@@ -57,11 +72,35 @@ public class Carrito {
         return direccion;
     }
 
-    public BigDecimal getPrecio(){
-        return items.stream().map(Item::getPrecio).reduce(BigDecimal.ZERO, BigDecimal::add);
+    public Double getPrecioFinal(){
+        double pf = getSubtotal() - descuentoPorCupon();
+        return redondear(pf);
     }
 
-    public void sacarItem(int numero) {
-        items.remove(numero);
+    public Double getSubtotal(){
+        double st = getPrecioBase() - descuentoPorCategoria();
+        return redondear(st);
+    }
+
+    public Double getPrecioBase(){
+        double pb = items.stream().mapToDouble(Item::getPrecio).sum();
+        return redondear(pb);
+    }
+
+    public Double descuentoPorCupon(){
+        double dp = descuento.calcularSobre(getSubtotal());
+        return redondear(dp);
+    }
+
+    public Double descuentoPorCategoria(){
+        double dc = cliente.descuentoPorCategoria(getPrecioBase());
+        return redondear(dc);
+    }
+
+    private Double redondear(double precio){
+        BigDecimal bd = BigDecimal.valueOf(precio);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+        return bd.doubleValue();
     }
 }

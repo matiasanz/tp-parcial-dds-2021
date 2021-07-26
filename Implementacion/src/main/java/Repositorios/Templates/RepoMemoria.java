@@ -11,14 +11,9 @@ import java.util.stream.Stream;
 
 
 public abstract class RepoMemoria<T extends Identificable>{
-    private long idAutogenerado = 0L;
     private List<T> contenido = new ArrayList<>();
 
     public void agregar(T elemento){
-        if(elemento.getId()==null){
-            elemento.setId(idAutogenerado++);
-        }
-
         contenido.add(elemento);
     }
 

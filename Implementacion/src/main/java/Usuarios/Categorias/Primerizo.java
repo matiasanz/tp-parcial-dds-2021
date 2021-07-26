@@ -1,21 +1,30 @@
 package Usuarios.Categorias;
 
+import MediosContacto.Notificacion;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Cliente;
 import Utils.ProveedorDeNotif;
 
 public class Primerizo extends CategoriaCliente {
-    String nombre = "primerizo";
-    Ocasional ocasional;
+
+    private float porcentajeDescuento = 0.3f;
 
     @Override
-    public double calcularTotal(Pedido pedido,  Cliente cliente) {
-        return 0;
+    public String getNombre() {
+        return "Primerizo";
+    }
+
+    @Override
+    public double descuentoPorCategoria(double precio, Cliente cliente) {
+        return porcentajeDescuento*precio;
+    }
+
+    public CategoriaCliente siguienteCategoria(){
+        return new Ocasional();
     }
 
     public void notificarPedido(Pedido pedido, Cliente cliente){
-        cliente.setCategoria(ocasional);
-        cliente.notificar(ProveedorDeNotif.notificacionAscensoDeCategoria(cliente, ocasional));
+        cambiarDeCategoria(cliente, siguienteCategoria());
     }
 }
