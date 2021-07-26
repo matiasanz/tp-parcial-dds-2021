@@ -7,8 +7,9 @@
 
     <body>
         <section id="Registro-clientes">
-            <h2>Regsitrarse</h2>
-            <form action="/clientes" method="POST">
+            <h2>Registrarse</h2>
+            <form action="/usuarios" method="POST">
+                <h3>Datos del dueño</h3>
                 <label>Nombre: </label>
                 <input type="text" name="nombre"><br>
 
@@ -32,6 +33,23 @@
 
                 <input name="notif_mail" type="checkbox"> Deseo recibir las notificaciones también por mail<br>
 
+                {{#if local}}
+                <div id="datos_local">
+                <h3>Datos del Local</h3>
+                <label>Nombre: </label>
+                <input type="text" name="nombreLocal"><br>
+
+                <label>Calle: </label>
+                <input type="text" name="calleLocal"><br>
+
+                <label>Categoria </label>
+                <select class="form-control" name="categoriaLocal">
+                    {{#categorias}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/categorias}}
+                </select>
+                </div>
+                {{/if}}
                 <input type="submit" value="Registrarme"><p style="color:Red;">{{mensaje}}</p><br>
             </form>
         </section>

@@ -4,6 +4,7 @@ import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;
 import MediosContacto.NotificadorPush;
 import Pedidos.Descuentos.Descuento;
+import Pedidos.Direccion;
 import Repositorios.Templates.Identificable;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public abstract class Usuario extends Identificable {
         this.mail=mail;
     }
 
+    //TODO: BOrrar
     public Usuario(String nombre, String mail){
         this.nombre=nombre;
         this.mail=mail;

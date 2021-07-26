@@ -45,7 +45,7 @@ public class LocalesController {
                 .anyMatch(s->unparseEnum(categoria).equals(s));
     }
 
-    private List<String> getCategorias(){
+    public List<String> getCategorias(){
         List<String> categorias = Arrays.stream(CategoriaLocal.values())
             .map(Modelos::parseModel)
             .collect(Collectors.toList());

@@ -26,7 +26,6 @@ public class RoutesClientes {
     private final LocalesController localesController = new LocalesController(repoLocales);
     private final LocalController localController = new LocalController(repoLocales, autenticadorClientes);
     private final PedidosController pedidosController = new PedidosController(autenticadorClientes);
-    private final DuenioLocalController duenioLocalController = new DuenioLocalController();
 
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -50,15 +49,13 @@ public class RoutesClientes {
         Spark.before((request, response)->{
             System.out.println(request.requestMethod()+request.uri());
 
-            if(request.uri().startsWith("/comerciantes")){
-
-            } else if(!uriExceptuadaDeAutenticar(request.uri())){
+            if(!uriExceptuadaDeAutenticar(request.uri())){
                 autenticadorClientes.reautenticar(request, response);
             }
         });
 
         Spark.get("/signup", signupController::getRegistroClientes, engine);
-        Spark.post("/clientes", signupController::registrarCliente, engine);
+        Spark.post("/usuarios", signupController::registrarCliente, engine);
         Spark.get("/", loginController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);

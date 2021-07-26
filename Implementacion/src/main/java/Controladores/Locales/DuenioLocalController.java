@@ -1,5 +1,6 @@
 package Controladores.Locales;
 
+import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.URIs;
 import Local.CategoriaLocal;
@@ -11,6 +12,7 @@ import Platos.ComboBorrador;
 import Platos.Plato;
 import Platos.PlatoSimple;
 import Repositorios.RepoLocales;
+import Repositorios.Templates.RepoUsuarios;
 import Utils.Exceptions.LocalInexistenteException;
 import Utils.Exceptions.PlatoInexistenteException;
 import spark.ModelAndView;
@@ -22,9 +24,19 @@ import java.util.*;
 
 public class DuenioLocalController {
 
+    Autenticador<Contacto> autenticador;
     RepoLocales repoLocales = RepoLocales.instance;
 
+    public DuenioLocalController(Autenticador<Contacto> autenticador, RepoLocales repoLocales){
+        this.autenticador = autenticador;
+        this.repoLocales=repoLocales;
+    }
+
     public ModelAndView agregarLocal(Request request, Response response) {
+
+        //TODO: Reciclar metodo de signup controller
+
+//******************************************************
         String nombre = request.queryParams("nombre");
         String calle = request.queryParams("calle");
         Direccion direccion = new Direccion(calle);
@@ -162,6 +174,7 @@ public class DuenioLocalController {
         return new ModelAndView(model, "local-crear.html.hbs");
     }
 
+    //TODO: Reciclar de localesController
     public List<CategoriaLocal> getCategorias(){
         return Arrays.asList(CategoriaLocal.values());
     }

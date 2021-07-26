@@ -1,6 +1,7 @@
 package Local;
 
 import MediosContacto.MedioDeContacto;
+import Pedidos.Direccion;
 import Platos.Combo;
 import Usuarios.Usuario;
 
@@ -15,7 +16,16 @@ public class Contacto extends Usuario {
         super(mail, nombre);
     }
 
+    public Contacto(String usuario, String contrasenia, String nombre, String apellido, String mail, Local local) {
+        super(usuario, contrasenia, nombre, apellido, mail);
+        this.local=local;
+    }
+
     public Local getLocal() {
         return local;
+    }
+
+    public void setLocal(Local local) {
+        this.local=local;
     }
 }

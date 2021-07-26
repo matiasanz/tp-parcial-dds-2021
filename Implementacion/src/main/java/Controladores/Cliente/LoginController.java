@@ -6,6 +6,7 @@ import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
 import Repositorios.RepoClientes;
 import Usuarios.Cliente;
+import Usuarios.Usuario;
 import Utils.Exceptions.ClienteInexistenteException;
 import Utils.Exceptions.ContraseniaIncorrectaException;
 import Utils.Exceptions.UsuarioInexistenteException;
@@ -18,11 +19,11 @@ import java.util.Map;
 
 public class LoginController {
 
-    public LoginController(Autenticador<Cliente> autenticador){
+    public LoginController(Autenticador<?> autenticador){
         this.autenticador = autenticador;
     }
 
-    private final Autenticador<Cliente> autenticador;
+    private final Autenticador<?> autenticador;
     private final String MENSAJE_TOKEN = "mensaje";
 
     public ModelAndView getLogin(Request request, Response response) {
