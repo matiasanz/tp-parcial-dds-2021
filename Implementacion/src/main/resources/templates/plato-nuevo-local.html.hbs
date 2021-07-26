@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pedidos Ya</title>
+    </head>
+
+    <body>
+        <section id="Registro-platos">
+            <h2>Crear Plato</h2>
+            <form action="/locales/{{id}}/platos" method="POST">
+                <label>Nombre del plato: </label>
+                <input type="text" name="nombre"><br>
+
+                <label>Precio: </label>
+                <input type="text" name="precio"><br>
+
+                <label>Ingredientes: </label>
+                <input type="text" name="ingredientes"><br>
+
+                <input type="hidden" name="tipo" value="simple"><br>
+
+                <input type="submit" value="Crear Plato"><p style="color:Red;">{{mensaje}}</p><br>
+            </form>
+        </section>
+    </body>
+</html>

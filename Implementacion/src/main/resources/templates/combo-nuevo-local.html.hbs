@@ -1,0 +1,41 @@
+//combos
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pedidos Ya</title>
+    </head>
+
+    <body>
+        <section id="Registro-combos">
+            <h2>Crear Plato</h2>
+            >
+                <label>Nombre del combo: </label>
+                <input type="text" name="nombre" required><br>
+
+                <input type="hidden" name="tipo" value="combo"><br>
+
+                <input type="submit" value="Crear combo"><p style="color:Red;">{{mensaje}}</p><br>
+            </form>
+        </section>
+
+        <section>
+            <h3>Componentes: </h3>
+
+            <ul>
+                {{#componentes}}
+                    <li>{{nombre}}</li>
+                {{/componentes}}
+            </ul>
+
+                <label>Agregar plato:</label>
+                <select name="idPlato">
+                    {{#platosDelLocal}}
+                        <option value={{id}}>{{nombre}}</option>
+                    {{/platosDelLocal}}
+                </select>
+                <input type="submit">
+            </form>
+
+        </section>
+    </body>
+</html>
