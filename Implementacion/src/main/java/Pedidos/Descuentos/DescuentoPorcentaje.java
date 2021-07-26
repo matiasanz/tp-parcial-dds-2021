@@ -2,14 +2,14 @@ package Pedidos.Descuentos;
 
 import Usuarios.Cliente;
 
-import java.time.LocalDateTime;
-
 public class DescuentoPorcentaje implements Descuento{
-    public DescuentoPorcentaje(float porcentaje){
+    public DescuentoPorcentaje(float porcentaje, int cuantosPedidos){
         this.porcentaje = porcentaje;
+        this.cuantosPedidos = cuantosPedidos;
     }
 
     private float porcentaje;
+    private int cuantosPedidos;
 
     @Override
     public Double calcularSobre(double precio){
@@ -18,11 +18,14 @@ public class DescuentoPorcentaje implements Descuento{
 
     @Override
     public String getDetalle(){
-        return porcentaje+"% en una compra";
+        return porcentaje+"% en "+ cuantosPedidos +" pedido/s";
     }
 
     @Override
     public void notificarUso(Cliente cliente){
-        cliente.quitarDescuento(this);
+        cuantosPedidos--;
+        if(cuantosPedidos <=0){
+            cliente.quitarDescuento(this);
+        }
     }
 }
