@@ -10,11 +10,16 @@ public class PlatoSimple extends Plato {
     public PlatoSimple(String nombre, Double precio,  List<String> ingredientes){
         super(nombre);
         this.precio = BigDecimal.valueOf(precio);
+        this.ingredientes = ingredientes;
     }
 
 
     @Override
     public BigDecimal getPrecio() {
         return precio;
+    }
+
+    public List<String> getIngredientes() {
+        return ingredientes;
     }
 }
