@@ -1,7 +1,9 @@
 package Repositorios.Templates;
 
 public abstract class Identificable {
-    private Long id;
+    static long idGenerado = 0L; //TODO: Sacar
+
+    private Long id = idGenerado++;
 
     public void setId(long id){
         this.id= id;
