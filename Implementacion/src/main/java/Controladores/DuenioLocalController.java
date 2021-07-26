@@ -11,10 +11,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DuenioLocalController {
 
@@ -38,8 +35,9 @@ public class DuenioLocalController {
         Local local = RepoLocales.instance.getLocal(id);
         String nombre = request.queryParams("nombre");
         Double precio = new Double(request.queryParams("precio"));
+        List<String> ingredientes = Collections.singletonList(request.queryParams("ingredientes"));
 
-        PlatoSimple platoSimple = new PlatoSimple(nombre,precio);
+        PlatoSimple platoSimple = new PlatoSimple(nombre,precio,ingredientes);
         local.agregarPlato(platoSimple);
 
         response.redirect(URIs.LOCAL(local.getId()));
