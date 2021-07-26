@@ -30,7 +30,7 @@ public class PlatosController {
             .map(Modelos::parseModel)
             .collect(Collectors.toList());
 
-        return new ModelAndView(new Modelo("platos", platos), "#TODO");
+        return new ModelAndView(new Modelo("platos", platos), "home-local.html.hbs");
     }
 
     public ModelAndView getPedidos(Request req, Response res){
@@ -41,10 +41,10 @@ public class PlatosController {
             .map(Modelos::parseModel)
             .collect(Collectors.toList());
 
-        return new ModelAndView(new Modelo("pedidos", pedidos), "#TODO");
+        return new ModelAndView(new Modelo("pedidos", pedidos), "pedidos-local.html.hbs");
     }
 
     public ModelAndView getLogin(Request request, Response response) {
-        return new ModelAndView(null, "#TODO");
+        return new ModelAndView(null, "login.html.hbs");
     }
 }

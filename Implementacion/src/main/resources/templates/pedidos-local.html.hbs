@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pedidos</title>
+</head>
+<body>
+    <h1>Historial de pedidos</h1>
+
+    <section id="pedidos">
+        <ul>
+            {{#pedidos}}
+                <li>
+                    <h3> <a href="/pedidos/{{id}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
+                    <strong> Fecha: </strong> {{fecha}} <br>
+                    <strong> Importe: </strong> ${{importe}} <br>
+                </li>
+
+            {{/pedidos}}
+        </ul>
+    </section>
+</body>
+</html>
