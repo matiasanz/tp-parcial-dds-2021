@@ -10,13 +10,20 @@ import Pedidos.Direccion;
 import Repositorios.RepoClientes;
 import Usuarios.Cliente;
 import Utils.Exceptions.ContraseniasDistintasException;
+import Utils.Exceptions.DatosInvalidosException;
+import Utils.Exceptions.MailNoEnviadoException;
 import Utils.Exceptions.NombreOcupadoException;
+import Utils.ProveedorDeNotif;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class SignupController {
     private RepoClientes repoClientes;
@@ -48,6 +55,7 @@ public class SignupController {
         String direccion=req.queryParams("direccion");
 
         try{
+            validarNoNull(usuario, contrasenia, nombre, apellido, mail, direccion);
             validarContraseniasIguales(contrasenia, req.queryParams("contraseniaDuplicada"));
             Cliente nuevoCliente = new Cliente(usuario, contrasenia, nombre, apellido, mail, new Direccion(direccion));
 
@@ -56,18 +64,33 @@ public class SignupController {
                 aceptado->nuevoCliente.agregarMedioDeContacto(mailSender)
             );
 
+            nuevoCliente.notificar(ProveedorDeNotif.notificacionBienvenida(nuevoCliente));
+
             repoClientes.agregar(nuevoCliente);
             autenticador.guardarCredenciales(req, nuevoCliente);
             res.status(java.net.HttpURLConnection.HTTP_ACCEPTED);
             res.redirect(URIs.HOME);
 
-        } catch (NombreOcupadoException | ContraseniasDistintasException e){
-            res.cookie(ERROR_TOKEN, e.getMessage());
-            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
-            res.redirect(URIs.SIGNUP);
+        } catch (NombreOcupadoException | ContraseniasDistintasException e) {
+            manejarError(res, e.getMessage());
+        } catch (MailNoEnviadoException e){
+            manejarError(res, "Se produjo un error al intentar comunicarnos con su cuenta de mail");
         }
 
         return null;
+    }
+
+    private void manejarError(Response res, String mensaje){
+        res.cookie(ERROR_TOKEN, mensaje);
+        res.status(HttpURLConnection.HTTP_BAD_REQUEST);
+        res.redirect(URIs.SIGNUP);
+    }
+
+    private void validarNoNull(String ... args){
+        List<String> recibidos = Arrays.asList(args);
+        if(recibidos.stream().anyMatch(Objects::isNull) || recibidos.stream().anyMatch(String::isEmpty)){
+            throw new DatosInvalidosException();
+        }
     }
 
     private void validarContraseniasIguales(String contrasenia, String duplicada) {

@@ -4,26 +4,25 @@
     <title>Locales</title>
 </head>
 <body>
-    <H3>{{nombre}}</H3>
+    <H2>{{nombre}}</H2>
     <section id="info-local">
-        <div id="datos-localizacion">
-            Datos del Local:
-            <ul>
-                <li><Strong>Direccion: </Strong>{{Direccion}}</li>
-            </ul>
-        </div>
-        <div id="Categorias">
-            Categorias:
-            <ul>
-                {{#categorias}}
-                    <li>{{this}}</li>
-                {{/categorias}}
-            </ul>
-        </div>
+        <h3>Datos del Local:</h3>
+        <ul>
+            <li><Strong>Direccion: </Strong>{{Direccion}}</li>
+            <br>
+            <li><strong>Categorias:</strong>
+                <br>
+                <ul>
+                    {{#categorias}}
+                        <li><a href="/locales?categoria={{this}}">{{this}}</a></li><br>
+                    {{/categorias}}
+                </ul>
+            </li>
+        </ul>
     </section>
 
     <section id="Menu">
-        Menu:
+        <h3>Menu:</h3>
         <ul>
             {{#Platos}}
                 <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
@@ -45,12 +44,25 @@
                             <option value={{@index}}>{{calle}}</option><br>
                         {{/direcciones}}
                     </select>
+                    <br>
+
+                    <label>Descuento </label>
+                    <select id="descuentos" name="descuento" form="form_envio">
+                        {{#descuentos}}
+                            <option value={{@index}}>{{detalle}}</option><br>
+                        {{/descuentos}}
+                    </select>
+                    <br>
                     <input type="submit" value="Finalizar" form="form_envio"><p style="color:Red;">{{error}}</p><br>
                 </form>
 
-                <div>
-                    <p>Monto a pagar: ${{precio}}</p>
+                <div id="precio">
+                    <p>Precio Base: ${{precioBase}}</p>
+                    <p>>     Descuento por cliente {{categoria}}: -${{dtoCategoria}}</p>
+                    <p>>     Descuento por cupones: -${{dtoCupon}}</p>
+                    <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
                 </div>
+
             </section>
             <section id="items">
                 <p>Items:</p>

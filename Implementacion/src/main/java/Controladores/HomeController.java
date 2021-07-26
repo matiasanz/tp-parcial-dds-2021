@@ -1,5 +1,6 @@
 package Controladores;
 import Controladores.Utils.Modelo;
+import Controladores.Utils.Modelos;
 import Controladores.Utils.Templates;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
@@ -38,10 +39,11 @@ public class HomeController {
         return repoLocales.ordenadosPor(this::cantidadPedidosMensuales);
     }
 
-    private List<CategoriaLocal> rankingCategorias(){
+    private List<String> rankingCategorias(){
         return pedidosPorCategoria().entrySet().stream()
             .sorted(Map.Entry.comparingByValue())
             .map(Map.Entry::getKey)
+            .map(Modelos::parseEnum)
             .collect(Collectors.toList());
     }
 

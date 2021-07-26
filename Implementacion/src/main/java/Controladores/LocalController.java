@@ -7,12 +7,12 @@ import Local.Local;
 import Local.Contacto;
 import Local.CategoriaLocal;
 import Pedidos.Carrito;
+import Pedidos.Descuentos.Descuento;
 import Pedidos.Direccion;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.RepoLocales;
-import Repositorios.RepoPedidos;
 import Usuarios.Cliente;
 import Utils.Exceptions.LocalInexistenteException;
 import Utils.Exceptions.PedidoIncompletoException;
@@ -26,7 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import static Controladores.Utils.Modelos.parseModel;
 
 public class LocalController {
 
@@ -54,7 +56,9 @@ public class LocalController {
 
         Modelo modelo = parseModel(local.get())
             .con(parseModel(carrito))
+            .con("categoria", cliente.getCategoria().getNombre())
             .con("direcciones", cliente.getDireccionesConocidas())
+            .con("descuentos", cliente.getDescuentos())
             .con(ERROR_TOKEN, mensaje);
 
         return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
@@ -116,11 +120,18 @@ public class LocalController {
             try {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
-                Pedido pedido = carrito.conDireccion(getDireccion(request)).build();
+                Descuento descuento = getDescuento(request);
+                Pedido pedido = carrito.conDireccion(getDireccion(request))
+                    .conDescuento(descuento)
+                    .build();
+
+                descuento.notificarUso(cliente);
                 cliente.agregarPedido(pedido);
-                int id = cliente.getPedidosRealizados().size() - 1;
-                response.redirect(URIs.PEDIDO((long) id));
+
+                int numeroDePedido = cliente.getPedidosRealizados().size() - 1;
+                response.redirect(URIs.PEDIDO((long) numeroDePedido));
                 carrito.vaciar();
+
             } catch (PedidoIncompletoException e){
                 request.session().attribute(ERROR_TOKEN, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
@@ -156,52 +167,37 @@ public class LocalController {
         });
     }
 
-    //TODO: Modelos ************************************************
-
-    private Modelo parseModel(Local local){
-        return new Modelo("nombre", local.getNombre())
-            .con("idLocal", local.getId())
-            .con("categorias", local.getCategorias())
-            .con("Platos", local.getMenu().stream().map(this::parseModel).collect(Collectors.toList()))
-            .con("Direccion", local.getDireccion().getCalle());
-    }
-
-    private Modelo parseModel(Plato plato){
-        return new Modelo("nombre", plato.getNombre())
-            .con("precio", plato.getPrecio())
-            .con("idPlato", plato.getId());
-    }
-
     private Long parseIdFromParams(String id, Request req){
         return Long.parseLong(req.params(id));
     }
 
-    private Modelo parseModel(Carrito carrito){
-        Direccion direccion = carrito.getDireccion();
-
-        return new Modelo("local", carrito.getLocal().getNombre())
-            .con("precio", carrito.getPrecio())
-            .con("idLocal", carrito.getLocal().getId())
-            .con("direccion", (direccion==null)? null : direccion.getCalle())
-            .con("items", carrito.getItems().stream().map(this::parseModel).collect(Collectors.toList()));
+    private Direccion getDireccion(Request request){
+        return getAtributoDeLista(request
+            , "direccion"
+            , Cliente::getDireccionesConocidas
+        );
     }
 
-    Modelo parseModel(Item item){
-        return new Modelo("plato", item.getPlato().getNombre())
-            .con("aclaraciones", item.getAclaraciones())
-            .con("cantidad", item.getCantidad());
+    private Descuento getDescuento(Request request){
+        return getAtributoDeLista(request
+            , "descuento"
+            , Cliente::getDescuentos
+        );
     }
 
-    private Direccion getDireccion(Request req){
+    private <T> T getAtributoDeLista(Request req, String atributo, Function<Cliente, List<T>> obtencion){
         try{
-            List<Direccion> direcciones = autenticadorClientes.getUsuario(req)
-                .getDireccionesConocidas();
-            Direccion direccion = direcciones.get(Integer.parseInt(req.queryParams("direccion")));
-            direcciones.remove(direccion);
-            direcciones.add(0, direccion);
-            return direccion;
-        } catch (NumberFormatException e){
-            throw new PedidoIncompletoException("direccion");
+            Cliente cliente = autenticadorClientes.getUsuario(req);
+
+            List<T> lista = obtencion.apply(cliente);
+
+            T elem = lista.get(Integer.parseInt(req.queryParams(atributo)));
+            lista.remove(elem);
+            lista.add(0, elem);
+            return elem;
+
+        } catch (NumberFormatException |IndexOutOfBoundsException e){
+            throw new PedidoIncompletoException(atributo);
         }
     }
 }

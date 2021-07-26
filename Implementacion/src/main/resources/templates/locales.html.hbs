@@ -6,11 +6,24 @@
 <body>
 
 <section>
+    <div id="categorias">
+        <form id="filtro_categorias" action="/locales" method="GET">
+            <label> Categorías </label>
+            <select name="categoria" form="filtro_categorias" onchange="this.form.submit()">
+                {{#categorias}}
+                <option value="{{this}}">{{this}}</option>
+                {{/categorias}}
+            </select>
+        </form>
+    </div>
+
     <div id="locales">
         Locales:
         <ul>
         {{#Locales}}
             <li><a href="/locales/{{id}}">{{nombre}}</a></li>
+        {{else}}
+            Ningún local se encuentra asociado a la categoría {{categoria}}
         {{/Locales}}
         </ul>
     </div>

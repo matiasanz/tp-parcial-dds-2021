@@ -3,6 +3,7 @@ package Usuarios;
 import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;
 import MediosContacto.NotificadorPush;
+import Pedidos.Descuentos.Descuento;
 import Repositorios.Templates.Identificable;
 
 import java.util.ArrayList;
@@ -20,6 +21,11 @@ public abstract class Usuario extends Identificable {
         this.mail=mail;
     }
 
+    public Usuario(String nombre, String mail){
+        this.nombre=nombre;
+        this.mail=mail;
+    }
+
     private String username;
     private String password;
     public String mail;
@@ -30,11 +36,6 @@ public abstract class Usuario extends Identificable {
     private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
 
     private List<Notificacion> notificacionesPush = new LinkedList<>();
-
-    public Usuario(String mail, String nombre) {
-        this.mail = mail;
-        this.nombre = nombre;
-    }
 
     //Credenciales
     public String getUsername(){
@@ -49,11 +50,9 @@ public abstract class Usuario extends Identificable {
     public String getNombre() {
         return nombre;
     }
-
     public String getApellido() {
         return apellido;
     }
-
     public String getMail() { return mail; }
 
     //Notificaciones

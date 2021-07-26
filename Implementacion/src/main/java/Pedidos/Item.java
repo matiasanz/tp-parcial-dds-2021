@@ -32,7 +32,7 @@ public class Item {
         return aclaraciones.equals("")? "-": aclaraciones;
     }
 
-    public BigDecimal getPrecio() {
-        return plato.getPrecio().multiply(BigDecimal.valueOf(cantidad));
+    public Double getPrecio() {
+        return plato.getPrecio()*cantidad;
     }
 }

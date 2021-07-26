@@ -1,29 +1,40 @@
 package Usuarios.Categorias;
 
+import Pedidos.Carrito;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
 import Utils.ProveedorDeNotif;
 
 public class Frecuente extends CategoriaCliente{
 
-    String nombre = "frecuente";
-    int cantidadComprasParaPertenecer = 25;
-    Habitual habitual;
+    int pedidosParaCambio = 30;
+    int pedidosHechos = 0;
+    private int cadaCuantosDescuento = 15;
 
     @Override
-    public double calcularTotal(Pedido pedido, Cliente cliente) {
-        if((cliente.getCantidadComprasHechas()%20)==0){ //cada 20 compras, un dto
-            return 0;
-        }
-        else{
-            return pedido.subtotal();
-        }
+    public String getNombre(){
+        return "Frecuente";
+    }
+
+    @Override
+    public double descuentoPorCategoria(double importe, Cliente cliente) {
+        return leTocaDescuento(cliente)? importe: 0;
+    }
+
+    private boolean leTocaDescuento(Cliente cliente){
+        return pedidosHechos % cadaCuantosDescuento == 0;
+    }
+
+    public CategoriaCliente siguienteCategoria(){
+        return new Habitual();
     }
 
     public void notificarPedido(Pedido pedido, Cliente cliente) {
-        if (cliente.getCantidadComprasHechas() > cantidadComprasParaPertenecer) {
-            cliente.setCategoria(habitual);
-            cliente.notificar(ProveedorDeNotif.notificacionAscensoDeCategoria(cliente, habitual));
+        pedidosHechos++ ;
+
+        if (cliente.getCantidadComprasHechas() > pedidosParaCambio) {
+            cambiarDeCategoria(cliente, siguienteCategoria());
         }
     }
+
 }
