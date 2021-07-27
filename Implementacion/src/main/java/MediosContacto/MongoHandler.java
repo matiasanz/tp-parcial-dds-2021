@@ -1,3 +1,5 @@
+package MediosContacto;
+
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.ServerAddress;
@@ -26,6 +28,14 @@ public class MongoHandler {
     public void iniciarConexion(){
         mongoClient = new MongoClient("localhost");
         database = mongoClient.getDatabase("logs");
+    }
+
+    public void crearColeccion(String collectionName){
+        database.createCollection(collectionName);
+    }
+
+    public void obtenerDb(String dbName){
+        database = mongoClient.getDatabase(dbName);
     }
 
     public void traerColeccion(String collectionName){

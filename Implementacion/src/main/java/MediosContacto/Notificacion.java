@@ -20,6 +20,10 @@ public class Notificacion {
             return cuerpo;
         }
 
+    public String getFechaHora() {
+        return String.valueOf(fechaHora);
+    }
+
     public String toString(){
             return "["+getAsunto()+"] "+getCuerpo();
         }
