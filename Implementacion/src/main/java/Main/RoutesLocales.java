@@ -3,8 +3,9 @@ package Main;
 import Controladores.Autenticador;
 import Controladores.Cliente.LoginController;
 import Controladores.Locales.DuenioLocalController;
-import Controladores.Locales.PlatosController;
+import Controladores.Locales.MenuController;
 import Controladores.Locales.LocalSignupController;
+import Controladores.Utils.URIs;
 import Local.Contacto;
 import Repositorios.RepoContactos;
 import Repositorios.RepoLocales;
@@ -12,16 +13,19 @@ import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class RoutesLocales {
     //Repositorios
     private final RepoLocales repoLocales = RepoLocales.instance;
-    private final RepoContactos repoContactos = new RepoContactos();
+    private final RepoContactos repoContactos = RepoContactos.instance;
     private final Autenticador<Contacto> autenticador = new Autenticador<>(repoContactos);
 
     //Controladores
     private final LoginController loginController = new LoginController(autenticador);
     private final DuenioLocalController duenioLocalController = new DuenioLocalController(autenticador, repoLocales);
-    private final PlatosController platosController = new PlatosController(repoLocales, autenticador);
+    private final MenuController platosController = new MenuController(repoLocales, autenticador);
     private final LocalSignupController signupController = new LocalSignupController(repoContactos, repoLocales);
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -42,20 +46,39 @@ public class RoutesLocales {
 
         Spark.staticFileLocation("/public");
 
-        Spark.get("/signup", signupController::getFormRegistro, engine);
-        Spark.post("/usuarios", signupController::registrarUsuario, engine);
-        Spark.get("/", platosController::getLogin, engine);
+        Spark.before((request, response)->{
+            System.out.println(request.requestMethod()+request.uri());
+
+            if(!uriExceptuadaDeAutenticar(request.uri())){
+                autenticador.reautenticar(request, response);
+            }
+        });
+
+        Spark.get(URIs.SIGNUP, signupController::getFormRegistro, engine);
+        Spark.post(URIs.SIGNUP, signupController::registrarUsuario, engine);
+        Spark.get("/", duenioLocalController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/signup", duenioLocalController::formularioCreacionLocal, engine);
-        Spark.get("/home", platosController::getHomeLocal, engine);
-        Spark.get("/locales/:id/pedidos", platosController::getPedidos, engine);
-   //     Spark.get("/locales/:id", duenioLocalController::getPedido, engine);
-//        Spark.get("/locales/:id", duenioLocalController::getLocal, engine);
-        Spark.get("/locales/:id/platos/nuevo", duenioLocalController::formularioCreacionPlato, engine);
-        Spark.get("/locales/:id/platos/nuevo-combo", duenioLocalController::formularioCreacionCombo, engine);
-        Spark.post("/locales/:id/platos/nuevo-combo", duenioLocalController::agregarPlatoACombo, engine);
-        Spark.post("/locales/:id/platos", duenioLocalController::agregarPlato, engine);
-//        Spark.get("/locales/:id/platos/:id", duenioLocalController::getPlato, engine);
+        Spark.get(URIs.HOME, duenioLocalController::getHomeLocal, engine);
+        Spark.get("/pedidos", duenioLocalController::getPedidos, engine);
+        Spark.get("/pedidos/:nroPedido", duenioLocalController::getPedido, engine);
+        Spark.post("/platos", platosController::agregarPlato, engine);
+        Spark.get("/platos/nuevo", platosController::formularioCreacionPlato, engine);
+        Spark.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);
+        Spark.post("/platos/nuevo-combo", platosController::agregarPlatoACombo, engine);
+        Spark.get("/platos/:id", platosController::getPlato, engine);
+
         System.out.println("Servidor iniciado correctamente");
+    }
+
+    private boolean uriExceptuadaDeAutenticar(String uri) {
+        List<String> urisExceptuadas = Arrays.asList(
+            URIs.LOGIN
+            , "/login"
+            , URIs.SIGNUP
+            , "/usuarios"
+        );
+
+        return urisExceptuadas.stream().anyMatch(uri::equalsIgnoreCase);
     }
 }

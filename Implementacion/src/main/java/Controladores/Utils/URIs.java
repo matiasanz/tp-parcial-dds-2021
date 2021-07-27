@@ -9,6 +9,9 @@ public interface URIs {
     String SIGNUP = "/signup";
     String PEDIDOS = "/pedidos";
 
+    //Locales
+    String CREACION_COMBO = "/platos/nuevo-combo";
+
     static String LOCAL(Long idLocal) {
         return LOCALES+"/"+idLocal;
     }
@@ -19,10 +22,6 @@ public interface URIs {
 
     static String PLATOS(Long idLocal){
         return LOCAL(idLocal)+"/platos";
-    }
-
-    static String CREACION_COMBO(Long idLocal) {
-        return PLATOS(idLocal)+"/nuevo-combo";
     }
 
     static String CREAR_PLATO(Long idLocal){

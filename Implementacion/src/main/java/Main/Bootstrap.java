@@ -35,5 +35,6 @@ public class Bootstrap {
 
         Contacto romi = ProveedorDeContactos.romina();
         RepoContactos.instance.agregar(romi);
+        RepoLocales.instance.agregar(romi.getLocal());
     }
 }

@@ -54,20 +54,19 @@ public class RoutesClientes {
             }
         });
 
-        Spark.get("/signup", signupController::getFormRegistro, engine);
-        Spark.post("/usuarios", signupController::registrarUsuario, engine);
+        Spark.get(URIs.SIGNUP, signupController::getFormRegistro, engine);
+        Spark.post(URIs.SIGNUP, signupController::registrarUsuario, engine);
         Spark.get("/", loginController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
-        Spark.get("/home", homeController::getHome, engine);
-        Spark.get("/locales", localesController::getLocales, engine);
+        Spark.get(URIs.HOME, homeController::getHome, engine);
+        Spark.get(URIs.LOCALES, localesController::getLocales, engine);
         Spark.get("/locales/:id", localController::getLocal, engine);
         Spark.get("/locales/:id/platos/:idPlato", localController::getPlato, engine);
         Spark.post("/locales/:idLocal/carrito", localController::agregarItem, engine);
         Spark.post("/locales/:idLocal/carrito/:item", localController::eliminarItem, engine);
-        Spark.post("/pedidos", localController::finalizarPedido, engine);
-        Spark.get("/pedidos", pedidosController::getPedidos, engine);
+        Spark.post(URIs.PEDIDOS, localController::finalizarPedido, engine);
+        Spark.get(URIs.PEDIDOS, pedidosController::getPedidos, engine);
         Spark.get("/pedidos/:id", pedidosController::getPedido, engine);
-
 
         System.out.println("Servidor iniciado correctamente");
     }

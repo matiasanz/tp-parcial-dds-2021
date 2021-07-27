@@ -6,6 +6,7 @@ import java.util.List;
 public class PlatoSimple extends Plato {
     List<String> ingredientes; //TODO: ver despues como implementamos esto
     Double precio;
+    String descripcion;
 
     public PlatoSimple(String nombre, Double precio,  List<String> ingredientes){
         super(nombre);
@@ -20,5 +21,10 @@ public class PlatoSimple extends Plato {
 
     public List<String> getIngredientes() {
         return ingredientes;
+    }
+
+    @Override
+    public String getDescripcion(){
+        return descripcion;
     }
 }

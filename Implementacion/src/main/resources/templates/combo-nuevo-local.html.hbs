@@ -1,4 +1,3 @@
-//combos
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,6 +6,7 @@
 
     <body>
         <section id="Registro-combos">
+            <form action="/platos" method="POST">
             <h2>Crear Plato</h2>
             >
                 <label>Nombre del combo: </label>
@@ -27,6 +27,7 @@
                 {{/componentes}}
             </ul>
 
+            <form action="/platos/nuevo-combo" method="POST">
                 <label>Agregar plato:</label>
                 <select name="idPlato">
                     {{#platosDelLocal}}

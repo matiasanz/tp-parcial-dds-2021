@@ -14,7 +14,7 @@
                 <br>
                 <ul>
                     {{#categorias}}
-                        <li><a href="/locales?categoria={{this}}">{{this}}</a></li><br>
+                        <li>{{this}}</li><br>
                     {{else}}
                         <p>Su local no se encuentra asociado a ninguna categoría</p>
                     {{/categorias}}
@@ -26,10 +26,13 @@
     <section id="Menu">
         <h3>Menu:</h3>
         <ul>
-            {{#platos}}
+            {{#Platos}}
                 <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
             {{else}}
                 <p>Aún no se registraron platos</p>
-            {{/platos}}
+            {{/Platos}}
         </ul>
+
+        <a href="/platos/nuevo">agregar plato</a>
+        <a href="/platos/nuevo-combo">armar combo</a>
     </section>

@@ -22,12 +22,6 @@ public abstract class Usuario extends Identificable {
         this.mail=mail;
     }
 
-    //TODO: BOrrar
-    public Usuario(String nombre, String mail){
-        this.nombre=nombre;
-        this.mail=mail;
-    }
-
     private String username;
     private String password;
     public String mail;

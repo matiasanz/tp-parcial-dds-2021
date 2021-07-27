@@ -27,4 +27,5 @@ public abstract class Plato extends Identificable {
     }
 
     public abstract Double getPrecio();
+    public abstract String getDescripcion();
 }

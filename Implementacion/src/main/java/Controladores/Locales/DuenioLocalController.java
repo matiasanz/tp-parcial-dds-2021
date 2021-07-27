@@ -1,12 +1,12 @@
 package Controladores.Locales;
 
 import Controladores.Autenticador;
-import Controladores.Utils.Modelo;
-import Controladores.Utils.URIs;
+import Controladores.Utils.*;
 import Local.CategoriaLocal;
 import Local.Contacto;
 import Local.Local;
 import Pedidos.Direccion;
+import Pedidos.Pedido;
 import Platos.Combo;
 import Platos.ComboBorrador;
 import Platos.Plato;
@@ -21,161 +21,59 @@ import spark.Response;
 
 import java.net.HttpURLConnection;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static Controladores.Utils.Modelos.parseModel;
 
 public class DuenioLocalController {
 
     Autenticador<Contacto> autenticador;
-    RepoLocales repoLocales = RepoLocales.instance;
+    RepoLocales repoLocales;
+    private ErrorHandler errorHandler = new ErrorHandler();
 
     public DuenioLocalController(Autenticador<Contacto> autenticador, RepoLocales repoLocales){
         this.autenticador = autenticador;
         this.repoLocales=repoLocales;
     }
 
-    public ModelAndView agregarLocal(Request request, Response response) {
-
-        //TODO: Reciclar metodo de signup controller
-
-//******************************************************
-        String nombre = request.queryParams("nombre");
-        String calle = request.queryParams("calle");
-        Direccion direccion = new Direccion(calle);
-        String nombreContacto = request.queryParams("nombreContacto");
-        String mail = request.queryParams("mail");
-        Contacto contacto = new Contacto(mail,nombreContacto);
-        CategoriaLocal categoria_id = CategoriaLocal.valueOf((request.queryParams("categoria_id")));
-        Local local = new Local(nombre,direccion,contacto,categoria_id);
-        repoLocales.agregar(local);
-
-        response.redirect(URIs.LOCALES);
-        return null;
+    public ModelAndView getLogin(Request request, Response response) {
+        return new ModelAndView(new Modelo("mensaje", errorHandler.getMensaje(request)), Templates.LOGIN);
     }
 
-    public ModelAndView agregarPlato(Request request, Response response){
-        switch(request.queryParams("tipo")){
-            case "simple": {
-                return agregarPlatoSimple(request, response);
-            }
-            case "combo": {
-                return agregarCombo(request, response);
-            }
-            default: {
-                response.status(HttpURLConnection.HTTP_BAD_REQUEST);
-                response.redirect(URIs.LOCAL(Long.parseLong(request.queryParams("id"))));
-                return null;
-            }
-        }
+    public ModelAndView getHomeLocal(Request req, Response res){
+        Contacto duenio = autenticador.getUsuario(req);
+        return new ModelAndView(parseModel(duenio.getLocal()), "home-local.html.hbs");
     }
 
-    public ModelAndView agregarPlatoSimple(Request request, Response response) {
-        Long id = new Long(request.params("id"));
-        Local local = repoLocales.getLocal(id);
-        String nombre = request.queryParams("nombre");
-        Double precio = new Double(request.queryParams("precio"));
-        List<String> ingredientes = Collections.singletonList(request.queryParams("ingredientes"));
-
-        PlatoSimple platoSimple = new PlatoSimple(nombre,precio,ingredientes);
-        local.agregarPlato(platoSimple);
-
-        response.redirect(URIs.PLATO(platoSimple.getId(), local.getId()));
-        return null;
-    }
-
-    public ModelAndView formularioCreacionPlato(Request request, Response response) {
-        Long id = new Long(request.params("id"));
-        Local local = repoLocales.getLocal(id);
-        Map<String, Object> model = new HashMap<>();
-        model.put("id",id);
-        return new ModelAndView(model, "plato-crear.html.hbs");
-    }
-
-    private Optional<ComboBorrador> getBorrador(Request req, Response res){
-        try{
-            long idLocal = Long.parseLong(req.params("id"));
-            Local local = repoLocales.getLocal(idLocal);
-            return Optional.of(local.getBorrador());
-        } catch (LocalInexistenteException | NumberFormatException e){
-            res.redirect(URIs.LOCALES);
-            return Optional.empty();
-        }
-    }
-
-    public ModelAndView formularioCreacionCombo(Request req, Response res){
-        Optional<ComboBorrador> comboBorrador = getBorrador(req, res);
-
-        if(!comboBorrador.isPresent()){
-            return null;
-        }
-
-        ComboBorrador borrador = comboBorrador.get();
-
-        Modelo modelo = new Modelo("idLocal", borrador.getLocal().getId())
-            .con("nombre", borrador.getNombre())
-            .con("componentes", borrador.getPlatos())
-            .con("platosDelLocal", borrador.getLocal().getMenu())
-        ;
-
-        return new ModelAndView(modelo, "combo-crear.html.hbs");
-    }
-
-    public ModelAndView agregarPlatoACombo(Request req, Response res){
-        Optional<ComboBorrador> comboBorrador = getBorrador(req, res);
-        comboBorrador.ifPresent(
-            borrador -> {
-                Local local =borrador.getLocal();
-
-                try{
-                    Plato plato = local.getPlato(Long.parseLong(req.queryParams("idPlato")));
-                    borrador.agregarPlato(plato);
-                    res.status(HttpURLConnection.HTTP_OK);
-                    res.redirect(URIs.CREACION_COMBO(local.getId()));
-
-                } catch (PlatoInexistenteException | NumberFormatException e){
-                    res.status(HttpURLConnection.HTTP_NOT_FOUND);
-                    res.redirect(URIs.CREACION_COMBO(local.getId()));
-                }
-            }
-        );
-
-        return null;
-    }
-
-    public ModelAndView agregarCombo(Request req, Response res){
-        Optional<ComboBorrador> comboBorrador = getBorrador(req, res);
-
-        comboBorrador.ifPresent(
-            borrador ->{
-                Local local = borrador.getLocal();
-                try{
-                    System.out.println(req.queryParams("nombre"));
-                    borrador.setNombre(req.queryParams("nombre"));
-                    Combo nuevoCombo = borrador.crearCombo();
-                    local.agregarPlato(nuevoCombo);
-                    local.resetBorrador();
-                    res.status(HttpURLConnection.HTTP_OK);
-                    res.redirect(URIs.PLATO(nuevoCombo.getId(), local.getId()));
-                } catch (RuntimeException e){
-                    System.out.println(e.getMessage());
-                    //TODO: Mostrar mensaje de error
-                    //TODO: Cambiar runtimeException por ComboInvalidoException o una cosa asi
-                    res.status(HttpURLConnection.HTTP_BAD_REQUEST);
-                    res.redirect(URIs.CREACION_COMBO(local.getId()));
-                }
-            }
-        );
-
-        return null;
-
-    }
 
     public ModelAndView formularioCreacionLocal(Request request, Response response) {
         Map<String, Object> model = new HashMap<>();
-        model.put("categorias",(getCategorias()));
+        model.put("categorias",(Modelos.getCategorias()));
         return new ModelAndView(model, "local-crear.html.hbs");
     }
 
-    //TODO: Reciclar de localesController
-    public List<CategoriaLocal> getCategorias(){
-        return Arrays.asList(CategoriaLocal.values());
+    public ModelAndView getPedidos(Request req, Response res){
+        Contacto duenio = autenticador.getUsuario(req);
+
+        List<Modelo> pedidos = duenio.getLocal().getPedidosRecibidos()
+            .stream()
+            .map(Modelos::parseModel)
+            .collect(Collectors.toList());
+
+        return new ModelAndView(new Modelo("pedidos", pedidos), "pedidos-local.html.hbs");
+    }
+
+    public ModelAndView getPedido(Request request, Response response) {
+        Contacto duenio = autenticador.getUsuario(request);
+        try{
+            int nroPedido = Integer.parseInt(request.params("nroPedido"));
+            Pedido pedido = duenio.getLocal().getPedidosRecibidos().get(nroPedido);
+            return new ModelAndView(parseModel(pedido), "pedido-local.html.hbs");
+
+        } catch (NumberFormatException | IndexOutOfBoundsException e){
+            response.status(HttpURLConnection.HTTP_NOT_FOUND);
+            response.redirect("/pedidos");
+            return null;
+        }
     }
 }
