@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class RoutesTemplate {
     private final int puerto;
     private final List<String> urisExceptuadasDeAutenticar = Arrays.asList(
-        URIs.LOGIN
+        "/"
         , "/login"
         , URIs.SIGNUP
         , "/usuarios"
