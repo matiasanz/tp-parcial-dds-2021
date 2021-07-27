@@ -1,29 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
+{{#partial "titulo"}}
     <title>Plato</title>
-</head>
-<body>
+{{/partial}}
 
-<nav>
-    <H3>{{nombre}}</H3>
-    <section id="plato">
-        Datos del plato:
-        <ul>
-            <li><Strong>Precio: </Strong>${{precio}}</li>
-        </ul>
-    </section>
+{{#partial "contenido"}}
+    <nav>
+        <H3>{{nombre}}</H3>
+        <section id="plato">
+            Datos del plato:
+            <ul>
+                <li><Strong>Precio: </Strong>${{precio}}</li>
+            </ul>
+        </section>
 
-    <section id="compra">
-        <form action="/locales/{{idLocal}}/carrito" method="POST">
-            <input type="hidden" name="idPlato" value="{{idPlato}}" />
-            <label>Cantidad</label>
-            <input type="number" name="cantidad" required="required"> <br>
-            <label>Aclaraciones</label>
-            <input type="text" name="aclaraciones" id="idAclaraciones"> <br>
-            <input type="submit" value="Agregar al carrito"><p style="color:Red;">{{mensaje}}</p>
-        </form>
-    </section>
-</nav>
-</body>
-</html>
+        <section id="compra">
+            <form action="/locales/{{idLocal}}/carrito" method="POST">
+                <input type="hidden" name="idPlato" value="{{idPlato}}" />
+                <label>Cantidad</label>
+                <input type="number" name="cantidad" required="required"> <br>
+                <label>Aclaraciones</label>
+                <input type="text" name="aclaraciones" id="idAclaraciones"> <br>
+                <input type="submit" value="Agregar al carrito"><p style="color:Red;">{{mensaje}}</p>
+            </form>
+        </section>
+    </nav>
+{{/partial}}
+
+{{>layout_cliente.html.hbs}}

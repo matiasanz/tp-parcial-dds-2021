@@ -1,45 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Local</title>
-</head>
-<body>
-    <H2>{{nombre}}</H2>
-    <section id="info-local">
-        <h3>Datos del Local:</h3>
-        <ul>
-            <li><Strong>Direccion: </Strong>{{Direccion}}</li>
-            <br>
-            <li><strong>Categorias:</strong>
+    {{#partial "titulo"}}
+        <title>Local</title>
+    {{/partial}}
+
+    {{#partial "contenido"}}
+        <H2>{{nombre}}</H2>
+        <section id="info-local">
+            <h3>Datos del Local:</h3>
+            <ul>
+                <li><Strong>Direccion: </Strong>{{Direccion}}</li>
                 <br>
-                <ul>
-                    {{#categorias}}
-                        <li>{{this}}</li><br>
-                    {{else}}
-                        <p>Su local no se encuentra asociado a ninguna categoría</p>
-                    {{/categorias}}
-                </ul>
-            </li>
-        </ul>
-    </section>
+                <li><strong>Categorias:</strong>
+                    <br>
+                    <ul>
+                        {{#categorias}}
+                            <li>{{this}}</li><br>
+                        {{else}}
+                            <p>Su local no se encuentra asociado a ninguna categoría</p>
+                        {{/categorias}}
+                    </ul>
+                </li>
+            </ul>
+        </section>
 
-    <section id="Menu">
-        <h3>Menu:</h3>
-        <ul>
-            {{#Platos}}
-                <li><a href="/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
-            {{else}}
-                <p>Aún no se registraron platos</p>
-            {{/Platos}}
-        </ul>
+        <section id="Menu">
+            <h3>Menu:</h3>
+            <ul>
+                {{#Platos}}
+                    <li><a href="/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
+                {{else}}
+                    <p>Aún no se registraron platos</p>
+                {{/Platos}}
+            </ul>
 
 
-        <form method="get" action="/platos/nuevo">
-             <button type="submit">Agregar Plato</button>
-        </form>
+            <form method="get" action="/platos/nuevo">
+                <button type="submit">Agregar Plato</button>
+            </form>
 
-        <form method="get" action="/platos/nuevo-combo">
-             <button type="submit">Armar Combo</button>
-        </form>
+            <form method="get" action="/platos/nuevo-combo">
+                <button type="submit">Armar Combo</button>
+            </form>
 
-    </section>
+        </section>
+    {{/partial}}
+
+{{>layout_local.html.hbs}}

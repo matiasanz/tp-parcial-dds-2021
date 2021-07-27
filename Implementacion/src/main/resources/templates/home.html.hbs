@@ -1,32 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-<header>
-    <p>¡Saboreá las mejores comedias sin moverte de tu casa!</p>
-</header>
 
-<section id="recomendaciones">
-    <div id="top locales">
-        Top Locales:
-        <ol>
-        {{#Locales}}
-            <li><a href="/locales/{{id}}">{{nombre}}</a></li>
-        {{/Locales}}
-        </ol>
-    </div>
+    {{#partial "titulo"}}
+        <title>Home</title>
+    {{/partial}}
 
-    <div id="top Categorias">
-        Top Categorias:
-        <ol>
-        {{#Categorias}}
-            <li><a href="/locales?categoria={{this}}">{{this}}</a></li>
-        {{/Categorias}}
-        </ol>
-    </div>
-</section>
+    {{#partial "contenido"}}
+        <p>¡Saboreá las mejores comedias sin moverte de tu casa!</p>
 
-</body>
-</html>
+        <section id="recomendaciones">
+            <div id="top locales">
+                Top Locales:
+                <ol>
+                    {{#Locales}}
+                        <li><a href="/locales/{{id}}">{{nombre}}</a></li>
+                    {{/Locales}}
+                </ol>
+            </div>
+
+            <div id="top Categorias">
+                Top Categorias:
+                <ol>
+                    {{#Categorias}}
+                        <li><a href="/locales?categoria={{this}}">{{this}}</a></li>
+                    {{/Categorias}}
+                </ol>
+            </div>
+        </section>
+
+    {{/partial}}
+
+{{> layout_cliente.html.hbs }}

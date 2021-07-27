@@ -1,31 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
+{{#partial "titulo"}}
     <title>Pedido</title>
-</head>
-<body>
+{{/partial}}
 
-<nav>
-    <H3>Pedido #{{id}}</H3>
-    <section id="datos_pedido">
-        <ul>
-            <li><strong>Estado:</strong> {{estado}}</li>
-            <li><strong>Precio:</strong> ${{importe}}</li>
-            <li><strong>Direccion:</strong> {{direccion}}</li>
-        </ul>
-    </section>
-    <section id="items">
-        <p>Items:</p>
-        <ul>
-            {{#items}}
-                <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br></br>
-            {{/items}}
-        </ul>
-    </section>
+{{#partial "contenido"}}
+    <nav>
+        <H3>Pedido #{{id}}</H3>
+        <section id="datos_pedido">
+            <ul>
+                <li><strong>Estado:</strong> {{estado}}</li>
+                <li><strong>Precio:</strong> ${{importe}}</li>
+                <li><strong>Direccion:</strong> {{direccion}}</li>
+            </ul>
+        </section>
+        <section id="items">
+            <p>Items:</p>
+            <ul>
+                {{#items}}
+                    <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br></br>
+                {{/items}}
+            </ul>
+        </section>
 
-    <section>
-        <a href="/pedidos">Ver todos los pedidos</a>
-    </section>
-</nav>
-</body>
-</html>
+        <section>
+            <a href="/pedidos">Ver todos los pedidos</a>
+        </section>
+    </nav>
+{{/partial}}
+
+{{>layout_local.html.hbs}}

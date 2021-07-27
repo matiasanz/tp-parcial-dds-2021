@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Pedidos Ya</title>
-    </head>
+<!-- Local -->
 
-    <body>
+    {{#partial "titulo"}}
+        <title>Nuevo Combo</title>
+    {{/partial}}
+
+    {{#partial "contenido"}}
         <section id="Registro-combos">
             <form action="/platos" method="POST">
             <h2>Crear Plato</h2>
@@ -38,5 +38,6 @@
             </form>
 
         </section>
-    </body>
-</html>
+    {{/partial}}
+
+{{> layout_local.html.hbs }}

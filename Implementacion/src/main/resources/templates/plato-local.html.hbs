@@ -1,21 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
+{{#partial "titulo"}}
     <title>Plato</title>
-</head>
-<body>
+{{/partial}}
 
-<nav>
-    <H3>{{nombre}}</H3>
-    <section id="plato">
-        Datos del plato:
-        <ul>
-            <li><strong>Nombre:</strong> {{nombre}}</li>
-            <li><Strong>Descripcion: </Strong>{{descripcion}}</li>
-            <li><Strong>Precio: </Strong>${{precio}}</li>
-        </ul>
-    </section>
+{{#partial "contenido"}}
+    <nav>
+        <H3>{{nombre}}</H3>
+        <section id="plato">
+            Datos del plato:
+            <ul>
+                <li><strong>Nombre:</strong> {{nombre}}</li>
+                <li><Strong>Descripcion: </Strong>{{descripcion}}</li>
+                <li><Strong>Precio: </Strong>${{precio}}</li>
+            </ul>
+        </section>
 
-</nav>
-</body>
-</html>
+    </nav>
+
+{{/partial}}
+{{>layout_local.html.hbs}}

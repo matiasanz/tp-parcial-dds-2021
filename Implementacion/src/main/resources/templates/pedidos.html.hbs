@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
+{{#partial "titulo"}}
     <title>Pedidos</title>
-</head>
-<body>
+{{/partial}}
+
+{{#partial "contenido"}}
     <h1>Historial de pedidos</h1>
 
     <section id="pedidos">
@@ -21,5 +20,6 @@
             {{/pedidos}}
         </ul>
     </section>
-</body>
-</html>
+{{/partial}}
+
+{{>layout_cliente.html.hbs}}
