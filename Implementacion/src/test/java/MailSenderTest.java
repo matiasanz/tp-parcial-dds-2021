@@ -2,6 +2,7 @@ import Local.Contacto;
 import MediosContacto.MailSender;
 import MediosContacto.Notificacion;
 import Usuarios.Usuario;
+import org.junit.After;
 import org.junit.Test;
 
 
@@ -14,5 +15,7 @@ public class MailSenderTest {
         Usuario usuario = new Contacto("romimartinez5799@gmail.com","romina");
         notificadorMail.notificar(usuario, new Notificacion("Pedidos YA Testea", "te regalamos una orden de compras por 10000 pe (?"));
     }
+
+
 
 }
