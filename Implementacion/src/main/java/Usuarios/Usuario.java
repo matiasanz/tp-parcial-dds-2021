@@ -61,8 +61,9 @@ public abstract class Usuario extends Identificable {
         return notificacionesPush;
     }
 
-    public void agregarNotificacionPush(Notificacion notificacion) {
+    public void agregarNotificacionPushYLoguear(Notificacion notificacion) {
         notificacionesPush.add(notificacion);
+        notificacion.loguearme();
     }
 
     public void agregarMedioDeContacto(MedioDeContacto nuevoMedio){
