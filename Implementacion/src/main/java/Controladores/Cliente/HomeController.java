@@ -25,8 +25,7 @@ public class HomeController {
 
     public ModelAndView getHome(Request req, Response res){
 
-        Modelo modelo =
-            new Modelo("Locales", armarTop(rankingLocales()))
+        Modelo modelo = new Modelo("Locales", armarTop(rankingLocales()))
                 .con("Categorias", armarTop(rankingCategorias()));
 
         return new ModelAndView(modelo, Templates.HOME);

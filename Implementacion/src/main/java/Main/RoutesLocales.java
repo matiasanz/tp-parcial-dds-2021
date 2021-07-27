@@ -4,12 +4,10 @@ import Controladores.Autenticador;
 import Controladores.Cliente.LoginController;
 import Controladores.Locales.DuenioLocalController;
 import Controladores.Locales.PlatosController;
-import Controladores.Locales.SignupController;
+import Controladores.Locales.LocalSignupController;
 import Local.Contacto;
 import Repositorios.RepoContactos;
 import Repositorios.RepoLocales;
-import Repositorios.Templates.RepoMemoria;
-import Repositorios.Templates.RepoUsuarios;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -24,7 +22,7 @@ public class RoutesLocales {
     private final LoginController loginController = new LoginController(autenticador);
     private final DuenioLocalController duenioLocalController = new DuenioLocalController(autenticador, repoLocales);
     private final PlatosController platosController = new PlatosController(repoLocales, autenticador);
-    private final SignupController signupController = new SignupController(repoContactos, repoLocales);
+    private final LocalSignupController signupController = new LocalSignupController(repoContactos, repoLocales);
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
@@ -44,8 +42,8 @@ public class RoutesLocales {
 
         Spark.staticFileLocation("/public");
 
-        Spark.get("/signup", signupController::getRegistroClientes, engine);
-        Spark.post("/usuarios", signupController::registrarCliente, engine);
+        Spark.get("/signup", signupController::getFormRegistro, engine);
+        Spark.post("/usuarios", signupController::registrarUsuario, engine);
         Spark.get("/", platosController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/signup", duenioLocalController::formularioCreacionLocal, engine);

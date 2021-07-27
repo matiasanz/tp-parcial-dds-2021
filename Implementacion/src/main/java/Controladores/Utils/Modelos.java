@@ -8,10 +8,20 @@ import Platos.Plato;
 import com.sun.xml.internal.ws.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import Local.CategoriaLocal;
 
 public interface Modelos {
+
+    static List<String> getCategorias(){
+        List<String> categorias = Arrays.stream(CategoriaLocal.values())
+            .map(Modelos::parseModel)
+            .collect(Collectors.toList());
+
+        return categorias;
+    }
 
     static String parseModel(Enum<?> unEnum){
         String string = unEnum.toString().toLowerCase().replace('_', ' ');

@@ -20,7 +20,7 @@ public class RoutesClientes {
     private final RepoLocales repoLocales = RepoLocales.instance;
 
     //Controladores
-    private final SignupController signupController = new SignupController(repoClientes);
+    private final ClienteSignupController signupController = new ClienteSignupController(repoClientes);
     private final LoginController loginController = new LoginController(autenticadorClientes);
     private final HomeController homeController = new HomeController(autenticadorClientes, repoLocales);
     private final LocalesController localesController = new LocalesController(repoLocales);
@@ -54,8 +54,8 @@ public class RoutesClientes {
             }
         });
 
-        Spark.get("/signup", signupController::getRegistroClientes, engine);
-        Spark.post("/usuarios", signupController::registrarCliente, engine);
+        Spark.get("/signup", signupController::getFormRegistro, engine);
+        Spark.post("/usuarios", signupController::registrarUsuario, engine);
         Spark.get("/", loginController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/home", homeController::getHome, engine);
@@ -77,7 +77,7 @@ public class RoutesClientes {
             URIs.LOGIN
             , "/login"
             , URIs.SIGNUP
-            , "/clientes"
+            , "/usuarios"
         );
 
         return urisExceptuadas.stream().anyMatch(uri::equalsIgnoreCase);

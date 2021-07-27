@@ -3,12 +3,6 @@ package Local;
 import java.util.Arrays;
 
 public enum CategoriaLocal {
-    PARRILLA,
-    DESAYUNO,
-    COMIDA_RAPIDA,
-    VEGANO,
-    ARABE,
-    ORIENTAL,
-    VEGANA;
-
+    PIZZERIA, PARRILLA, COMIDA_RAPIDA, VEGANO, ARABE,
+    ORIENTAL, BUFFET, DE_AUTOR, FUSION, GOURMET, HELADERIA
 }

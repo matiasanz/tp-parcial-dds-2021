@@ -1,10 +1,7 @@
 package Usuarios.Categorias;
 
-import MediosContacto.Notificacion;
 import Pedidos.Pedido;
-import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Cliente;
-import Utils.ProveedorDeNotif;
 
 public class Primerizo extends CategoriaCliente {
 

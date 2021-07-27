@@ -1,4 +1,4 @@
-package Utils;
+package Utils.Factory;
 
 import MediosContacto.Notificacion;
 import Usuarios.Categorias.CategoriaCliente;

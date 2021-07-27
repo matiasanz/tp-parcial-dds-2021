@@ -30,7 +30,6 @@ public class LoginController {
         return new ModelAndView( generarModelo(request, response) , Templates.LOGIN);
     }
 
-    //TODO: Esto se repite para todos, cambiando el LOGIN y el HOME
     public ModelAndView tryLogin(Request req, Response res) {
         try{
             autenticador.autenticar(req,res);

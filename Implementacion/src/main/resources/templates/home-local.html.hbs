@@ -8,13 +8,15 @@
     <section id="info-local">
         <h3>Datos del Local:</h3>
         <ul>
-            <li><Strong>Direccion: </Strong>{{Direccion}}</li>
+            <li><Strong>Direccion: </Strong>{{direccion}}</li>
             <br>
             <li><strong>Categorias:</strong>
                 <br>
                 <ul>
                     {{#categorias}}
                         <li><a href="/locales?categoria={{this}}">{{this}}</a></li><br>
+                    {{else}}
+                        <p>Su local no se encuentra asociado a ninguna categoría</p>
                     {{/categorias}}
                 </ul>
             </li>
@@ -24,8 +26,10 @@
     <section id="Menu">
         <h3>Menu:</h3>
         <ul>
-            {{#Platos}}
+            {{#platos}}
                 <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
-            {{/Platos}}
+            {{else}}
+                <p>Aún no se registraron platos</p>
+            {{/platos}}
         </ul>
     </section>

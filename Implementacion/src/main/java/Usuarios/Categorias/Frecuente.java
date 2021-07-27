@@ -1,9 +1,7 @@
 package Usuarios.Categorias;
 
-import Pedidos.Carrito;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
-import Utils.ProveedorDeNotif;
 
 public class Frecuente extends CategoriaCliente{
 

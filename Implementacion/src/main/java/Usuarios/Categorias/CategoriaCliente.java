@@ -1,11 +1,8 @@
 package Usuarios.Categorias;
 
-import MediosContacto.MailSender;
-import MediosContacto.Notificacion;
-import MediosContacto.NotificadorPush;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
-import static Utils.ProveedorDeNotif.notificacionAscensoDeCategoria;
+import static Utils.Factory.ProveedorDeNotif.notificacionAscensoDeCategoria;
 
 public abstract class CategoriaCliente {
 

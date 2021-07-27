@@ -25,12 +25,7 @@ public class PlatosController {
 
     public ModelAndView getHomeLocal(Request req, Response res){
         Contacto duenio = autenticador.getUsuario(req);
-        List<Modelo> platos = duenio.getLocal().getMenu()
-            .stream()
-            .map(Modelos::parseModel)
-            .collect(Collectors.toList());
-
-        return new ModelAndView(new Modelo("platos", platos), "home-local.html.hbs");
+        return new ModelAndView(duenio.getLocal(), "home-local.html.hbs");
     }
 
     public ModelAndView getPedidos(Request req, Response res){
@@ -47,4 +42,7 @@ public class PlatosController {
     public ModelAndView getLogin(Request request, Response response) {
         return new ModelAndView(null, "login.html.hbs");
     }
+
+    //TODO ****************************************************************************
+
 }

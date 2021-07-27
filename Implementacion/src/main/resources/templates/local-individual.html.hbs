@@ -15,6 +15,8 @@
                 <ul>
                     {{#categorias}}
                         <li><a href="/locales?categoria={{this}}">{{this}}</a></li><br>
+                    {{else}}
+                        <p>-</p>
                     {{/categorias}}
                 </ul>
             </li>
@@ -26,6 +28,8 @@
         <ul>
             {{#Platos}}
                 <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
+            {{else}}
+                <p>Aún no se encuentran cargados los platos de este local, regrese más tarde</p>
             {{/Platos}}
         </ul>
     </section>
@@ -61,8 +65,8 @@
 
                 <div id="precio">
                     <p>Precio Base: ${{precioBase}}</p>
-                    <p>>     Descuento por cliente {{categoria}}: -${{dtoCategoria}}</p>
-                    <p>>     Descuento por cupones: -${{dtoCupon}}</p>
+                    <p>>     Descuento por cliente {{categoria}}: ${{dtoCategoria}}</p>
+                    <p>>     Descuento por cupones: ${{dtoCupon}}</p>
                     <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
                 </div>
 
