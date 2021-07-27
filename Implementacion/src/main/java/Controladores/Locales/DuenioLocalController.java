@@ -36,10 +36,6 @@ public class DuenioLocalController {
         this.repoLocales=repoLocales;
     }
 
-    public ModelAndView getLogin(Request request, Response response) {
-        return new ModelAndView(new Modelo("mensaje", errorHandler.getMensaje(request)), Templates.LOGIN);
-    }
-
     public ModelAndView getHomeLocal(Request req, Response res){
         Contacto duenio = autenticador.getUsuario(req);
         return new ModelAndView(parseModel(duenio.getLocal()), "home-local.html.hbs");

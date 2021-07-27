@@ -2,7 +2,6 @@ package Main;
 
 import Controladores.*;
 import Controladores.Cliente.*;
-import Controladores.Locales.DuenioLocalController;
 import Controladores.Utils.URIs;
 import Repositorios.*;
 import Usuarios.Cliente;
@@ -67,7 +66,7 @@ public class RoutesClientes {
         Spark.post(URIs.PEDIDOS, localController::finalizarPedido, engine);
         Spark.get(URIs.PEDIDOS, pedidosController::getPedidos, engine);
         Spark.get("/pedidos/:id", pedidosController::getPedido, engine);
-
+        Spark.get("/logout", loginController::logout, engine);
         System.out.println("Servidor iniciado correctamente");
     }
 

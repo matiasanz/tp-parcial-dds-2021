@@ -1,4 +1,4 @@
-package Controladores.Cliente;
+package Controladores;
 
 import Controladores.Autenticador;
 import Controladores.Utils.ErrorHandler;
@@ -41,6 +41,12 @@ public class LoginController {
             res.redirect(URIs.LOGIN);
         }
 
+        return null;
+    }
+
+    public ModelAndView logout(Request req, Response res){
+        autenticador.quitarCredenciales(req, res);
+        res.redirect(URIs.LOGIN);
         return null;
     }
 }

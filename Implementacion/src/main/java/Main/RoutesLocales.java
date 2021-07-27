@@ -1,7 +1,7 @@
 package Main;
 
 import Controladores.Autenticador;
-import Controladores.Cliente.LoginController;
+import Controladores.LoginController;
 import Controladores.Locales.DuenioLocalController;
 import Controladores.Locales.MenuController;
 import Controladores.Locales.LocalSignupController;
@@ -56,7 +56,7 @@ public class RoutesLocales {
 
         Spark.get(URIs.SIGNUP, signupController::getFormRegistro, engine);
         Spark.post(URIs.SIGNUP, signupController::registrarUsuario, engine);
-        Spark.get("/", duenioLocalController::getLogin, engine);
+        Spark.get("/", loginController::getLogin, engine);
         Spark.post("/login", loginController::tryLogin, engine);
         Spark.get("/signup", duenioLocalController::formularioCreacionLocal, engine);
         Spark.get(URIs.HOME, duenioLocalController::getHomeLocal, engine);
@@ -67,6 +67,7 @@ public class RoutesLocales {
         Spark.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);
         Spark.post("/platos/nuevo-combo", platosController::agregarPlatoACombo, engine);
         Spark.get("/platos/:id", platosController::getPlato, engine);
+        Spark.get("/logout", loginController::logout, engine);
 
         System.out.println("Servidor iniciado correctamente");
     }
