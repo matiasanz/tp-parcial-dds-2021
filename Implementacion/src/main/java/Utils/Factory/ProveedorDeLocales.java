@@ -9,7 +9,7 @@ import static Utils.Factory.ProveedorDeContactos.contactoStub;
 import java.util.Arrays;
 
 public class ProveedorDeLocales {
-    private static Plato platoStub = new PlatoSimple("Fideos con tuco", 900.0,Arrays.asList("fideos", "tuco"));
+    private static Plato platoStub = new PlatoSimple("Fideos con tuco","Tallarines con salsa de tomate y ajo",  900.0,Arrays.asList("fideos", "tuco"));
 
     public static Local cincoEsquinas(){
         Local local = new Local("5 esquinas", new Direccion("Calle falsa 123"), contactoStub(), CategoriaLocal.PARRILLA);

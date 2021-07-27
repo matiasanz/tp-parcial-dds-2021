@@ -8,10 +8,11 @@ public class PlatoSimple extends Plato {
     Double precio;
     String descripcion;
 
-    public PlatoSimple(String nombre, Double precio,  List<String> ingredientes){
+    public PlatoSimple(String nombre, String descripcion, Double precio,  List<String> ingredientes){
         super(nombre);
         this.precio = precio;
         this.ingredientes = ingredientes;
+        this.descripcion=descripcion;
     }
 
     @Override

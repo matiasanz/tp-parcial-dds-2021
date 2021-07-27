@@ -54,6 +54,7 @@ public class MenuController {
 
         PlatoSimple platoSimple = new PlatoSimple(
             request.queryParams("nombre")
+            , request.queryParams("descripcion")
             , new Double(request.queryParams("precio"))
             , Arrays.asList(request.queryParams("ingredientes"))
         );
@@ -126,7 +127,18 @@ public class MenuController {
 
     public ModelAndView getPlato(Request request, Response response) {
         Local local = autenticador.getUsuario(request).getLocal();
-        List<Modelo> modelos = local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList());
-        return new ModelAndView(modelos, "plato-local.html.hbs");
+        try{
+            Long idPlato = Long.parseLong(request.params("id"));
+            Modelo modelo = Modelos.parseModel(local.getPlato(idPlato));
+            return new ModelAndView(modelo, "plato-local.html.hbs");
+
+        } catch (PlatoInexistenteException e){
+            response.status(HttpURLConnection.HTTP_NOT_FOUND);
+        } catch (NumberFormatException e) {
+            response.status(HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        response.redirect("/home");
+        return null;
     }
 }
