@@ -1,13 +1,13 @@
 package Controladores.Cliente;
 
-import Controladores.SignupControllerTemplate;
+import Controladores.SignupController;
 import Pedidos.Direccion;
 import Repositorios.Templates.RepoUsuarios;
 import Usuarios.Cliente;
 
 import java.util.*;
 
-public class ClienteSignupController extends SignupControllerTemplate<Cliente> {
+public class ClienteSignupController extends SignupController<Cliente> {
 
     public ClienteSignupController(RepoUsuarios<Cliente> repoUsuarios) {
         super(repoUsuarios);

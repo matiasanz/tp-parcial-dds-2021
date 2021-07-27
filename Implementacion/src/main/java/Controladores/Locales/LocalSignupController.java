@@ -1,6 +1,6 @@
 package Controladores.Locales;
 
-import Controladores.SignupControllerTemplate;
+import Controladores.SignupController;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Local.CategoriaLocal;
@@ -15,7 +15,7 @@ import spark.Response;
 import java.util.*;
 
 //TODO: Rehacer
-public class LocalSignupController extends SignupControllerTemplate<Contacto> {
+public class LocalSignupController extends SignupController<Contacto> {
     private RepoLocales repoLocales;
 
     public LocalSignupController(RepoContactos repoContactos, RepoLocales repoLocales){

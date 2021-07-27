@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import static Utils.Factory.ProveedorDeNotif.notificacionBienvenida;
 
-public abstract class SignupControllerTemplate<T extends Usuario> {
+public abstract class SignupController<T extends Usuario> {
     private RepoUsuarios<T> repoUsuarios;
     private Autenticador<T> autenticador;
 
@@ -32,7 +32,7 @@ public abstract class SignupControllerTemplate<T extends Usuario> {
     private MedioDeContacto notificadorMail = new MailSender();
     private MedioDeContacto notificadorPush = new NotificadorPush();
 
-    public SignupControllerTemplate(RepoUsuarios<T> repoUsuarios){
+    public SignupController(RepoUsuarios<T> repoUsuarios){
         this.repoUsuarios = repoUsuarios;
         this.autenticador = new Autenticador<>(repoUsuarios);
     }
