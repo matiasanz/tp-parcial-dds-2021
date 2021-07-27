@@ -51,7 +51,7 @@ public class Carrito {
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
-        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items);
+        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items, cliente);
         local.notificarPedido(pedido);
         return pedido;
     }
