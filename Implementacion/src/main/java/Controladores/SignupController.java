@@ -38,6 +38,10 @@ public abstract class SignupController<T extends Usuario> {
     }
 
     public ModelAndView getFormRegistro(Request req, Response res) {
+        if(autenticador.sesionEnCurso(req)){
+            res.redirect(URIs.HOME);
+        }
+
         return new ModelAndView(generarModeloRegistro(req, res), Templates.SIGNUP);
     }
 

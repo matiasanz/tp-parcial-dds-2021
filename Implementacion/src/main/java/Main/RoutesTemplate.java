@@ -5,6 +5,7 @@ import Controladores.LoginController;
 import Controladores.SignupController;
 import Controladores.Utils.URIs;
 import Usuarios.Usuario;
+import spark.Response;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -49,6 +50,8 @@ public abstract class RoutesTemplate {
         Spark.before((request, response)->{
             System.out.println(request.requestMethod()+request.uri());
 
+            bloquearCacheNavegador(response);
+
             if(!uriExceptuadaDeAutenticar(request.uri())){
                 autenticador.reautenticar(request, response);
             }
@@ -71,5 +74,9 @@ public abstract class RoutesTemplate {
 
     private boolean uriExceptuadaDeAutenticar(String uri) {
         return urisExceptuadasDeAutenticar.stream().anyMatch(uri::equalsIgnoreCase);
+    }
+
+    private void bloquearCacheNavegador(Response response){
+        response.header("Cache-Control", "no-store, must-revalidate");
     }
 }

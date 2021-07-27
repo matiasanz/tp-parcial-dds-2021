@@ -31,7 +31,7 @@ public class RoutesLocales extends RoutesTemplate{
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
     public RoutesLocales() {
-        super(8080, autenticador, new LocalSignupController(repoContactos, repoLocales));
+        super(8081, autenticador, new LocalSignupController(repoContactos, repoLocales));
     }
 
     //Ejecutable

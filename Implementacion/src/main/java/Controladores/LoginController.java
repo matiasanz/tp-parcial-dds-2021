@@ -23,6 +23,10 @@ public class LoginController {
     private final Autenticador<?> autenticador;
 
     public ModelAndView getLogin(Request request, Response response) {
+        if(autenticador.sesionEnCurso(request)){
+            response.redirect(URIs.HOME);
+        }
+
         return new ModelAndView(
             new Modelo("mensaje", errorHandler.getMensaje(request))
             , Templates.LOGIN
