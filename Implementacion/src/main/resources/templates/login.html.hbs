@@ -1,23 +1,21 @@
+{{#partial "titulo"}}
+    <title>Pedidos Ya</title>
+{{/partial}}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Pedidos Ya</title>
-    </head>
+{{#partial "contenido"}}
+    <section id="Inicio de sesion">
+        <h2>Iniciar sesión</h2>
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username" required="required">
+            <input type="password" name="password" placeholder="Password" required="required">
+            <input type="submit" value="Iniciar Sesión"><p style="color:Red;">{{mensaje}}</p>
+            <br>
+        </form>
+    </section>
+    <section id="nuevo usuario">
+        <p>¿Todavía no tienes una cuenta?</p> <a href="/signup">¡Registrate gratis!</a>
+    </section>
+{{/partial}}
 
-    <body>
-        <section id="Inicio de sesion">
-            <h2>Iniciar sesión</h2>
-            <form action="/login" method="POST">
-                <input type="text" name="username" placeholder="Username" required="required">
-                <input type="password" name="password" placeholder="Password" required="required">
-                <input type="submit" value="Iniciar Sesión"><p style="color:Red;">{{mensaje}}</p>
-                <br>
-            </form>
-        </section>
-        <section id="nuevo usuario">
-            <p>¿Todavía no tienes una cuenta?</p> <a href="/signup">¡Registrate gratis!</a>
-        </section>
-    </body>
-</html>
+{{>layout_general.html.hbs}}
 
