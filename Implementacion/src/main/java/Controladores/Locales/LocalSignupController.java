@@ -59,5 +59,4 @@ public class LocalSignupController extends SignupController<Contacto> {
             .con("local", true)
             .con("categorias", Modelos.getCategorias());
     }
-
 }

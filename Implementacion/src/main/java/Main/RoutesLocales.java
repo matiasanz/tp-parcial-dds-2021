@@ -26,12 +26,12 @@ public class RoutesLocales extends RoutesTemplate{
     //Controladores
     private final DuenioLocalController duenioLocalController = new DuenioLocalController(autenticador, repoLocales);
     private final MenuController platosController = new MenuController(repoLocales, autenticador);
-    private static final LocalSignupController signupController = new LocalSignupController(repoContactos, repoLocales);
+
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
     public RoutesLocales() {
-        super(8080, autenticador, signupController);
+        super(8080, autenticador, new LocalSignupController(repoContactos, repoLocales));
     }
 
     //Ejecutable
@@ -42,7 +42,6 @@ public class RoutesLocales extends RoutesTemplate{
 
     @Override
     public void rutasPropias(){
-        Spark.get("/signup", duenioLocalController::formularioCreacionLocal, engine);
         Spark.get(URIs.HOME, duenioLocalController::getHomeLocal, engine);
         Spark.get("/pedidos", duenioLocalController::getPedidos, engine);
         Spark.get("/pedidos/:nroPedido", duenioLocalController::getPedido, engine);

@@ -41,13 +41,6 @@ public class DuenioLocalController {
         return new ModelAndView(parseModel(duenio.getLocal()), "home-local.html.hbs");
     }
 
-
-    public ModelAndView formularioCreacionLocal(Request request, Response response) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("categorias",(Modelos.getCategorias()));
-        return new ModelAndView(model, "local-crear.html.hbs");
-    }
-
     public ModelAndView getPedidos(Request req, Response res){
         Contacto duenio = autenticador.getUsuario(req);
 
