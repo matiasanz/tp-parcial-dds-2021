@@ -56,7 +56,7 @@ public interface Modelos {
 
         return new Modelo("local", carrito.getLocal().getNombre())
             .con("idLocal"       , carrito.getLocal().getId())
-            .con("direccion"     , (direccion==null)? null : direccion.getCalle())
+            .con("direccionCarrito", (direccion==null)? null : direccion.getCalle())
             .con("items"         , carrito.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("precioBase"    , carrito.getPrecioBase())
             .con("dtoCategoria"  , carrito.descuentoPorCategoria())
