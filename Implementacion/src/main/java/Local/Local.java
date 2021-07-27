@@ -6,7 +6,10 @@ import Pedidos.Pedido;
 import Platos.ComboBorrador;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
+import Usuarios.Usuario;
 import Utils.Exceptions.PlatoInexistenteException;
+import static Utils.Factory.ProveedorDeNotif.notificacionConfirmacionPedido;
+import static Utils.Factory.ProveedorDeNotif.notificacionRechazoPedido;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,10 +71,12 @@ public class Local extends Identificable {
 
     public void aceptarPedido(Pedido pedido){
         pedido.setEstado(EstadoPedido.CONFIRMADO);
+        pedido.getCliente().notificar(notificacionConfirmacionPedido(pedido.getCliente()));
     }
 
     public void rechazarPedido(Pedido pedido){
         pedido.setEstado(EstadoPedido.RECHAZADO);
+        pedido.getCliente().notificar(notificacionRechazoPedido(pedido.getCliente()));
     }
 
     public ComboBorrador getBorrador(){

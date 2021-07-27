@@ -1,6 +1,7 @@
 package Pedidos;
 
 import Platos.Plato;
+import Usuarios.Cliente;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
@@ -20,12 +21,14 @@ public class Pedido extends Identificable {
     LocalDateTime horaInicio = LocalDateTime.now();
     LocalDateTime horaFin;
     Direccion direccion;
+    Cliente cliente;
 
-    public Pedido(double precio, Direccion direccion, Local local, List<Item> items){
+    public Pedido(double precio, Direccion direccion, Local local, List<Item> items, Cliente cliente){
         this.precio = precio;
         this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
+        this.cliente = cliente;
     }
 
     public Double getImporte(){
@@ -68,5 +71,9 @@ public class Pedido extends Identificable {
 
     public Direccion getDireccion() {
         return direccion;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 }
