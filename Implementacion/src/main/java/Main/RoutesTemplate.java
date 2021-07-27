@@ -50,6 +50,11 @@ public abstract class RoutesTemplate {
         Spark.before((request, response)->{
             System.out.println(request.requestMethod()+request.uri());
 
+            if(request.uri().equals("/finalizar")){
+                //por las dudas
+                System.exit(0);
+            }
+
             bloquearCacheNavegador(response);
 
             if(!uriExceptuadaDeAutenticar(request.uri())){
