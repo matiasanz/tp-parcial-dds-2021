@@ -1,12 +1,11 @@
 package Controladores.Cliente;
 
 import Controladores.Autenticador;
+import Controladores.Utils.ErrorHandler;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
 import Local.Local;
-import Local.Contacto;
-import Local.CategoriaLocal;
 import Pedidos.Carrito;
 import Pedidos.Descuentos.Descuento;
 import Pedidos.Direccion;
@@ -23,12 +22,10 @@ import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
 import static Controladores.Utils.Modelos.parseModel;
 
 public class LocalController {
@@ -38,9 +35,9 @@ public class LocalController {
         this.autenticadorClientes = autenticador;
     }
 
+    private ErrorHandler errorHandler = new ErrorHandler();
     private RepoLocales repoLocales;
     private Autenticador<Cliente> autenticadorClientes;
-    private String ERROR_TOKEN = "error";
 
     public ModelAndView getLocal(Request req, Response res){
         Optional<Local> local = findLocal(req.params("id"), req, res);
@@ -52,15 +49,12 @@ public class LocalController {
         Cliente cliente = autenticadorClientes.getUsuario(req);
         Carrito carrito = cliente.getCarrito(local.get());
 
-        String mensaje = req.session().attribute(ERROR_TOKEN);
-        req.session().removeAttribute(ERROR_TOKEN);
-
         Modelo modelo = parseModel(local.get())
             .con(parseModel(carrito))
             .con("categoria", cliente.getCategoria().getNombre())
             .con("direcciones", cliente.getDireccionesConocidas())
             .con("descuentos", cliente.getDescuentos())
-            .con(ERROR_TOKEN, mensaje);
+            .con("error", errorHandler.getMensaje(req));
 
         return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
     }
@@ -103,7 +97,7 @@ public class LocalController {
                     carrito.sacarItem(numero);
                     response.status(HttpURLConnection.HTTP_OK);
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    request.session().attribute(ERROR_TOKEN, "Se produjo un error al intentar eliminar item");
+                    errorHandler.setMensaje(request, "Se produjo un error al intentar eliminar item");
                     response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 } finally {
                     response.redirect(URIs.LOCAL(carrito.getLocal().getId()));
@@ -134,7 +128,7 @@ public class LocalController {
                 carrito.vaciar();
 
             } catch (PedidoIncompletoException e){
-                request.session().attribute(ERROR_TOKEN, e.getMessage());
+                errorHandler.setMensaje(request, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 Long id = Long.parseLong(idLocal);
                 response.redirect(URIs.LOCAL(id));

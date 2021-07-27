@@ -4,6 +4,7 @@ import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Controladores.Utils.Templates;
+import Controladores.Utils.URIs;
 import Local.Contacto;
 import Repositorios.RepoLocales;
 import spark.ModelAndView;
@@ -40,7 +41,7 @@ public class PlatosController {
     }
 
     public ModelAndView getLogin(Request request, Response response) {
-        return new ModelAndView(null, "login.html.hbs");
+        return new ModelAndView(null, Templates.LOGIN);
     }
 
     //TODO ****************************************************************************

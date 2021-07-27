@@ -1,5 +1,6 @@
 package Controladores;
 
+import Controladores.Utils.ErrorHandler;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
@@ -27,9 +28,9 @@ public abstract class SignupControllerTemplate<T extends Usuario> {
     private RepoUsuarios<T> repoUsuarios;
     private Autenticador<T> autenticador;
 
+    private ErrorHandler errorHandler = new ErrorHandler();
     private MedioDeContacto notificadorMail = new MailSender();
     private MedioDeContacto notificadorPush = new NotificadorPush();
-    String ERROR_TOKEN = "mensaje";
 
     public SignupControllerTemplate(RepoUsuarios<T> repoUsuarios){
         this.repoUsuarios = repoUsuarios;
@@ -41,10 +42,7 @@ public abstract class SignupControllerTemplate<T extends Usuario> {
     }
 
     protected Modelo generarModeloRegistro(Request req, Response res){
-        String mensaje = req.cookie(ERROR_TOKEN);
-        res.removeCookie(ERROR_TOKEN);
-
-        return new Modelo(ERROR_TOKEN, mensaje);
+        return new Modelo("mensaje", errorHandler.getMensaje(req));
     }
 
     public ModelAndView registrarUsuario(Request req, Response res){
@@ -67,9 +65,9 @@ public abstract class SignupControllerTemplate<T extends Usuario> {
             res.redirect(URIs.HOME);
 
         } catch (NombreOcupadoException | ContraseniasDistintasException | DatosNulosException e) {
-            manejarError(res, e.getMessage());
+            manejarError(req, res, e.getMessage());
         } catch (MailNoEnviadoException e){
-            manejarError(res, "Se produjo un error al intentar comunicarnos con su cuenta de mail. Por favor intente nuevamente");
+            manejarError(req, res, "Se produjo un error al intentar comunicarnos con su cuenta de mail. Por favor intente nuevamente");
         }
 
         return null;
@@ -88,8 +86,8 @@ public abstract class SignupControllerTemplate<T extends Usuario> {
         return req.get(tokenMedioDeContacto)!=null;
     }
 
-    private void manejarError(Response res, String mensaje){
-        res.cookie(ERROR_TOKEN, mensaje);
+    private void manejarError(Request req, Response res, String mensaje){
+        errorHandler.setMensaje(req, mensaje);
         res.status(HttpURLConnection.HTTP_BAD_REQUEST);
         res.redirect(URIs.SIGNUP);
     }

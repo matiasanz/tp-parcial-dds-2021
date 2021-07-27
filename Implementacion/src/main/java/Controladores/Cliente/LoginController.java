@@ -1,13 +1,10 @@
 package Controladores.Cliente;
 
 import Controladores.Autenticador;
+import Controladores.Utils.ErrorHandler;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
-import Repositorios.RepoClientes;
-import Usuarios.Cliente;
-import Usuarios.Usuario;
-import Utils.Exceptions.ClienteInexistenteException;
 import Utils.Exceptions.ContraseniaIncorrectaException;
 import Utils.Exceptions.UsuarioInexistenteException;
 import spark.ModelAndView;
@@ -15,19 +12,21 @@ import spark.Request;
 import spark.Response;
 
 import java.net.HttpURLConnection;
-import java.util.Map;
 
 public class LoginController {
 
     public LoginController(Autenticador<?> autenticador){
         this.autenticador = autenticador;
     }
+    private ErrorHandler errorHandler = new ErrorHandler();
 
     private final Autenticador<?> autenticador;
-    private final String MENSAJE_TOKEN = "mensaje";
 
     public ModelAndView getLogin(Request request, Response response) {
-        return new ModelAndView( generarModelo(request, response) , Templates.LOGIN);
+        return new ModelAndView(
+            new Modelo("mensaje", errorHandler.getMensaje(request))
+            , Templates.LOGIN
+        );
     }
 
     public ModelAndView tryLogin(Request req, Response res) {
@@ -38,16 +37,10 @@ public class LoginController {
 
         } catch(UsuarioInexistenteException | ContraseniaIncorrectaException e) {
             res.status(HttpURLConnection.HTTP_PROXY_AUTH);
-            res.cookie(MENSAJE_TOKEN, "El usuario y/o la contraseña ingresada son incorrectos");
+            errorHandler.setMensaje(req, "El usuario y/o la contraseña ingresada son incorrectos");
             res.redirect(URIs.LOGIN);
         }
 
         return null;
-    }
-
-    private Map<String, Object> generarModelo(Request req, Response res){
-        Modelo modelo = new Modelo(MENSAJE_TOKEN, req.cookie(MENSAJE_TOKEN));
-        res.removeCookie(MENSAJE_TOKEN);
-        return modelo;
     }
 }

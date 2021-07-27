@@ -1,5 +1,6 @@
 package Controladores;
 
+import Controladores.Utils.ErrorHandler;
 import Controladores.Utils.URIs;
 import Repositorios.RepoClientes;
 import Repositorios.Templates.RepoUsuarios;
@@ -15,6 +16,7 @@ import java.net.HttpURLConnection;
 
 public class Autenticador<T extends Usuario> {
     private RepoUsuarios<T> repoUsuarios;
+    private ErrorHandler errorHandler = new ErrorHandler();
 
     public Autenticador(RepoUsuarios<T> repo){
         this.repoUsuarios = repo;
@@ -50,7 +52,7 @@ public class Autenticador<T extends Usuario> {
 
         catch(NingunaSesionAbiertaException | UsuarioInexistenteException e){
             respuesta.status(HttpURLConnection.HTTP_PROXY_AUTH);
-            respuesta.cookie("mensaje","Para acceder al contenido, primero debe identificarse");
+            errorHandler.setMensaje(pedido, "Para acceder al contenido, primero debe identificarse");
             respuesta.redirect(URIs.LOGIN);
         }
     }
