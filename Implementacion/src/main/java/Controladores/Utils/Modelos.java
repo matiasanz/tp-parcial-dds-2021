@@ -1,17 +1,15 @@
 package Controladores.Utils;
 import Local.Local;
 import MediosContacto.Notificacion;
-import Pedidos.Carrito;
+import Pedidos.*;
 import Pedidos.Cupones.CuponDescuento;
-import Pedidos.Direccion;
-import Pedidos.Item;
-import Pedidos.Pedido;
 import Platos.Plato;
 import Usuarios.Cliente;
 import com.sun.xml.internal.ws.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import Local.CategoriaLocal;
@@ -90,9 +88,22 @@ public interface Modelos {
         return new Modelo("local", pedido.getLocal().getNombre())
             .con("importe", pedido.getImporte())
             .con("items", pedido.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
-            .con("estado", pedido.getEstado())
+            .con("estado", parseModel(pedido.getEstado()))
             .con(parseModel(pedido.getFechaInicio()))
-            .con("direccion", pedido.getDireccion().getCalle());
+            .con("direccion", pedido.getDireccion().getCalle())
+            .con("pendiente", pedido.getEstado()== EstadoPedido.PENDIENTE);
+    }
+
+    static List<Modelo> parseModel(List<Pedido> pedidos){
+        int[] x = {1};
+        List<Modelo> modelos = pedidos
+            .stream()
+            .map(Modelos::parseModel)
+            .map(m -> m.con("numero", x[0]++))
+            .collect(Collectors.toList());
+
+        Collections.reverse(modelos);
+        return modelos;
     }
 
     static Modelo parseModel(LocalDateTime fechaHora){

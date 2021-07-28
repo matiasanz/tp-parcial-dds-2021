@@ -36,7 +36,7 @@ public class HomeController {
     }
 
     private List<Object> armarTop(List<?> lista){
-        return lista.stream().limit(10).collect(Collectors.toList());
+        return lista.stream().limit(5).collect(Collectors.toList());
     }
 
     private List<Local> rankingLocales(){

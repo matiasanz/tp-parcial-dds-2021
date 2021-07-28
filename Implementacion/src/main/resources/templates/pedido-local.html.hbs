@@ -4,26 +4,33 @@
 
 {{#partial "contenido"}}
     <nav>
-        <H3>Pedido #{{id}}</H3>
-        <section id="datos_pedido">
+        <H3>Pedido #{{numero}} - [{{estado}}]</H3>
+        <div id="datos_pedido">
             <ul>
-                <li><strong>Estado:</strong> {{estado}}</li>
                 <li><strong>Precio:</strong> ${{importe}}</li>
                 <li><strong>Direccion:</strong> {{direccion}}</li>
             </ul>
-        </section>
-        <section id="items">
+        </div>
+        <div id="items">
             <p>Items:</p>
             <ul>
                 {{#items}}
                     <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br></br>
                 {{/items}}
             </ul>
-        </section>
-
-        <section>
-            <a href="/pedidos">Ver todos los pedidos</a>
-        </section>
+        </div>
+        {{#if pendiente}}
+            <div id="accion">
+                <form action="/pedidos/{{numero}}" method="post">
+                    <select name="decisionPedido">
+                        <option hidden disabled selected>Elegir acción</option>
+                        <option value="CONFIRMADO">Confirmar</option>
+                        <option value="RECHAZADO">Rechazar</option>
+                    </select>
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+        {{/if}}
     </nav>
 {{/partial}}
 

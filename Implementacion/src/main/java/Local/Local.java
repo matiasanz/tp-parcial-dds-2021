@@ -8,6 +8,7 @@ import Platos.Plato;
 import Repositorios.Templates.Identificable;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
+import Utils.Factory.ProveedorDeNotif;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -16,17 +17,15 @@ import java.util.stream.Collectors;
 public class Local extends Identificable {
     String nombre;
     Direccion direccion;
-    Duenio contacto;
     List<Pedido> pedidosRecibidos = new LinkedList<>();
     List<Plato> menu = new ArrayList<>();
     List<String> fotos = new LinkedList<>();
     List<CategoriaLocal> categorias = new ArrayList<>();
     ComboBorrador borrador = new ComboBorrador(this);
 
-    public Local(String nombre, Direccion direccion, Duenio contacto, CategoriaLocal categoria) {
+    public Local(String nombre, Direccion direccion, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.contacto = contacto;
         this.categorias.add(categoria);
     }
 

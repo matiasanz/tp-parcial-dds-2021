@@ -122,7 +122,7 @@ public class LocalController {
 
                 cliente.agregarPedido(pedido);
 
-                int numeroDePedido = cliente.getPedidosRealizados().size() - 1;
+                int numeroDePedido = cliente.getPedidosRealizados().size();
                 response.redirect(URIs.PEDIDO((long) numeroDePedido));
                 carrito.vaciar();
 

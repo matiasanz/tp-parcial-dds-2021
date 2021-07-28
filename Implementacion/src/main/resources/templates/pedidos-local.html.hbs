@@ -3,13 +3,13 @@
 {{/partial}}
 
 {{#partial "contenido"}}
-    <h1>Historial de pedidos</h1>
+    <h2>Pedidos Recibidos</h2>
 
     <section id="pedidos">
         <ul>
             {{#pedidos}}
                 <li>
-                    <h3> <a href="/pedidos/{{id}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
+                    <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
                     <strong> Fecha: </strong> {{fecha}} <br>
                     <strong> Importe: </strong> ${{importe}} <br>
                 </li>

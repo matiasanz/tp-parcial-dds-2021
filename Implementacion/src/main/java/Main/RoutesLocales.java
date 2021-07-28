@@ -39,6 +39,7 @@ public class RoutesLocales extends RoutesTemplate{
         Spark.get(URIs.HOME, duenioLocalController::getHomeLocal, engine);
         Spark.get("/pedidos", duenioLocalController::getPedidos, engine);
         Spark.get("/pedidos/:nroPedido", duenioLocalController::getPedido, engine);
+        Spark.post("/pedidos/:nroPedido", duenioLocalController::cambiarEstadoPedido, engine);
         Spark.post("/platos", platosController::agregarPlato, engine);
         Spark.get("/platos/nuevo", platosController::formularioCreacionPlato, engine);
         Spark.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);

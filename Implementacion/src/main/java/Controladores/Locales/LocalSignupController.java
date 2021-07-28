@@ -25,28 +25,25 @@ public class LocalSignupController extends SignupController<Duenio> {
 
     @Override
     protected Duenio crearUsuario(Map<String, String> req) {
+        Local local = crearLocal(req);
+
         Duenio contacto = new Duenio(
             req.get("username")
             , req.get("password")
             , req.get("nombre")
             , req.get("apellido")
             , req.get("mail")
-            , null  //TODO
+            , local
         );
 
-        Local local = crearLocal(req, contacto);
         repoLocales.agregar(local);
-        contacto.setLocal(local);
-
         return contacto;
     }
 
-    //TODO: Raro
-    private Local crearLocal(Map<String, String> req, Duenio contacto){
+    private Local crearLocal(Map<String, String> req){
         Local local = new Local(
             req.get("nombreLocal")
             , new Direccion(req.get("calleLocal"))
-            , contacto
             , CategoriaLocal.valueOf(Modelos.unparseEnum(req.get("categoriaLocal"))) //TODO esto puede romper
         );
 
