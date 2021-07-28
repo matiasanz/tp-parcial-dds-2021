@@ -2,8 +2,6 @@ import MediosContacto.MongoHandler;
 import MediosContacto.Notificacion;
 import Pedidos.Direccion;
 import Usuarios.Cliente;
-import Usuarios.Usuario;
-import org.junit.After;
 import org.junit.Test;
 
 public class MongoTest {
@@ -14,7 +12,6 @@ public class MongoTest {
 
     @Test
     public void seRegistraCorrectamente(){
-        usuario.agregarNotificacionPushYLoguear(notificacion);
+        mongoHandler.loguearNotificacion(notificacion);
     }
-    
 }

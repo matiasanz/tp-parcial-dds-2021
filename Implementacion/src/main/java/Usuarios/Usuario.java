@@ -61,9 +61,8 @@ public abstract class Usuario extends Identificable {
         return notificacionesPush;
     }
 
-    public void agregarNotificacionPushYLoguear(Notificacion notificacion) {
+    public void agregarNotificacionPush(Notificacion notificacion) {
         notificacionesPush.add(notificacion);
-        notificacion.loguearme();
     }
 
     public void agregarMedioDeContacto(MedioDeContacto nuevoMedio){
@@ -75,4 +74,3 @@ public abstract class Usuario extends Identificable {
         mediosDeContacto.forEach(n->n.notificar(this,mensaje));
     }
 }
-

@@ -17,27 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MongoHandler {
-
-    public static MongoClient iniciarConexion(){
-        MongoClient mongoClient = new MongoClient("localhost",27017);
-        return mongoClient;
-    }
-
-    public static void insertarRegistro(MongoDatabase db, String collectionName, Notificacion notificacion){
-
+    public void insertarRegistro(MongoDatabase db, String collectionName, Notificacion notificacion){
         MongoCollection<Document> collection = db.getCollection(collectionName);
-        Document documento = new Document();
-        documento.put("asunto",notificacion.getAsunto());
-        documento.put("cuerpo",notificacion.getCuerpo());
-        documento.put("fecha",notificacion.getFechaHora());
+        Document documento = new Document()
+            .append("asunto",notificacion.getAsunto())
+            .append("cuerpo",notificacion.getCuerpo())
+            .append("fecha",notificacion.getFechaHora())
+        ;
 
         collection.insertOne(documento);
     }
 
-    public static  void loguearNotificacion(String db, String coleccion, Notificacion notificacion){
-        MongoClient mongoClient = iniciarConexion();
-        MongoDatabase database = mongoClient.getDatabase(db);
-        insertarRegistro(database, coleccion, notificacion);
+    public void loguearNotificacion(Notificacion notificacion){
+        MongoClient mongoClient = new MongoClient("localhost",27017);
+        MongoDatabase database = mongoClient.getDatabase("LogsNotificacionesPush");
+        insertarRegistro(database, "notificaciones", notificacion);
     }
-
 }
