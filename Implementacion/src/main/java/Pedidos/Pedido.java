@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class Pedido extends Identificable {
     Double precio;
@@ -37,6 +38,7 @@ public class Pedido extends Identificable {
 
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
+        cliente.notificar(notificacionResultadoPedido(cliente, estado));
     }
 
     public Duration tiempoEntrega(){

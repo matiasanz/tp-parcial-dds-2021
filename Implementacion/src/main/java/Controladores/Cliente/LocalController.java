@@ -7,7 +7,7 @@ import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
 import Local.Local;
 import Pedidos.Carrito;
-import Pedidos.Descuentos.Descuento;
+import Pedidos.Cupones.CuponDescuento;
 import Pedidos.Direccion;
 import Pedidos.Item;
 import Pedidos.Pedido;
@@ -115,12 +115,11 @@ public class LocalController {
             try {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
-                Descuento descuento = getDescuento(request);
+                CuponDescuento descuento = getDescuento(request);
                 Pedido pedido = carrito.conDireccion(getDireccion(request))
                     .conDescuento(descuento)
                     .build();
 
-                descuento.notificarUso(cliente);
                 cliente.agregarPedido(pedido);
 
                 int numeroDePedido = cliente.getPedidosRealizados().size() - 1;
@@ -173,7 +172,7 @@ public class LocalController {
         );
     }
 
-    private Descuento getDescuento(Request request){
+    private CuponDescuento getDescuento(Request request){
         return getAtributoDeLista(request
             , "descuento"
             , Cliente::getDescuentos

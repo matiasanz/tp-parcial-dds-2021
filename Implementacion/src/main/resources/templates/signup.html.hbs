@@ -7,10 +7,10 @@
         <form action="/signup" method="POST">
             {{#if local}}<h3>Datos del dueño</h3>{{/if}}
             <label>Nombre: </label>
-            <input type="text" name="nombre" required><br>
+            <input type="text" name="nombre" required pattern="[a-zA-Z]*"><br>
 
             <label>Apellido: </label>
-            <input type="text" name="apellido" required><br>
+            <input type="text" name="apellido" required pattern="[a-zA-Z]*"><br>
 
             <label>Direccion: </label>
             <input type="text" name="direccion" required><br>
@@ -19,7 +19,7 @@
             <input type="text" name="mail" required><br>
 
             <label>Nuevo Usuario: </label>
-            <input type="text" name="username" required="required"><br>
+            <input type="text" name="username" required="required" pattern="[a-zA-Z]*"><br>
 
             <label>Nueva Contraseña: </label>
             <input type="password" name="password" required="required"><br>

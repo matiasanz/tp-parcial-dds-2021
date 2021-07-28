@@ -2,34 +2,30 @@ package Controladores.Locales;
 
 import Controladores.Autenticador;
 import Controladores.Utils.*;
-import Local.Contacto;
+import Local.Duenio;
 import Local.Local;
 import Platos.Combo;
 import Platos.ComboBorrador;
 import Platos.Plato;
 import Platos.PlatoSimple;
 import Repositorios.RepoLocales;
-import Utils.Exceptions.LocalInexistenteException;
+import Utils.Exceptions.NombreOcupadoException;
 import Utils.Exceptions.PlatoInexistenteException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import Utils.Exceptions.PlatoRepetidoException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.net.HttpURLConnection;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static Controladores.Utils.Modelos.parseModel;
 
 public class MenuController {
-    private Autenticador<Contacto> autenticador;
+    private Autenticador<Duenio> autenticador;
     private ErrorHandler errorHandler = new ErrorHandler();
 
-    public MenuController(RepoLocales repo, Autenticador<Contacto> autenticador) {
+    public MenuController(RepoLocales repo, Autenticador<Duenio> autenticador) {
         this.autenticador = autenticador;
     }
 
@@ -59,9 +55,14 @@ public class MenuController {
             , Arrays.asList(request.queryParams("ingredientes"))
         );
 
-        local.agregarPlato(platoSimple);
+        try{
+            local.agregarPlato(platoSimple);
+            response.redirect("/platos/"+platoSimple.getId());
+        } catch (PlatoRepetidoException e){
+            errorHandler.setMensaje(request, e.getMessage());
+            response.redirect("/platos/nuevo");
+        }
 
-        response.redirect("/platos/"+platoSimple.getId());
         return null;
     }
 
@@ -92,13 +93,11 @@ public class MenuController {
             Plato plato = local.getPlato(Long.parseLong(req.queryParams("idPlato")));
             borrador.agregarPlato(plato);
             res.status(HttpURLConnection.HTTP_OK);
-            res.redirect(URIs.CREACION_COMBO);
-
         } catch (PlatoInexistenteException | NumberFormatException e) {
-            res.status(HttpURLConnection.HTTP_NOT_FOUND);
-            res.redirect(URIs.CREACION_COMBO);
+            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
+        res.redirect(URIs.CREACION_COMBO);
         return null;
     }
 
@@ -116,7 +115,6 @@ public class MenuController {
             res.redirect("/platos/"+nuevoCombo.getId());
         } catch (RuntimeException e) {
             errorHandler.setMensaje(req, e.getMessage());
-            //TODO: Mostrar mensaje de error
             //TODO: Cambiar runtimeException por ComboInvalidoException o una cosa asi
             res.status(HttpURLConnection.HTTP_BAD_REQUEST);
             res.redirect(URIs.CREACION_COMBO);
@@ -138,7 +136,7 @@ public class MenuController {
             response.status(HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
-        response.redirect("/home");
+        response.redirect(URIs.HOME);
         return null;
     }
 }

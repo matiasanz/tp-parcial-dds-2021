@@ -1,11 +1,9 @@
 package Controladores;
 
-import Controladores.Utils.ErrorHandler;
-import Controladores.Utils.Modelo;
-import Controladores.Utils.Templates;
-import Controladores.Utils.URIs;
+import Controladores.Utils.*;
 import MediosContacto.MailSender;
 import MediosContacto.MedioDeContacto;
+import MediosContacto.Notificacion;
 import MediosContacto.NotificadorPush;
 import Repositorios.Templates.RepoUsuarios;
 import Usuarios.Usuario;
@@ -13,6 +11,7 @@ import Utils.Exceptions.ContraseniasDistintasException;
 import Utils.Exceptions.DatosNulosException;
 import Utils.Exceptions.MailNoEnviadoException;
 import Utils.Exceptions.NombreOcupadoException;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -42,11 +41,12 @@ public abstract class SignupController<T extends Usuario> {
             res.redirect(URIs.HOME);
         }
 
-        return new ModelAndView(generarModeloRegistro(req, res), Templates.SIGNUP);
+        Modelo modelo = modeloBase().con("mensaje", errorHandler.getMensaje(req));
+        return new ModelAndView(modelo, Templates.SIGNUP);
     }
 
-    protected Modelo generarModeloRegistro(Request req, Response res){
-        return new Modelo("mensaje", errorHandler.getMensaje(req));
+    protected Modelo modeloBase(){
+        return new Modelo();
     }
 
     public ModelAndView registrarUsuario(Request req, Response res){
@@ -75,6 +75,12 @@ public abstract class SignupController<T extends Usuario> {
         }
 
         return null;
+    }
+
+    public ModelAndView getNotificaciones(Request req, Response res){
+        List<Modelo> notificaciones = autenticador.getUsuario(req).getNotificacionesPush()
+            .stream().map(Modelos::parseModel).collect(Collectors.toList());
+        return new ModelAndView(modeloBase().con("notificaciones", notificaciones), "notificaciones-cliente.html.hbs");
     }
 
     private void agregarMediosDeComunicacion(T nuevoUsuario, Map<String, String> req) {

@@ -6,27 +6,24 @@ import Pedidos.Pedido;
 import Platos.ComboBorrador;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
-import Usuarios.Usuario;
 import Utils.Exceptions.PlatoInexistenteException;
-import static Utils.Factory.ProveedorDeNotif.notificacionConfirmacionPedido;
-import static Utils.Factory.ProveedorDeNotif.notificacionRechazoPedido;
+import Utils.Exceptions.PlatoRepetidoException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Local extends Identificable {
     String nombre;
     Direccion direccion;
-    Contacto contacto;
+    Duenio contacto;
     List<Pedido> pedidosRecibidos = new LinkedList<>();
     List<Plato> menu = new ArrayList<>();
     List<String> fotos = new LinkedList<>();
     List<CategoriaLocal> categorias = new ArrayList<>();
     ComboBorrador borrador = new ComboBorrador(this);
 
-    public Local(String nombre, Direccion direccion, Contacto contacto, CategoriaLocal categoria) {
+    public Local(String nombre, Direccion direccion, Duenio contacto, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.contacto = contacto;
@@ -62,21 +59,14 @@ public class Local extends Identificable {
     }
 
     public void agregarPlato(Plato plato){
+        if(getMenu().stream().anyMatch(plato::mismoNombre))
+            throw new PlatoRepetidoException(plato.getNombre());
+
         menu.add(plato);
     }
 
     public Direccion getDireccion() {
         return direccion;
-    }
-
-    public void aceptarPedido(Pedido pedido){
-        pedido.setEstado(EstadoPedido.CONFIRMADO);
-        pedido.getCliente().notificar(notificacionConfirmacionPedido(pedido.getCliente()));
-    }
-
-    public void rechazarPedido(Pedido pedido){
-        pedido.setEstado(EstadoPedido.RECHAZADO);
-        pedido.getCliente().notificar(notificacionRechazoPedido(pedido.getCliente()));
     }
 
     public ComboBorrador getBorrador(){

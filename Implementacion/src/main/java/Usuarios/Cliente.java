@@ -2,8 +2,8 @@ package Usuarios;
 
 import Local.Local;
 import Pedidos.Carrito;
-import Pedidos.Descuentos.Descuento;
-import Pedidos.Descuentos.SinDescuento;
+import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.SinDescuento;
 import Pedidos.Direccion;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
@@ -24,7 +24,7 @@ public class Cliente extends Usuario {
     private List<Pedido> pedidosRealizados = new LinkedList<>();
     public CategoriaCliente categoria = new Primerizo();
     public int cantidadComprasHechas;
-    private List<Descuento> descuentosDisponibles = new ArrayList<>();
+    private List<CuponDescuento> descuentosDisponibles = new ArrayList<>();
 
     public Carrito getCarrito(Local local) {
         Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
@@ -57,15 +57,15 @@ public class Cliente extends Usuario {
         categoria.notificarPedido(pedido, this);
     }
 
-    public List<Descuento> getDescuentos(){
+    public List<CuponDescuento> getDescuentos(){
         return descuentosDisponibles;
     }
 
-    public void agregarDescuento(Descuento descuento){
+    public void agregarDescuento(CuponDescuento descuento){
         descuentosDisponibles.add(descuento);
     }
 
-    public void quitarDescuento(Descuento descuento) {
+    public void quitarDescuento(CuponDescuento descuento) {
         descuentosDisponibles.remove(descuento);
     }
 

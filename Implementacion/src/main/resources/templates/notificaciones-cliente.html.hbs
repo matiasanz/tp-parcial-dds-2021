@@ -1,23 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
+{{#partial "titulo"}}
     <title>Notificaciones</title>
-</head>
-<body>
-    <h1>Notificaciones</h1>
+{{/partial}}
+{{#partial "contenido"}}
+    <h2>Notificaciones</h2>
 
     <section id="notificaciones">
         <ul>
-            {{#each notificaciones}}
+            {{#notificaciones}}
                 <li>
-                    <h3> <a href="/notificaciones/{{id}}"> Notificacion # {{@index}}</a> </h3>
-                    <strong> Asunto: </strong> {{asunto}} <br>
-                    <strong> Cuerpo: </strong> {{cuerpo}} <br>
-                    <strong> Fecha: </strong> {{fecha}} <br>
+                    <h3><strong>{{asunto}}</strong> [{{fecha}} - {{hora}}]</h3>
+                    <p>{{cuerpo}}</p><br>
                 </li>
-
-            {{/each}}
+            {{else}}
+                <p>No tiene ninguna notificacion</p>
+            {{/notificaciones}}
         </ul>
     </section>
-</body>
-</html>
+{{/partial}}
+
+{{#if local}}
+    {{>layout_local.html.hbs}}
+{{else}}
+    {{>layout_cliente.html.hbs}}
+{{/if}}

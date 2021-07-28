@@ -4,7 +4,7 @@ import Controladores.SignupController;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Local.CategoriaLocal;
-import Local.Contacto;
+import Local.Duenio;
 import Local.Local;
 import Pedidos.Direccion;
 import Repositorios.RepoContactos;
@@ -15,7 +15,7 @@ import spark.Response;
 import java.util.*;
 
 //TODO: Rehacer
-public class LocalSignupController extends SignupController<Contacto> {
+public class LocalSignupController extends SignupController<Duenio> {
     private RepoLocales repoLocales;
 
     public LocalSignupController(RepoContactos repoContactos, RepoLocales repoLocales){
@@ -24,8 +24,8 @@ public class LocalSignupController extends SignupController<Contacto> {
     }
 
     @Override
-    protected Contacto crearUsuario(Map<String, String> req) {
-        Contacto contacto = new Contacto(
+    protected Duenio crearUsuario(Map<String, String> req) {
+        Duenio contacto = new Duenio(
             req.get("username")
             , req.get("password")
             , req.get("nombre")
@@ -42,7 +42,7 @@ public class LocalSignupController extends SignupController<Contacto> {
     }
 
     //TODO: Raro
-    private Local crearLocal(Map<String, String> req, Contacto contacto){
+    private Local crearLocal(Map<String, String> req, Duenio contacto){
         Local local = new Local(
             req.get("nombreLocal")
             , new Direccion(req.get("calleLocal"))
@@ -54,8 +54,8 @@ public class LocalSignupController extends SignupController<Contacto> {
     }
 
     @Override
-    protected Modelo generarModeloRegistro(Request req, Response res){
-        return super.generarModeloRegistro(req, res)
+    protected Modelo modeloBase(){
+        return super.modeloBase()
             .con("local", true)
             .con("categorias", Modelos.getCategorias());
     }

@@ -2,19 +2,9 @@ package Controladores.Locales;
 
 import Controladores.Autenticador;
 import Controladores.Utils.*;
-import Local.CategoriaLocal;
-import Local.Contacto;
-import Local.Local;
-import Pedidos.Direccion;
+import Local.Duenio;
 import Pedidos.Pedido;
-import Platos.Combo;
-import Platos.ComboBorrador;
-import Platos.Plato;
-import Platos.PlatoSimple;
 import Repositorios.RepoLocales;
-import Repositorios.Templates.RepoUsuarios;
-import Utils.Exceptions.LocalInexistenteException;
-import Utils.Exceptions.PlatoInexistenteException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -27,22 +17,22 @@ import static Controladores.Utils.Modelos.parseModel;
 
 public class DuenioLocalController {
 
-    Autenticador<Contacto> autenticador;
+    Autenticador<Duenio> autenticador;
     RepoLocales repoLocales;
     private ErrorHandler errorHandler = new ErrorHandler();
 
-    public DuenioLocalController(Autenticador<Contacto> autenticador, RepoLocales repoLocales){
+    public DuenioLocalController(Autenticador<Duenio> autenticador, RepoLocales repoLocales){
         this.autenticador = autenticador;
         this.repoLocales=repoLocales;
     }
 
     public ModelAndView getHomeLocal(Request req, Response res){
-        Contacto duenio = autenticador.getUsuario(req);
+        Duenio duenio = autenticador.getUsuario(req);
         return new ModelAndView(parseModel(duenio.getLocal()), "home-local.html.hbs");
     }
 
     public ModelAndView getPedidos(Request req, Response res){
-        Contacto duenio = autenticador.getUsuario(req);
+        Duenio duenio = autenticador.getUsuario(req);
 
         List<Modelo> pedidos = duenio.getLocal().getPedidosRecibidos()
             .stream()
@@ -53,7 +43,7 @@ public class DuenioLocalController {
     }
 
     public ModelAndView getPedido(Request request, Response response) {
-        Contacto duenio = autenticador.getUsuario(request);
+        Duenio duenio = autenticador.getUsuario(request);
         try{
             int nroPedido = Integer.parseInt(request.params("nroPedido"));
             Pedido pedido = duenio.getLocal().getPedidosRecibidos().get(nroPedido);

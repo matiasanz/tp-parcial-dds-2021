@@ -2,9 +2,6 @@ package Usuarios;
 
 import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;
-import MediosContacto.NotificadorPush;
-import Pedidos.Descuentos.Descuento;
-import Pedidos.Direccion;
 import Repositorios.Templates.Identificable;
 
 import java.util.ArrayList;

@@ -1,7 +1,8 @@
 package Controladores.Utils;
 import Local.Local;
+import MediosContacto.Notificacion;
 import Pedidos.Carrito;
-import Pedidos.Descuentos.Descuento;
+import Pedidos.Cupones.CuponDescuento;
 import Pedidos.Direccion;
 import Pedidos.Item;
 import Pedidos.Pedido;
@@ -39,10 +40,11 @@ public interface Modelos {
     static Modelo parseModel(Cliente cliente){
         return new Modelo("mailCliente", cliente.getMail())
             .con("categoriaCliente", cliente.getCategoria().toString())
-            .con("descuentosCliente", cliente.getDescuentos().stream().map(Descuento::getDetalle).collect(Collectors.toList()))
+            .con("descuentosCliente", cliente.getDescuentos().stream().map(CuponDescuento::getDetalle).collect(Collectors.toList()))
             .con("username", cliente.getUsername())
             .con("apellidoCliente", cliente.getApellido())
             .con("nombreCliente", cliente.getNombre())
+            .con("notificaciones", cliente.getNotificacionesPush())
         ;
     }
 
@@ -51,7 +53,8 @@ public interface Modelos {
             .con("idLocal", local.getId())
             .con("categorias", local.getCategorias().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
-            .con("Direccion", local.getDireccion().getCalle());
+            .con("Direccion", local.getDireccion().getCalle())
+        ;
     }
 
     static Modelo parseModel(Plato plato){
@@ -93,6 +96,26 @@ public interface Modelos {
     }
 
     static Modelo parseModel(LocalDateTime fechaHora){
-        return new Modelo("fecha", fechaHora.getDayOfMonth()+"/"+fechaHora.getMonthValue()+"/"+fechaHora.getYear());
+        return new Modelo(
+            "fecha", conDosDigitos(fechaHora.getDayOfMonth())
+                    +"/"+ conDosDigitos(fechaHora.getMonthValue())
+                    +"/"+fechaHora.getYear())
+        .con("hora", conDosDigitos(fechaHora.getHour())
+                +":"+fechaHora.getMinute()
+        );
+    }
+
+    static String conDosDigitos(Integer numero){
+        String dosDigitos = numero.toString();
+        if(dosDigitos.length()<2) dosDigitos = "0"+dosDigitos;
+
+        return dosDigitos;
+    }
+
+    static Modelo parseModel(Notificacion notificacion) {
+        return new Modelo("asunto", notificacion.getAsunto())
+            .con("cuerpo", notificacion.getCuerpo())
+            .con(parseModel(notificacion.getFechaHora()))
+        ;
     }
 }

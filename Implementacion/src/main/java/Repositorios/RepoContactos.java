@@ -1,10 +1,8 @@
 package Repositorios;
-import Local.Contacto;
+import Local.Duenio;
 import Repositorios.Templates.RepoUsuarios;
-import Usuarios.Cliente;
-import Utils.Exceptions.ClienteInexistenteException;
 
-public class RepoContactos extends RepoUsuarios<Contacto> {
+public class RepoContactos extends RepoUsuarios<Duenio> {
     public static RepoContactos instance = new RepoContactos();
 }
 

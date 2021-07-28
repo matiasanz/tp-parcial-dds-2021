@@ -25,8 +25,7 @@ public class Notificacion {
             return cuerpo;
         }
 
-    public String toString(){
-            return "["+getAsunto()+"] "+getCuerpo();
-        }
-
+    public LocalDateTime getFechaHora(){
+        return fechaHora;
+    }
 }

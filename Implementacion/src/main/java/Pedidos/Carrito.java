@@ -1,8 +1,8 @@
 package Pedidos;
 
 import Local.Local;
-import Pedidos.Descuentos.Descuento;
-import Pedidos.Descuentos.SinDescuento;
+import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.SinDescuento;
 import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
@@ -11,7 +11,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class Carrito {
     static Long idPedido = 0L; //TODO: Esto se tiene que ir
@@ -20,7 +19,7 @@ public class Carrito {
     private Local local;
     private List<Item> items = new LinkedList<>();
     private Direccion direccion;
-    private Descuento descuento = new SinDescuento();
+    private CuponDescuento descuento = new SinDescuento();
 
     public Carrito(Cliente cliente, Local local){
         this.cliente = cliente;
@@ -37,7 +36,7 @@ public class Carrito {
         return this;
     }
 
-    public Carrito conDescuento(Descuento descuento){
+    public Carrito conDescuento(CuponDescuento descuento){
         this.descuento = descuento;
         return this;
     }
@@ -53,6 +52,7 @@ public class Carrito {
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
         Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items, cliente);
         local.notificarPedido(pedido);
+        descuento.notificarUso(cliente, this);
         return pedido;
     }
 

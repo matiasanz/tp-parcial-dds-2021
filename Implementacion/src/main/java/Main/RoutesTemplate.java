@@ -68,6 +68,7 @@ public abstract class RoutesTemplate {
             Spark.get("/", loginController::getLogin, engine);
             Spark.post("/login", loginController::tryLogin, engine);
             Spark.get("/logout", loginController::logout, engine);
+            Spark.get(URIs.NOTIFICACIONES, signupController::getNotificaciones, engine);
         }
 
         this.rutasPropias();

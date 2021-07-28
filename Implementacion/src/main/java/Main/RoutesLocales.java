@@ -1,27 +1,21 @@
 package Main;
 
 import Controladores.Autenticador;
-import Controladores.LoginController;
 import Controladores.Locales.DuenioLocalController;
 import Controladores.Locales.MenuController;
 import Controladores.Locales.LocalSignupController;
-import Controladores.SignupController;
 import Controladores.Utils.URIs;
-import Local.Contacto;
+import Local.Duenio;
 import Repositorios.RepoContactos;
 import Repositorios.RepoLocales;
 import spark.Spark;
-import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class RoutesLocales extends RoutesTemplate{
     //Repositorios
     private static final RepoLocales repoLocales = RepoLocales.instance;
     private static final RepoContactos repoContactos = RepoContactos.instance;
-    private static final Autenticador<Contacto> autenticador = new Autenticador<>(repoContactos);
+    private static final Autenticador<Duenio> autenticador = new Autenticador<>(repoContactos);
 
     //Controladores
     private final DuenioLocalController duenioLocalController = new DuenioLocalController(autenticador, repoLocales);
