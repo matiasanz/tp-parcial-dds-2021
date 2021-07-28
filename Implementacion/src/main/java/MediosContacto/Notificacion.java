@@ -1,7 +1,6 @@
 package MediosContacto;
 
 import java.time.LocalDateTime;
-
 public class Notificacion {
     String asunto;
     String cuerpo;

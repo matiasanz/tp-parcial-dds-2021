@@ -1,25 +1,27 @@
 package MediosContacto;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.*;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 
 import org.bson.Document;
-import java.util.Arrays;
+
 
 import com.mongodb.client.MongoCursor;
-import static com.mongodb.client.model.Filters.*;
-import com.mongodb.client.result.DeleteResult;
-import static com.mongodb.client.model.Updates.*;
-import com.mongodb.client.result.UpdateResult;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MongoHandler {
     MongoClient mongoClient = new MongoClient("localhost",27017);
     MongoDatabase database = mongoClient.getDatabase("LogsNotificacionesPush");
     String collectionName = "notificaciones";
+    List<Notificacion> notificaciones = new ArrayList<>();
 
     public void insertarRegistro(Notificacion notificacion){
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -52,5 +54,28 @@ public class MongoHandler {
         }
     }
 
+    /*
+    public void cargarNotifDesdeMongo(){
+        Notificacion notificacion = null;
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        MongoCursor<Document> cursor = collection.find().iterator();
+        try {
+            while (cursor.hasNext()) {
+                ObjectMapper mapper = new ObjectMapper();
+                notificacion = mapper.readValue(cursor.next().toJson(), Notificacion.class);
+                notificaciones.add(notificacion);
+            }
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } finally {
+            cursor.close();
+        }
+
+        System.out.println(notificaciones);
+    }
+
+     */
 
 }
