@@ -28,7 +28,7 @@ public class MongoHandler {
         Document documento = new Document()
             .append("asunto",notificacion.getAsunto())
             .append("cuerpo",notificacion.getCuerpo())
-            .append("fecha",notificacion.getFechaHora())
+            .append("fechaHora",notificacion.getFechaHora())
         ;
 
         collection.insertOne(documento);
@@ -54,7 +54,7 @@ public class MongoHandler {
         }
     }
 
-    /*
+
     public void cargarNotifDesdeMongo(){
         Notificacion notificacion = null;
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -75,7 +75,5 @@ public class MongoHandler {
 
         System.out.println(notificaciones);
     }
-
-     */
 
 }

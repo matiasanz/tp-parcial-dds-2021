@@ -6,6 +6,18 @@ public class Notificacion {
     String cuerpo;
     LocalDateTime fechaHora = LocalDateTime.now();
 
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
+    public void setCuerpo(String cuerpo) {
+        this.cuerpo = cuerpo;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
     public Notificacion(String asunto, String cuerpo){
         this.asunto=asunto;
         this.cuerpo=cuerpo;
