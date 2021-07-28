@@ -55,25 +55,4 @@ public class MongoHandler {
     }
 
 
-    public void cargarNotifDesdeMongo(){
-        Notificacion notificacion = null;
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        MongoCursor<Document> cursor = collection.find().iterator();
-        try {
-            while (cursor.hasNext()) {
-                ObjectMapper mapper = new ObjectMapper();
-                notificacion = mapper.readValue(cursor.next().toJson(), Notificacion.class);
-                notificaciones.add(notificacion);
-            }
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } finally {
-            cursor.close();
-        }
-
-        System.out.println(notificaciones);
-    }
-
 }

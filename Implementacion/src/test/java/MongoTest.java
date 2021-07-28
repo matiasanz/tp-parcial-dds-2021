@@ -16,11 +16,6 @@ public class MongoTest {
     }
 
     @Test
-    public void cargaListaCorrectamente(){
-        mongoHandler.cargarNotifDesdeMongo();
-    }
-
-    @Test
     public void seMuestraCorrectamente(){
         mongoHandler.muestraRegistros();
     }
