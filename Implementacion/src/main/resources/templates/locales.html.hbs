@@ -4,6 +4,8 @@
 
     {{#partial "contenido"}}
         <section>
+            <h2>Locales</h2>
+
             <div id="categorias">
                 <form id="filtro_categorias" action="/locales" method="GET">
                     <label> Categorías </label>
@@ -16,7 +18,6 @@
             </div>
 
             <div id="locales">
-                Locales:
                 <ul>
                 {{#Locales}}
                     <li><a href="/locales/{{id}}">{{nombre}}</a></li>

@@ -14,6 +14,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import Local.*;
 
+import static Controladores.Utils.Modelos.parseModel;
+
 public class HomeController {
     private Autenticador<Cliente> autenticador;
     private RepoLocales repoLocales;
@@ -24,9 +26,11 @@ public class HomeController {
     }
 
     public ModelAndView getHome(Request req, Response res){
-
-        Modelo modelo = new Modelo("Locales", armarTop(rankingLocales()))
-                .con("Categorias", armarTop(rankingCategorias()));
+        Cliente usuario = autenticador.getUsuario(req);
+        Modelo modelo = parseModel(usuario)
+            .con("Locales", armarTop(rankingLocales()))
+            .con("Categorias", armarTop(rankingCategorias()))
+        ;
 
         return new ModelAndView(modelo, Templates.HOME);
     }

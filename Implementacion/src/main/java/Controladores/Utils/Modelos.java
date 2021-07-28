@@ -1,10 +1,12 @@
 package Controladores.Utils;
 import Local.Local;
 import Pedidos.Carrito;
+import Pedidos.Descuentos.Descuento;
 import Pedidos.Direccion;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
+import Usuarios.Cliente;
 import com.sun.xml.internal.ws.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -32,6 +34,16 @@ public interface Modelos {
         return s.toUpperCase()
             .replace(' ', '_')
             .replace('%', '_');
+    }
+
+    static Modelo parseModel(Cliente cliente){
+        return new Modelo("mailCliente", cliente.getMail())
+            .con("categoriaCliente", cliente.getCategoria().toString())
+            .con("descuentosCliente", cliente.getDescuentos().stream().map(Descuento::getDetalle).collect(Collectors.toList()))
+            .con("username", cliente.getUsername())
+            .con("apellidoCliente", cliente.getApellido())
+            .con("nombreCliente", cliente.getNombre())
+        ;
     }
 
     static Modelo parseModel(Local local){
