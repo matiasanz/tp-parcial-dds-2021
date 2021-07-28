@@ -3,7 +3,7 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-public class SinDescuento implements CuponDescuento {
+public class SinCupon implements CuponDescuento {
     @Override
     public Double calcularSobre(double precio) {
         return 0.0;
@@ -11,7 +11,7 @@ public class SinDescuento implements CuponDescuento {
 
     @Override
     public String getDetalle(){
-        return "Sin descuento";
+        return "Sin Cupon";
     }
 
     @Override

@@ -2,7 +2,7 @@ package Pedidos;
 
 import Local.Local;
 import Pedidos.Cupones.CuponDescuento;
-import Pedidos.Cupones.SinDescuento;
+import Pedidos.Cupones.SinCupon;
 import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
@@ -19,7 +19,7 @@ public class Carrito {
     private Local local;
     private List<Item> items = new LinkedList<>();
     private Direccion direccion;
-    private CuponDescuento descuento = new SinDescuento();
+    private CuponDescuento descuento = new SinCupon();
 
     public Carrito(Cliente cliente, Local local){
         this.cliente = cliente;
@@ -73,34 +73,24 @@ public class Carrito {
     }
 
     public Double getPrecioFinal(){
-        double pf = getSubtotal() - descuentoPorCupon();
-        return redondear(pf);
+        return getSubtotal() - descuentoPorCupon();
     }
 
     public Double getSubtotal(){
-        double st = getPrecioBase() - descuentoPorCategoria();
-        return redondear(st);
+        return getPrecioBase() - descuentoPorCategoria();
     }
 
     public Double getPrecioBase(){
-        double pb = items.stream().mapToDouble(Item::getPrecio).sum();
-        return redondear(pb);
+        return items.stream().mapToDouble(Item::getPrecio).sum();
     }
 
     public Double descuentoPorCupon(){
-        double dp = descuento.calcularSobre(getSubtotal());
-        return redondear(dp);
+        return descuento.calcularSobre(getSubtotal());
     }
 
     public Double descuentoPorCategoria(){
-        double dc = cliente.descuentoPorCategoria(getPrecioBase());
-        return redondear(dc);
+        return cliente.descuentoPorCategoria(getPrecioBase());
     }
 
-    private Double redondear(double precio){
-        BigDecimal bd = BigDecimal.valueOf(precio);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
 
-        return bd.doubleValue();
-    }
 }

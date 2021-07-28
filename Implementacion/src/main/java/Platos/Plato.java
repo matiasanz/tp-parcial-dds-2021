@@ -10,6 +10,7 @@ public abstract class Plato extends Identificable {
     String nombre;
     List<String> fotos = new LinkedList<>();
     boolean disponible = false;
+    float descuento;
 
     public Plato(String nombre){
         this.nombre=nombre;
@@ -26,10 +27,19 @@ public abstract class Plato extends Identificable {
         return disponible;
     }
 
-    public abstract Double getPrecio();
+    public Double getPrecio(){
+        return getPrecioBase()*(1.0-descuento);
+    }
+
+    protected abstract Double getPrecioBase();
+
     public abstract String getDescripcion();
 
     public boolean mismoNombre(Plato plato) {
         return getNombre().equalsIgnoreCase(plato.getNombre());
+    }
+
+    public void setDescuento(float descuento) {
+        this.descuento = descuento;
     }
 }

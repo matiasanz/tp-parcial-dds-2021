@@ -5,15 +5,21 @@
 {{#partial "contenido"}}
     <nav>
         <H3>{{nombre}}</H3>
-        <section id="plato">
+        <div id="plato">
             Datos del plato:
             <ul>
-                <li><strong>Nombre:</strong> {{nombre}}</li>
                 <li><Strong>Descripcion: </Strong>{{descripcion}}</li>
                 <li><Strong>Precio: </Strong>${{precio}}</li>
             </ul>
-        </section>
+        </div>
 
+        <div id="descuentos">
+            <form method="post" action="/platos/{{idPlato}}/descuento">
+                <label>Agregar descuento (%): </label>
+                <input name=descuento type="number" min=0 max=100>
+                <input type="submit" value="Confirmar">
+            </form>
+        </div>
     </nav>
 
 {{/partial}}

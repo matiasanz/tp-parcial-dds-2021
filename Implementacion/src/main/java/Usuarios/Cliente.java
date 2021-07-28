@@ -3,7 +3,7 @@ package Usuarios;
 import Local.Local;
 import Pedidos.Carrito;
 import Pedidos.Cupones.CuponDescuento;
-import Pedidos.Cupones.SinDescuento;
+import Pedidos.Cupones.SinCupon;
 import Pedidos.Direccion;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
@@ -15,7 +15,7 @@ public class Cliente extends Usuario {
     public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, Direccion direccion){
         super(usuario, contrasenia, nombre, apellido, mail);
         direccionesConocidas.add(direccion);
-        agregarDescuento(new SinDescuento());
+        agregarDescuento(new SinCupon());
     }
 
     private Map<Long, Carrito> carritos = new HashMap<>();

@@ -3,8 +3,8 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-public class DescuentoPorcentaje implements CuponDescuento {
-    public DescuentoPorcentaje(float porcentaje, int cuantosPedidos){
+public class CuponDescuentoPorcentaje implements CuponDescuento {
+    public CuponDescuentoPorcentaje(float porcentaje, int cuantosPedidos){
         this.porcentaje = porcentaje;
         this.porCuantosPedidos = cuantosPedidos;
     }

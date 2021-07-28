@@ -15,7 +15,7 @@ public class Combo extends Plato {
     }
 
     @Override
-    public Double getPrecio() {
+    public Double getPrecioBase() {
         return platos.stream().mapToDouble(Plato::getPrecio).sum();
     }
 

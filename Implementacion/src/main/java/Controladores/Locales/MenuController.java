@@ -18,6 +18,7 @@ import spark.Response;
 
 import java.net.HttpURLConnection;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static Controladores.Utils.Modelos.parseModel;
 
@@ -124,11 +125,42 @@ public class MenuController {
     }
 
     public ModelAndView getPlato(Request request, Response response) {
+        Optional<Plato> plato = findPlato(request, response);
+
+        if(plato.isPresent()){
+            Modelo modelo = Modelos.parseModel(plato.get());
+            return new ModelAndView(modelo, "plato-local.html.hbs");
+        } else{
+            response.redirect(URIs.HOME);
+            return null;
+        }
+    }
+
+    public ModelAndView agregarDescuento(Request req, Response res){
+        Optional<Plato> platoOp = findPlato(req, res);
+        platoOp.ifPresent(
+            plato -> {
+                try {
+                    plato.setDescuento(new Float(req.queryParams("descuento"))/100);
+                    res.status(HttpURLConnection.HTTP_OK);
+                } catch (NumberFormatException e){
+                    res.status(HttpURLConnection.HTTP_BAD_REQUEST);
+                }
+
+                res.redirect("/platos/"+plato.getId());
+            }
+        );
+
+
+
+        return null;
+    }
+
+    private Optional<Plato> findPlato(Request request, Response response){
         Local local = autenticador.getUsuario(request).getLocal();
         try{
             Long idPlato = Long.parseLong(request.params("id"));
-            Modelo modelo = Modelos.parseModel(local.getPlato(idPlato));
-            return new ModelAndView(modelo, "plato-local.html.hbs");
+            return Optional.of(local.getPlato(idPlato));
 
         } catch (PlatoInexistenteException e){
             response.status(HttpURLConnection.HTTP_NOT_FOUND);
@@ -136,7 +168,6 @@ public class MenuController {
             response.status(HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
-        response.redirect(URIs.HOME);
-        return null;
+        return Optional.empty();
     }
 }

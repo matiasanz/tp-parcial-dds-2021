@@ -45,5 +45,6 @@ public class RoutesLocales extends RoutesTemplate{
         Spark.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);
         Spark.post("/platos/nuevo-combo", platosController::agregarPlatoACombo, engine);
         Spark.get("/platos/:id", platosController::getPlato, engine);
+        Spark.post("/platos/:id/descuento", platosController::agregarDescuento, engine);
     }
 }

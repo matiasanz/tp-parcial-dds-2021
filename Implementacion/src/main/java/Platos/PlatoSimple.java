@@ -16,7 +16,7 @@ public class PlatoSimple extends Plato {
     }
 
     @Override
-    public Double getPrecio() {
+    public Double getPrecioBase() {
         return precio;
     }
 
