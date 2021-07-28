@@ -12,6 +12,11 @@ public class Modelo extends HashMap<String, Object>{
 
     public Modelo(){}
 
+    public Modelo con(String key, int value){
+        put(key, value);
+        return this;
+    }
+
     public Modelo con(String key, Double value){
         put(key, redondear(value));
         return this;
