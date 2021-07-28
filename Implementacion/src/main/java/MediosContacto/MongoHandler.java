@@ -17,8 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MongoHandler {
-    public void insertarRegistro(MongoDatabase db, String collectionName, Notificacion notificacion){
-        MongoCollection<Document> collection = db.getCollection(collectionName);
+    MongoClient mongoClient = new MongoClient("localhost",27017);
+    MongoDatabase database = mongoClient.getDatabase("LogsNotificacionesPush");
+    String collectionName = "notificaciones";
+
+    public void insertarRegistro(Notificacion notificacion){
+        MongoCollection<Document> collection = database.getCollection(collectionName);
         Document documento = new Document()
             .append("asunto",notificacion.getAsunto())
             .append("cuerpo",notificacion.getCuerpo())
@@ -28,9 +32,25 @@ public class MongoHandler {
         collection.insertOne(documento);
     }
 
-    public void loguearNotificacion(Notificacion notificacion){
-        MongoClient mongoClient = new MongoClient("localhost",27017);
-        MongoDatabase database = mongoClient.getDatabase("LogsNotificacionesPush");
-        insertarRegistro(database, "notificaciones", notificacion);
+    public void muestraRegistros(){
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        MongoCursor<Document> cursor = collection.find().iterator();
+        try {
+            while (cursor.hasNext()) {
+                System.out.println(cursor.next().toJson());
+            }
+        } finally {
+            cursor.close();
+        }
     }
+
+    public void vaciarColeccion(){
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        MongoCursor<Document> cursor = collection.find().iterator();
+        while (cursor.hasNext()) {
+            collection.deleteOne(cursor.next());
+        }
+    }
+
+
 }

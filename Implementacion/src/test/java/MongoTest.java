@@ -12,6 +12,16 @@ public class MongoTest {
 
     @Test
     public void seRegistraCorrectamente(){
-        mongoHandler.loguearNotificacion(notificacion);
+        mongoHandler.insertarRegistro(notificacion);
+    }
+
+    @Test
+    public void seMuestraCorrectamente(){
+        mongoHandler.muestraRegistros();
+    }
+
+    @Test
+    public void seVaciaColleccionCorrectamente(){
+        mongoHandler.vaciarColeccion();
     }
 }

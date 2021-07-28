@@ -1,7 +1,5 @@
 package MediosContacto;
 
-import com.mongodb.client.MongoDatabase;
-
 import java.time.LocalDateTime;
 
 public class Notificacion {
