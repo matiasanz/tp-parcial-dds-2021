@@ -1,3 +1,39 @@
+.topnav{
+    background-color:#ca002f;
+    height: 10%;
+    justify-content: space-around;
+}
+
+.columnado{
+    display: flex;
+    justify-content: space-around;
+}
+
+.nombre-titulo{
+    text-align: justify;
+}
+
 .msj_error{
     color: red;
+    font-style: italic;
+}
+
+/*local vista del cliente*/
+.local{
+    width: 20%;
+    margin-right: 45%;
+    margin-left: 2.5%;
+}
+
+.datos-local{
+    margin-top: 2%;
+    border-radius: 10%;
+    padding: 1px 10px;
+}
+
+.carrito{
+    margin-top: 2%;
+    border-radius: 5%;
+    background-color: #f8c4c4;
+    padding: 1px 10px;
 }
