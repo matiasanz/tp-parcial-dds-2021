@@ -5,7 +5,7 @@ import Usuarios.Cliente;
 
 public class Primerizo extends CategoriaCliente {
 
-    private float porcentajeDescuento = 0.3f;
+    static private float porcentajeDescuento = 0.3f;
 
     @Override
     public String getNombre() {

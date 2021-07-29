@@ -4,8 +4,9 @@ import Pedidos.Pedido;
 import Usuarios.Cliente;
 
 public class Ocasional extends CategoriaCliente{
-    int pedidosParaCambio = 10;
-    float porcentajeDescuento = 0.1f;
+    static int pedidosParaCambio = 10;
+    static float porcentajeDescuento = 0.1f;
+    private int pedidosHechos = 0;
 
     @Override
     public String getNombre(){
@@ -22,7 +23,8 @@ public class Ocasional extends CategoriaCliente{
     }
 
     public void notificarPedido(Pedido pedido, Cliente cliente) {
-        if (cliente.getCantidadComprasHechas() > pedidosParaCambio) {
+        pedidosHechos++;
+        if (pedidosHechos > pedidosParaCambio) {
             cambiarDeCategoria(cliente, siguienteCategoria());
         }
     }

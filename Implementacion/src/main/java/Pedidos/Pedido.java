@@ -1,12 +1,10 @@
 package Pedidos;
 
-import Platos.Plato;
 import Usuarios.Cliente;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,8 +17,7 @@ public class Pedido extends Identificable {
     List<Item> items = new LinkedList<>();
     Local local;
     EstadoPedido estado = EstadoPedido.PENDIENTE;
-    LocalDateTime horaInicio = LocalDateTime.now();
-    LocalDateTime horaFin;
+    LocalDateTime fechaHora = LocalDateTime.now();
     String direccion;
     Cliente cliente;
 
@@ -41,22 +38,13 @@ public class Pedido extends Identificable {
         cliente.notificar(notificacionResultadoPedido(cliente, estado));
     }
 
-    public Duration tiempoEntrega(){
-        validarPedidoEntregado();
-        return Duration.between(horaInicio, horaFin);
-    }
-
-    private void validarPedidoEntregado(){
-        if(horaFin==null) throw new PedidoNoEntregadoException(this);
-    }
-
     public LocalDateTime getFechaInicio() {
-        return horaInicio;
+        return fechaHora;
     }
 
     public Boolean mismoMesQue(LocalDate fechaActual) {
-        return horaInicio.getMonth() == fechaActual.getMonth()
-            && horaInicio.getYear() == fechaActual.getYear();
+        return fechaHora.getMonth() == fechaActual.getMonth()
+            && fechaHora.getYear() == fechaActual.getYear();
     }
 
     public Local getLocal() {

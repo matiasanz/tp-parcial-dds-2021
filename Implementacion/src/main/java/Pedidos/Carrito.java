@@ -6,8 +6,6 @@ import Pedidos.Cupones.SinCupon;
 import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class Carrito {
     private Local local;
     private List<Item> items = new LinkedList<>();
     private String direccion;
-    private CuponDescuento descuento = new SinCupon();
+    private CuponDescuento cupon = new SinCupon();
 
     public Carrito(Cliente cliente, Local local){
         this.cliente = cliente;
@@ -36,8 +34,8 @@ public class Carrito {
         return this;
     }
 
-    public Carrito conDescuento(CuponDescuento descuento){
-        this.descuento = descuento;
+    public Carrito conCupon(CuponDescuento cupon){
+        this.cupon = cupon;
         return this;
     }
 
@@ -47,13 +45,17 @@ public class Carrito {
     }
 
     public Pedido build(){
+        validarPedido();
+        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items, cliente);
+        local.agregarPedido(pedido);
+        cupon.notificarUso(cliente, this);
+        return pedido;
+    }
+
+    private void validarPedido() {
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
-        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items, cliente);
-        local.notificarPedido(pedido);
-        descuento.notificarUso(cliente, this);
-        return pedido;
     }
 
     public void sacarItem(int numero) {
@@ -85,7 +87,7 @@ public class Carrito {
     }
 
     public Double descuentoPorCupon(){
-        return descuento.calcularSobre(getSubtotal());
+        return cupon.calcularSobre(getSubtotal());
     }
 
     public Double descuentoPorCategoria(){

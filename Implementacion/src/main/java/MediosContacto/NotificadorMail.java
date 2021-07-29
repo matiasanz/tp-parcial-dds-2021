@@ -19,7 +19,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class MailSender implements MedioDeContacto{
+public class NotificadorMail implements MedioDeContacto{
 
     final String nombre = "Pedidos Ya";
     final String direccionEmail = "pedidos.ya.rym@gmail.com";

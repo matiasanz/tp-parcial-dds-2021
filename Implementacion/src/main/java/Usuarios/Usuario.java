@@ -27,7 +27,6 @@ public abstract class Usuario extends Identificable {
     private String apellido;
 
     private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
-
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
     //Credenciales

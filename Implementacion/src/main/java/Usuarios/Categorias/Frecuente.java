@@ -5,9 +5,10 @@ import Usuarios.Cliente;
 
 public class Frecuente extends CategoriaCliente{
 
-    int pedidosParaCambio = 30;
+    static int pedidosParaCambio = 30;
+    static int cadaCuantosDescuento = 15;
+
     int pedidosHechos = 0;
-    private int cadaCuantosDescuento = 15;
 
     @Override
     public String getNombre(){

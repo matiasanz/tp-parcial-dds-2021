@@ -7,8 +7,6 @@ import Platos.Plato;
 import Usuarios.Cliente;
 import com.sun.xml.internal.ws.util.StringUtils;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,7 +38,7 @@ public interface Modelos {
     static Modelo parseModel(Cliente cliente){
         return new Modelo("mailCliente", cliente.getMail())
             .con("categoriaCliente", cliente.getCategoria().toString())
-            .con("descuentosCliente", cliente.getDescuentos().stream().map(CuponDescuento::getDetalle).collect(Collectors.toList()))
+            .con("descuentosCliente", cliente.getCupones().stream().map(CuponDescuento::getDetalle).collect(Collectors.toList()))
             .con("username", cliente.getUsername())
             .con("direcciones", cliente.getDireccionesConocidas())
             .con("apellidoCliente", cliente.getApellido())

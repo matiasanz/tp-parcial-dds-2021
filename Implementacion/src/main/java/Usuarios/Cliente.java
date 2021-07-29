@@ -23,7 +23,7 @@ public class Cliente extends Usuario {
     private List<Pedido> pedidosRealizados = new LinkedList<>();
     public CategoriaCliente categoria = new Primerizo();
     public int cantidadComprasHechas;
-    private List<CuponDescuento> descuentosDisponibles = new ArrayList<>();
+    private List<CuponDescuento> cupones = new ArrayList<>();
 
     public Carrito getCarrito(Local local) {
         Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
@@ -56,20 +56,20 @@ public class Cliente extends Usuario {
         categoria.notificarPedido(pedido, this);
     }
 
-    public List<CuponDescuento> getDescuentos(){
-        return descuentosDisponibles;
+    public List<CuponDescuento> getCupones(){
+        return cupones;
     }
 
     public void agregarDescuento(CuponDescuento descuento){
-        descuentosDisponibles.add(descuento);
+        cupones.add(descuento);
     }
 
     public void quitarDescuento(CuponDescuento descuento) {
-        descuentosDisponibles.remove(descuento);
+        cupones.remove(descuento);
     }
 
-    public Double descuentoPorCategoria(Double precioFinal) {
-        return categoria.descuentoPorCategoria(precioFinal, this);
+    public Double descuentoPorCategoria(Double precio) {
+        return categoria.descuentoPorCategoria(precio, this);
     }
 }
 
