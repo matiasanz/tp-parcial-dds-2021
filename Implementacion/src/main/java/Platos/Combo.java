@@ -28,7 +28,7 @@ public class Combo extends Plato {
     }
 
     public String getDescripcion(){
-        return String.join(", ", platos.stream().map(Plato::getNombre).collect(Collectors.toList()));
+        return "Compuesto por "+ String.join(", ", platos.stream().map(Plato::getNombre).collect(Collectors.toList()));
     }
 
     @Override

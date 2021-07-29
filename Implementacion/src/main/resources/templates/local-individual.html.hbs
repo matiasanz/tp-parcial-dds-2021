@@ -62,11 +62,10 @@
                         <label>Direccion </label>
                         <select id="direccion" name="direccion" form="form_envio">
                             {{#direcciones}}
-                                <option value={{@index}}>{{calle}}</option><br>
+                                <option value={{@index}}>{{this}}</option><br>
                             {{/direcciones}}
                         </select>
                         <br>
-
                         <label>Descuento </label>
                         <select id="descuentos" name="descuento" form="form_envio">
                             {{#descuentos}}
@@ -77,9 +76,7 @@
                         <input type="submit" value="Finalizar" form="form_envio"><p class="msj_error">{{error}}</p><br>
                     </form>
                 </div>
-
             </section>
-
         </main>
 
     {{/partial}}

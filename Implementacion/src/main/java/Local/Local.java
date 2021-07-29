@@ -1,7 +1,5 @@
 package Local;
 
-import Pedidos.Direccion;
-import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Platos.ComboBorrador;
 import Platos.Plato;
@@ -16,20 +14,20 @@ import java.util.stream.Collectors;
 
 public class Local extends Identificable {
     String nombre;
-    Direccion direccion;
+    String direccion;
     List<Pedido> pedidosRecibidos = new LinkedList<>();
     List<Plato> menu = new ArrayList<>();
-    List<String> fotos = new LinkedList<>();
+    List<String> fotos = new LinkedList<>(); //TODO
     CategoriaLocal categoria;
     ComboBorrador borrador = new ComboBorrador(this);
 
-    public Local(String nombre, Direccion direccion, CategoriaLocal categoria) {
+    public Local(String nombre, String direccion, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.categoria = categoria;
     }
 
-    public void notificarPedido(Pedido pedido){
+    public void agregarPedido(Pedido pedido){
         pedidosRecibidos.add(pedido);
     }
 
@@ -64,7 +62,7 @@ public class Local extends Identificable {
         menu.add(plato);
     }
 
-    public Direccion getDireccion() {
+    public String getDireccion() {
         return direccion;
     }
 

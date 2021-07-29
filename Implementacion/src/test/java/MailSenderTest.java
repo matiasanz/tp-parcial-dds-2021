@@ -1,5 +1,5 @@
 import Local.Duenio;
-import MediosContacto.MailSender;
+import MediosContacto.NotificadorMail;
 import MediosContacto.Notificacion;
 import Usuarios.Usuario;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class MailSenderTest {
 
-    MailSender notificadorMail = new MailSender();
+    NotificadorMail notificadorMail = new NotificadorMail();
 
     @Test
     public void enviaMailCorrectamente() {

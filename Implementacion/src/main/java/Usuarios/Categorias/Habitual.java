@@ -5,7 +5,7 @@ import Usuarios.Cliente;
 
 public class Habitual extends CategoriaCliente {
 
-    double precioMinimoDescuento = 700.0;
+    static double precioMinimoDescuento = 700.0;
 
     @Override
     public String getNombre(){

@@ -1,9 +1,8 @@
 package Controladores;
 
 import Controladores.Utils.*;
-import MediosContacto.MailSender;
+import MediosContacto.NotificadorMail;
 import MediosContacto.MedioDeContacto;
-import MediosContacto.Notificacion;
 import MediosContacto.NotificadorPush;
 import Repositorios.Templates.RepoUsuarios;
 import Usuarios.Usuario;
@@ -11,7 +10,6 @@ import Utils.Exceptions.ContraseniasDistintasException;
 import Utils.Exceptions.DatosNulosException;
 import Utils.Exceptions.MailNoEnviadoException;
 import Utils.Exceptions.NombreOcupadoException;
-import com.sun.corba.se.spi.ior.ObjectKey;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -28,7 +26,7 @@ public abstract class SignupController<T extends Usuario> {
     private Autenticador<T> autenticador;
 
     private ErrorHandler errorHandler = new ErrorHandler();
-    private MedioDeContacto notificadorMail = new MailSender();
+    private MedioDeContacto notificadorMail = new NotificadorMail();
     private MedioDeContacto notificadorPush = new NotificadorPush();
 
     public SignupController(RepoUsuarios<T> repoUsuarios){

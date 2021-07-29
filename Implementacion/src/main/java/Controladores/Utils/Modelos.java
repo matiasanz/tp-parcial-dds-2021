@@ -7,8 +7,6 @@ import Platos.Plato;
 import Usuarios.Cliente;
 import com.sun.xml.internal.ws.util.StringUtils;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,8 +38,9 @@ public interface Modelos {
     static Modelo parseModel(Cliente cliente){
         return new Modelo("mailCliente", cliente.getMail())
             .con("categoriaCliente", cliente.getCategoria().toString())
-            .con("descuentosCliente", cliente.getDescuentos().stream().map(CuponDescuento::getDetalle).collect(Collectors.toList()))
+            .con("descuentosCliente", cliente.getCupones().stream().map(CuponDescuento::getDetalle).collect(Collectors.toList()))
             .con("username", cliente.getUsername())
+            .con("direcciones", cliente.getDireccionesConocidas())
             .con("apellidoCliente", cliente.getApellido())
             .con("nombreCliente", cliente.getNombre())
             .con("notificaciones", cliente.getNotificacionesPush())
@@ -53,7 +52,7 @@ public interface Modelos {
             .con("idLocal", local.getId())
             .con("categoriaLocal", parseModel(local.getCategoria()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
-            .con("Direccion", local.getDireccion().getCalle())
+            .con("Direccion", local.getDireccion())
         ;
     }
 
@@ -67,11 +66,11 @@ public interface Modelos {
     }
 
     static Modelo parseModel(Carrito carrito){
-        Direccion direccion = carrito.getDireccion();
+        String direccion = carrito.getDireccion();
 
         return new Modelo("local", carrito.getLocal().getNombre())
             .con("idLocal"       , carrito.getLocal().getId())
-            .con("direccionCarrito", (direccion==null)? null : direccion.getCalle())
+            .con("direccionCarrito", direccion)
             .con("items"         , carrito.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("precioBase"    , carrito.getPrecioBase())
             .con("dtoCategoria"  , carrito.descuentoPorCategoria())
@@ -92,7 +91,7 @@ public interface Modelos {
             .con("items", pedido.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("estado", parseModel(pedido.getEstado()))
             .con(parseModel(pedido.getFechaInicio()))
-            .con("direccion", pedido.getDireccion().getCalle())
+            .con("direccion", pedido.getDireccion())
             .con("pendiente", pedido.getEstado()== EstadoPedido.PENDIENTE);
     }
 
