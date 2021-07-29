@@ -6,7 +6,6 @@ import Controladores.Utils.Modelos;
 import Local.CategoriaLocal;
 import Local.Duenio;
 import Local.Local;
-import Pedidos.Direccion;
 import Repositorios.RepoContactos;
 import Repositorios.RepoLocales;
 import spark.Request;
@@ -43,7 +42,7 @@ public class LocalSignupController extends SignupController<Duenio> {
     private Local crearLocal(Map<String, String> req){
         Local local = new Local(
             req.get("nombreLocal")
-            , new Direccion(req.get("calleLocal"))
+            , req.get("calleLocal")
             , CategoriaLocal.valueOf(Modelos.unparseEnum(req.get("categoriaLocal"))) //TODO esto puede romper
         );
 

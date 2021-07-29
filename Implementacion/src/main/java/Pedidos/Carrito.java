@@ -18,7 +18,7 @@ public class Carrito {
     private Cliente cliente;
     private Local local;
     private List<Item> items = new LinkedList<>();
-    private Direccion direccion;
+    private String direccion;
     private CuponDescuento descuento = new SinCupon();
 
     public Carrito(Cliente cliente, Local local){
@@ -26,7 +26,7 @@ public class Carrito {
         this.local=local;
     }
 
-    public Carrito conDireccion(Direccion direccion){
+    public Carrito conDireccion(String direccion){
         this.direccion = direccion;
         return this;
     }
@@ -68,7 +68,7 @@ public class Carrito {
         return items;
     }
 
-    public Direccion getDireccion(){
+    public String getDireccion(){
         return direccion;
     }
 

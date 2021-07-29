@@ -3,11 +3,11 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-public class CuponPlata implements CuponDescuento{
+public class CuponSaldo implements CuponDescuento{
     private Double saldo;
     private Double cuantoGasto = 0.0;
 
-    public CuponPlata(double cuantaPlata){
+    public CuponSaldo(double cuantaPlata){
         this.saldo =cuantaPlata;
     }
 

@@ -21,10 +21,10 @@ public class Pedido extends Identificable {
     EstadoPedido estado = EstadoPedido.PENDIENTE;
     LocalDateTime horaInicio = LocalDateTime.now();
     LocalDateTime horaFin;
-    Direccion direccion;
+    String direccion;
     Cliente cliente;
 
-    public Pedido(double precio, Direccion direccion, Local local, List<Item> items, Cliente cliente){
+    public Pedido(double precio, String direccion, Local local, List<Item> items, Cliente cliente){
         this.precio = precio;
         this.direccion=direccion;
         this.local = local;
@@ -71,7 +71,7 @@ public class Pedido extends Identificable {
         return estado;
     }
 
-    public Direccion getDireccion() {
+    public String getDireccion() {
         return direccion;
     }
 

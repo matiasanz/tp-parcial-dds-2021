@@ -8,7 +8,6 @@ import Controladores.Utils.URIs;
 import Local.Local;
 import Pedidos.Carrito;
 import Pedidos.Cupones.CuponDescuento;
-import Pedidos.Direccion;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
@@ -165,7 +164,7 @@ public class LocalController {
         return Long.parseLong(req.params(id));
     }
 
-    private Direccion getDireccion(Request request){
+    private String getDireccion(Request request){
         return getAtributoDeLista(request
             , "direccion"
             , Cliente::getDireccionesConocidas

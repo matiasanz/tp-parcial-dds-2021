@@ -1,7 +1,6 @@
 package Controladores.Cliente;
 
 import Controladores.SignupController;
-import Pedidos.Direccion;
 import Repositorios.Templates.RepoUsuarios;
 import Usuarios.Cliente;
 
@@ -21,7 +20,7 @@ public class ClienteSignupController extends SignupController<Cliente> {
             , req.get("nombre")
             , req.get("apellido")
             , req.get("mail")
-            , new Direccion(req.get("direccion"))
+            , req.get("direccion")
         );
     }
 }

@@ -4,7 +4,6 @@ import Local.Local;
 import Pedidos.Carrito;
 import Pedidos.Cupones.CuponDescuento;
 import Pedidos.Cupones.SinCupon;
-import Pedidos.Direccion;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Primerizo;
@@ -12,7 +11,7 @@ import Usuarios.Categorias.Primerizo;
 import java.util.*;
 
 public class Cliente extends Usuario {
-    public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, Direccion direccion){
+    public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, String direccion){
         super(usuario, contrasenia, nombre, apellido, mail);
         direccionesConocidas.add(direccion);
         agregarDescuento(new SinCupon());
@@ -20,7 +19,7 @@ public class Cliente extends Usuario {
 
     private Map<Long, Carrito> carritos = new HashMap<>();
 
-    private List<Direccion> direccionesConocidas = new ArrayList<>();
+    private List<String> direccionesConocidas = new ArrayList<>();
     private List<Pedido> pedidosRealizados = new LinkedList<>();
     public CategoriaCliente categoria = new Primerizo();
     public int cantidadComprasHechas;
@@ -32,7 +31,7 @@ public class Cliente extends Usuario {
         return carrito;
     }
 
-    public List<Direccion> getDireccionesConocidas() {
+    public List<String> getDireccionesConocidas() {
         return direccionesConocidas;
     }
 
