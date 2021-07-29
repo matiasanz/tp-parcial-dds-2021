@@ -30,4 +30,9 @@ public class Combo extends Plato {
     public String getDescripcion(){
         return String.join(", ", platos.stream().map(Plato::getNombre).collect(Collectors.toList()));
     }
+
+    @Override
+    public String getNombre(){
+        return "Combo "+ super.getNombre();
+    }
 }

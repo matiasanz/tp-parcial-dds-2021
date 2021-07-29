@@ -9,16 +9,7 @@
             <ul>
                 <li><Strong>Direccion: </Strong>{{Direccion}}</li>
                 <br>
-                <li><strong>Categorias:</strong>
-                    <br>
-                    <ul>
-                        {{#categorias}}
-                            <li><a href="/locales?categoria={{this}}">{{this}}</a></li><br>
-                        {{else}}
-                            <p>-</p>
-                        {{/categorias}}
-                    </ul>
-                </li>
+                <li><strong>Categoría:</strong> <a href="/locales?categoria={{categoriaLocal}}">{{categoriaLocal}}</a></li>
             </ul>
         </section>
 

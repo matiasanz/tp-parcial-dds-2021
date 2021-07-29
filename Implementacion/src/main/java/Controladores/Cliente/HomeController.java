@@ -55,12 +55,9 @@ public class HomeController {
         Map<CategoriaLocal, Integer> pedidosPorCategoria = new HashMap<>();
 
         repoLocales.stream().forEach(local-> {
-            int cantidadLocal = cantidadPedidosMensuales(local);
-
-            local.getCategorias().forEach(categoria -> {
-                int acumulados = pedidosPorCategoria.getOrDefault(categoria, 0);
-                pedidosPorCategoria.put(categoria, acumulados + cantidadLocal);
-            });
+            CategoriaLocal categoria = local.getCategoria();
+            int acumulados = pedidosPorCategoria.getOrDefault(categoria, 0);
+            pedidosPorCategoria.put(categoria, acumulados + cantidadPedidosMensuales(local));
         });
 
         return pedidosPorCategoria;

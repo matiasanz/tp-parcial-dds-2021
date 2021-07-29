@@ -20,13 +20,13 @@ public class Local extends Identificable {
     List<Pedido> pedidosRecibidos = new LinkedList<>();
     List<Plato> menu = new ArrayList<>();
     List<String> fotos = new LinkedList<>();
-    List<CategoriaLocal> categorias = new ArrayList<>();
+    CategoriaLocal categoria;
     ComboBorrador borrador = new ComboBorrador(this);
 
     public Local(String nombre, Direccion direccion, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.categorias.add(categoria);
+        this.categoria = categoria;
     }
 
     public void notificarPedido(Pedido pedido){
@@ -37,8 +37,8 @@ public class Local extends Identificable {
         return nombre;
     }
 
-    public List<CategoriaLocal> getCategorias(){
-        return categorias;
+    public CategoriaLocal getCategoria(){
+        return categoria;
     }
 
     public List<Pedido> getPedidosRecibidos(){

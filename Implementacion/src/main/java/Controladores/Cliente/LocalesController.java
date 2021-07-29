@@ -41,9 +41,7 @@ public class LocalesController {
 
     private boolean perteneceACategoria(Local local, String categoria){
         return categoria.equals("Todas")
-            || local.getCategorias().stream()
-                .map(CategoriaLocal::toString)
-                .anyMatch(s->unparseEnum(categoria).equals(s));
+            || local.getCategoria().toString().equals(unparseEnum(categoria));
     }
 
 }

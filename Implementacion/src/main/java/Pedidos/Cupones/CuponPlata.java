@@ -13,7 +13,7 @@ public class CuponPlata implements CuponDescuento{
 
     @Override
     public Double calcularSobre(double precio) {
-        return Double.max(precio, saldoRestante());
+        return Double.min(precio, saldoRestante());
     }
 
     @Override

@@ -51,7 +51,7 @@ public interface Modelos {
     static Modelo parseModel(Local local){
         return new Modelo("nombre", local.getNombre())
             .con("idLocal", local.getId())
-            .con("categorias", local.getCategorias().stream().map(Modelos::parseModel).collect(Collectors.toList()))
+            .con("categoriaLocal", parseModel(local.getCategoria()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion().getCalle())
         ;
