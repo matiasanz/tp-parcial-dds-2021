@@ -20,6 +20,7 @@ public abstract class RoutesTemplate {
         , "/login"
         , URIs.SIGNUP
         , "/usuarios"
+        , "/styles.css"
     );
 
     //Repositorios
