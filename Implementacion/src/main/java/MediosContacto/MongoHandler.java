@@ -1,5 +1,6 @@
 package MediosContacto;
 
+import Pedidos.Pedido;
 import com.mongodb.*;
 
 import com.mongodb.client.MongoDatabase;
@@ -10,27 +11,29 @@ import org.bson.Document;
 
 import com.mongodb.client.MongoCursor;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MongoHandler {
     MongoClient mongoClient = new MongoClient("localhost",27017);
-    MongoDatabase database = mongoClient.getDatabase("LogsNotificacionesPush");
-    String collectionName = "notificaciones";
 
-    public void insertarRegistro(Notificacion notificacion){
+    public void insertarPedido(Pedido pedido){
+        MongoDatabase database = mongoClient.getDatabase("pedidos");
+        String collectionName = "rechazados";
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document documento = new Document()
-            .append("asunto",notificacion.getAsunto())
-            .append("cuerpo",notificacion.getCuerpo())
-            .append("fechaHora",notificacion.getFechaHora().toString())
-        ;
+                .append("precio",pedido.getImporte())
+                .append("direccion",pedido.getDireccion())
+                .append("local",pedido.getLocal().getNombre())
+                .append("cliente",pedido.getCliente().getUsername())
+                ;
 
         collection.insertOne(documento);
     }
 
-    public void muestraRegistros(){
+
+
+    public void muestraRegistros(String databaseName, String collectionName){
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection(collectionName);
         MongoCursor<Document> cursor = collection.find().iterator();
         try {
@@ -42,7 +45,8 @@ public class MongoHandler {
         }
     }
 
-    public void vaciarColeccion(){
+    public void vaciarColeccion(String databaseName, String collectionName){
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection(collectionName);
         MongoCursor<Document> cursor = collection.find().iterator();
         while (cursor.hasNext()) {

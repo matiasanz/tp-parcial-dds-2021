@@ -1,25 +1,30 @@
+import Local.Local;
 import MediosContacto.MongoHandler;
 import MediosContacto.Notificacion;
+import Pedidos.Pedido;
 import Usuarios.Cliente;
 import org.junit.Test;
+import Local.CategoriaLocal;
 
 public class MongoTest {
     MongoHandler mongoHandler = new MongoHandler();
     Cliente usuario = new Cliente("romi","romi","romina","martinez","romi@gmail.com","caseros");
-    Notificacion notificacion = new Notificacion("PROBANDO","FUNCIONA EXCELENTE");
+    Local local = new Local("farola","caseros 34", CategoriaLocal.VEGANO);
+    Pedido pedido = new Pedido (890.5,"caseros 123",local,usuario);
+
 
     @Test
-    public void seRegistraCorrectamente(){
-        mongoHandler.insertarRegistro(notificacion);
+    public void insertaPedido(){
+        mongoHandler.insertarPedido(pedido);
     }
 
     @Test
-    public void seMuestraCorrectamente(){
-        mongoHandler.muestraRegistros();
+    public void seMuestraPedidosCorrectamente(){
+        mongoHandler.muestraRegistros("pedidos","rechazados");
     }
 
     @Test
     public void seVaciaColleccionCorrectamente(){
-        mongoHandler.vaciarColeccion();
+        mongoHandler.vaciarColeccion("pedidos","rechazados");
     }
 }

@@ -29,6 +29,13 @@ public class Pedido extends Identificable {
         this.cliente = cliente;
     }
 
+    public Pedido(double precio, String direccion, Local local, Cliente cliente){
+        this.precio = precio;
+        this.direccion=direccion;
+        this.local = local;
+        this.cliente = cliente;
+    }
+
     public Double getImporte(){
         return precio;
     }
