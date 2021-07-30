@@ -27,6 +27,14 @@ public class Local extends Identificable {
         this.categoria = categoria;
     }
 
+    public List<Pedido> pedidosEntreFechas(LocalDate min, LocalDate max){
+        return getPedidosRecibidos()
+            .stream().filter(p->p.entreFechas(min, max))
+            .collect(Collectors.toList())
+            ;
+    }
+
+
     public void agregarPedido(Pedido pedido){
         pedidosRecibidos.add(pedido);
     }
@@ -50,6 +58,8 @@ public class Local extends Identificable {
     public List<Pedido> pedidosDelMes(LocalDate fechaActual) {
         return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
     }
+
+    //getters *****************************************************
 
     public Plato getPlato(Long idPlato) {
         return getMenu().stream().filter(plato->plato.matchId(idPlato)).findAny().orElseThrow(PlatoInexistenteException::new);
