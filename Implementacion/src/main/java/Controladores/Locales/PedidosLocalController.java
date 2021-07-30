@@ -26,8 +26,8 @@ public class PedidosLocalController {
     public ModelAndView getPedidos(Request req, Response res) {
         Duenio duenio = autenticador.getUsuario(req);
 
-        LocalDate fechaInicio = getFechaParam("fechaInicio", req).orElse(LocalDate.MIN);
-        LocalDate fechaFin = getFechaParam("fechaFin", req).orElse(LocalDate.MAX);
+        LocalDate fechaInicio = getFechaParam("fechaMin", req).orElse(LocalDate.MIN);
+        LocalDate fechaFin = getFechaParam("fechaMax", req).orElse(LocalDate.MAX);
 
         List<Pedido> pedidos = duenio.getLocal().pedidosEntreFechas(fechaInicio, fechaFin);
 
@@ -49,17 +49,25 @@ public class PedidosLocalController {
         List<Pedido> entregados = pedidosEnEstado(pedidos, EstadoPedido.ENTREGADO);
 
         long cantidadRechazados = contarEnEstado(pedidos, EstadoPedido.RECHAZADO);
+        long cantidadConfirmados = contarEnEstado(pedidos, EstadoPedido.CONFIRMADO);
+        long cantidadPendientes = contarEnEstado(pedidos, EstadoPedido.PENDIENTE);
 
         return new Modelo("cantidadTotal", totales)
             .con("gananciaTotal", entregados.stream().mapToDouble(Pedido::getImporte).sum())
-            .con("cantidadConfirmados", contarEnEstado(pedidos, EstadoPedido.CONFIRMADO))
+            .con("cantidadConfirmados", cantidadConfirmados)
             .con("cantidadEntregados", entregados.size())
             .con("cantidadRechazados", cantidadRechazados)
-            .con("cantidadSinResponder", contarEnEstado(pedidos, EstadoPedido.PENDIENTE))
-            .con("porcentajeEntregados", (double) entregados.size()/totales)
-            .con("porcentajeRechazados", (double) cantidadRechazados/totales)
+            .con("cantidadSinResponder", cantidadPendientes)
+            .con("porcentajeConfirmados", porcentaje(cantidadConfirmados, totales))
+            .con("porcentajeEntregados", porcentaje(entregados.size(), totales))
+            .con("porcentajeRechazados", porcentaje(cantidadRechazados, totales))
+            .con("porcentajeSinResponder", porcentaje(cantidadPendientes, totales))
             ;
 
+    }
+
+    private Double porcentaje(long actual, long total){
+        return (double) actual/Long.max(total, 1) * 100.0;
     }
 
     private List<Pedido> pedidosEnEstado(List<Pedido> pedidos, EstadoPedido estado){
