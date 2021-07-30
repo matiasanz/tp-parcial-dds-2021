@@ -18,6 +18,8 @@ header{
 
 header .topnav{
     display: flex;
+    height: 10%;
+    width: 99%;
     align-items: center;
     justify-content: space-around;
     flex-direction:row;
