@@ -1,5 +1,6 @@
 package Pedidos;
 
+import MediosContacto.MongoHandler;
 import Usuarios.Cliente;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
@@ -41,8 +42,13 @@ public class Pedido extends Identificable {
     }
 
     public void setEstado(EstadoPedido estado) {
+        MongoHandler mongoHandler = new MongoHandler();
         this.estado = estado;
         cliente.notificar(notificacionResultadoPedido(cliente, estado));
+
+        if(estado == EstadoPedido.RECHAZADO){
+            mongoHandler.insertarPedido(this);
+        }
     }
 
     public LocalDateTime getFechaInicio() {

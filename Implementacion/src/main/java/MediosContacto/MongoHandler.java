@@ -2,16 +2,10 @@ package MediosContacto;
 
 import Pedidos.Pedido;
 import com.mongodb.*;
-
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
-
 import org.bson.Document;
-
-
 import com.mongodb.client.MongoCursor;
-
-
 
 public class MongoHandler {
     MongoClient mongoClient = new MongoClient("localhost",27017);
@@ -29,8 +23,6 @@ public class MongoHandler {
 
         collection.insertOne(documento);
     }
-
-
 
     public void muestraRegistros(String databaseName, String collectionName){
         MongoDatabase database = mongoClient.getDatabase(databaseName);
