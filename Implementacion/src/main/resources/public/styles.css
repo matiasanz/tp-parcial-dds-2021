@@ -51,3 +51,26 @@
     background-color: #f8c4c4;
     padding: 1px 10px;
 }
+/*Tabla*/
+table {
+    font-family: arial, sans-serif;
+    border-color: #570a0a;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout:fixed;
+    text-overflow: ellipsis;
+}
+
+td, th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+td{
+    word-wrap: break-word;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
