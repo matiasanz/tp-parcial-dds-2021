@@ -38,14 +38,15 @@ public class LoginController {
             autenticador.autenticar(req,res);
             res.status(HttpURLConnection.HTTP_ACCEPTED);
             res.redirect(URIs.HOME);
+            res.removeCookie("intentos");
 
         } catch(UsuarioInexistenteException | ContraseniaIncorrectaException e) {
             res.status(HttpURLConnection.HTTP_PROXY_AUTH);
             errorHandler.setMensaje(req, "El usuario y/o la contraseña ingresada son incorrectos");
             res.redirect(URIs.LOGIN);
             int acumulado = Integer.parseInt(req.cookie("intentos"));
-            res.cookie("intentos", String.valueOf(acumulado++));
-            if(acumulado>3){
+            res.cookie("intentos", String.valueOf(++acumulado));
+            if(acumulado>5){
                 //loguear
                 acumulado=0;
             }
