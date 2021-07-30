@@ -18,7 +18,6 @@ public class MongoHandler {
     MongoClient mongoClient = new MongoClient("localhost",27017);
     MongoDatabase database = mongoClient.getDatabase("LogsNotificacionesPush");
     String collectionName = "notificaciones";
-    List<Notificacion> notificaciones = new ArrayList<>();
 
     public void insertarRegistro(Notificacion notificacion){
         MongoCollection<Document> collection = database.getCollection(collectionName);
