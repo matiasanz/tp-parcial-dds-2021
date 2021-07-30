@@ -43,6 +43,12 @@ public class LoginController {
             res.status(HttpURLConnection.HTTP_PROXY_AUTH);
             errorHandler.setMensaje(req, "El usuario y/o la contraseña ingresada son incorrectos");
             res.redirect(URIs.LOGIN);
+            int acumulado = Integer.parseInt(req.cookie("intentos"));
+            res.cookie("intentos", String.valueOf(acumulado++));
+            if(acumulado>3){
+                //loguear
+                acumulado=0;
+            }
         }
 
         return null;
