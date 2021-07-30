@@ -1,15 +1,13 @@
 package Controladores.Cliente;
 
 import Controladores.Autenticador;
+import Controladores.Utils.ErrorHandler;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Templates;
 import Controladores.Utils.URIs;
 import Local.Local;
-import Local.Contacto;
-import Local.CategoriaLocal;
 import Pedidos.Carrito;
-import Pedidos.Descuentos.Descuento;
-import Pedidos.Direccion;
+import Pedidos.Cupones.CuponDescuento;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
@@ -23,12 +21,10 @@ import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
 import static Controladores.Utils.Modelos.parseModel;
 
 public class LocalController {
@@ -38,9 +34,9 @@ public class LocalController {
         this.autenticadorClientes = autenticador;
     }
 
+    private ErrorHandler errorHandler = new ErrorHandler();
     private RepoLocales repoLocales;
     private Autenticador<Cliente> autenticadorClientes;
-    private String ERROR_TOKEN = "error";
 
     public ModelAndView getLocal(Request req, Response res){
         Optional<Local> local = findLocal(req.params("id"), req, res);
@@ -52,15 +48,12 @@ public class LocalController {
         Cliente cliente = autenticadorClientes.getUsuario(req);
         Carrito carrito = cliente.getCarrito(local.get());
 
-        String mensaje = req.session().attribute(ERROR_TOKEN);
-        req.session().removeAttribute(ERROR_TOKEN);
-
         Modelo modelo = parseModel(local.get())
             .con(parseModel(carrito))
             .con("categoria", cliente.getCategoria().getNombre())
             .con("direcciones", cliente.getDireccionesConocidas())
-            .con("descuentos", cliente.getDescuentos())
-            .con(ERROR_TOKEN, mensaje);
+            .con("descuentos", cliente.getCupones())
+            .con("error", errorHandler.getMensaje(req));
 
         return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
     }
@@ -103,7 +96,7 @@ public class LocalController {
                     carrito.sacarItem(numero);
                     response.status(HttpURLConnection.HTTP_OK);
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    request.session().attribute(ERROR_TOKEN, "Se produjo un error al intentar eliminar item");
+                    errorHandler.setMensaje(request, "Se produjo un error al intentar eliminar item");
                     response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 } finally {
                     response.redirect(URIs.LOCAL(carrito.getLocal().getId()));
@@ -121,20 +114,19 @@ public class LocalController {
             try {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
-                Descuento descuento = getDescuento(request);
+                CuponDescuento descuento = getDescuento(request);
                 Pedido pedido = carrito.conDireccion(getDireccion(request))
-                    .conDescuento(descuento)
+                    .conCupon(descuento)
                     .build();
 
-                descuento.notificarUso(cliente);
                 cliente.agregarPedido(pedido);
 
-                int numeroDePedido = cliente.getPedidosRealizados().size() - 1;
+                int numeroDePedido = cliente.getPedidosRealizados().size();
                 response.redirect(URIs.PEDIDO((long) numeroDePedido));
                 carrito.vaciar();
 
             } catch (PedidoIncompletoException e){
-                request.session().attribute(ERROR_TOKEN, e.getMessage());
+                errorHandler.setMensaje(request, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 Long id = Long.parseLong(idLocal);
                 response.redirect(URIs.LOCAL(id));
@@ -172,17 +164,17 @@ public class LocalController {
         return Long.parseLong(req.params(id));
     }
 
-    private Direccion getDireccion(Request request){
+    private String getDireccion(Request request){
         return getAtributoDeLista(request
             , "direccion"
             , Cliente::getDireccionesConocidas
         );
     }
 
-    private Descuento getDescuento(Request request){
+    private CuponDescuento getDescuento(Request request){
         return getAtributoDeLista(request
             , "descuento"
-            , Cliente::getDescuentos
+            , Cliente::getCupones
         );
     }
 

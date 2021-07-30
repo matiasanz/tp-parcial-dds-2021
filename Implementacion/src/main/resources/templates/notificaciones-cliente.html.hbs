@@ -1,0 +1,25 @@
+{{#partial "titulo"}}
+    <title>Notificaciones</title>
+{{/partial}}
+{{#partial "contenido"}}
+    <h2>Notificaciones</h2>
+
+    <section id="notificaciones">
+        <ul>
+            {{#notificaciones}}
+                <li>
+                    <h3><strong>{{asunto}}</strong> [{{fecha}} - {{hora}}]</h3>
+                    <p>{{cuerpo}}</p><br>
+                </li>
+            {{else}}
+                <p>No tiene ninguna notificacion</p>
+            {{/notificaciones}}
+        </ul>
+    </section>
+{{/partial}}
+
+{{#if local}}
+    {{>layout_local.html.hbs}}
+{{else}}
+    {{>layout_cliente.html.hbs}}
+{{/if}}

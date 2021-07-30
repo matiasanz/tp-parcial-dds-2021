@@ -1,73 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Locales</title>
-</head>
-<body>
-    <H2>{{nombre}}</H2>
-    <section id="info-local">
-        <h3>Datos del Local:</h3>
-        <ul>
-            <li><Strong>Direccion: </Strong>{{Direccion}}</li>
-            <br>
-            <li><strong>Categorias:</strong>
+    {{#partial "titulo"}}
+        <title>Locales</title>
+    {{/partial}}
+
+    {{#partial "contenido"}}
+        <H2>{{nombre}}</H2>
+        <section id="info-local">
+            <h3>Datos del Local:</h3>
+            <ul>
+                <li><Strong>Direccion: </Strong>{{Direccion}}</li>
                 <br>
-                <ul>
-                    {{#categorias}}
-                        <li><a href="/locales?categoria={{this}}">{{this}}</a></li><br>
-                    {{/categorias}}
-                </ul>
-            </li>
-        </ul>
-    </section>
+                <li><strong>Categoría:</strong> <a href="/locales?categoria={{categoriaLocal}}">{{categoriaLocal}}</a></li>
+            </ul>
+        </section>
 
-    <section id="Menu">
-        <h3>Menu:</h3>
-        <ul>
-            {{#Platos}}
-                <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
-            {{/Platos}}
-        </ul>
-    </section>
+        <section id="Menu">
+            <h3>Menu:</h3>
+            <ul>
+                {{#Platos}}
+                    <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
+                {{else}}
+                    <p>Aún no se encuentran cargados los platos de este local, regrese más tarde</p>
+                {{/Platos}}
+            </ul>
+        </section>
 
-    <form method="get" action="/locales">
-        <button type="submit">Volver a locales</button>
-    </form>
-    ---------------------------------------------
-
-    <section id="carrito">
-        <nav>
-            <H3>Carrito</H3>
-            <section id="comprar">
-                <form id="form_envio" action="/pedidos" method="POST">
-                    <input type="hidden" name="idLocal" value={{idLocal}}>
-                    <label>Direccion </label>
-                    <select id="direccion" name="direccion" form="form_envio">
-                        {{#direcciones}}
-                            <option value={{@index}}>{{calle}}</option><br>
-                        {{/direcciones}}
-                    </select>
-                    <br>
-
-                    <label>Descuento </label>
-                    <select id="descuentos" name="descuento" form="form_envio">
-                        {{#descuentos}}
-                            <option value={{@index}}>{{detalle}}</option><br>
-                        {{/descuentos}}
-                    </select>
-                    <br>
-                    <input type="submit" value="Finalizar" form="form_envio"><p style="color:Red;">{{error}}</p><br>
-                </form>
-
-                <div id="precio">
-                    <p>Precio Base: ${{precioBase}}</p>
-                    <p>>     Descuento por cliente {{categoria}}: -${{dtoCategoria}}</p>
-                    <p>>     Descuento por cupones: -${{dtoCupon}}</p>
-                    <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
-                </div>
-
-            </section>
-            <section id="items">
+        <section id="carrito">
+            <H3>Carrito:</H3>
+            <div id="items">
                 <p>Items:</p>
                 <ul>
                     {{#items}}
@@ -82,8 +41,39 @@
                         <p>Aún no ha seleccionado ninguno</p>
                     {{/items}}
                 </ul>
-            </section>
-        </nav>
-    </section>
-</body>
-</html>
+            </div>
+
+            <div id="precio">
+                <p>Precio Base: ${{precioBase}}</p>
+                <p>>     Descuento por cliente {{categoria}}: ${{dtoCategoria}}</p>
+                <p>>     Descuento por cupones: ${{dtoCupon}}</p>
+                <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
+            </div>
+
+            <div id="comprar">
+                <form id="form_envio" action="/pedidos" method="POST">
+                    <input type="hidden" name="idLocal" value={{idLocal}}>
+                    <label>Direccion </label>
+                    <select id="direccion" name="direccion" form="form_envio">
+                        {{#direcciones}}
+                            <option value={{@index}}>{{this}}</option><br>
+                        {{/direcciones}}
+                    </select>
+                    <br>
+
+                    <label>Descuento </label>
+                    <select id="descuentos" name="descuento" form="form_envio">
+                        {{#descuentos}}
+                            <option value={{@index}}>{{detalle}}</option><br>
+                        {{/descuentos}}
+                    </select>
+                    <br>
+                    <input type="submit" value="Finalizar" form="form_envio"><p class="msj_error">{{error}}</p><br>
+                </form>
+            </div>
+
+        </section>
+
+    {{/partial}}
+
+{{> layout_cliente.html.hbs }}

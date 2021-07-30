@@ -14,6 +14,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import Local.*;
 
+import static Controladores.Utils.Modelos.parseModel;
+
 public class HomeController {
     private Autenticador<Cliente> autenticador;
     private RepoLocales repoLocales;
@@ -24,16 +26,17 @@ public class HomeController {
     }
 
     public ModelAndView getHome(Request req, Response res){
-
-        Modelo modelo =
-            new Modelo("Locales", armarTop(rankingLocales()))
-                .con("Categorias", armarTop(rankingCategorias()));
+        Cliente usuario = autenticador.getUsuario(req);
+        Modelo modelo = parseModel(usuario)
+            .con("Locales", armarTop(rankingLocales()))
+            .con("Categorias", armarTop(rankingCategorias()))
+        ;
 
         return new ModelAndView(modelo, Templates.HOME);
     }
 
     private List<Object> armarTop(List<?> lista){
-        return lista.stream().limit(10).collect(Collectors.toList());
+        return lista.stream().limit(5).collect(Collectors.toList());
     }
 
     private List<Local> rankingLocales(){
@@ -52,12 +55,9 @@ public class HomeController {
         Map<CategoriaLocal, Integer> pedidosPorCategoria = new HashMap<>();
 
         repoLocales.stream().forEach(local-> {
-            int cantidadLocal = cantidadPedidosMensuales(local);
-
-            local.getCategorias().forEach(categoria -> {
-                int acumulados = pedidosPorCategoria.getOrDefault(categoria, 0);
-                pedidosPorCategoria.put(categoria, acumulados + cantidadLocal);
-            });
+            CategoriaLocal categoria = local.getCategoria();
+            int acumulados = pedidosPorCategoria.getOrDefault(categoria, 0);
+            pedidosPorCategoria.put(categoria, acumulados + cantidadPedidosMensuales(local));
         });
 
         return pedidosPorCategoria;

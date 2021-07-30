@@ -1,8 +1,9 @@
-package Pedidos.Descuentos;
+package Pedidos.Cupones;
 
+import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-public class SinDescuento implements Descuento{
+public class SinCupon implements CuponDescuento {
     @Override
     public Double calcularSobre(double precio) {
         return 0.0;
@@ -10,10 +11,10 @@ public class SinDescuento implements Descuento{
 
     @Override
     public String getDetalle(){
-        return "Sin descuento";
+        return "Sin Cupon";
     }
 
     @Override
-    public void notificarUso(Cliente cliente){
+    public void notificarUso(Cliente cliente, Carrito carrito){
     }
 }

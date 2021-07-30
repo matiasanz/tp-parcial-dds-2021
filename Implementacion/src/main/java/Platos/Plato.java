@@ -8,8 +8,8 @@ import java.util.List;
 
 public abstract class Plato extends Identificable {
     String nombre;
-    List<String> fotos = new LinkedList<>();
-    boolean disponible = false;
+    List<String> fotos = new LinkedList<>(); //TODO
+    float descuento;
 
     public Plato(String nombre){
         this.nombre=nombre;
@@ -22,9 +22,19 @@ public abstract class Plato extends Identificable {
         return fotos;
     }
 
-    public boolean estaDisponible(){
-        return disponible;
+    public Double getPrecio(){
+        return getPrecioBase()*(1.0-descuento);
     }
 
-    public abstract Double getPrecio();
+    protected abstract Double getPrecioBase();
+
+    public abstract String getDescripcion();
+
+    public boolean mismoNombre(Plato plato) {
+        return getNombre().equalsIgnoreCase(plato.getNombre());
+    }
+
+    public void setDescuento(float descuento) {
+        this.descuento = descuento;
+    }
 }

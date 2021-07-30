@@ -1,31 +1,32 @@
 package Pedidos;
 
-import Platos.Plato;
+import Usuarios.Cliente;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class Pedido extends Identificable {
     Double precio;
     List<Item> items = new LinkedList<>();
     Local local;
     EstadoPedido estado = EstadoPedido.PENDIENTE;
-    LocalDateTime horaInicio = LocalDateTime.now();
-    LocalDateTime horaFin;
-    Direccion direccion;
+    LocalDateTime fechaHora = LocalDateTime.now();
+    String direccion;
+    Cliente cliente;
 
-    public Pedido(double precio, Direccion direccion, Local local, List<Item> items){
+    public Pedido(double precio, String direccion, Local local, List<Item> items, Cliente cliente){
         this.precio = precio;
         this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
+        this.cliente = cliente;
     }
 
     public Double getImporte(){
@@ -34,24 +35,21 @@ public class Pedido extends Identificable {
 
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
-    }
-
-    public Duration tiempoEntrega(){
-        validarPedidoEntregado();
-        return Duration.between(horaInicio, horaFin);
-    }
-
-    private void validarPedidoEntregado(){
-        if(horaFin==null) throw new PedidoNoEntregadoException(this);
+        cliente.notificar(notificacionResultadoPedido(cliente, estado));
     }
 
     public LocalDateTime getFechaInicio() {
-        return horaInicio;
+        return fechaHora;
     }
 
     public Boolean mismoMesQue(LocalDate fechaActual) {
-        return horaInicio.getMonth() == fechaActual.getMonth()
-            && horaInicio.getYear() == fechaActual.getYear();
+        return fechaHora.getMonth() == fechaActual.getMonth()
+            && fechaHora.getYear() == fechaActual.getYear();
+    }
+
+    public Boolean entreFechas(LocalDate min, LocalDate max){
+        return fechaHora.isAfter(min.atStartOfDay()) && fechaHora.isBefore(max.atStartOfDay())
+            || fechaHora.equals(min.atStartOfDay()) || fechaHora.equals(max.atStartOfDay());
     }
 
     public Local getLocal() {
@@ -66,7 +64,11 @@ public class Pedido extends Identificable {
         return estado;
     }
 
-    public Direccion getDireccion() {
+    public String getDireccion() {
         return direccion;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 }

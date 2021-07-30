@@ -1,36 +1,41 @@
 package Local;
 
-import Pedidos.Direccion;
-import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Platos.ComboBorrador;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
 import Utils.Exceptions.PlatoInexistenteException;
+import Utils.Exceptions.PlatoRepetidoException;
+import Utils.Factory.ProveedorDeNotif;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Local extends Identificable {
     String nombre;
-    Direccion direccion;
-    Contacto contacto;
+    String direccion;
     List<Pedido> pedidosRecibidos = new LinkedList<>();
     List<Plato> menu = new ArrayList<>();
-    List<String> fotos = new LinkedList<>();
-    List<CategoriaLocal> categorias = new ArrayList<>();
+    List<String> fotos = new LinkedList<>(); //TODO
+    CategoriaLocal categoria;
     ComboBorrador borrador = new ComboBorrador(this);
 
-    public Local(String nombre, Direccion direccion, Contacto contacto, CategoriaLocal categoria) {
+    public Local(String nombre, String direccion, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.contacto = contacto;
-        this.categorias.add(categoria);
+        this.categoria = categoria;
     }
 
-    public void notificarPedido(Pedido pedido){
+    public List<Pedido> pedidosEntreFechas(LocalDate min, LocalDate max){
+        return getPedidosRecibidos()
+            .stream().filter(p->p.entreFechas(min, max))
+            .collect(Collectors.toList())
+            ;
+    }
+
+
+    public void agregarPedido(Pedido pedido){
         pedidosRecibidos.add(pedido);
     }
 
@@ -38,8 +43,8 @@ public class Local extends Identificable {
         return nombre;
     }
 
-    public List<CategoriaLocal> getCategorias(){
-        return categorias;
+    public CategoriaLocal getCategoria(){
+        return categoria;
     }
 
     public List<Pedido> getPedidosRecibidos(){
@@ -54,24 +59,21 @@ public class Local extends Identificable {
         return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
     }
 
+    //getters *****************************************************
+
     public Plato getPlato(Long idPlato) {
         return getMenu().stream().filter(plato->plato.matchId(idPlato)).findAny().orElseThrow(PlatoInexistenteException::new);
     }
 
     public void agregarPlato(Plato plato){
+        if(getMenu().stream().anyMatch(plato::mismoNombre))
+            throw new PlatoRepetidoException(plato.getNombre());
+
         menu.add(plato);
     }
 
-    public Direccion getDireccion() {
+    public String getDireccion() {
         return direccion;
-    }
-
-    public void aceptarPedido(Pedido pedido){
-        pedido.setEstado(EstadoPedido.CONFIRMADO);
-    }
-
-    public void rechazarPedido(Pedido pedido){
-        pedido.setEstado(EstadoPedido.RECHAZADO);
     }
 
     public ComboBorrador getBorrador(){

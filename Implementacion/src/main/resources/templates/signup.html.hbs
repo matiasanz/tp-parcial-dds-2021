@@ -1,58 +1,54 @@
+{{#partial "titulo"}}
+    <title>Pedidos Ya</title>
+{{/partial}}
+{{#partial "contenido"}}
+    <section id="Registro-clientes">
+        <h2>Registrarse</h2>
+        <form action="/signup" method="POST">
+            {{#if local}}<h3>Datos del dueño</h3>{{/if}}
+            <label>Nombre: </label>
+            <input type="text" name="nombre" required pattern="[a-zA-Z]*"><br>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Pedidos Ya</title>
-    </head>
+            <label>Apellido: </label>
+            <input type="text" name="apellido" required pattern="[a-zA-Z]*"><br>
 
-    <body>
-        <section id="Registro-clientes">
-            <h2>Registrarse</h2>
-            <form action="/usuarios" method="POST">
-                <h3>Datos del dueño</h3>
-                <label>Nombre: </label>
-                <input type="text" name="nombre"><br>
+            <label>Direccion: </label>
+            <input type="text" name="direccion" required><br>
 
-                <label>Apellido: </label>
-                <input type="text" name="apellido"><br>
+            <label>Correo Electrónico: </label>
+            <input type="text" name="mail" required><br>
 
-                <label>Direccion: </label>
-                <input type="text" name="direccion"><br>
+            <label>Nuevo Usuario: </label>
+            <input type="text" name="username" required="required" pattern="[a-zA-Z]*"><br>
 
-                <label>Correo Electrónico: </label>
-                <input type="text" name="mail"><br>
+            <label>Nueva Contraseña: </label>
+            <input type="password" name="password" required="required"><br>
 
-                <label>Nuevo Usuario: </label>
-                <input type="text" name="usuario" required="required"><br>
+            <label>Repita la contraseña: </label>
+            <input type="password" name="contraseniaDuplicada" required="required"><br>
 
-                <label>Nueva Contraseña: </label>
-                <input type="password" name="contrasenia" required="required"><br>
+            <input name="notif_mail" type="checkbox"> Deseo recibir las notificaciones también por mail<br>
 
-                <label>Repita la contraseña: </label>
-                <input type="password" name="contraseniaDuplicada" required="required"><br>
-
-                <input name="notif_mail" type="checkbox"> Deseo recibir las notificaciones también por mail<br>
-
-                {{#if local}}
+            {{#if local}}
                 <div id="datos_local">
-                <h3>Datos del Local</h3>
-                <label>Nombre: </label>
-                <input type="text" name="nombreLocal"><br>
+                    <h3>Datos del Local</h3>
+                    <label>Nombre: </label>
+                    <input type="text" name="nombreLocal" required><br>
 
-                <label>Calle: </label>
-                <input type="text" name="calleLocal"><br>
+                    <label>Calle: </label>
+                    <input type="text" name="calleLocal" required><br>
 
-                <label>Categoria </label>
-                <select class="form-control" name="categoriaLocal">
-                    {{#categorias}}
-                        <option value="{{this}}">{{this}}</option>
-                    {{/categorias}}
-                </select>
+                    <label>Categoria </label>
+                    <select class="form-control" name="categoriaLocal" required>
+                        {{#categorias}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/categorias}}
+                    </select>
                 </div>
-                {{/if}}
-                <input type="submit" value="Registrarme"><p style="color:Red;">{{mensaje}}</p><br>
-            </form>
-        </section>
-    </body>
-</html>
+            {{/if}}
+            <input type="submit" value="Registrarme"><p class="msj_error">{{mensaje}}</p><br>
+        </form>
+    </section>
+{{/partial}}
 
+{{>layout_general.html.hbs}}

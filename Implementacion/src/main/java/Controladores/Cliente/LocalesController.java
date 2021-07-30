@@ -26,9 +26,10 @@ public class LocalesController {
 
     public ModelAndView getLocales(Request req, Response res){
         List<Local> locales = repoLocales.ordenadosPorPedidos();
-        List<String> categorias = getCategorias();
+        List<String> categorias = Modelos.getCategorias();
+        categorias.add(0, "Todas");
 
-         Optional.ofNullable(req.queryParams("categoria"))
+        Optional.ofNullable(req.queryParams("categoria"))
              .ifPresent(categoria->{
                  locales.removeIf(l -> !perteneceACategoria(l, categoria));
                  categorias.remove(categoria);
@@ -40,18 +41,7 @@ public class LocalesController {
 
     private boolean perteneceACategoria(Local local, String categoria){
         return categoria.equals("Todas")
-            || local.getCategorias().stream()
-                .map(CategoriaLocal::toString)
-                .anyMatch(s->unparseEnum(categoria).equals(s));
+            || local.getCategoria().toString().equals(unparseEnum(categoria));
     }
 
-    public List<String> getCategorias(){
-        List<String> categorias = Arrays.stream(CategoriaLocal.values())
-            .map(Modelos::parseModel)
-            .collect(Collectors.toList());
-
-        categorias.add(0, "Todas");
-
-        return categorias;
-    }
 }

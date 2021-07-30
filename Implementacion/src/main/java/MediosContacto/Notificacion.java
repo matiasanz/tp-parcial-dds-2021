@@ -2,6 +2,7 @@ package MediosContacto;
 
 import java.time.LocalDateTime;
 public class Notificacion {
+    Long id;
     String asunto;
     String cuerpo;
     LocalDateTime fechaHora = LocalDateTime.now();
@@ -23,6 +24,10 @@ public class Notificacion {
         this.cuerpo=cuerpo;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getAsunto() {
             return asunto;
         }
@@ -31,11 +36,13 @@ public class Notificacion {
             return cuerpo;
         }
 
-    public String getFechaHora() {
-        return String.valueOf(fechaHora);
+    public LocalDateTime getFechaHora(){
+        return fechaHora;
     }
 
     public String toString(){
             return "["+getAsunto()+"] "+getCuerpo();
         }
+
+
 }

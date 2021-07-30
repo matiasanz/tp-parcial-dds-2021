@@ -1,22 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
+{{#partial "titulo"}}
     <title>Pedidos</title>
-</head>
-<body>
-    <h1>Historial de pedidos</h1>
+{{/partial}}
+
+{{#partial "contenido"}}
+    <h2>Pedidos Recibidos</h2>
+
+    <section id="filtro_periodo">
+        <p>Filtrar por periodo:</p>
+        <form>
+            <label>Inicio</label><input type="date" name="fechaMin">
+            <label>Fin</label><input type="date" name="fechaMax">
+            <input type="submit" value="Filtrar">
+        </form>
+    </section>
+    <section id="estadisticas">
+        <h5>Estadísticas: </h5>
+        <ul>
+            <li>Cantidad total: {{cantidadTotal}}
+                <ul>
+                    <li>Confirmados: {{cantidadConfirmados}} - {{porcentajeConfirmados}}%</li>
+                    <li>Entregados: {{cantidadEntregados}} - {{porcentajeEntregados}}%</li>
+                    <li>Rechazados: {{cantidadRechazados}} - {{porcentajeRechazados}}%</li>
+                    <li>Sin responder: {{cantidadSinResponder}} - {{porcentajeSinResponder}}%</li>
+                </ul>
+            </li>
+
+            <li>Ingreso total: {{gananciaTotal}}</li>
+        </ul>
+    </section>
 
     <section id="pedidos">
         <ul>
             {{#pedidos}}
                 <li>
-                    <h3> <a href="/pedidos/{{id}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
+                    <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
                     <strong> Fecha: </strong> {{fecha}} <br>
                     <strong> Importe: </strong> ${{importe}} <br>
                 </li>
-
+            {{else}}
+                <p>Aún no has recibido ningún pedido, o bien no se ha encontrado ninguno en el periodo dado</p>
             {{/pedidos}}
         </ul>
     </section>
-</body>
-</html>
+{{/partial}}
+
+{{>layout_local.html.hbs}}

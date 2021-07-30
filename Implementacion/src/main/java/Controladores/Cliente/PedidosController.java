@@ -12,6 +12,7 @@ import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +32,8 @@ public class PedidosController {
 
         try{
             int id = Integer.parseInt(req.params("id"));
-            Pedido pedido = cliente.getPedidosRealizados().get(id);
-            return new ModelAndView(parseModel(pedido).con("id", id+1), Templates.PEDIDO);
+            Pedido pedido = cliente.getPedidosRealizados().get(id-1);
+            return new ModelAndView(parseModel(pedido).con("numero", id), Templates.PEDIDO);
 
         } catch (NumberFormatException | IndexOutOfBoundsException e){
             res.status(HttpURLConnection.HTTP_NOT_FOUND);
@@ -42,15 +43,9 @@ public class PedidosController {
     }
 
     public ModelAndView getPedidos(Request req, Response res){
-        List<Modelo> pedidos = autenticadorCliente.getUsuario(req)
-            .getPedidosRealizados()
-            .stream()
-            .map(Modelos::parseModel)
-            .collect(Collectors.toList());
+        List<Pedido> pedidos = autenticadorCliente.getUsuario(req)
+            .getPedidosRealizados();
 
-        int[] numero = {pedidos.size()}; //Hice esto para que me dejara usarlo en la lambda
-        pedidos.forEach(p->p.con("numero", numero[0]--).con("id", numero[0]));
-
-        return new ModelAndView(new Modelo("pedidos", pedidos), Templates.PEDIDOS);
+        return new ModelAndView(new Modelo("pedidos", parseModel(pedidos)), Templates.PEDIDOS);
     }
 }

@@ -1,17 +1,14 @@
 package Pedidos;
 
 import Local.Local;
-import Pedidos.Descuentos.Descuento;
-import Pedidos.Descuentos.SinDescuento;
+import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.SinCupon;
 import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class Carrito {
     static Long idPedido = 0L; //TODO: Esto se tiene que ir
@@ -19,15 +16,15 @@ public class Carrito {
     private Cliente cliente;
     private Local local;
     private List<Item> items = new LinkedList<>();
-    private Direccion direccion;
-    private Descuento descuento = new SinDescuento();
+    private String direccion;
+    private CuponDescuento cupon = new SinCupon();
 
     public Carrito(Cliente cliente, Local local){
         this.cliente = cliente;
         this.local=local;
     }
 
-    public Carrito conDireccion(Direccion direccion){
+    public Carrito conDireccion(String direccion){
         this.direccion = direccion;
         return this;
     }
@@ -37,8 +34,8 @@ public class Carrito {
         return this;
     }
 
-    public Carrito conDescuento(Descuento descuento){
-        this.descuento = descuento;
+    public Carrito conCupon(CuponDescuento cupon){
+        this.cupon = cupon;
         return this;
     }
 
@@ -48,12 +45,17 @@ public class Carrito {
     }
 
     public Pedido build(){
+        validarPedido();
+        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items, cliente);
+        local.agregarPedido(pedido);
+        cupon.notificarUso(cliente, this);
+        return pedido;
+    }
+
+    private void validarPedido() {
         if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
-        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items);
-        local.notificarPedido(pedido);
-        return pedido;
     }
 
     public void sacarItem(int numero) {
@@ -68,39 +70,29 @@ public class Carrito {
         return items;
     }
 
-    public Direccion getDireccion(){
+    public String getDireccion(){
         return direccion;
     }
 
     public Double getPrecioFinal(){
-        double pf = getSubtotal() - descuentoPorCupon();
-        return redondear(pf);
+        return getSubtotal() - descuentoPorCupon();
     }
 
     public Double getSubtotal(){
-        double st = getPrecioBase() - descuentoPorCategoria();
-        return redondear(st);
+        return getPrecioBase() - descuentoPorCategoria();
     }
 
     public Double getPrecioBase(){
-        double pb = items.stream().mapToDouble(Item::getPrecio).sum();
-        return redondear(pb);
+        return items.stream().mapToDouble(Item::getPrecio).sum();
     }
 
     public Double descuentoPorCupon(){
-        double dp = descuento.calcularSobre(getSubtotal());
-        return redondear(dp);
+        return cupon.calcularSobre(getSubtotal());
     }
 
     public Double descuentoPorCategoria(){
-        double dc = cliente.descuentoPorCategoria(getPrecioBase());
-        return redondear(dc);
+        return cliente.descuentoPorCategoria(getPrecioBase());
     }
 
-    private Double redondear(double precio){
-        BigDecimal bd = BigDecimal.valueOf(precio);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
 
-        return bd.doubleValue();
-    }
 }

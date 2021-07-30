@@ -1,14 +1,11 @@
 package Usuarios.Categorias;
 
-import MediosContacto.Notificacion;
 import Pedidos.Pedido;
-import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Cliente;
-import Utils.ProveedorDeNotif;
 
 public class Primerizo extends CategoriaCliente {
 
-    private float porcentajeDescuento = 0.3f;
+    static private float porcentajeDescuento = 0.3f;
 
     @Override
     public String getNombre() {

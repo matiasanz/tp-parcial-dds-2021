@@ -2,9 +2,8 @@ package Usuarios;
 
 import Local.Local;
 import Pedidos.Carrito;
-import Pedidos.Descuentos.Descuento;
-import Pedidos.Descuentos.SinDescuento;
-import Pedidos.Direccion;
+import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.SinCupon;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Primerizo;
@@ -12,19 +11,19 @@ import Usuarios.Categorias.Primerizo;
 import java.util.*;
 
 public class Cliente extends Usuario {
-    public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, Direccion direccion){
+    public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, String direccion){
         super(usuario, contrasenia, nombre, apellido, mail);
         direccionesConocidas.add(direccion);
-        agregarDescuento(new SinDescuento());
+        agregarDescuento(new SinCupon());
     }
 
     private Map<Long, Carrito> carritos = new HashMap<>();
 
-    private List<Direccion> direccionesConocidas = new ArrayList<>();
+    private List<String> direccionesConocidas = new ArrayList<>();
     private List<Pedido> pedidosRealizados = new LinkedList<>();
     public CategoriaCliente categoria = new Primerizo();
     public int cantidadComprasHechas;
-    private List<Descuento> descuentosDisponibles = new ArrayList<>();
+    private List<CuponDescuento> cupones = new ArrayList<>();
 
     public Carrito getCarrito(Local local) {
         Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
@@ -32,7 +31,7 @@ public class Cliente extends Usuario {
         return carrito;
     }
 
-    public List<Direccion> getDireccionesConocidas() {
+    public List<String> getDireccionesConocidas() {
         return direccionesConocidas;
     }
 
@@ -57,20 +56,20 @@ public class Cliente extends Usuario {
         categoria.notificarPedido(pedido, this);
     }
 
-    public List<Descuento> getDescuentos(){
-        return descuentosDisponibles;
+    public List<CuponDescuento> getCupones(){
+        return cupones;
     }
 
-    public void agregarDescuento(Descuento descuento){
-        descuentosDisponibles.add(descuento);
+    public void agregarDescuento(CuponDescuento descuento){
+        cupones.add(descuento);
     }
 
-    public void quitarDescuento(Descuento descuento) {
-        descuentosDisponibles.remove(descuento);
+    public void quitarDescuento(CuponDescuento descuento) {
+        cupones.remove(descuento);
     }
 
-    public Double descuentoPorCategoria(Double precioFinal) {
-        return categoria.descuentoPorCategoria(precioFinal, this);
+    public Double descuentoPorCategoria(Double precio) {
+        return categoria.descuentoPorCategoria(precio, this);
     }
 }
 

@@ -1,15 +1,14 @@
 package Usuarios.Categorias;
 
-import Pedidos.Carrito;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
-import Utils.ProveedorDeNotif;
 
 public class Frecuente extends CategoriaCliente{
 
-    int pedidosParaCambio = 30;
+    static int pedidosParaCambio = 30;
+    static int cadaCuantosDescuento = 15;
+
     int pedidosHechos = 0;
-    private int cadaCuantosDescuento = 15;
 
     @Override
     public String getNombre(){

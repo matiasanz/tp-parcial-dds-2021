@@ -1,8 +1,5 @@
 package MediosContacto;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.*;
 
 import com.mongodb.client.MongoDatabase;
@@ -28,7 +25,7 @@ public class MongoHandler {
         Document documento = new Document()
             .append("asunto",notificacion.getAsunto())
             .append("cuerpo",notificacion.getCuerpo())
-            .append("fechaHora",notificacion.getFechaHora())
+            .append("fechaHora",notificacion.getFechaHora().toString())
         ;
 
         collection.insertOne(documento);
