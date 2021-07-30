@@ -4,15 +4,16 @@
     {{/partial}}
 
     {{#partial "contenido"}}
-        <section id="presentacion" class="fondo-gris">
-            <h2>¡Bienvenido {{nombreCliente}}!</h2>
+        <section id="presentacion" class="filas_centradas">
+            <h1>Pedi2 Ya</h1>
+            <p>Saboreá las mejores comedias sin moverte de tu casa</p>
         </section>
 
-        <section id="recomendaciones">
-            <p>¡Saboreá las mejores comedias sin moverte de tu casa!</p>
-
+        <h2>¡Bienvenido {{nombreCliente}}!</h2>
+        <p>Estas son nuestras recomendaciones:</p>
+        <section id="recomendaciones" class="columnado">
             <div id="top locales">
-                Top Locales:
+                <h3>Top Locales:</h3>
                 <ol>
                     {{#Locales}}
                         <li><a href="/locales/{{id}}">{{nombre}}</a></li>
@@ -21,7 +22,7 @@
             </div>
 
             <div id="top Categorias">
-                Top Categorias:
+                <h3>Top Categorias:</h3>
                 <ol>
                     {{#Categorias}}
                         <li><a href="/locales?categoria={{this}}">{{this}}</a></li>
