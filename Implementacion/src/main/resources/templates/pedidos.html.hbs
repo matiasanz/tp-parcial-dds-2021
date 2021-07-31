@@ -3,23 +3,26 @@
 {{/partial}}
 
 {{#partial "contenido"}}
-    <h2>Historial de pedidos</h2>
+    <main class="filas_centradas">
+        <h2>Historial de pedidos</h2>
 
-    <section id="pedidos">
-        <ul>
-            {{#pedidos}}
-                <li>
-                    <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
-                    <strong> Fecha: </strong> {{fecha}} <br>
-                    <strong> Local: </strong> {{local}} <br>
-                    <strong> Importe: </strong> ${{importe}} <br>
-                </li>
+        <section id="pedidos">
+            <ul>
+                {{#pedidos}}
+                    <li>
+                        <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
+                        <strong> Fecha: </strong> {{fecha}} <br>
+                        <strong> Local: </strong> {{local}} <br>
+                        <strong> Importe: </strong> ${{importe}} <br>
+                    </li>
 
-            {{else}}
-                <p>Aún no has realizado ningún pedido. ¿Qué esperas?</p>
-            {{/pedidos}}
-        </ul>
-    </section>
+                {{else}}
+                    <p>Aún no has realizado ningún pedido. ¿Qué esperas?</p>
+                {{/pedidos}}
+            </ul>
+        </section>
+
+    </main>
 {{/partial}}
 
 {{>layout_cliente.html.hbs}}

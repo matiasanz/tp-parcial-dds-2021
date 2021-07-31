@@ -3,16 +3,17 @@
 {{/partial}}
 
 {{#partial "contenido"}}
-    <nav>
-        <H3>{{nombre}}</H3>
-        <section id="plato">
+    <main class="columnado">
+
+        <section id="plato" class="local">
+            <H3>{{nombre}}</H3>
             Datos del plato:
             <ul>
                 <li><Strong>Precio: </Strong>${{precio}}</li>
             </ul>
         </section>
 
-        <section id="compra">
+        <section id="compra" class="carrito">
             <form action="/locales/{{idLocal}}/carrito" method="POST">
                 <input type="hidden" name="idPlato" value="{{idPlato}}" />
                 <label>Cantidad</label>
@@ -22,7 +23,7 @@
                 <input type="submit" value="Agregar al carrito"><p class="msj_error">{{mensaje}}</p>
             </form>
         </section>
-    </nav>
+    </main>
 {{/partial}}
 
 {{>layout_cliente.html.hbs}}
