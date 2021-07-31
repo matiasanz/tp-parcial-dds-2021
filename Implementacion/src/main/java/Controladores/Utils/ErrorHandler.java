@@ -3,6 +3,8 @@ package Controladores.Utils;
 import spark.Request;
 import spark.Response;
 
+import java.util.Optional;
+
 public class ErrorHandler {
     private final String ERROR_TOKEN = "error";
     //TODO: Ver si se puede pasar algun redirect: hay bastante codigo repetido
@@ -15,5 +17,32 @@ public class ErrorHandler {
         String mensaje = req.session().attribute(ERROR_TOKEN);
         req.session().removeAttribute(ERROR_TOKEN);
         return mensaje;
+    }
+
+    private final String INTENTOS_TOKEN ="intentos";
+
+    public void notificarIntentoFallido(Request req){
+        int intentos = getIntentosAcumulados(req)+1;
+
+        if(intentos>=5){
+            System.out.println("loguee "+intentos);
+        }
+
+        req.session().attribute(INTENTOS_TOKEN, intentos);
+    }
+
+    public void notificarIntentoCorrecto(Request req){
+        if(sessionAttribute(INTENTOS_TOKEN, req)!=null){
+            req.session().removeAttribute(INTENTOS_TOKEN);
+        }
+    }
+
+    private int getIntentosAcumulados(Request req){
+        return Optional.ofNullable((Integer) sessionAttribute(INTENTOS_TOKEN, req))
+                .orElse(0);
+    }
+
+    private <T> T sessionAttribute(String token, Request req){
+        return req.session().attribute(token);
     }
 }
