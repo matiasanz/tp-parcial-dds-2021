@@ -1,14 +1,21 @@
 package Platos;
 
+import org.junit.Test;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Entity
+@DiscriminatorValue("c")
 public class Combo extends Plato {
 
+    @ManyToMany
+    @JoinTable(name="PlatoXCombo", joinColumns = @JoinColumn(name="combo"))
     List<Plato> platos = new LinkedList<>();
 
+    public Combo() {}
     public Combo(String nombre, List<Plato> platos){
         super(nombre);
         platos.forEach(this::agregarPlato);
@@ -32,7 +39,11 @@ public class Combo extends Plato {
     }
 
     @Override
-    public String getNombre(){
-        return "Combo "+ super.getNombre();
+    public String getTitulo(){
+        return "Combo "+ super.getTitulo();
+    }
+
+    public void setPlatos(List<Plato> platos){
+        this.platos.addAll(platos);
     }
 }

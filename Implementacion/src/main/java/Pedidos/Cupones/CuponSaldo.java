@@ -3,10 +3,15 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-public class CuponSaldo implements CuponDescuento{
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+public class CuponSaldo extends CuponDescuento{
     private Double saldo;
     private Double cuantoGasto = 0.0;
 
+    public CuponSaldo(){}
     public CuponSaldo(double cuantaPlata){
         this.saldo =cuantaPlata;
     }
@@ -33,3 +38,4 @@ public class CuponSaldo implements CuponDescuento{
         return saldo - cuantoGasto;
     }
 }
+

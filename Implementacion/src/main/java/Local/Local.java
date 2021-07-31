@@ -8,18 +8,28 @@ import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
 import Utils.Factory.ProveedorDeNotif;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name="Locales")
 public class Local extends Identificable {
     String nombre;
     String direccion;
+    @OneToMany
+    @JoinColumn(name="local") //TODO: Posible conflicto
     List<Pedido> pedidosRecibidos = new LinkedList<>();
+    @OneToMany
+    @JoinColumn(name="local")
     List<Plato> menu = new ArrayList<>();
+    @Enumerated(EnumType.ORDINAL)
     CategoriaLocal categoria;
+    @Transient
     ComboBorrador borrador = new ComboBorrador(this);
 
+    public Local(){}
     public Local(String nombre, String direccion, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;

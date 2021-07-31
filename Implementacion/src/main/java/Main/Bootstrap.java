@@ -6,7 +6,7 @@ import Repositorios.RepoLocales;
 import Usuarios.Cliente;
 import Local.Duenio;
 import Utils.Factory.ProveedorDeClientes;
-import Utils.Factory.ProveedorDeContactos;
+import Utils.Factory.ProveedorDeDuenios;
 import Utils.Factory.ProveedorDeLocales;
 
 public class Bootstrap {
@@ -31,7 +31,7 @@ public class Bootstrap {
         Cliente matias = ProveedorDeClientes.matias();
         RepoClientes.instance.agregar(matias);
 
-        Duenio romi = ProveedorDeContactos.romina();
+        Duenio romi = ProveedorDeDuenios.romina();
         RepoContactos.instance.agregar(romi);
         RepoLocales.instance.agregar(romi.getLocal());
     }

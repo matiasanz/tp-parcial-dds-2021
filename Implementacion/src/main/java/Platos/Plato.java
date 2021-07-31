@@ -2,14 +2,20 @@ package Platos;
 
 import Repositorios.Templates.Identificable;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name="Platos")
+@DiscriminatorColumn(name="tipo_plato")
 public abstract class Plato extends Identificable {
     String nombre;
     float descuento;
 
+    public Plato(){}
     public Plato(String nombre){
         this.nombre=nombre;
     }
@@ -30,7 +36,15 @@ public abstract class Plato extends Identificable {
         return getNombre().equalsIgnoreCase(plato.getNombre());
     }
 
+    public float getDescuento() {
+        return descuento;
+    }
+
     public void setDescuento(float descuento) {
         this.descuento = descuento;
+    }
+
+    public String getTitulo(){
+        return getNombre();
     }
 }

@@ -3,7 +3,10 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-public class SinCupon implements CuponDescuento {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+public class SinCupon extends CuponDescuento {
     @Override
     public Double calcularSobre(double precio) {
         return 0.0;

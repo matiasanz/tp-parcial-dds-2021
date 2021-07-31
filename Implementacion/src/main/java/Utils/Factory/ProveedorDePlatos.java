@@ -1,5 +1,6 @@
 package Utils.Factory;
 
+import Platos.Combo;
 import Platos.Plato;
 import Platos.PlatoSimple;
 
@@ -20,4 +21,11 @@ public class ProveedorDePlatos {
             Arrays.asList("papa")
         );
     }
+
+    public static Combo combo(){
+        return new Combo("Combomba"
+            , Arrays.asList(guarnicion(), hamburguesa())
+        );
+    }
+
 }

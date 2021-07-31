@@ -57,7 +57,7 @@ public interface Modelos {
     }
 
     static Modelo parseModel(Plato plato){
-        return new Modelo("nombre", plato.getNombre())
+        return new Modelo("nombre", plato.getTitulo())
             .con("precio", plato.getPrecio())
             .con("idPlato", plato.getId())
             .con("descripcion", plato.getDescripcion())

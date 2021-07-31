@@ -8,9 +8,21 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <class>Pedidos.Cupones.CuponDescuento</class>
+        <class>Pedidos.Cupones.CuponSaldo</class>
+        <class>Pedidos.Cupones.CuponDescuentoPorcentaje</class>
+        <class>Pedidos.Cupones.SinCupon</class>
+        <class>Local.Local</class>
+        <class>Usuarios.Usuario</class>
+        <class>Usuarios.Cliente</class>
+        <class>Local.Duenio</class>
         <class>Repositorios.Templates.Identificable</class>
         <class>Pedidos.Item</class>
         <class>Pedidos.Pedido</class>
+        <class>Platos.Plato</class>
+        <class>Platos.Combo</class>
+        <class>Platos.PlatoSimple</class>
+
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

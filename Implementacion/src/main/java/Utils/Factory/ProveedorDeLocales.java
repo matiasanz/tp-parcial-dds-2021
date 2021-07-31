@@ -3,7 +3,6 @@ package Utils.Factory;
 import Local.*;
 import Platos.Plato;
 import Platos.PlatoSimple;
-import static Utils.Factory.ProveedorDeContactos.contactoStub;
 
 import java.util.Arrays;
 

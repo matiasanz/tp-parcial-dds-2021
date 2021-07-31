@@ -8,8 +8,11 @@ import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Primerizo;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
+@DiscriminatorValue("c")
 public class Cliente extends Usuario {
     public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, String direccion){
         super(usuario, contrasenia, nombre, apellido, mail);
@@ -17,12 +20,21 @@ public class Cliente extends Usuario {
         agregarDescuento(new SinCupon());
     }
 
+    @Transient
     private Map<Long, Carrito> carritos = new HashMap<>();
 
+    @ElementCollection
+    @JoinTable(name="DireccionXCliente", joinColumns=@JoinColumn(name="cliente"))
     private List<String> direccionesConocidas = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
+
+    @Transient
     public CategoriaCliente categoria = new Primerizo();
     public int cantidadComprasHechas;
+
+    @Transient
     private List<CuponDescuento> cupones = new ArrayList<>();
 
     public Carrito getCarrito(Local local) {

@@ -11,7 +11,7 @@ import Platos.PlatoSimple;
 import java.awt.*;
 import java.util.Collections;
 
-public class ProveedorDeContactos {
+public class ProveedorDeDuenios {
 
     public static Duenio romina(){
         Local local = new Local("Si no corro me Pizza", "al fondo a la derecha", CategoriaLocal.PIZZERIA);

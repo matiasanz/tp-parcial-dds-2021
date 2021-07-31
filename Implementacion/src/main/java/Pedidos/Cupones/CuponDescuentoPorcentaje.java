@@ -3,7 +3,11 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-public class CuponDescuentoPorcentaje implements CuponDescuento {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+public class CuponDescuentoPorcentaje extends CuponDescuento {
+    public CuponDescuentoPorcentaje(){}
     public CuponDescuentoPorcentaje(float porcentaje, int cuantosPedidos){
         this.porcentaje = porcentaje;
         this.porCuantosPedidos = cuantosPedidos;
