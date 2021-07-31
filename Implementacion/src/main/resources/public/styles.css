@@ -57,7 +57,7 @@ header .topnav{
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 12.5em;
+    padding: 0 20em;
 }
 
 .nombre-titulo{

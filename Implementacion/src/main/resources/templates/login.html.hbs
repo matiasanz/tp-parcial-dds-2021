@@ -4,16 +4,20 @@
 
 {{#partial "contenido"}}
 
-    <article class="form-centrado">
+    <article class="filas_centradas">
+        <h2>Pedi2 Ya</h2>
         <section id="Inicio de sesion">
-            <h2>Pedi2 Ya</h2>
-            <form action="/login" method="POST" class="filas_centradas">
+            <form action="/login" method="POST" class="form-centrado">
                 <input type="text" name="username" placeholder="Username" required="required">
                 <input type="password" name="password" placeholder="Password" required="required">
                 <input type="submit" value="Iniciar Sesión">
             </form>
+
+            {{#if mensaje}}
+                <p class="msj_error">{{mensaje}}</p>
+            {{/if}}
         </section>
-        {{#if mensaje}}<p class="msj_error">{{mensaje}}</p>{{/if}}
+
         <section id="nuevo usuario">
             <p>¿Todavía no tienes una cuenta?</p> <a href="/signup">¡Registrate gratis!</a>
         </section>
