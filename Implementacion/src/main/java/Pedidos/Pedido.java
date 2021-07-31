@@ -47,6 +47,11 @@ public class Pedido extends Identificable {
             && fechaHora.getYear() == fechaActual.getYear();
     }
 
+    public Boolean entreFechas(LocalDate min, LocalDate max){
+        return fechaHora.isAfter(min.atStartOfDay()) && fechaHora.isBefore(max.atStartOfDay())
+            || fechaHora.equals(min.atStartOfDay()) || fechaHora.equals(max.atStartOfDay());
+    }
+
     public Local getLocal() {
         return local;
     }

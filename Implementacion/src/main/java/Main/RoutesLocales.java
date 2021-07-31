@@ -4,6 +4,7 @@ import Controladores.Autenticador;
 import Controladores.Locales.DuenioLocalController;
 import Controladores.Locales.MenuController;
 import Controladores.Locales.LocalSignupController;
+import Controladores.Locales.PedidosLocalController;
 import Controladores.Utils.URIs;
 import Local.Duenio;
 import Repositorios.RepoContactos;
@@ -19,6 +20,7 @@ public class RoutesLocales extends RoutesTemplate{
 
     //Controladores
     private final DuenioLocalController duenioLocalController = new DuenioLocalController(autenticador, repoLocales);
+    private final PedidosLocalController pedidosLocalController = new PedidosLocalController(autenticador);
     private final MenuController platosController = new MenuController(repoLocales, autenticador);
 
     //Spark
@@ -37,9 +39,9 @@ public class RoutesLocales extends RoutesTemplate{
     @Override
     public void rutasPropias(){
         Spark.get(URIs.HOME, duenioLocalController::getHomeLocal, engine);
-        Spark.get("/pedidos", duenioLocalController::getPedidos, engine);
-        Spark.get("/pedidos/:nroPedido", duenioLocalController::getPedido, engine);
-        Spark.post("/pedidos/:nroPedido", duenioLocalController::cambiarEstadoPedido, engine);
+        Spark.get("/pedidos", pedidosLocalController::getPedidos, engine);
+        Spark.get("/pedidos/:nroPedido", pedidosLocalController::getPedido, engine);
+        Spark.post("/pedidos/:nroPedido", pedidosLocalController::cambiarEstadoPedido, engine);
         Spark.post("/platos", platosController::agregarPlato, engine);
         Spark.get("/platos/nuevo", platosController::formularioCreacionPlato, engine);
         Spark.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);
