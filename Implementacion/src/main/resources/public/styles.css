@@ -118,6 +118,7 @@ footer{
 /*Tabla*/
 table {
     font-family: arial, sans-serif;
+    font-size: 11px;
     border-color: #570a0a;
     width: 100%;
     border-collapse: collapse;
@@ -126,13 +127,10 @@ table {
 }
 
 td, th {
-    border: 1px solid black;
-    text-align: left;
-    padding: 8px;
-}
-
-td{
     word-wrap: break-word;
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
 }
 
 tr:nth-child(n) {
