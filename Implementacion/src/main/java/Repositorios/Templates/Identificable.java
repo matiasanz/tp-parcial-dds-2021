@@ -1,9 +1,16 @@
 package Repositorios.Templates;
 
-public abstract class Identificable {
-    static long idGenerado = 0L; //TODO: Sacar
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-    private Long id = idGenerado++;
+@MappedSuperclass
+public abstract class Identificable {
+
+//    static long idGenerado = 0L; //TODO: Sacar
+    @Id
+    @GeneratedValue
+    private Long id; // = idGenerado++;
 
     public void setId(long id){
         this.id= id;

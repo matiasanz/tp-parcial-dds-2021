@@ -61,7 +61,6 @@ public interface Modelos {
             .con("precio", plato.getPrecio())
             .con("idPlato", plato.getId())
             .con("descripcion", plato.getDescripcion())
-            .con("fotos", plato.getFotos())
         ;
     }
 
@@ -81,7 +80,7 @@ public interface Modelos {
 
     static Modelo parseModel(Item item){
         return new Modelo("plato", item.getPlato().getNombre())
-            .con("aclaraciones", item.getAclaraciones())
+            .con("aclaraciones", ifEmpty(item.getAclaraciones(), "-"))
             .con("cantidad", item.getCantidad());
     }
 
@@ -129,5 +128,12 @@ public interface Modelos {
             .con("cuerpo", notificacion.getCuerpo())
             .con(parseModel(notificacion.getFechaHora()))
         ;
+    }
+
+    static String ifEmpty(String actual, String defaultValue){
+        return actual==null || actual.isEmpty()? defaultValue: actual;
+    }
+    static <T> T ifNull(T object, T defaultValue){
+        return (object==null)? defaultValue: object;
     }
 }

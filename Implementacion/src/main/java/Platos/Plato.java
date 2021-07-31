@@ -8,7 +8,6 @@ import java.util.List;
 
 public abstract class Plato extends Identificable {
     String nombre;
-    List<String> fotos = new LinkedList<>(); //TODO
     float descuento;
 
     public Plato(String nombre){
@@ -17,9 +16,6 @@ public abstract class Plato extends Identificable {
 
     public String getNombre(){
         return nombre;
-    }
-    public List<String> getFotos(){
-        return fotos;
     }
 
     public Double getPrecio(){

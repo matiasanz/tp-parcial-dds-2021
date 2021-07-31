@@ -17,7 +17,6 @@ public class Local extends Identificable {
     String direccion;
     List<Pedido> pedidosRecibidos = new LinkedList<>();
     List<Plato> menu = new ArrayList<>();
-    List<String> fotos = new LinkedList<>(); //TODO
     CategoriaLocal categoria;
     ComboBorrador borrador = new ComboBorrador(this);
 

@@ -1,17 +1,24 @@
 package Pedidos;
 
 import Platos.Plato;
+import Repositorios.Templates.Identificable;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
-public class Item {
+@Entity
+public class Item extends Identificable {
+    @Transient
     private Plato plato;
     private Integer cantidad;
     private String aclaraciones;
 
+    public Item(){}
     public Item(Plato plato, int cantidad, String aclaraciones){
         this.plato=plato;
         requireNonNull(plato, "no aclara plato");
@@ -29,10 +36,18 @@ public class Item {
     }
 
     public String getAclaraciones(){
-        return aclaraciones.equals("")? "-": aclaraciones;
+        return aclaraciones;
     }
 
     public Double getPrecio() {
         return plato.getPrecio()*cantidad;
+    }
+
+    public void setAclaraciones(String aclaraciones){
+        this.aclaraciones=aclaraciones;
+    }
+
+    public void setCantidad(int cantidad){
+        this.cantidad=cantidad;
     }
 }

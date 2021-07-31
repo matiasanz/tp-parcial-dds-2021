@@ -5,6 +5,7 @@ import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
 
+import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,15 +13,24 @@ import java.util.LinkedList;
 import java.util.List;
 import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
+@Entity
+@Table(name="Pedidos")
 public class Pedido extends Identificable {
     Double precio;
+    @OneToMany
+    @JoinTable(name="ItemXPedido", joinColumns = @JoinColumn(name="Pedido"))
     List<Item> items = new LinkedList<>();
+    @Transient
     Local local;
+    @Enumerated(EnumType.ORDINAL)
     EstadoPedido estado = EstadoPedido.PENDIENTE;
+    @Column
     LocalDateTime fechaHora = LocalDateTime.now();
     String direccion;
+    @Transient
     Cliente cliente;
 
+    public Pedido(){}
     public Pedido(double precio, String direccion, Local local, List<Item> items, Cliente cliente){
         this.precio = precio;
         this.direccion=direccion;
@@ -71,4 +81,13 @@ public class Pedido extends Identificable {
     public Cliente getCliente() {
         return cliente;
     }
+
+    public void setCliente(Cliente cliente){
+        this.cliente=cliente;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
 }
