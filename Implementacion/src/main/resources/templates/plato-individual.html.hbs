@@ -14,12 +14,12 @@
         </section>
 
         <section id="compra" class="carrito">
-            <form action="/locales/{{idLocal}}/carrito" method="POST">
+            <form action="/locales/{{idLocal}}/carrito" method="POST" class="form-centrado">
                 <input type="hidden" name="idPlato" value="{{idPlato}}" />
                 <label>Cantidad</label>
                 <input type="number" min="1" name="cantidad" required> <br>
                 <label>Aclaraciones</label>
-                <textarea name="aclaraciones" id="idAclaraciones" rows="1" class="auto_height"></textarea> <br>
+                <textarea name="aclaraciones" id="idAclaraciones" rows="4" class="auto_height"></textarea> <br>
                 <input type="submit" value="Agregar al carrito"><p class="msj_error">{{mensaje}}</p>
             </form>
         </section>
