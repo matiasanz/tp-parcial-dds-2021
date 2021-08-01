@@ -27,6 +27,8 @@ header{
 
 main{
     margin-top: 3%;
+    display: block;
+    max-height: 89%;
 }
 
 footer{
@@ -37,7 +39,6 @@ footer{
 header .topnav{
     display: flex;
     width: 100%;
-
     top: 0;
     align-items: center;
     justify-content: space-around;
@@ -55,13 +56,20 @@ header .topnav a{
 }
 /*******************************************************/
 
+.form-signup{
+    display: block;
+    overflow-y: scroll;
+    max-height: inherit;
+    border-radius: 5px;
+    background-color: #8080801c;
+
+}
+
 .justificado{
     margin: 1em;
     display: flex;
     flex-direction: column;
     text-align: justify;
-    border-radius: 5px;
-    background-color: #8080801c;
 }
 
 .justificado label {
