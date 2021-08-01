@@ -27,11 +27,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class persistenceTest extends AbstractPersistenceTest implements WithGlobalEntityManager{
 
-    @After
-    public void clean(){
-        entityManager().getTransaction().rollback();
-    }
-
     @Test
     public void persistirUnItem(){
         Item item = new Item(ProveedorDePlatos.guarnicion(), 2, "sin cascara");
@@ -96,12 +91,18 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
     @Test
     public void persistirDescuentoSaldo(){
         CuponDescuento descuento = new CuponSaldo(30.0);
-        assertPersistible(descuento);
+        entityManager().persist(descuento);
+        assertNotNull(descuento.getId());
     }
 
     @Test
     public void persistirSinDescuento(){
         assertPersistible(new SinCupon());
+    }
+
+    private void assertPersistible(CuponDescuento obj){
+        entityManager().persist(obj);
+        assertNotNull(obj.getId());
     }
 
     private void assertPersistible(Identificable obj){

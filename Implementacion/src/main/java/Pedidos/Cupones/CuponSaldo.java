@@ -5,8 +5,12 @@ import Usuarios.Cliente;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity
+@Table(name="CuponesSaldo")
 public class CuponSaldo extends CuponDescuento{
     private Double saldo;
     private Double cuantoGasto = 0.0;

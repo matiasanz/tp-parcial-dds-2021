@@ -4,8 +4,12 @@ import Pedidos.Carrito;
 import Usuarios.Cliente;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity
+@Table(name="CuponesPorcentajeDto")
 public class CuponDescuentoPorcentaje extends CuponDescuento {
     public CuponDescuentoPorcentaje(){}
     public CuponDescuentoPorcentaje(float porcentaje, int cuantosPedidos){
