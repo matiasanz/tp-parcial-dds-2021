@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @DiscriminatorValue("c")
 public class Combo extends Plato {
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="PlatoXCombo", joinColumns = @JoinColumn(name="combo"))
     List<Plato> platos = new LinkedList<>();
 

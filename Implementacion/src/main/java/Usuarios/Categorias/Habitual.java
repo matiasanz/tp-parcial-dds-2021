@@ -3,6 +3,11 @@ package Usuarios.Categorias;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("h")
 public class Habitual extends CategoriaCliente {
 
     static double precioMinimoDescuento = 700.0;

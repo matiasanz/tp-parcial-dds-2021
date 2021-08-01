@@ -12,6 +12,11 @@
         <class>Pedidos.Cupones.CuponSaldo</class>
         <class>Pedidos.Cupones.CuponDescuentoPorcentaje</class>
         <class>Pedidos.Cupones.SinCupon</class>
+        <class>Usuarios.Categorias.CategoriaCliente</class>
+        <class>Usuarios.Categorias.Primerizo</class>
+        <class>Usuarios.Categorias.Ocasional</class>
+        <class>Usuarios.Categorias.Habitual</class>
+        <class>Usuarios.Categorias.Frecuente</class>
         <class>Local.Local</class>
         <class>Usuarios.Usuario</class>
         <class>Usuarios.Cliente</class>
@@ -22,6 +27,7 @@
         <class>Platos.Plato</class>
         <class>Platos.Combo</class>
         <class>Platos.PlatoSimple</class>
+        <class>MediosContacto.Notificacion</class>
 
 
         <properties>

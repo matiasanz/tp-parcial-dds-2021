@@ -35,7 +35,8 @@ public abstract class Usuario extends Identificable {
 
     @Transient
     private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
-    @Transient
+    @OneToMany
+    @JoinColumn(name="cliente")
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
     //Credenciales

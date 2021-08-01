@@ -3,6 +3,11 @@ package Usuarios.Categorias;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue(value = "f")
 public class Frecuente extends CategoriaCliente{
 
     static int pedidosParaCambio = 30;

@@ -17,7 +17,6 @@ public class Cliente extends Usuario {
     public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, String direccion){
         super(usuario, contrasenia, nombre, apellido, mail);
         direccionesConocidas.add(direccion);
-        agregarDescuento(new SinCupon());
     }
 
     @Transient
@@ -30,12 +29,14 @@ public class Cliente extends Usuario {
     @JoinColumn(name = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
-    @Transient
+    @ManyToOne
     public CategoriaCliente categoria = new Primerizo();
     public int cantidadComprasHechas;
 
-    @Transient
+    @OneToMany
     private List<CuponDescuento> cupones = new ArrayList<>();
+
+    public Cliente() {}
 
     public Carrito getCarrito(Local local) {
         Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));

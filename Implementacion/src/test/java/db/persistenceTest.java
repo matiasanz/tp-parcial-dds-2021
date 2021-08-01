@@ -10,6 +10,10 @@ import Pedidos.Pedido;
 import Platos.Combo;
 import Platos.PlatoSimple;
 import Repositorios.Templates.Identificable;
+import Usuarios.Categorias.Frecuente;
+import Usuarios.Categorias.Habitual;
+import Usuarios.Categorias.Ocasional;
+import Usuarios.Categorias.Primerizo;
 import Usuarios.Cliente;
 import Utils.Factory.ProveedorDeClientes;
 import Utils.Factory.ProveedorDeDuenios;
@@ -103,6 +107,14 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
     private void assertPersistible(CuponDescuento obj){
         entityManager().persist(obj);
         assertNotNull(obj.getId());
+    }
+
+    @Test
+    public void persistirCategorias(){
+        assertPersistible(new Frecuente());
+        assertPersistible(new Habitual());
+        assertPersistible(new Ocasional());
+        assertPersistible(new Primerizo());
     }
 
     private void assertPersistible(Identificable obj){
