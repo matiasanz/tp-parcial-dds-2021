@@ -5,28 +5,41 @@
     <section id="Registro-clientes" class="form-centrado">
         <h2>Registrarse</h2>
         <form action="/signup" method="POST" class="justificado">
-            {{#if local}}<h3>Datos del dueño</h3>{{/if}}
-
-            <label>Datos Personales: </label><br>
-            <input placeholder="Nombre" type="text" name="nombre" required pattern="[a-zA-Z]*"><br>
-            <input placeholder="Apellido" type="text" name="apellido" required pattern="[a-zA-Z]*"><br>
-            <input placeholder="Direccion" type="text" name="direccion" required><br>
-            <input placeholder="Correo Electrónico" type="text" name="mail" required><br>
-
-            <div>
+            <h3>Datos Personales</h3>
+            <div class="block">
+                <label>Nombre:</label>
+                <input placeholder="Nombre" type="text" name="nombre" required pattern="[a-zA-Zñáéíóú]*"><br>
+            </div>
+            <div class="block">
+                <label>Apellido:</label>
+                <input placeholder="Apellido" type="text" name="apellido" required pattern="[a-zA-Zñáéíóú]*"><br>
+            </div>
+            <div class="block">
+                <label>Dirección:</label>
+                <input placeholder="Direccion" type="text" name="direccion" required><br>
+            </div>
+            <div class="block">
+                <label>Correo Electrónico:</label>
+                <input placeholder="Correo Electrónico" type="text" name="mail" required><br>
+            </div>
+            <br>
+            <H3>Datos del Usuario:</H3>
+            <div class="block">
                 <label>Nuevo Usuario: </label>
                 <input type="text" name="username" required="required" pattern="[a-zA-Z]*"><br>
             </div>
 
-            <div>
+            <div class="block">
                 <label>Nueva Contraseña: </label>
                 <input type="password" name="password" required="required"><br>
             </div>
 
-            <div>
+            <div class="block">
                 <label>Repita la contraseña: </label>
                 <input type="password" name="contraseniaDuplicada" required="required"><br>
             </div>
+
+            <br>
 
             <div>
                 <input name="notif_mail" type="checkbox"> Deseo recibir las notificaciones también por mail<br>

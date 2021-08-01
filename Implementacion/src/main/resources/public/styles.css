@@ -64,22 +64,18 @@ header .topnav a{
     background-color: #8080801c;
 }
 
-.justificado div{
-    justify-content: space-between;
+.justificado label {
     display: inline-block;
-}
-
-.justificado div label{
-    text-align: left;
-}
-
-.justificado div input{
+    width: 140px;
     text-align: right;
 }
 
-
 .justificado input[type=submit]{
     margin: 1em 5em;
+}
+
+.alineado-izq{
+    text-align: left;
 }
 
 /****************************************/

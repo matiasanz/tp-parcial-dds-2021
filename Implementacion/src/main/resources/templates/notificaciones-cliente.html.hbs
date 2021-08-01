@@ -4,13 +4,15 @@
 {{#partial "contenido"}}
     <main class="filas_centradas">
         <h2>Notificaciones</h2>
-        <section id="notificaciones">
+        <section id="notificaciones" class="alineado-izq">
             {{#if notificaciones}}
             <ul>
                 {{#notificaciones}}
                     <li>
-                        <h3><strong>{{asunto}}</strong> [{{fecha}} - {{hora}}]</h3>
-                        <p>{{cuerpo}}</p><br>
+                        <article>
+                            <h3><strong>{{asunto}}</strong> [{{fecha}} - {{hora}}]</h3>
+                            <p>{{cuerpo}}</p><br>
+                        </article>
                     </li>
                 {{/notificaciones}}
             </ul>
