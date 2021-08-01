@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Notificacion extends Identificable {
     String asunto;
     String cuerpo;
-    @Transient
+    @Column
     LocalDateTime fechaHora = LocalDateTime.now();
 
     public Notificacion(){}

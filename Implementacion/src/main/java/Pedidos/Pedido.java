@@ -26,7 +26,7 @@ public class Pedido extends Identificable {
     @Enumerated(EnumType.ORDINAL)
     EstadoPedido estado = EstadoPedido.PENDIENTE;
 
-    @Transient
+    @Column
     LocalDateTime fechaHora = LocalDateTime.now();
 
     String direccion;
