@@ -57,6 +57,26 @@ public abstract class Usuario extends Identificable {
     }
     public String getMail() { return mail; }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
     //Notificaciones
     public List<Notificacion> getNotificacionesPush() {
         return notificacionesPush;

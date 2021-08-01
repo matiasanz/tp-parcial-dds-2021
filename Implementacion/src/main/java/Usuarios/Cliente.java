@@ -29,9 +29,9 @@ public class Cliente extends Usuario {
     @JoinColumn(name = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name="categoria")
     public CategoriaCliente categoria = new Primerizo();
-    public int cantidadComprasHechas;
 
     @OneToMany
     private List<CuponDescuento> cupones = new ArrayList<>();
@@ -54,10 +54,6 @@ public class Cliente extends Usuario {
 
     public void setCategoria(CategoriaCliente categoria) {
         this.categoria = categoria;
-    }
-
-    public int getCantidadComprasHechas() {
-        return cantidadComprasHechas;
     }
 
     public List<Pedido> getPedidosRealizados() {
