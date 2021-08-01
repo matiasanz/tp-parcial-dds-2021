@@ -4,8 +4,6 @@ import Pedidos.Carrito;
 import Usuarios.Cliente;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -35,7 +33,7 @@ public class CuponDescuentoPorcentaje extends CuponDescuento {
     public void notificarUso(Cliente cliente, Carrito carrito){
         usos++;
         if(usosRestantes()==0){
-            cliente.quitarDescuento(this);
+            cliente.quitarCupon(this);
         }
     }
 

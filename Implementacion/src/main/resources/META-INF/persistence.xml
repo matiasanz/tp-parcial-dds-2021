@@ -28,7 +28,9 @@
         <class>Platos.Combo</class>
         <class>Platos.PlatoSimple</class>
         <class>MediosContacto.Notificacion</class>
-
+        <class>MediosContacto.MedioDeContacto</class>
+        <class>MediosContacto.NotificadorPush</class>
+        <class>MediosContacto.NotificadorMail</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

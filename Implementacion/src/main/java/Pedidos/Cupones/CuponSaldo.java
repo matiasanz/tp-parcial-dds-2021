@@ -5,8 +5,6 @@ import Usuarios.Cliente;
 
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -34,7 +32,7 @@ public class CuponSaldo extends CuponDescuento{
     public void notificarUso(Cliente cliente, Carrito carrito) {
         cuantoGasto += carrito.descuentoPorCupon();
         if(saldoRestante()==0){
-            cliente.quitarDescuento(this);
+            cliente.quitarCupon(this);
         }
     }
 

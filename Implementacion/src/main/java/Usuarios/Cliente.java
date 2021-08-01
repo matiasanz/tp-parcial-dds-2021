@@ -73,11 +73,11 @@ public class Cliente extends Usuario {
         return cupones;
     }
 
-    public void agregarDescuento(CuponDescuento descuento){
+    public void agregarCupon(CuponDescuento descuento){
         cupones.add(descuento);
     }
 
-    public void quitarDescuento(CuponDescuento descuento) {
+    public void quitarCupon(CuponDescuento descuento) {
         cupones.remove(descuento);
     }
 

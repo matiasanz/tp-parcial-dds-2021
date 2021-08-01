@@ -1,6 +1,8 @@
 package db;
 
 import Local.Local;
+import MediosContacto.NotificadorMail;
+import MediosContacto.NotificadorPush;
 import Pedidos.Cupones.CuponDescuento;
 import Pedidos.Cupones.CuponDescuentoPorcentaje;
 import Pedidos.Cupones.CuponSaldo;
@@ -30,6 +32,11 @@ import java.util.List;
 import static org.junit.Assert.assertNotNull;
 
 public class persistenceTest extends AbstractPersistenceTest implements WithGlobalEntityManager{
+
+    @After
+    public void clean(){
+        entityManager().getTransaction().rollback();
+    }
 
     @Test
     public void persistirUnItem(){
@@ -71,7 +78,11 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
 
     @Test
     public void persistirUnCliente(){
-        assertPersistible(ProveedorDeClientes.matias());
+        Cliente cliente = ProveedorDeClientes.matias();
+        assertPersistible(cliente);
+        cliente
+            .getMediosDeContacto()
+            .forEach(m->assertNotNull(m.getId()));
     }
 
     @Test

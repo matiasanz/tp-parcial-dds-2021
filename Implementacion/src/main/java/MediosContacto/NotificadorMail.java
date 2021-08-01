@@ -16,14 +16,17 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 // [END simple_includes]
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.servlet.http.HttpServletResponse;
 
-@SuppressWarnings("serial")
-public class NotificadorMail implements MedioDeContacto{
+@Entity
+@DiscriminatorValue("mail")
+public class NotificadorMail extends MedioDeContacto{
 
-    final String nombre = "Pedidos Ya";
-    final String direccionEmail = "pedidos.ya.rym@gmail.com";
-    final String password = "Pedidos123!!";
+    final static String nombre = "Pedidos Ya";
+    final static String direccionEmail = "pedidos.ya.rym@gmail.com";
+    final static String password = "Pedidos123!!";
 
     @Override
     public void notificar(Usuario usuario, Notificacion mensaje) {

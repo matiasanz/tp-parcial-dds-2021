@@ -4,6 +4,7 @@ import Usuarios.Cliente;
 import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -17,17 +18,19 @@ import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 @Table(name="Pedidos")
 public class Pedido extends Identificable {
     Double precio;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name="ItemXPedido", joinColumns = @JoinColumn(name="Pedido"))
     List<Item> items = new LinkedList<>();
-    @Transient
+    @ManyToOne
     Local local;
     @Enumerated(EnumType.ORDINAL)
     EstadoPedido estado = EstadoPedido.PENDIENTE;
-    @Column
-    LocalDateTime fechaHora = LocalDateTime.now();
-    String direccion;
+
     @Transient
+    LocalDateTime fechaHora = LocalDateTime.now();
+
+    String direccion;
+    @ManyToOne
     Cliente cliente;
 
     public Pedido(){}

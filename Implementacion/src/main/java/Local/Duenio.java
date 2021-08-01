@@ -6,6 +6,7 @@ import Usuarios.Usuario;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @DiscriminatorValue("d")
 public class Duenio extends Usuario {
 
-    @Transient
+    @OneToOne
     private Local local;
 
     public Duenio() {

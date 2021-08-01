@@ -33,7 +33,7 @@ public abstract class Usuario extends Identificable {
     public String nombre;
     private String apellido;
 
-    @Transient
+    @OneToMany
     private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
     @OneToMany
     @JoinColumn(name="cliente")
@@ -73,6 +73,10 @@ public abstract class Usuario extends Identificable {
 
     public void notificar(Notificacion mensaje){
         mediosDeContacto.forEach(n->n.notificar(this,mensaje));
+    }
+
+    public List<MedioDeContacto> getMediosDeContacto() {
+        return mediosDeContacto;
     }
 }
 
