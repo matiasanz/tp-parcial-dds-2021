@@ -7,7 +7,7 @@ import MediosContacto.NotificadorPush;
 import Repositorios.Templates.RepoUsuarios;
 import Usuarios.Usuario;
 import Utils.Exceptions.ContraseniasDistintasException;
-import Utils.Exceptions.DatosNulosException;
+import Utils.Exceptions.DatosInvalidosException;
 import Utils.Exceptions.MailNoEnviadoException;
 import Utils.Exceptions.NombreOcupadoException;
 import spark.ModelAndView;
@@ -66,7 +66,7 @@ public abstract class SignupController<T extends Usuario> {
             res.status(HttpURLConnection.HTTP_ACCEPTED);
             res.redirect(URIs.HOME);
 
-        } catch (NombreOcupadoException | ContraseniasDistintasException | DatosNulosException e) {
+        } catch (NombreOcupadoException | ContraseniasDistintasException | DatosInvalidosException e) {
             manejarError(req, res, e.getMessage());
         } catch (MailNoEnviadoException e){
             manejarError(req, res, "Se produjo un error al intentar comunicarnos con su cuenta de mail. Por favor intente nuevamente");
@@ -107,7 +107,7 @@ public abstract class SignupController<T extends Usuario> {
         );
 
         if(hayNulos){
-            throw new DatosNulosException();
+            throw new DatosInvalidosException();
         }
     }
 

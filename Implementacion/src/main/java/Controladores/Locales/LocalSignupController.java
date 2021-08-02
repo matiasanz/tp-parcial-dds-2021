@@ -40,13 +40,11 @@ public class LocalSignupController extends SignupController<Duenio> {
     }
 
     private Local crearLocal(Map<String, String> req){
-        Local local = new Local(
+        return new Local(
             req.get("nombreLocal")
             , req.get("calleLocal")
             , CategoriaLocal.valueOf(Modelos.unparseEnum(req.get("categoriaLocal"))) //TODO esto puede romper
         );
-
-        return local;
     }
 
     @Override

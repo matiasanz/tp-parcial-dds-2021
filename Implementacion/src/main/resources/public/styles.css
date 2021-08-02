@@ -1,3 +1,9 @@
 .msj_error{
     color: red;
 }
+
+footer{
+    bottom: 1em;
+    position: fixed;
+    text-align: center;
+}
