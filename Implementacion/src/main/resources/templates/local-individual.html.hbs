@@ -4,74 +4,92 @@
 
     {{#partial "contenido"}}
         <H2>{{nombre}}</H2>
-        <section id="info-local">
-            <h3>Datos del Local:</h3>
-            <ul>
-                <li><Strong>Direccion: </Strong>{{Direccion}}</li>
-                <br>
-                <li><strong>Categoría:</strong> <a href="/locales?categoria={{categoriaLocal}}">{{categoriaLocal}}</a></li>
-            </ul>
-        </section>
+        <section class="columnado">
+            <section>
+                <div id="info-local">
+                    <h3>Datos del Local:</h3>
+                    <ul>
+                        <li><Strong>Direccion: </Strong>{{Direccion}}</li>
+                        <br>
+                        <li><strong>Categoría:</strong> <a href="/locales?categoria={{categoriaLocal}}">{{categoriaLocal}}</a></li>
+                    </ul>
+                </div>
 
-        <section id="Menu">
-            <h3>Menu:</h3>
-            <ul>
-                {{#Platos}}
-                    <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
-                {{else}}
-                    <p>Aún no se encuentran cargados los platos de este local, regrese más tarde</p>
-                {{/Platos}}
-            </ul>
-        </section>
+                <div id="Menu">
+                    <h3>Menu:</h3>
+                    <ul>
+                        {{#Platos}}
+                            <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
+                        {{else}}
+                            <p>Aún no se encuentran cargados los platos de este local, regrese más tarde</p>
+                        {{/Platos}}
+                    </ul>
+                </div>
+            </section>
 
-        <section id="carrito">
-            <H3>Carrito:</H3>
-            <div id="items">
-                <p>Items:</p>
-                <ul>
-                    {{#items}}
-                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}
-                            <!-- no me dejo usar DELETE -->
-                            <form method="POST" action="/locales/{{idLocal}}/carrito/{{@index}}?method=delete">
-                                <button type="submit">Eliminar</button>
-                            </form>
-                            <br>
-                        </li>
+            <section id="carrito">
+                <H3>Carrito:</H3>
+                <div id="items">
+                    <p>Items:</p>
+                    <ul>
+                        {{#if items}}
+                        <table style="width:100%">
+                            <tr>
+                                <th>Plato</th>
+                                <th>Cantidad</th>
+                                <th>Aclaraciones</th>
+                                <th>Eliminar</th>
+                            </tr>
+
+                            {{#items}}
+                                <tr>
+                                    <td>{{plato}}</td>
+                                    <td>{{cantidad}} u.</td>
+                                    <td>{{aclaraciones}}</td>
+                                    <td>
+                                        <!-- no me dejo usar DELETE -->
+                                        <form method="POST" action="/locales/{{idLocal}}/carrito/{{@index}}?method=delete">
+                                            <button type="submit">Eliminar</button></form>
+
+                                    </td>
+                                </tr>
+                            {{/items}}
+                        </table>
                     {{else}}
                         <p>Aún no ha seleccionado ninguno</p>
-                    {{/items}}
-                </ul>
-            </div>
+                    {{/if}}
 
-            <div id="precio">
-                <p>Precio Base: ${{precioBase}}</p>
-                <p>>     Descuento por cliente {{categoria}}: ${{dtoCategoria}}</p>
-                <p>>     Descuento por cupones: ${{dtoCupon}}</p>
-                <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
-            </div>
+                    </ul>
+                </div>
 
-            <div id="comprar">
-                <form id="form_envio" action="/pedidos" method="POST">
-                    <input type="hidden" name="idLocal" value={{idLocal}}>
-                    <label>Direccion </label>
-                    <select id="direccion" name="direccion" form="form_envio">
-                        {{#direcciones}}
-                            <option value={{@index}}>{{this}}</option><br>
-                        {{/direcciones}}
-                    </select>
-                    <br>
+                <div id="precio">
+                    <p>Precio Base: ${{precioBase}}</p>
+                    <p>>     Descuento por cliente {{categoria}}: ${{dtoCategoria}}</p>
+                    <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
+                </div>
 
-                    <label>Descuento </label>
-                    <select id="descuentos" name="descuento" form="form_envio">
-                        {{#descuentos}}
-                            <option value={{@index}}>{{detalle}}</option><br>
-                        {{/descuentos}}
-                    </select>
-                    <br>
-                    <input type="submit" value="Finalizar" form="form_envio"><p class="msj_error">{{error}}</p><br>
-                </form>
-            </div>
+                <div id="comprar">
+                    <form id="form_envio" action="/pedidos" method="POST">
+                        <input type="hidden" name="idLocal" value={{idLocal}}>
+                        <label>Direccion </label>
+                        <datalist id="direccion" name="direccion" form="form_envio">
+                            {{#direcciones}}
+                                <option value="{{this}}">{{this}}</option><br>
+                            {{/direcciones}}
+                        </datalist>
+                        <br>
 
+                        <label>Usar cupón</label>
+                        <select id="descuentos" name="descuento" form="form_envio">
+                            {{#descuentos}}
+                                <option value={{@index}}>{{detalle}}</option><br>
+                            {{/descuentos}}
+                        </select>
+                        <br>
+                        <input type="submit" value="Finalizar" form="form_envio"><p class="msj_error">{{error}}</p><br>
+                    </form>
+                </div>
+            </section>
         </section>
 
     {{/partial}}

@@ -114,8 +114,8 @@ public class LocalController {
             try {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
-                CuponDescuento descuento = getDescuento(request);
-                Pedido pedido = carrito.conDireccion(getDireccion(request))
+                CuponDescuento descuento = leerCupon(request);
+                Pedido pedido = carrito.conDireccion(leerDireccion(request))
                     .conCupon(descuento)
                     .build();
 
@@ -164,14 +164,17 @@ public class LocalController {
         return Long.parseLong(req.params(id));
     }
 
-    private String getDireccion(Request request){
-        return getAtributoDeLista(request
-            , "direccion"
-            , Cliente::getDireccionesConocidas
-        );
+    private String leerDireccion(Request request){
+        String direccion = request.queryParams("direccion");
+        Cliente cliente = autenticadorClientes.getUsuario(request);
+        if(!cliente.getDireccionesConocidas().contains(direccion)){
+            cliente.agregarDireccion(direccion);
+        }
+
+        return direccion;
     }
 
-    private CuponDescuento getDescuento(Request request){
+    private CuponDescuento leerCupon(Request request){
         return getAtributoDeLista(request
             , "descuento"
             , Cliente::getCupones

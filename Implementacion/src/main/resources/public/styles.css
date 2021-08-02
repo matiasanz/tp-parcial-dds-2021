@@ -78,3 +78,18 @@ main h2{
 .sangria{
     margin-left: 10em;
 }
+
+/* Tabla carrito *******************************/
+table {
+    font-family: arial, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+    text-overflow: ellipsis;
+}
+
+td, th {
+    word-wrap: break-word;
+    border: 1px solid black;
+    text-align: center;
+    padding: 0.5em;
+}
