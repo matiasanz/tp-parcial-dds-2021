@@ -47,4 +47,8 @@ public abstract class Plato extends Identificable {
     public String getTitulo(){
         return getNombre();
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

@@ -1,3 +1,5 @@
+package Runners;
+
 import Local.CategoriaLocal;
 import Local.Duenio;
 import Pedidos.Item;
@@ -19,16 +21,16 @@ import javax.persistence.EntityTransaction;
 import java.util.Arrays;
 import java.util.List;
 
-public class Runner {
+public class clienteRunner {
     public static void main(String[] args){
         Cliente cliente = new Cliente();
         CategoriaCliente frecuente = new Frecuente();
         cliente.setCategoria(frecuente);
-        cliente.setNombre("romina");
+        cliente.setNombre("federico");
         cliente.setApellido("martinez");
-        cliente.setUsername("rm");
-        cliente.setPassword("12");
-        cliente.setMail("romi@gmail.com");
+        cliente.setUsername("fm");
+        cliente.setPassword("90");
+        cliente.setMail("fede@gmail.com");
 
         EntityManager en = PerThreadEntityManagers.getEntityManager();
         EntityTransaction transaction = en.getTransaction();
