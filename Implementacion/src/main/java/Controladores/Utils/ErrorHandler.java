@@ -1,5 +1,6 @@
 package Controladores.Utils;
 
+import MediosContacto.MongoHandler;
 import spark.Request;
 import spark.Response;
 
@@ -8,6 +9,8 @@ import java.util.Optional;
 public class ErrorHandler {
     private final String ERROR_TOKEN = "error";
     //TODO: Ver si se puede pasar algun redirect: hay bastante codigo repetido
+
+    MongoHandler mongoHandler;
 
     public void setMensaje(Request req, String mensaje){
         req.session().attribute(ERROR_TOKEN, mensaje);
@@ -25,6 +28,7 @@ public class ErrorHandler {
         int intentos = getIntentosAcumulados(req)+1;
 
         if(intentos>=5){
+            mongoHandler.insertarUsuario(intentos,req.queryParams("nombre"),req.queryParams("contrasenia"));
             System.out.println("loguee "+intentos);
         }
 

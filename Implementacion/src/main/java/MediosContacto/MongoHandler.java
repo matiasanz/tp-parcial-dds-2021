@@ -24,6 +24,19 @@ public class MongoHandler {
         collection.insertOne(documento);
     }
 
+    public void insertarUsuario(int intentos, String nombre, String contrasenia) {
+        MongoDatabase database = mongoClient.getDatabase("logueos fallidos");
+        String collectionName = "usuarios sospechosos";
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document documento = new Document()
+                .append("usuario",nombre)
+                .append("password",contrasenia)
+                .append("intentos fallidos",intentos)
+                ;
+
+        collection.insertOne(documento);
+    }
+
     public void muestraRegistros(String databaseName, String collectionName){
         MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -45,6 +58,7 @@ public class MongoHandler {
             collection.deleteOne(cursor.next());
         }
     }
+
 
 
 }
