@@ -19,7 +19,7 @@ header{
     left: 0;
     top: 0;
     position: absolute;
-    border: solid 1px;
+    border-bottom: solid 1px;
     background-color:white;
     height: 3em;
     width: 100%;
