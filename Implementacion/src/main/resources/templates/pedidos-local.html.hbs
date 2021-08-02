@@ -4,44 +4,47 @@
 
 {{#partial "contenido"}}
     <h2>Pedidos Recibidos</h2>
+    <section class="columnado">
+        <section id="pedidos">
+            <h3>Pedidos:</h3>
+            <ul>
+                {{#pedidos}}
+                    <li>
+                        <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
+                        <strong> Fecha: </strong> {{fecha}} <br>
+                        <strong> Importe: </strong> ${{importe}} <br>
+                    </li>
+                {{else}}
+                    <p>Aún no has recibido ningún pedido, o bien no se ha encontrado ninguno en el periodo dado</p>
+                {{/pedidos}}
+            </ul>
+        </section>
 
-    <section id="filtro_periodo">
-        <h3>Filtrar por periodo:</h3>
-        <form>
-            <label>Inicio</label><input type="date" name="fechaMin">
-            <label>Fin</label><input type="date" name="fechaMax">
-            <input type="submit" value="Filtrar">
-        </form>
-    </section>
-    <section id="estadisticas">
-        <h3>Estadísticas: </h3>
-        <ul>
-            <li>Cantidad total: {{cantidadTotal}}
+        <aside>
+            <div id="filtro_periodo">
+                <h3>Filtrar por periodo:</h3>
+                <form>
+                    <label>Inicio</label><input type="date" name="fechaMin">
+                    <label>Fin</label><input type="date" name="fechaMax">
+                    <input type="submit" value="Filtrar">
+                </form>
+            </div>
+            <div id="estadisticas">
+                <h3>Estadísticas: </h3>
                 <ul>
-                    <li>Confirmados: {{cantidadConfirmados}} ({{porcentajeConfirmados}}%)</li>
-                    <li>Entregados: {{cantidadEntregados}} ({{porcentajeEntregados}}%)</li>
-                    <li>Rechazados: {{cantidadRechazados}} ({{porcentajeRechazados}}%)</li>
-                    <li>Sin responder: {{cantidadSinResponder}} ({{porcentajeSinResponder}}%)</li>
+                    <li>Cantidad total: {{cantidadTotal}}
+                        <ul>
+                            <li>Confirmados:   {{cantidadConfirmados}} ( {{porcentajeConfirmados}}% )</li>
+                            <li>Entregados:    {{cantidadEntregados}} ( {{porcentajeEntregados}}% )</li>
+                            <li>Rechazados:    {{cantidadRechazados}} ( {{porcentajeRechazados}}% )</li>
+                            <li>Sin responder: {{cantidadSinResponder}} ( {{porcentajeSinResponder}}% )</li>
+                        </ul>
+                    </li>
+                    <br>
+                    <li>Ingreso total: {{gananciaTotal}}</li>
                 </ul>
-            </li>
-            <br>
-            <li>Ingreso total: {{gananciaTotal}}</li>
-        </ul>
-    </section>
-
-    <section id="pedidos">
-        <h3>Pedidos:</h3>
-        <ul>
-            {{#pedidos}}
-                <li>
-                    <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
-                    <strong> Fecha: </strong> {{fecha}} <br>
-                    <strong> Importe: </strong> ${{importe}} <br>
-                </li>
-            {{else}}
-                <p>Aún no has recibido ningún pedido, o bien no se ha encontrado ninguno en el periodo dado</p>
-            {{/pedidos}}
-        </ul>
+            </div>
+        </aside>
     </section>
 {{/partial}}
 
