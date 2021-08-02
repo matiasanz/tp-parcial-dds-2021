@@ -5,6 +5,7 @@ import Controladores.LoginController;
 import Controladores.SignupController;
 import Controladores.Utils.URIs;
 import Usuarios.Usuario;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Response;
 import spark.Spark;
 import spark.debug.DebugScreen;
@@ -63,6 +64,8 @@ public abstract class RoutesTemplate {
             }
         });
 
+        Spark.after((request, response)->closeEntityManager());
+
         /*Rutas comunes*/ {
             Spark.get(URIs.SIGNUP, signupController::getFormRegistro, engine);
             Spark.post(URIs.SIGNUP, signupController::registrarUsuario, engine);
@@ -85,5 +88,10 @@ public abstract class RoutesTemplate {
 
     private void bloquearCacheNavegador(Response response){
         response.header("Cache-Control", "no-store, must-revalidate");
+    }
+
+    private static void closeEntityManager(){
+        PerThreadEntityManagers.getEntityManager();
+        PerThreadEntityManagers.closeEntityManager();
     }
 }

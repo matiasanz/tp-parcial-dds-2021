@@ -1,23 +1,28 @@
 package Main;
 
 import Repositorios.RepoClientes;
-import Repositorios.RepoContactos;
+import Repositorios.RepoDuenios;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
 import Local.Duenio;
 import Utils.Factory.ProveedorDeClientes;
 import Utils.Factory.ProveedorDeDuenios;
 import Utils.Factory.ProveedorDeLocales;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-public class Bootstrap {
+public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
     public static void main(String[] args) {
         new Bootstrap().run();
         System.out.println("Boostrap complete");
     }
 
     public void run() {
-        cargarUsuarios();
-        cargarLocales();
+        withTransaction(()->{
+            cargarUsuarios();
+            cargarLocales();
+        });
     }
 
     private void cargarLocales(){
@@ -32,7 +37,7 @@ public class Bootstrap {
         RepoClientes.instance.agregar(matias);
 
         Duenio romi = ProveedorDeDuenios.romina();
-        RepoContactos.instance.agregar(romi);
+        RepoDuenios.instance.agregar(romi);
         RepoLocales.instance.agregar(romi.getLocal());
     }
 }

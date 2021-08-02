@@ -6,10 +6,8 @@ import Controladores.Utils.Modelos;
 import Local.CategoriaLocal;
 import Local.Duenio;
 import Local.Local;
-import Repositorios.RepoContactos;
+import Repositorios.RepoDuenios;
 import Repositorios.RepoLocales;
-import spark.Request;
-import spark.Response;
 
 import java.util.*;
 
@@ -17,7 +15,7 @@ import java.util.*;
 public class LocalSignupController extends SignupController<Duenio> {
     private RepoLocales repoLocales;
 
-    public LocalSignupController(RepoContactos repoContactos, RepoLocales repoLocales){
+    public LocalSignupController(RepoDuenios repoContactos, RepoLocales repoLocales){
         super(repoContactos);
         this.repoLocales = repoLocales;
     }

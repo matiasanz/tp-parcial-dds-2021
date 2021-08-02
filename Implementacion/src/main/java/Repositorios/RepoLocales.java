@@ -1,13 +1,19 @@
 package Repositorios;
 import Local.Local;
-import Repositorios.Templates.RepoMemoria;
+import Repositorios.Templates.Colecciones.Coleccion;
+import Repositorios.Templates.Colecciones.ColeccionMemoria;
+import Repositorios.Templates.Colecciones.DB;
+import Repositorios.Templates.Repo;
 import Utils.Exceptions.LocalInexistenteException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class RepoLocales extends RepoMemoria<Local> {
-    public static RepoLocales instance = new RepoLocales();
+public class RepoLocales extends Repo<Local> {
+    public static RepoLocales instance = new RepoLocales(new DB<>(Local.class));
+
+    public RepoLocales(Coleccion<Local> coleccion) {
+        super(coleccion);
+    }
 
     public Local getLocal(long id){
         return find(id).orElseThrow(()->new LocalInexistenteException(id));

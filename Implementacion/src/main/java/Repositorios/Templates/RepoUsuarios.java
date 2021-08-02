@@ -1,12 +1,17 @@
 package Repositorios.Templates;
 
+import Repositorios.Templates.Colecciones.Coleccion;
 import Usuarios.Usuario;
 import Utils.Exceptions.NombreOcupadoException;
 import Utils.Exceptions.UsuarioInexistenteException;
 
 import java.util.Optional;
 
-public class RepoUsuarios<T extends Usuario> extends RepoMemoria<T>{
+public abstract class RepoUsuarios<T extends Usuario> extends Repo<T> {
+    public RepoUsuarios(Coleccion<T> coleccion){
+        super(coleccion);
+    }
+
     public Optional<T> findUsuario(String username){
         return findBy(username, Usuario::getUsername);
     }
