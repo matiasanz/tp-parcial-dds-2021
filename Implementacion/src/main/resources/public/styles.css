@@ -61,15 +61,14 @@ header .topnav a{
     overflow-y: scroll;
     max-height: inherit;
     border-radius: 5px;
-    background-color: #8080801c;
-
 }
 
 .justificado{
-    margin: 1em;
+    margin: 0 1em;
     display: flex;
     flex-direction: column;
     text-align: justify;
+    background-color: #8080801c;
 }
 
 .justificado label {
