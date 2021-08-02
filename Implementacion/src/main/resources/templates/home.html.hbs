@@ -4,30 +4,30 @@
     {{/partial}}
 
     {{#partial "contenido"}}
-        <section id="presentacion" class="fondo-gris">
+        <section id="presentacion" class="centrado">
             <h2>¡Bienvenido {{nombreCliente}}!</h2>
+            <p>¡Saboreá las mejores comedias sin moverte de tu casa!</p>
         </section>
 
-        <section id="recomendaciones">
-            <p>¡Saboreá las mejores comedias sin moverte de tu casa!</p>
-
-            <div id="top locales">
-                Top Locales:
+        <p class="sangria">Estas son nuestras recomendaciones:</p>
+        <section id="recomendaciones" class="columnado">
+            <article id="top locales">
+                <h3>Top Locales:</h3>
                 <ol>
                     {{#Locales}}
                         <li><a href="/locales/{{id}}">{{nombre}}</a></li>
                     {{/Locales}}
                 </ol>
-            </div>
+            </article>
 
-            <div id="top Categorias">
-                Top Categorias:
+            <article id="top Categorias">
+                <h3>Top Categorias:</h3>
                 <ol>
                     {{#Categorias}}
                         <li><a href="/locales?categoria={{this}}">{{this}}</a></li>
                     {{/Categorias}}
                 </ol>
-            </div>
+            </article>
         </section>
 
     {{/partial}}

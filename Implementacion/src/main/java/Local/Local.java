@@ -4,6 +4,7 @@ import Pedidos.Pedido;
 import Platos.ComboBorrador;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
+import Usuarios.Categorias.CategoriaCliente;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
 import Utils.Factory.ProveedorDeNotif;
@@ -95,5 +96,13 @@ public class Local extends Identificable {
 
     public void resetBorrador(){
         borrador = new ComboBorrador(this);
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion=direccion;
+    }
+
+    public void setCategoria(CategoriaLocal categoria){
+        this.categoria=categoria;
     }
 }

@@ -20,8 +20,6 @@ import static Controladores.Utils.Modelos.parseModel;
 
 public class PedidosController {
     private Autenticador<Cliente> autenticadorCliente;
-    private LocalController carritoController = new LocalController(null, null);
-    //TODO: Sacar este atributo
 
     public PedidosController(Autenticador<Cliente> autenticador){
         this.autenticadorCliente=autenticador;

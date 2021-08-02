@@ -1,3 +1,95 @@
 .msj_error{
     color: red;
+    font-style: italic;
+}
+
+.vacia{
+    text-align: center;
+}
+
+footer{
+    bottom: 1em;
+    position: fixed;
+    text-align: center;
+}
+
+/* Barra de navegacion *****************************************/
+
+header{
+    left: 0;
+    top: 0;
+    position: absolute;
+    border-bottom: solid 1px;
+    background-color:white;
+    height: 3em;
+    width: 100%;
+}
+
+header .topnav{
+    display: flex;
+    width: 100%;
+    top: 0;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction:row;
+}
+
+header .topnav a{
+    font-family: arial sans-serif;
+    color: black;
+    text-align: center;
+    padding: 14px 14px;
+    text-decoration: none;
+    font-size: 17px;
+
+}
+
+main{
+    margin-top: 5em;
+    margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+main h2{
+    text-align: center;
+}
+
+/* Login *****************************************/
+
+.centrado{
+    text-align: center;
+}
+
+.inicio-sesion{
+    margin-left: auto;
+    margin-right: auto;
+    width: 12em;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Home *****************************************/
+.columnado{
+    display: flex;
+    justify-content: space-around;
+}
+
+.sangria{
+    margin-left: 10em;
+}
+
+/* Tabla carrito *******************************/
+table {
+    font-family: arial, sans-serif;
+    font-size: 11px;
+    border-collapse: collapse;
+    text-overflow: ellipsis;
+}
+
+td, th {
+    word-wrap: break-word;
+    border: 1px solid black;
+    text-align: center;
+    padding: 0.5em;
 }

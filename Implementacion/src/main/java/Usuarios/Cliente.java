@@ -84,5 +84,9 @@ public class Cliente extends Usuario {
     public Double descuentoPorCategoria(Double precio) {
         return categoria.descuentoPorCategoria(precio, this);
     }
+
+    public void agregarDireccion(String direccion) {
+        direccionesConocidas.add(direccion);
+    }
 }
 

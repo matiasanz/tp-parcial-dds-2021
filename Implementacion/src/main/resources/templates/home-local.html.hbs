@@ -6,11 +6,24 @@
         <H2>{{nombre}}</H2>
         <section id="info-local">
             <h3>Datos del Local:</h3>
-            <ul>
-                <li><Strong>Direccion: </Strong>{{Direccion}}</li>
+            <form method="post" action="/local">
+                <li>
+                    <Strong>Direccion: </Strong>
+                    <input type="text" name="nuevaDireccion" value="{{Direccion}}">
+                </li>
                 <br>
-                <li><strong>Categoría:</strong>{{categoriaLocal}}</li>
-            </ul>
+                <li>
+                    <strong>Categoría:</strong>
+                    <select name=nuevaCategoria>
+                        <option value="{{categoriaLocal}}">{{categoriaLocal}}</option>
+                        {{#masCategorias}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/masCategorias}}
+                    </select>
+                </li>
+
+                <input type="submit" value="Actualizar">
+            </form>
         </section>
 
         <section id="Menu">

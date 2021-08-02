@@ -2,24 +2,17 @@ package Controladores.Locales;
 
 import Controladores.Autenticador;
 import Controladores.Utils.*;
-import Local.Duenio;
-import Local.Local;
-import Pedidos.EstadoPedido;
-import Pedidos.Pedido;
+import Local.*;
 import Repositorios.RepoLocales;
-import Usuarios.Cliente;
-import Utils.Factory.ProveedorDeNotif;
+import Utils.Exceptions.DatosInvalidosException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import java.net.HttpURLConnection;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.net.URI;
 
-import static Controladores.Utils.Modelos.parseModel;
-import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
+import static Controladores.Utils.Modelos.*;
 
 public class DuenioLocalController {
 
@@ -35,9 +28,33 @@ public class DuenioLocalController {
     public ModelAndView getHomeLocal(Request req, Response res) {
         Duenio duenio = autenticador.getUsuario(req);
 
-        Local local = duenio.getLocal();
+        Modelo modelo = parseModel(duenio.getLocal())
+            .con("masCategorias", getCategorias());
 
-        return new ModelAndView(parseModel(local), "home-local.html.hbs");
+        return new ModelAndView(modelo, "home-local.html.hbs");
+    }
+
+    public ModelAndView actualizarLocal(Request req, Response res) {
+        Local local = autenticador.getUsuario(req).getLocal();
+        try{
+            local.setDireccion(req.queryParams("nuevaDireccion"));
+            local.setCategoria(leerCategoria(req));
+            res.status(200);
+        } catch (DatosInvalidosException e){
+            //TODO Mensaje
+            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+
+        res.redirect(URIs.HOME);
+        return null;
+    }
+
+    public static CategoriaLocal leerCategoria(Request req){
+        try{
+            return CategoriaLocal.valueOf(unparseEnum(req.queryParams("nuevaCategoria")));
+        } catch (IllegalArgumentException e){
+            throw new DatosInvalidosException();
+        }
     }
 }
 

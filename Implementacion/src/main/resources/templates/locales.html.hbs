@@ -3,15 +3,14 @@
     {{/partial}}
 
     {{#partial "contenido"}}
-        <section>
-            <h2>Locales</h2>
-
+        <h2>Locales</h2>
+        <section class="centrado">
             <div id="categorias">
                 <form id="filtro_categorias" action="/locales" method="GET">
                     <label> Categorías </label>
                     <select name="categoria" form="filtro_categorias" onchange="this.form.submit()">
                         {{#categorias}}
-                        <option value="{{this}}">{{this}}</option>
+                            <option value="{{this}}">{{this}}</option>
                         {{/categorias}}
                     </select>
                 </form>
@@ -19,11 +18,11 @@
 
             <div id="locales">
                 <ul>
-                {{#Locales}}
-                    <li><a href="/locales/{{id}}">{{nombre}}</a></li>
-                {{else}}
-                    Ningún local se encuentra asociado a la categoría {{categoria}}
-                {{/Locales}}
+                    {{#Locales}}
+                        <li><a href="/locales/{{id}}">{{nombre}}</a></li>
+                    {{else}}
+                        <p class="vacia">Ningún local se encuentra asociado a la categoría {{categoria}}</p>
+                    {{/Locales}}
                 </ul>
             </div>
         </section>
