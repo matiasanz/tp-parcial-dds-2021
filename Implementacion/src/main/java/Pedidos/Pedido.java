@@ -93,4 +93,11 @@ public class Pedido extends Identificable {
         this.direccion = direccion;
     }
 
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
 }
