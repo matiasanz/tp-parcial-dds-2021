@@ -12,7 +12,7 @@ import java.util.List;
 @DiscriminatorValue("d")
 public class Duenio extends Usuario {
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private Local local;
 
     public Duenio() {
