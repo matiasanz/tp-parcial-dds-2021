@@ -72,7 +72,8 @@
                     <form id="form_envio" action="/pedidos" method="POST">
                         <input type="hidden" name="idLocal" value={{idLocal}}>
                         <label>Direccion </label>
-                        <datalist id="direccion" name="direccion" form="form_envio">
+                        <input list="direcciones" name="direccion">
+                        <datalist id="direcciones">
                             {{#direcciones}}
                                 <option value="{{this}}">{{this}}</option><br>
                             {{/direcciones}}
