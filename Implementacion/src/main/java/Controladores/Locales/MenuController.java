@@ -9,7 +9,6 @@ import Platos.ComboBorrador;
 import Platos.Plato;
 import Platos.PlatoSimple;
 import Repositorios.RepoLocales;
-import Utils.Exceptions.NombreOcupadoException;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
 import spark.ModelAndView;
@@ -22,7 +21,7 @@ import java.util.Optional;
 
 import static Controladores.Utils.Modelos.parseModel;
 
-public class MenuController {
+public class MenuController implements Transaccional {
     private Autenticador<Duenio> autenticador;
     private ErrorHandler errorHandler = new ErrorHandler();
 
@@ -57,7 +56,7 @@ public class MenuController {
         );
 
         try{
-            local.agregarPlato(platoSimple);
+            withTransaction(()->local.agregarPlato(platoSimple));
             response.redirect("/platos/"+platoSimple.getId());
         } catch (PlatoRepetidoException e){
             errorHandler.setMensaje(request, e.getMessage());
@@ -109,12 +108,14 @@ public class MenuController {
         ComboBorrador borrador = local.getBorrador();
 
         try {
-            borrador.setNombre(req.queryParams("nombre"));
-            Combo nuevoCombo = borrador.crearCombo();
-            local.agregarPlato(nuevoCombo);
-            local.resetBorrador();
-            res.status(HttpURLConnection.HTTP_OK);
-            res.redirect("/platos/"+nuevoCombo.getId());
+            withTransaction( () -> {
+                borrador.setNombre(req.queryParams("nombre"));
+                Combo nuevoCombo = borrador.crearCombo();
+                local.agregarPlato(nuevoCombo);
+                local.resetBorrador();
+                res.status(HttpURLConnection.HTTP_OK);
+                res.redirect("/platos/"+nuevoCombo.getId());
+            });
         } catch (RuntimeException e) {
             errorHandler.setMensaje(req, e.getMessage());
             //TODO: Cambiar runtimeException por ComboInvalidoException o una cosa asi
@@ -142,7 +143,10 @@ public class MenuController {
         platoOp.ifPresent(
             plato -> {
                 try {
-                    plato.setDescuento(new Float(req.queryParams("descuento"))/100);
+                    withTransaction(()->
+                        plato.setDescuento(new Float(req.queryParams("descuento"))/100)
+                    );
+
                     res.status(HttpURLConnection.HTTP_OK);
                 } catch (NumberFormatException e){
                     res.status(HttpURLConnection.HTTP_BAD_REQUEST);

@@ -33,7 +33,7 @@ public class LocalSignupController extends SignupController<Duenio> {
             , local
         );
 
-        repoLocales.agregar(local);
+        withTransaction(()->repoLocales.agregar(local));
         return contacto;
     }
 

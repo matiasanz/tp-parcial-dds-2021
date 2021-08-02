@@ -1,10 +1,7 @@
 package Controladores.Cliente;
 
 import Controladores.Autenticador;
-import Controladores.Utils.ErrorHandler;
-import Controladores.Utils.Modelo;
-import Controladores.Utils.Templates;
-import Controladores.Utils.URIs;
+import Controladores.Utils.*;
 import Local.Local;
 import Pedidos.Carrito;
 import Pedidos.Cupones.CuponDescuento;
@@ -27,7 +24,7 @@ import java.util.function.Function;
 
 import static Controladores.Utils.Modelos.parseModel;
 
-public class LocalController {
+public class LocalController implements Transaccional {
 
     public LocalController(RepoLocales repoLocales, Autenticador<Cliente> autenticador){
         this.repoLocales = repoLocales;
@@ -73,16 +70,18 @@ public class LocalController {
     }
 
     public ModelAndView agregarItem(Request request, Response response) {
-        findCarrito(request.params("idLocal"), request, response).ifPresent(
-            carrito -> {
-                Local local = carrito.getLocal();
-                Plato plato = local.getPlato(Long.parseLong(request.queryParams("idPlato")));
-                int cantidad = Integer.parseInt(request.queryParams("cantidad"));
-                String aclaraciones = request.queryParams("aclaraciones");
-                carrito.conItem(new Item(plato, cantidad, aclaraciones));
-                response.redirect(URIs.LOCAL(local.getId()));
-            }
-        );
+        withTransaction(()->{
+            findCarrito(request.params("idLocal"), request, response).ifPresent(
+                carrito -> {
+                    Local local = carrito.getLocal();
+                    Plato plato = local.getPlato(Long.parseLong(request.queryParams("idPlato")));
+                    int cantidad = Integer.parseInt(request.queryParams("cantidad"));
+                    String aclaraciones = request.queryParams("aclaraciones");
+                    carrito.conItem(new Item(plato, cantidad, aclaraciones));
+                    response.redirect(URIs.LOCAL(local.getId()));
+                }
+            );
+        });
 
         return null;
     }
@@ -93,7 +92,7 @@ public class LocalController {
             carrito -> {
                 try {
                     int numero = Integer.parseInt(request.params("item"));
-                    carrito.sacarItem(numero);
+                    withTransaction(()->carrito.sacarItem(numero));
                     response.status(HttpURLConnection.HTTP_OK);
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     errorHandler.setMensaje(request, "Se produjo un error al intentar eliminar item");
@@ -115,16 +114,18 @@ public class LocalController {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
                 CuponDescuento descuento = leerCupon(request);
-                Pedido pedido = carrito.conDireccion(leerDireccion(request))
-                    .conCupon(descuento)
-                    .build();
 
-                cliente.agregarPedido(pedido);
+                withTransaction(()-> {
+                    Pedido pedido = carrito.conDireccion(leerDireccion(request))
+                        .conCupon(descuento)
+                        .build();
 
-                int numeroDePedido = cliente.getPedidosRealizados().size();
-                response.redirect(URIs.PEDIDO((long) numeroDePedido));
-                carrito.vaciar();
+                    cliente.agregarPedido(pedido);
 
+                    int numeroDePedido = cliente.getPedidosRealizados().size();
+                    response.redirect(URIs.PEDIDO((long) numeroDePedido));
+                    carrito.vaciar();
+                });
             } catch (PedidoIncompletoException e){
                 errorHandler.setMensaje(request, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);

@@ -10,9 +10,6 @@ import Utils.Exceptions.ContraseniasDistintasException;
 import Utils.Exceptions.DatosInvalidosException;
 import Utils.Exceptions.MailNoEnviadoException;
 import Utils.Exceptions.NombreOcupadoException;
-import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -24,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static Utils.Factory.ProveedorDeNotif.notificacionBienvenida;
 
-public abstract class SignupController<T extends Usuario> implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
+public abstract class SignupController<T extends Usuario> implements Transaccional {
     private RepoUsuarios<T> repoUsuarios;
     private Autenticador<T> autenticador;
 

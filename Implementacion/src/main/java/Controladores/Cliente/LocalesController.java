@@ -1,5 +1,6 @@
 package Controladores.Cliente;
 
+import Controladores.Utils.Transaccional;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Controladores.Utils.Templates;
@@ -9,12 +10,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import Local.*;
 
 import static Controladores.Utils.Modelos.unparseEnum;
 

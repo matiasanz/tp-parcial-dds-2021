@@ -10,11 +10,10 @@ import spark.Request;
 import spark.Response;
 
 import java.net.HttpURLConnection;
-import java.net.URI;
 
 import static Controladores.Utils.Modelos.*;
 
-public class DuenioLocalController {
+public class DuenioLocalController implements Transaccional {
 
     Autenticador<Duenio> autenticador;
     RepoLocales repoLocales;
@@ -37,8 +36,11 @@ public class DuenioLocalController {
     public ModelAndView actualizarLocal(Request req, Response res) {
         Local local = autenticador.getUsuario(req).getLocal();
         try{
-            local.setDireccion(req.queryParams("nuevaDireccion"));
-            local.setCategoria(leerCategoria(req));
+            withTransaction(()-> {
+                    local.setDireccion(req.queryParams("nuevaDireccion"));
+                    local.setCategoria(leerCategoria(req));
+                }
+            );
             res.status(200);
         } catch (DatosInvalidosException e){
             //TODO Mensaje

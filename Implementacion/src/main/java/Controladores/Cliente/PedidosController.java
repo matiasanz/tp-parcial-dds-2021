@@ -1,10 +1,7 @@
 package Controladores.Cliente;
 
 import Controladores.Autenticador;
-import Controladores.Utils.Modelo;
-import Controladores.Utils.Modelos;
-import Controladores.Utils.Templates;
-import Controladores.Utils.URIs;
+import Controladores.Utils.*;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
 import spark.ModelAndView;
