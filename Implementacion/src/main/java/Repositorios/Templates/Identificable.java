@@ -7,7 +7,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Identificable {
 
-//    static long idGenerado = 0L; //TODO: Sacar
     @Id
     @GeneratedValue
     private Long id; // = idGenerado++;

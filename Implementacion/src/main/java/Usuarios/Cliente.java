@@ -25,16 +25,20 @@ public class Cliente extends Usuario {
     @ElementCollection
     @JoinTable(name="DireccionXCliente", joinColumns=@JoinColumn(name="cliente"))
     private List<String> direccionesConocidas = new ArrayList<>();
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name="categoria")
     public CategoriaCliente categoria = new Primerizo();
-    public int cantidadComprasHechas;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<CuponDescuento> cupones = new ArrayList<>();
+
+    public void setCupones(List<CuponDescuento> cupones) {
+        this.cupones = cupones;
+    }
 
     public Cliente() {}
 
@@ -54,10 +58,6 @@ public class Cliente extends Usuario {
 
     public void setCategoria(CategoriaCliente categoria) {
         this.categoria = categoria;
-    }
-
-    public int getCantidadComprasHechas() {
-        return cantidadComprasHechas;
     }
 
     public List<Pedido> getPedidosRealizados() {

@@ -19,18 +19,21 @@ import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 public class Pedido extends Identificable {
     Double precio;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="ItemXPedido", joinColumns = @JoinColumn(name="Pedido"))
+    @JoinColumn(name="pedido")
     List<Item> items = new LinkedList<>();
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "local")
     Local local;
     @Enumerated(EnumType.ORDINAL)
     EstadoPedido estado = EstadoPedido.PENDIENTE;
 
-    @Transient
+    @Column
     LocalDateTime fechaHora = LocalDateTime.now();
 
     String direccion;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente")
     Cliente cliente;
 
     public Pedido(){}
@@ -48,7 +51,6 @@ public class Pedido extends Identificable {
 
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
-        cliente.notificar(notificacionResultadoPedido(cliente, estado));
     }
 
     public LocalDateTime getFechaInicio() {
@@ -93,4 +95,15 @@ public class Pedido extends Identificable {
         this.direccion = direccion;
     }
 
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public void setLocal(Local local) {
+        this.local=local;
+    }
 }
