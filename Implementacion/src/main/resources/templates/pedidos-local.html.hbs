@@ -6,7 +6,7 @@
     <h2>Pedidos Recibidos</h2>
 
     <section id="filtro_periodo">
-        <p>Filtrar por periodo:</p>
+        <h3>Filtrar por periodo:</h3>
         <form>
             <label>Inicio</label><input type="date" name="fechaMin">
             <label>Fin</label><input type="date" name="fechaMax">
@@ -14,22 +14,23 @@
         </form>
     </section>
     <section id="estadisticas">
-        <h5>Estadísticas: </h5>
+        <h3>Estadísticas: </h3>
         <ul>
             <li>Cantidad total: {{cantidadTotal}}
                 <ul>
-                    <li>Confirmados: {{cantidadConfirmados}} - {{porcentajeConfirmados}}%</li>
-                    <li>Entregados: {{cantidadEntregados}} - {{porcentajeEntregados}}%</li>
-                    <li>Rechazados: {{cantidadRechazados}} - {{porcentajeRechazados}}%</li>
-                    <li>Sin responder: {{cantidadSinResponder}} - {{porcentajeSinResponder}}%</li>
+                    <li>Confirmados: {{cantidadConfirmados}} ({{porcentajeConfirmados}}%)</li>
+                    <li>Entregados: {{cantidadEntregados}} ({{porcentajeEntregados}}%)</li>
+                    <li>Rechazados: {{cantidadRechazados}} ({{porcentajeRechazados}}%)</li>
+                    <li>Sin responder: {{cantidadSinResponder}} ({{porcentajeSinResponder}}%)</li>
                 </ul>
             </li>
-
+            <br>
             <li>Ingreso total: {{gananciaTotal}}</li>
         </ul>
     </section>
 
     <section id="pedidos">
+        <h3>Pedidos:</h3>
         <ul>
             {{#pedidos}}
                 <li>

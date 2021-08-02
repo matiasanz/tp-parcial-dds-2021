@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 
 import java.net.HttpURLConnection;
+import java.net.URI;
 
 import static Controladores.Utils.Modelos.*;
 
@@ -36,7 +37,7 @@ public class DuenioLocalController {
     public ModelAndView actualizarLocal(Request req, Response res) {
         Local local = autenticador.getUsuario(req).getLocal();
         try{
-            local.setDireccion(req.queryParams("direccion"));
+            local.setDireccion(req.queryParams("nuevaDireccion"));
             local.setCategoria(leerCategoria(req));
             res.status(200);
         } catch (DatosInvalidosException e){
@@ -44,13 +45,13 @@ public class DuenioLocalController {
             res.status(HttpURLConnection.HTTP_BAD_REQUEST);
         }
 
-        res.redirect("/local");
+        res.redirect(URIs.HOME);
         return null;
     }
 
     public static CategoriaLocal leerCategoria(Request req){
         try{
-            return CategoriaLocal.valueOf(unparseEnum(req.queryParams("categoriaLocal")));
+            return CategoriaLocal.valueOf(unparseEnum(req.queryParams("nuevaCategoria")));
         } catch (IllegalArgumentException e){
             throw new DatosInvalidosException();
         }

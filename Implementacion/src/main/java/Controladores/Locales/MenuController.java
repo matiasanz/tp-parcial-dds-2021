@@ -69,7 +69,8 @@ public class MenuController {
 
     public ModelAndView formularioCreacionPlato(Request request, Response response) {
         Long id = autenticador.getUsuario(request).getLocal().getId();
-        return new ModelAndView(new Modelo("id", id), "plato-nuevo-local.html.hbs");
+        Modelo modelo = new Modelo("id", id).con("mensaje", errorHandler.getMensaje(request));
+        return new ModelAndView(modelo, "plato-nuevo-local.html.hbs");
     }
 
     public ModelAndView formularioCreacionCombo(Request req, Response res) {

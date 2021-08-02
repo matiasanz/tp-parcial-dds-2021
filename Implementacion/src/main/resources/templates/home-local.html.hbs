@@ -5,15 +5,16 @@
     {{#partial "contenido"}}
         <H2>{{nombre}}</H2>
         <section id="info-local">
+            <h3>Datos del Local:</h3>
             <form method="post" action="/local">
                 <li>
                     <Strong>Direccion: </Strong>
-                    <input type="text" name="direccion" value="{{Direccion}}">
+                    <input type="text" name="nuevaDireccion" value="{{Direccion}}">
                 </li>
                 <br>
                 <li>
                     <strong>Categoría:</strong>
-                    <select name=categoria>
+                    <select name=nuevaCategoria>
                         <option value="{{categoriaLocal}}">{{categoriaLocal}}</option>
                         {{#masCategorias}}
                             <option value="{{this}}">{{this}}</option>
