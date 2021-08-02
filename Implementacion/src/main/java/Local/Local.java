@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class Local extends Identificable {
     String nombre;
     String direccion;
-    @OneToMany
-    @JoinColumn(name="local") //TODO: Posible conflicto
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="local")
     List<Pedido> pedidosRecibidos = new LinkedList<>();
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="local")
     List<Plato> menu = new ArrayList<>();
     @Enumerated(EnumType.ORDINAL)

@@ -5,6 +5,7 @@ import Controladores.Utils.Modelo;
 import Local.Duenio;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
+import Usuarios.Cliente;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static Controladores.Utils.Modelos.parseModel;
+import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class PedidosLocalController {
     private Autenticador<Duenio> autenticador;
@@ -99,7 +101,10 @@ public class PedidosLocalController {
             nroPedido->{
                 try {
                     EstadoPedido estado = EstadoPedido.valueOf(req.queryParams("decisionPedido"));
-                    pedidos.get(nroPedido - 1).setEstado(estado);
+                    Pedido pedido = pedidos.get(nroPedido - 1);
+                    pedido.setEstado(estado);
+                    Cliente cliente = pedido.getCliente();
+                    cliente.notificar(notificacionResultadoPedido(cliente, estado));
                 } catch (NullPointerException | IllegalArgumentException e) {
                     response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 }

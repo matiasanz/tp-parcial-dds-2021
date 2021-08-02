@@ -33,9 +33,10 @@ public abstract class Usuario extends Identificable {
     public String nombre;
     private String apellido;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name="cliente")
     private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name="cliente")
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
@@ -75,6 +76,10 @@ public abstract class Usuario extends Identificable {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public void setMediosDeContacto(List<MedioDeContacto> mediosDeContacto) {
+        this.mediosDeContacto = mediosDeContacto;
     }
 
     //Notificaciones

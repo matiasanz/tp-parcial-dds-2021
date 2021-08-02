@@ -4,6 +4,7 @@ import Pedidos.EstadoPedido;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
+import Utils.Factory.ProveedorDeLocales;
 import Utils.Factory.ProveedorDePlatos;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -26,6 +27,7 @@ public class PedidoRunner {
         pedido.setCliente(cliente);
         pedido.setDireccion("rivadavia 8973");
         pedido.setItems(items);
+        pedido.setLocal(ProveedorDeLocales.cincoEsquinas());
 
         EntityManager en = PerThreadEntityManagers.getEntityManager();
         EntityTransaction transaction = en.getTransaction();

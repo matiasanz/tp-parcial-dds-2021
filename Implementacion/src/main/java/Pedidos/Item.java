@@ -3,10 +3,7 @@ package Pedidos;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -14,7 +11,8 @@ import static java.util.Objects.requireNonNull;
 
 @Entity
 public class Item extends Identificable {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "plato")
     private Plato plato;
     private Integer cantidad;
     private String aclaraciones;

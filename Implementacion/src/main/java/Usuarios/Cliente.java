@@ -25,7 +25,7 @@ public class Cliente extends Usuario {
     @ElementCollection
     @JoinTable(name="DireccionXCliente", joinColumns=@JoinColumn(name="cliente"))
     private List<String> direccionesConocidas = new ArrayList<>();
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
@@ -33,8 +33,12 @@ public class Cliente extends Usuario {
     @JoinColumn(name="categoria")
     public CategoriaCliente categoria = new Primerizo();
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<CuponDescuento> cupones = new ArrayList<>();
+
+    public void setCupones(List<CuponDescuento> cupones) {
+        this.cupones = cupones;
+    }
 
     public Cliente() {}
 
