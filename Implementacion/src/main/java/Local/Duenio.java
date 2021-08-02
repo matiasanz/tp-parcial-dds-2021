@@ -13,7 +13,6 @@ import java.util.List;
 public class Duenio extends Usuario {
 
     @OneToOne
-    @JoinColumn(name = "local_id", referencedColumnName = "id")
     private Local local;
 
     public Duenio() {

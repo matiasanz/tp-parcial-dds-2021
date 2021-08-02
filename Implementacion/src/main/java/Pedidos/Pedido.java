@@ -19,7 +19,7 @@ import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 public class Pedido extends Identificable {
     Double precio;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name="Pedido"))
+    @JoinColumn(name="pedido")
     List<Item> items = new LinkedList<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
