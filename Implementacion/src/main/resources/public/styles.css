@@ -3,11 +3,17 @@
     font-style: italic;
 }
 
+.vacia{
+    text-align: center;
+}
+
 footer{
     bottom: 1em;
     position: fixed;
     text-align: center;
 }
+
+/* Barra de navegacion *****************************************/
 
 header{
     left: 0;
@@ -49,6 +55,8 @@ main h2{
     text-align: center;
 }
 
+/* Login *****************************************/
+
 .centrado{
     text-align: center;
 }
@@ -59,4 +67,14 @@ main h2{
     width: 12em;
     display: flex;
     flex-direction: column;
+}
+
+/* Home *****************************************/
+.columnado{
+    display: flex;
+    justify-content: space-around;
+}
+
+.sangria{
+    margin-left: 10em;
 }
