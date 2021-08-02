@@ -28,7 +28,7 @@ public class ErrorHandler {
         int intentos = getIntentosAcumulados(req)+1;
 
         if(intentos>=5){
-            mongoHandler.insertarUsuario(intentos,req.queryParams("nombre"),req.queryParams("contrasenia"));
+            mongoHandler.insertarUsuario(intentos,req.params("username"));
             System.out.println("loguee "+intentos);
         }
 

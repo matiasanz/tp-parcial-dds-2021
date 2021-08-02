@@ -7,6 +7,8 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import com.mongodb.client.MongoCursor;
 
+import java.time.LocalDateTime;
+
 public class MongoHandler {
     MongoClient mongoClient = new MongoClient("localhost",27017);
 
@@ -24,14 +26,14 @@ public class MongoHandler {
         collection.insertOne(documento);
     }
 
-    public void insertarUsuario(int intentos, String nombre, String contrasenia) {
+    public void insertarUsuario(int intentos, String nombre) {
         MongoDatabase database = mongoClient.getDatabase("logueos fallidos");
         String collectionName = "usuarios sospechosos";
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document documento = new Document()
                 .append("usuario",nombre)
-                .append("password",contrasenia)
                 .append("intentos fallidos",intentos)
+                .append("fecha hora", LocalDateTime.now());
                 ;
 
         collection.insertOne(documento);
