@@ -64,6 +64,10 @@ public class Local extends Identificable {
         return menu;
     }
 
+    public void setMenu(List<Plato> menu) {
+        this.menu = menu;
+    }
+
     public List<Pedido> pedidosDelMes(LocalDate fechaActual) {
         return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
     }
