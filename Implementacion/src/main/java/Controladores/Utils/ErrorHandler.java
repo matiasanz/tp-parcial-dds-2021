@@ -10,7 +10,7 @@ public class ErrorHandler {
     private final String ERROR_TOKEN = "error";
     //TODO: Ver si se puede pasar algun redirect: hay bastante codigo repetido
 
-    MongoHandler mongoHandler;
+    MongoHandler mongoHandler = new MongoHandler();
 
     public void setMensaje(Request req, String mensaje){
         req.session().attribute(ERROR_TOKEN, mensaje);
@@ -26,10 +26,9 @@ public class ErrorHandler {
 
     public void notificarIntentoFallido(Request req){
         int intentos = getIntentosAcumulados(req)+1;
-
-        if(intentos>=5){
-            mongoHandler.insertarUsuario(intentos,req.params("username"));
-            System.out.println("loguee "+intentos);
+        System.out.println("usuario :" + req.queryParams("username"));
+        if(intentos>=2){
+            mongoHandler.insertarUsuario(intentos,req.queryParams("username"));
         }
 
         req.session().attribute(INTENTOS_TOKEN, intentos);

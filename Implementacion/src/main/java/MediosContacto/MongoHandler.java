@@ -1,5 +1,6 @@
 package MediosContacto;
 
+import Controladores.Utils.Modelos;
 import Pedidos.Pedido;
 import com.mongodb.*;
 import com.mongodb.client.MongoDatabase;
@@ -27,13 +28,14 @@ public class MongoHandler {
     }
 
     public void insertarUsuario(int intentos, String nombre) {
-        MongoDatabase database = mongoClient.getDatabase("logueos fallidos");
-        String collectionName = "usuarios sospechosos";
+        MongoDatabase database = mongoClient.getDatabase("logueos_fallidos");
+        String collectionName = "usuarios_sospechosos";
+        LocalDateTime fecha = LocalDateTime.now();
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document documento = new Document()
                 .append("usuario",nombre)
-                .append("intentos fallidos",intentos)
-                .append("fecha hora", LocalDateTime.now());
+                .append("intentos",intentos)
+                .append("fechaHora", Modelos.parseModel(fecha));
                 ;
 
         collection.insertOne(documento);

@@ -23,6 +23,11 @@ public class MongoTest {
     }
 
     @Test
+    public void seMuestraCorrectamenteUsuarios(){
+        mongoHandler.muestraRegistros("logueos_fallidos","usuarios_sospechosos");
+    }
+
+    @Test
     public void seVaciaColleccionCorrectamente(){
         mongoHandler.vaciarColeccion("pedidos","rechazados");
     }

@@ -42,7 +42,7 @@ public class LoginController {
 
         } catch(UsuarioInexistenteException | ContraseniaIncorrectaException e) {
             res.status(HttpURLConnection.HTTP_PROXY_AUTH);
-            errorHandler.notificarIntentoCorrecto(req);
+            errorHandler.notificarIntentoFallido(req);
             errorHandler.setMensaje(req, "El usuario y/o la contraseña ingresada son incorrectos");
             res.redirect(URIs.LOGIN);
         }
