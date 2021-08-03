@@ -4,13 +4,13 @@ import Controladores.Autenticador;
 import Controladores.LoginController;
 import Controladores.SignupController;
 import Controladores.Utils.URIs;
-import Usuarios.Usuario;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import spark.ModelAndView;
+import spark.Request;
 import spark.Response;
-import spark.Spark;
 import spark.debug.DebugScreen;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-
+import spark.Service;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,24 +39,22 @@ public abstract class RoutesTemplate {
         this.signupController = signupController;
     }
 
-    public void execute(String[] args) {
+    public void execute() {
         System.out.println("Iniciando servidor");
 
-        Spark.port(puerto);
+        Service service = Service
+            .ignite()
+            .port(puerto);
 
         //Esta linea muestra el stack trace en el navegador, en caso de excepcion no manejada.
         DebugScreen.enableDebugScreen();
 
-        Spark.staticFileLocation("/public");
+        service.staticFileLocation("/public");
 
-        Spark.before((request, response)->{
+        service.before((request, response)->{
             System.out.println(request.requestMethod()+request.uri());
 
-            if(request.uri().equals("/finalizar")){
-                //por las dudas
-                System.exit(0);
-            }
-
+            vaciarCacheHibernate();
             bloquearCacheNavegador(response);
 
             if(!uriExceptuadaDeAutenticar(request.uri())){
@@ -64,23 +62,24 @@ public abstract class RoutesTemplate {
             }
         });
 
-        Spark.after((request, response)->closeEntityManager());
+        service.after((request, response)->closeEntityManager());
 
         /*Rutas comunes*/ {
-            Spark.get(URIs.SIGNUP, signupController::getFormRegistro, engine);
-            Spark.post(URIs.SIGNUP, signupController::registrarUsuario, engine);
-            Spark.get("/", loginController::getLogin, engine);
-            Spark.post("/login", loginController::tryLogin, engine);
-            Spark.get("/logout", loginController::logout, engine);
-            Spark.get(URIs.NOTIFICACIONES, signupController::getNotificaciones, engine);
+            service.get("/finalizar", this::finalizar, engine);
+            service.get(URIs.SIGNUP, signupController::getFormRegistro, engine);
+            service.post(URIs.SIGNUP, signupController::registrarUsuario, engine);
+            service.get("/", loginController::getLogin, engine);
+            service.post("/login", loginController::tryLogin, engine);
+            service.get("/logout", loginController::logout, engine);
+            service.get(URIs.NOTIFICACIONES, signupController::getNotificaciones, engine);
         }
 
-        this.rutasPropias();
+        this.rutasPropias(service);
 
         System.out.println("Servidor iniciado correctamente");
     }
 
-    protected abstract void rutasPropias();
+    protected abstract void rutasPropias(Service service);
 
     private boolean uriExceptuadaDeAutenticar(String uri) {
         return urisExceptuadasDeAutenticar.stream().anyMatch(uri::equalsIgnoreCase);
@@ -90,8 +89,23 @@ public abstract class RoutesTemplate {
         response.header("Cache-Control", "no-store, must-revalidate");
     }
 
+    private static void vaciarCacheHibernate(){
+        PerThreadEntityManagers
+            .getEntityManager()
+            .getEntityManagerFactory()
+            .getCache()
+            .evictAll()
+        ;
+
+    }
+
     private static void closeEntityManager(){
         PerThreadEntityManagers.getEntityManager();
         PerThreadEntityManagers.closeEntityManager();
+    }
+
+    private ModelAndView finalizar(Request req, Response res){
+        System.exit(0);
+        return null;
     }
 }
