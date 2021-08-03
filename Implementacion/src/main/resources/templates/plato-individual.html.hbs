@@ -3,19 +3,20 @@
 {{/partial}}
 
 {{#partial "contenido"}}
-    <H2>{{nombre}}</H2>
+    <H2>
+        {{nombre}}
+        {{#if tieneDescuento}}
+            <span class="msj_positivo"> {{descuentoPlato}}% OFF</span>
+        {{/if}}
+    </H2>
 
     <section class="columnado">
         <div id="plato">
-            <h3>Datos del plato:
-                {{#if descuento}}
-                    <span class="msj_positivo"> {{descuento}}% OFF</span>
-                {{/if}}
-            </h3>
+            <h3>Datos del plato:</h3>
             <ul>
                 <li>
                     <Strong>Precio: </Strong>${{precio}}
-                    {{#if descuento}}
+                    {{#if tieneDescuento}}
                         <del class="msj_positivo"> ${{precioBase}}</del>
                     {{/if}}
                 </li>
@@ -41,6 +42,7 @@
         </div>
 
         <div id="compra">
+            <h3>Carrito</h3>
             <form action="/locales/{{idLocal}}/carrito" method="POST">
                 <input type="hidden" name="idPlato" value="{{idPlato}}" />
                 <label>Cantidad</label><br>

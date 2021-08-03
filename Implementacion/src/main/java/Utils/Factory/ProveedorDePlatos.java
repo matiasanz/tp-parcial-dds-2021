@@ -23,7 +23,7 @@ public class ProveedorDePlatos {
     }
 
     public static Combo combo(){
-        return new Combo("Combomba"
+        return new Combo("Combomba", "Explosion de sabor"
             , Arrays.asList(guarnicion(), hamburguesa())
         );
     }

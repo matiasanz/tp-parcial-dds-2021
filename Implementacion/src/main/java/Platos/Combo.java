@@ -16,8 +16,8 @@ public class Combo extends Plato {
     List<Plato> platos = new LinkedList<>();
 
     public Combo() {}
-    public Combo(String nombre, List<Plato> platos){
-        super(nombre);
+    public Combo(String nombre, String descripcion, List<Plato> platos){
+        super(nombre, descripcion);
 
         if(nombre==null) throw new RuntimeException("Debe especificar el nombre del combo");
         if(platos.size()<2) throw new RuntimeException("Debe agregar al menos dos platos al combo");
@@ -36,10 +36,6 @@ public class Combo extends Plato {
 
     public void agregarPlato(Plato plato){
         platos.add(plato);
-    }
-
-    public String getDescripcion(){
-        return "Compuesto por "+ String.join(", ", platos.stream().map(Plato::getNombre).collect(Collectors.toList()));
     }
 
     @Override

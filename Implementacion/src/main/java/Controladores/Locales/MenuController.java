@@ -125,7 +125,7 @@ public class MenuController implements Transaccional {
             }
         });
 
-        return new Combo(req.queryParams("nombre"), platos);
+        return new Combo(req.queryParams("nombre"), req.queryParams("descripcion"), platos);
     }
 
     public ModelAndView getPlato(Request request, Response response) {

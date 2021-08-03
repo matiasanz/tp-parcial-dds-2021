@@ -5,30 +5,7 @@
 {{#partial "contenido"}}
     <h2>Pedidos Recibidos</h2>
     <section class="columnado">
-        <section id="pedidos">
-            <h3>Pedidos:</h3>
-            <ul>
-                {{#pedidos}}
-                    <li>
-                        <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
-                        <strong> Fecha: </strong> {{fecha}} <br>
-                        <strong> Importe: </strong> ${{importe}} <br>
-                    </li>
-                {{else}}
-                    <p>Aún no has recibido ningún pedido, o bien no se ha encontrado ninguno en el periodo dado</p>
-                {{/pedidos}}
-            </ul>
-        </section>
-
         <aside>
-            <div id="filtro_periodo">
-                <h3>Filtrar por periodo:</h3>
-                <form>
-                    <label>Inicio</label><input type="date" name="fechaMin">
-                    <label>Fin</label><input type="date" name="fechaMax">
-                    <input type="submit" value="Filtrar">
-                </form>
-            </div>
             <div id="estadisticas">
                 <h3>Estadísticas: </h3>
                 <ul>
@@ -44,7 +21,33 @@
                     <li>Ingreso total: {{gananciaTotal}}</li>
                 </ul>
             </div>
+            <div id="filtro_periodo">
+                <h3>Filtrar por periodo:</h3>
+                <form>
+                    <label>Inicio </label>
+                    <input type="date" name="fechaMin">
+                    <br>
+                    <label>Fin </label>
+                    <input type="date" name="fechaMax">
+                    <br>
+                    <input type="submit" value="Filtrar">
+                </form>
+            </div>
         </aside>
+        <section id="pedidos">
+            <h3>Pedidos:</h3>
+            <ul>
+                {{#pedidos}}
+                    <li>
+                        <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
+                        <strong> Fecha: </strong> {{fecha}} <br>
+                        <strong> Importe: </strong> ${{importe}} <br>
+                    </li>
+                {{else}}
+                    <p>Aún no has recibido ningún pedido, o bien no se ha encontrado ninguno en el periodo dado</p>
+                {{/pedidos}}
+            </ul>
+        </section>
     </section>
 {{/partial}}
 

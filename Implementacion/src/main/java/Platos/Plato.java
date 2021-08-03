@@ -10,10 +10,11 @@ import javax.persistence.*;
 @DiscriminatorColumn(name="tipo_plato")
 public abstract class Plato extends Identificado {
     String nombre;
+    String descripcion;
     float descuento;
 
     public Plato(){}
-    public Plato(String nombre){
+    public Plato(String nombre, String descripcion){
         this.nombre=nombre;
     }
 
@@ -27,7 +28,13 @@ public abstract class Plato extends Identificado {
 
     public abstract Double getPrecioBase();
 
-    public abstract String getDescripcion();
+    public String getDescripcion(){
+        return descripcion;
+    }
+
+    public void setDescripcion(String nuevaDescripcion){
+        this.descripcion=nuevaDescripcion;
+    }
 
     public boolean mismoNombre(Plato plato) {
         return getNombre().equalsIgnoreCase(plato.getNombre());

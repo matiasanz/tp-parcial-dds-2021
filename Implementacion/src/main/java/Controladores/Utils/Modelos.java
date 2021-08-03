@@ -61,7 +61,8 @@ public interface Modelos {
             .con("precio", plato.getPrecio())
             .con("precioBase", plato.getPrecioBase())
             .con("idPlato", plato.getId())
-            .con("descripcion", plato.getDescripcion())
+            .con("descripcion", ifEmpty(plato.getDescripcion(), "-"))
+            .con("tieneDescuento", plato.getDescuento()>0)
             .con("descuentoPlato", plato.getDescuento()*100.0)
         ;
 
