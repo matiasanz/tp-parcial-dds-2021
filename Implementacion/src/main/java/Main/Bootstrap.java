@@ -27,10 +27,12 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     }
 
     private void cargarLocales(){
-        RepoLocales repo = RepoLocales.instance;
-        repo.agregar(ProveedorDeLocales.cincoEsquinas());
-        repo.agregar(ProveedorDeLocales.leble());
-        repo.agregar(ProveedorDeLocales.mcConals());
+        try{
+            RepoLocales repo = RepoLocales.instance;
+            repo.agregar(ProveedorDeLocales.cincoEsquinas());
+            repo.agregar(ProveedorDeLocales.leble());
+            repo.agregar(ProveedorDeLocales.mcConals());
+        } catch (NombreOcupadoException e){};
     }
 
     private void cargarUsuarios(){

@@ -17,7 +17,8 @@ public class ProveedorDeDuenios {
         Local local = ProveedorDeLocales.siNoCorroMePizza();
         Duenio yo = new Duenio("romi", "123", "romina", "gutierrez", "_@mail.com", local);
         yo.setLocal(local);
-        new Carrito(ProveedorDeClientes.matias(), local).conDireccion("la").conItem(new Item(new PlatoSimple("algo rico", "-", 40.0, Collections.EMPTY_LIST), 89, "-")).build();
+        yo.agregarMedioDeContacto(new NotificadorPush());
+        new Carrito(ProveedorDeClientes.matias(), local).conDireccion("la esquina de mi barrio").conItem(new Item(new PlatoSimple("algo rico", "-", 40.0, Collections.EMPTY_LIST), 89, "-")).build();
         return yo;
     }
 

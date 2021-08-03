@@ -28,7 +28,7 @@ public abstract class RepoUsuarios<T extends Usuario> extends Repo<T> {
     public void agregar(T usuario){
         String nombre = usuario.getUsername();
         if(nombreOcupado(nombre)){
-            throw new NombreOcupadoException(nombre);
+            throw new NombreOcupadoException("usuario", nombre);
         }
 
         super.agregar(usuario);

@@ -2,6 +2,7 @@ package Controladores.Locales;
 
 import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
+import Controladores.Utils.Transaccional;
 import Local.Duenio;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 import static Controladores.Utils.Modelos.parseModel;
 import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
-public class PedidosLocalController {
+public class PedidosLocalController implements Transaccional {
     private Autenticador<Duenio> autenticador;
     public PedidosLocalController(Autenticador<Duenio> autenticador){
         this.autenticador=autenticador;
@@ -102,9 +103,11 @@ public class PedidosLocalController {
                 try {
                     EstadoPedido estado = EstadoPedido.valueOf(req.queryParams("decisionPedido"));
                     Pedido pedido = pedidos.get(nroPedido - 1);
-                    pedido.setEstado(estado);
-                    Cliente cliente = pedido.getCliente();
-                    cliente.notificar(notificacionResultadoPedido(cliente, estado));
+                    withTransaction(()->{
+                        pedido.setEstado(estado);
+                        Cliente cliente = pedido.getCliente();
+                        cliente.notificar(notificacionResultadoPedido(cliente, estado));
+                    });
                 } catch (NullPointerException | IllegalArgumentException e) {
                     response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 }

@@ -66,7 +66,7 @@ public class Carrito extends Identificado {
 
     private void validarPedido() {
         if(local==null) throw new PedidoIncompletoException("local");
-        if(direccion==null) throw new PedidoIncompletoException("direccion");
+        if(direccion==null || direccion.isEmpty()) throw new PedidoIncompletoException("direccion");
         if(items.isEmpty()) throw new PedidoIncompletoException("items");
     }
 
