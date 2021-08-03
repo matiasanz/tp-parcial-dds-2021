@@ -1,6 +1,6 @@
 package MediosContacto;
 
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="Notificaciones")
 @DiscriminatorColumn(name="medio")
-public class Notificacion extends Identificable {
+public class Notificacion extends Identificado {
     String asunto;
     String cuerpo;
     @Column

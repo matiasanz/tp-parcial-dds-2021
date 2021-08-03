@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public abstract class Repo<T extends Identificable>{
+public abstract class Repo<T extends Identificado>{
 
     private Coleccion<T> contenido;
 
@@ -28,7 +28,7 @@ public abstract class Repo<T extends Identificable>{
     }
 
     public Optional<T> find(long id){
-        return findBy(id, Identificable::getId);
+        return findBy(id, Identificado::getId);
     }
 
     protected <S> Optional<T> findBy(S valor, Function<T, S> getter){

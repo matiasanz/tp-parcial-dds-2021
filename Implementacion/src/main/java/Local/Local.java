@@ -2,7 +2,7 @@ package Local;
 
 import Pedidos.Pedido;
 import Platos.Plato;
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name="Locales")
-public class Local extends Identificable {
+public class Local extends Identificado {
     String nombre;
     String direccion;
     @OneToMany(cascade = CascadeType.ALL)

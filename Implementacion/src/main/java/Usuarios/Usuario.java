@@ -2,8 +2,7 @@ package Usuarios;
 
 import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;
-import Repositorios.Templates.Identificable;
-import org.junit.Test;
+import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import static java.util.Objects.requireNonNull;
 @Table(name="Usuarios")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipo")
-public abstract class Usuario extends Identificable {
+public abstract class Usuario extends Identificado {
     public Usuario(){}
     public Usuario(String username, String contrasenia, String nombre, String apellido, String mail){
         this.username=username;

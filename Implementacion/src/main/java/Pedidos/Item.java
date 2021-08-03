@@ -1,16 +1,14 @@
 package Pedidos;
 
 import Platos.Plato;
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
 @Entity
-public class Item extends Identificable {
+public class Item extends Identificado {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "plato")
     private Plato plato;

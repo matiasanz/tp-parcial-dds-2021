@@ -1,17 +1,14 @@
 package Platos;
 
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name="Platos")
 @DiscriminatorColumn(name="tipo_plato")
-public abstract class Plato extends Identificable {
+public abstract class Plato extends Identificado {
     String nombre;
     float descuento;
 

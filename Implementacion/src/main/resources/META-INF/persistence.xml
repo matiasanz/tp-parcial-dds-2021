@@ -21,7 +21,7 @@
         <class>Usuarios.Usuario</class>
         <class>Usuarios.Cliente</class>
         <class>Local.Duenio</class>
-        <class>Repositorios.Templates.Identificable</class>
+        <class>Repositorios.Templates.Identificado</class>
         <class>Pedidos.Item</class>
         <class>Pedidos.Pedido</class>
         <class>Platos.Plato</class>

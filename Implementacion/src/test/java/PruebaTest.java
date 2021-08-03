@@ -1,5 +1,5 @@
 import Repositorios.Templates.Colecciones.ColeccionMemoria;
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 import Utils.Prueba;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class PruebaTest {
 
     @Test
     public void identificablesSeEncuentran() {
-        class UnIdentificable extends Identificable {}
+        class UnIdentificable extends Identificado {}
         class Repo extends Repositorios.Templates.Repo<UnIdentificable> {
             public Repo() {
                 super(new ColeccionMemoria<>());

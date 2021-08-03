@@ -6,11 +6,10 @@ import Usuarios.Cliente;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Calendar;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class CuponDescuento implements Serializable {
+public abstract class CuponDescuento implements Serializable, Identificable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

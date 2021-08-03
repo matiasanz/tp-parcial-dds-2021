@@ -1,8 +1,6 @@
 package db;
 
 import Local.Local;
-import MediosContacto.NotificadorMail;
-import MediosContacto.NotificadorPush;
 import Pedidos.Cupones.CuponDescuento;
 import Pedidos.Cupones.CuponDescuentoPorcentaje;
 import Pedidos.Cupones.CuponSaldo;
@@ -11,7 +9,7 @@ import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Combo;
 import Platos.PlatoSimple;
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 import Usuarios.Categorias.Frecuente;
 import Usuarios.Categorias.Habitual;
 import Usuarios.Categorias.Ocasional;
@@ -128,7 +126,7 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
         assertPersistible(new Primerizo());
     }
 
-    private void assertPersistible(Identificable obj){
+    private void assertPersistible(Identificado obj){
         entityManager().persist(obj);
         assertNotNull(obj.getId());
     }

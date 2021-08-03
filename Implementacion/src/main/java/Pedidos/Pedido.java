@@ -1,22 +1,18 @@
 package Pedidos;
 
 import Usuarios.Cliente;
-import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
-import Repositorios.Templates.Identificable;
-import org.hibernate.annotations.Cascade;
+import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 @Entity
 @Table(name="Pedidos")
-public class Pedido extends Identificable {
+public class Pedido extends Identificado {
     Double precio;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="pedido")

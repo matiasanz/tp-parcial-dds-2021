@@ -1,13 +1,13 @@
 package Repositorios.Templates.Colecciones;
 
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import java.util.List;
 
-public class DB<T extends Identificable>
+public class DB<T extends Identificado>
     implements Coleccion<T>
     , WithGlobalEntityManager, EntityManagerOps, TransactionalOps
 

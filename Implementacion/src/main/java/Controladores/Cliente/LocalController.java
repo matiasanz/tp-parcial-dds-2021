@@ -5,11 +5,13 @@ import Controladores.Utils.*;
 import Local.Local;
 import Pedidos.Carrito;
 import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.SinCupon;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
+import Utils.Exceptions.DatosInvalidosException;
 import Utils.Exceptions.LocalInexistenteException;
 import Utils.Exceptions.PedidoIncompletoException;
 import Utils.Exceptions.PlatoInexistenteException;
@@ -126,7 +128,7 @@ public class LocalController implements Transaccional {
                     response.redirect(URIs.PEDIDO((long) numeroDePedido));
                     carrito.vaciar();
                 });
-            } catch (PedidoIncompletoException e){
+            } catch (PedidoIncompletoException | DatosInvalidosException e){
                 errorHandler.setMensaje(request, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 Long id = Long.parseLong(idLocal);
@@ -138,7 +140,6 @@ public class LocalController implements Transaccional {
     }
 
 //TODO: Auxiliares ************************************************
-
 
     private Optional<Local> findLocal(String idLocalString, Request req, Response res){
         Local local = null;
@@ -168,6 +169,11 @@ public class LocalController implements Transaccional {
     private String leerDireccion(Request request){
         String direccion = request.queryParams("direccion");
         Cliente cliente = autenticadorClientes.getUsuario(request);
+
+        if(direccion==null){
+            throw new PedidoIncompletoException("direccion");
+        }
+
         if(!cliente.getDireccionesConocidas().contains(direccion)){
             cliente.agregarDireccion(direccion);
         }
@@ -175,26 +181,24 @@ public class LocalController implements Transaccional {
         return direccion;
     }
 
-    private CuponDescuento leerCupon(Request request){
-        return getAtributoDeLista(request
-            , "descuento"
-            , Cliente::getCupones
-        );
-    }
+    private CuponDescuento leerCupon(Request req){
+        Cliente cliente = autenticadorClientes.getUsuario(req);
 
-    private <T> T getAtributoDeLista(Request req, String atributo, Function<Cliente, List<T>> obtencion){
         try{
-            Cliente cliente = autenticadorClientes.getUsuario(req);
+            return Optional
+                .ofNullable(req.queryParams("descuento"))
+                .map(Long::parseLong)
+                .map(idCupon ->
+                    cliente.getCupones()
+                        .stream()
+                        .filter(c->c.matchId(idCupon))
+                        .findFirst()
+                        .orElseGet(SinCupon::new)
+                ).get();
 
-            List<T> lista = obtencion.apply(cliente);
-
-            T elem = lista.get(Integer.parseInt(req.queryParams(atributo)));
-            lista.remove(elem);
-            lista.add(0, elem);
-            return elem;
-
-        } catch (NumberFormatException |IndexOutOfBoundsException e){
-            throw new PedidoIncompletoException(atributo);
+        } catch (NumberFormatException e){
+            throw new DatosInvalidosException();
         }
+
     }
 }

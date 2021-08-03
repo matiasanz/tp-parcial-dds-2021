@@ -80,10 +80,11 @@
                         </datalist>
                         <br>
 
-                        <label>Usar cupón</label>
-                        <select id="descuentos" name="descuento" form="form_envio">
+                        <label for="cupon">Usar cupón</label>
+                        <select id="cupon" name="descuento" form="form_envio">
+                            <option value=-1>Sin cupón</option>
                             {{#descuentos}}
-                                <option value={{@index}}>{{detalle}}</option><br>
+                                <option value={{idCupon}}>{{detalle}}</option><br>
                             {{/descuentos}}
                         </select>
                         <br>
