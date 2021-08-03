@@ -5,6 +5,7 @@ import Repositorios.RepoDuenios;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
 import Local.Duenio;
+import Utils.Exceptions.NombreOcupadoException;
 import Utils.Factory.ProveedorDeClientes;
 import Utils.Factory.ProveedorDeDuenios;
 import Utils.Factory.ProveedorDeLocales;
@@ -34,10 +35,15 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
     private void cargarUsuarios(){
         Cliente matias = ProveedorDeClientes.matias();
-        RepoClientes.instance.agregar(matias);
-
         Duenio romi = ProveedorDeDuenios.romina();
-        RepoDuenios.instance.agregar(romi);
-        RepoLocales.instance.agregar(romi.getLocal());
+
+        try{
+            RepoClientes.instance.agregar(matias);
+            RepoDuenios.instance.agregar(romi);
+            RepoLocales.instance.agregar(romi.getLocal());
+        }
+        catch(NombreOcupadoException n){
+
+        }
     }
 }

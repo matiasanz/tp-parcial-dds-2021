@@ -54,7 +54,7 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="use_sql_comments" value="true"/>
             <!-- PONER CREATE PARA LA PRIMERA VEZ,SINO TE IMPORTA TABLAS EN OTRAS BASES DE DATOS -->
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
 
     </persistence-unit>
