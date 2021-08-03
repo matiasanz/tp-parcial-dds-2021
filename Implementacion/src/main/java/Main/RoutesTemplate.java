@@ -54,7 +54,6 @@ public abstract class RoutesTemplate {
         service.before((request, response)->{
             System.out.println(request.requestMethod()+request.uri());
 
-            vaciarCacheHibernate();
             bloquearCacheNavegador(response);
 
             if(!uriExceptuadaDeAutenticar(request.uri())){
@@ -87,16 +86,6 @@ public abstract class RoutesTemplate {
 
     private void bloquearCacheNavegador(Response response){
         response.header("Cache-Control", "no-store, must-revalidate");
-    }
-
-    private static void vaciarCacheHibernate(){
-        PerThreadEntityManagers
-            .getEntityManager()
-            .getEntityManagerFactory()
-            .getCache()
-            .evictAll()
-        ;
-
     }
 
     private static void closeEntityManager(){
