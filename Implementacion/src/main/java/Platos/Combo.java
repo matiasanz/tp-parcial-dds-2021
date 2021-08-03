@@ -18,6 +18,10 @@ public class Combo extends Plato {
     public Combo() {}
     public Combo(String nombre, List<Plato> platos){
         super(nombre);
+
+        if(nombre==null) throw new RuntimeException("Debe especificar el nombre del combo");
+        if(platos.size()<2) throw new RuntimeException("Debe agregar al menos dos platos al combo");
+
         platos.forEach(this::agregarPlato);
     }
 

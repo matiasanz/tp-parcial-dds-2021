@@ -11,15 +11,15 @@
             <input type="text" name="nombre"><br>
 
             <label>Descripcion: </label>
-            <input type="text" name="descripcion"><br>
+            <input type="text" name="descripcion" required><br>
 
             <label>Precio: </label>
-            <input type="text" name="precio"><br>
+            <input type="number" name="precio" step="0.10" min="0" required><br>
 
             <label>Ingredientes: </label>
-            <input type="text" name="ingredientes"><br>
+            <input type="text" name="ingredientes" required><br>
 
-            <input type="hidden" name="tipo" value="simple"><br>
+            <input type="hidden" name="tipo" value="simple" required><br>
 
             <input type="submit" value="Crear Plato"><p class="msj_error">{{mensaje}}</p><br>
         </form>

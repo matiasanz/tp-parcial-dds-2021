@@ -1,13 +1,10 @@
 package Local;
 
 import Pedidos.Pedido;
-import Platos.ComboBorrador;
 import Platos.Plato;
 import Repositorios.Templates.Identificable;
-import Usuarios.Categorias.CategoriaCliente;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
-import Utils.Factory.ProveedorDeNotif;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,8 +24,6 @@ public class Local extends Identificable {
     List<Plato> menu = new ArrayList<>();
     @Enumerated(EnumType.ORDINAL)
     CategoriaLocal categoria;
-    @Transient
-    ComboBorrador borrador = new ComboBorrador(this);
 
     public Local(){}
     public Local(String nombre, String direccion, CategoriaLocal categoria) {
@@ -88,14 +83,6 @@ public class Local extends Identificable {
 
     public String getDireccion() {
         return direccion;
-    }
-
-    public ComboBorrador getBorrador(){
-        return borrador;
-    }
-
-    public void resetBorrador(){
-        borrador = new ComboBorrador(this);
     }
 
     public void setDireccion(String direccion) {

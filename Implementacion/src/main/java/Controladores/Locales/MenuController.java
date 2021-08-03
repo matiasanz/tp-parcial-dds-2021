@@ -5,7 +5,6 @@ import Controladores.Utils.*;
 import Local.Duenio;
 import Local.Local;
 import Platos.Combo;
-import Platos.ComboBorrador;
 import Platos.Plato;
 import Platos.PlatoSimple;
 import Repositorios.RepoLocales;
@@ -15,8 +14,11 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.net.HttpURLConnection;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import static Controladores.Utils.Modelos.parseModel;
@@ -74,48 +76,29 @@ public class MenuController implements Transaccional {
 
     public ModelAndView formularioCreacionCombo(Request req, Response res) {
 
-        ComboBorrador borrador = autenticador.getUsuario(req).getLocal().getBorrador();
+        Local local = autenticador.getUsuario(req).getLocal();
 
-        Modelo modelo = new Modelo("idLocal", borrador.getLocal().getId())
-            .con("nombre", borrador.getNombre())
-            .con("componentes", borrador.getPlatos())
-            .con("platosDelLocal", borrador.getLocal().getMenu())
+        Modelo modelo = new Modelo("idLocal", local.getId())
+            .con("platosDelLocal", local.getMenu())
             .con("mensaje", errorHandler.getMensaje(req))
         ;
 
         return new ModelAndView(modelo, "combo-nuevo-local.html.hbs");
     }
 
-    public ModelAndView agregarPlatoACombo(Request req, Response res) {
-        Local local = autenticador.getUsuario(req).getLocal();
-        ComboBorrador borrador = local.getBorrador();
-
-        try {
-            Plato plato = local.getPlato(Long.parseLong(req.queryParams("idPlato")));
-            borrador.agregarPlato(plato);
-            res.status(HttpURLConnection.HTTP_OK);
-        } catch (PlatoInexistenteException | NumberFormatException e) {
-            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
-        }
-
-        res.redirect(URIs.CREACION_COMBO);
-        return null;
-    }
-
     public ModelAndView agregarCombo(Request req, Response res) {
         Local local = autenticador.getUsuario(req).getLocal();
 
-        ComboBorrador borrador = local.getBorrador();
-
         try {
+            Combo nuevoCombo = comboFromRequest(req, local);
+
             withTransaction( () -> {
-                borrador.setNombre(req.queryParams("nombre"));
-                Combo nuevoCombo = borrador.crearCombo();
                 local.agregarPlato(nuevoCombo);
-                local.resetBorrador();
-                res.status(HttpURLConnection.HTTP_OK);
-                res.redirect("/platos/"+nuevoCombo.getId());
             });
+
+            res.status(HttpURLConnection.HTTP_OK);
+            res.redirect("/platos/"+nuevoCombo.getId());
+
         } catch (RuntimeException e) {
             errorHandler.setMensaje(req, e.getMessage());
             //TODO: Cambiar runtimeException por ComboInvalidoException o una cosa asi
@@ -123,7 +106,26 @@ public class MenuController implements Transaccional {
             res.redirect(URIs.CREACION_COMBO);
         }
 
+
         return null;
+    }
+
+    private Combo comboFromRequest(Request req, Local local) {
+        List<Plato> platos = new LinkedList<>();
+
+        local.getMenu().forEach( plato->{
+
+            int cantidad = Optional.of(req)
+                .map( r-> r.queryParams(plato.getNombre()))
+                .map(Integer::valueOf)
+                .orElse(0);
+
+            for(int i=0; i<cantidad; i++){
+                platos.add(plato);
+            }
+        });
+
+        return new Combo(req.queryParams("nombre"), platos);
     }
 
     public ModelAndView getPlato(Request request, Response response) {
@@ -155,8 +157,6 @@ public class MenuController implements Transaccional {
                 res.redirect("/platos/"+plato.getId());
             }
         );
-
-
 
         return null;
     }
