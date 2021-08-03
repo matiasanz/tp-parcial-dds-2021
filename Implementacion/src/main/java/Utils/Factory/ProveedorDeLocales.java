@@ -26,4 +26,11 @@ public class ProveedorDeLocales {
         Local local3 = new Local("McConals", "alla a la vuelta", CategoriaLocal.COMIDA_RAPIDA);
         return local3;
     }
+
+    public static Local siNoCorroMePizza() {
+        Local local = new Local("Si no corro me Pizza", "al fondo a la derecha", CategoriaLocal.PIZZERIA);
+        local.agregarPlato(ProveedorDePlatos.hamburguesa());
+        local.agregarPlato(ProveedorDePlatos.combo());
+        return local;
+    }
 }

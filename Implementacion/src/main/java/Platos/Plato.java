@@ -25,7 +25,7 @@ public abstract class Plato extends Identificado {
         return getPrecioBase()*(1.0-descuento);
     }
 
-    protected abstract Double getPrecioBase();
+    public abstract Double getPrecioBase();
 
     public abstract String getDescripcion();
 

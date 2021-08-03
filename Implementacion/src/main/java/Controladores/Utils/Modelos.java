@@ -3,7 +3,9 @@ import Local.Local;
 import MediosContacto.Notificacion;
 import Pedidos.*;
 import Pedidos.Cupones.CuponDescuento;
+import Platos.Combo;
 import Platos.Plato;
+import Platos.PlatoSimple;
 import Usuarios.Cliente;
 import com.sun.xml.internal.ws.util.StringUtils;
 
@@ -17,11 +19,9 @@ import Local.CategoriaLocal;
 public interface Modelos {
 
     static List<String> getCategorias(){
-        List<String> categorias = Arrays.stream(CategoriaLocal.values())
+        return Arrays.stream(CategoriaLocal.values())
             .map(Modelos::parseModel)
             .collect(Collectors.toList());
-
-        return categorias;
     }
 
     static String parseModel(Enum<?> unEnum){
@@ -57,11 +57,21 @@ public interface Modelos {
     }
 
     static Modelo parseModel(Plato plato){
-        return new Modelo("nombre", plato.getTitulo())
+        Modelo modelo = new Modelo("nombre", plato.getTitulo())
             .con("precio", plato.getPrecio())
+            .con("precioBase", plato.getPrecioBase())
             .con("idPlato", plato.getId())
             .con("descripcion", plato.getDescripcion())
+            .con("descuentoPlato", plato.getDescuento()*100.0)
         ;
+
+        if(plato instanceof Combo){
+            modelo.con("componentes", ((Combo) plato).getPlatos());
+        } else if(plato instanceof PlatoSimple){
+            modelo.con("ingredientes", String.join(", ", ((PlatoSimple) plato).getIngredientes()));
+        }
+
+        return modelo;
     }
 
     static Modelo parseModel(Carrito carrito){
