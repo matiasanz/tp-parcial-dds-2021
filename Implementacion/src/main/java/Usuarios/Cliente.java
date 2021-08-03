@@ -19,8 +19,8 @@ public class Cliente extends Usuario {
         direccionesConocidas.add(direccion);
     }
 
-    @Transient
-    private Map<Long, Carrito> carritos = new HashMap<>();
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="cliente")
+    private List<Carrito> carritos = new LinkedList<>();
 
     @ElementCollection
     @JoinTable(name="DireccionXCliente", joinColumns=@JoinColumn(name="cliente"))
@@ -34,6 +34,7 @@ public class Cliente extends Usuario {
     public CategoriaCliente categoria = new Primerizo();
 
     @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente")
     private List<CuponDescuento> cupones = new ArrayList<>();
 
     public void setCupones(List<CuponDescuento> cupones) {
@@ -43,9 +44,15 @@ public class Cliente extends Usuario {
     public Cliente() {}
 
     public Carrito getCarrito(Local local) {
-        Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
-        carritos.put(local.getId(), carrito);
-        return carrito;
+        //Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
+        //carritos.put(local.getId(), carrito);
+        Optional<Carrito> carrito = carritos.stream().filter(c->c.getLocal().matchId(local.getId())).findFirst();
+        if(!carrito.isPresent()){
+            Carrito nuevoCarrito = new Carrito(this, local);
+            carritos.add(nuevoCarrito);
+            return nuevoCarrito;
+        }
+        return carrito.get();
     }
 
     public List<String> getDireccionesConocidas() {
@@ -87,6 +94,14 @@ public class Cliente extends Usuario {
 
     public void agregarDireccion(String direccion) {
         direccionesConocidas.add(direccion);
+    }
+
+    public List<Carrito> getCarritos() {
+        return carritos;
+    }
+
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
     }
 }
 

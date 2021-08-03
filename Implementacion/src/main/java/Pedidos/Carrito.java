@@ -3,25 +3,37 @@ package Pedidos;
 import Local.Local;
 import Pedidos.Cupones.CuponDescuento;
 import Pedidos.Cupones.SinCupon;
+import Repositorios.Templates.Identificado;
 import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Carrito {
-    static Long idPedido = 0L; //TODO: Esto se tiene que ir
+@Entity
+@Table(name="carritos")
+public class Carrito extends Identificado {
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private Cliente cliente;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Local local;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="carrito")
     private List<Item> items = new LinkedList<>();
+    @Transient
     private String direccion;
+    @Transient
     private CuponDescuento cupon = new SinCupon();
 
     public Carrito(Cliente cliente, Local local){
         this.cliente = cliente;
         this.local=local;
+    }
+
+    public Carrito() {
     }
 
     public Carrito conDireccion(String direccion){
@@ -94,5 +106,7 @@ public class Carrito {
         return cliente.descuentoPorCategoria(getPrecioBase());
     }
 
-
+    public Cliente getCliente() {
+        return cliente;
+    }
 }
