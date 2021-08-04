@@ -32,6 +32,7 @@
         <class>MediosContacto.NotificadorPush</class>
         <class>MediosContacto.NotificadorMail</class>
         <class>Pedidos.Carrito</class>
+        <class>Pedidos.Critica</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

@@ -5,24 +5,12 @@
     {{/partial}}
 
     {{#partial "contenido"}}
-        <section id="Registro-combos">
-            <h2>Armar Combo</h2>
+        <h2>Armar Combo</h2>
 
-            <form action="/platos" method="POST" class="columnado">
-                <div id="datos-generales">
-                    <input type="hidden" name="tipo" value="combo">
-
-                    <label>Nombre del combo: </label><br>
-                    <input type="text" name="nombre" required><br>
-                    <label>Descripción: </label><br>
-                    <textarea name="descripcion" rows="3" class="auto_height"></textarea> <br>
-
-                    <input type="submit" value="Crear combo"><p class="msj_error">{{mensaje}}</p><br>
-                </div>
-
-                <div id="componentes">
-                    <h3>Componentes</h3>
-                    <ul>
+        <form action="/platos" method="POST" class="columnado">
+            <div id="componentes">
+                <h3>Componentes</h3>
+                <ul>
                     {{#platosDelLocal}}
                         <li>
                             <label><a href="/platos/{{idPlato}}">{{nombre}}</a></label>
@@ -32,10 +20,21 @@
                     {{else}}
                         <p>Aún no se registraron platos</p>
                     {{/platosDelLocal}}
-                    </ul>
-                </div>
-            </form>
-        </section>
+                </ul>
+            </div>
+
+            <div id="presentacion">
+                <h3>Presentación</h3>
+                <input type="hidden" name="tipo" value="combo">
+
+                <label>Nombre del combo: </label><br>
+                <input type="text" name="nombre" required><br>
+                <label>Descripción: </label><br>
+                <textarea name="descripcion" rows="3" class="auto_height"></textarea> <br>
+
+                <input type="submit" value="Crear combo"><p class="msj_error">{{mensaje}}</p><br>
+            </div>
+        </form>
     {{/partial}}
 
 {{> layout_local.html.hbs }}

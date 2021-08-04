@@ -16,6 +16,8 @@ import java.util.List;
 @Table(name="carritos")
 public class Carrito extends Identificado {
 
+    //Pedido pedido = new Pedido() //TODO y vaciar hace =new Pedido()
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Cliente cliente;
     @ManyToOne(cascade = CascadeType.ALL)

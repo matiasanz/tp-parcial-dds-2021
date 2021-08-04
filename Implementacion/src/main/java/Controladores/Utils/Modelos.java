@@ -55,6 +55,7 @@ public interface Modelos {
             .con("categoriaLocal", parseModel(local.getCategoria()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion())
+            .con("puntuacion", local.getPuntuacionMedia())
         ;
     }
 
@@ -63,7 +64,7 @@ public interface Modelos {
             .con("precio", plato.getPrecio())
             .con("precioBase", plato.getPrecioBase())
             .con("idPlato", plato.getId())
-            .con("descripcion", ifEmpty(plato.getDescripcion(), "-"))
+            .con("descripcion", oGuion(plato.getDescripcion()))
             .con("tieneDescuento", plato.getDescuento()>0)
             .con("descuentoPlato", plato.getDescuento()*100.0)
         ;
@@ -106,7 +107,7 @@ public interface Modelos {
 
     static Modelo parseModel(Item item){
         return new Modelo("plato", item.getPlato().getNombre())
-            .con("aclaraciones", ifEmpty(item.getAclaraciones(), "-"))
+            .con("aclaraciones", oGuion(item.getAclaraciones()))
             .con("cantidad", item.getCantidad());
     }
 
@@ -117,7 +118,12 @@ public interface Modelos {
             .con("estado", parseModel(pedido.getEstado()))
             .con(parseModel(pedido.getFechaInicio()))
             .con("direccion", pedido.getDireccion())
-            .con("pendiente", pedido.getEstado()== EstadoPedido.PENDIENTE);
+            .con("pendiente", pedido.getEstado()==EstadoPedido.PENDIENTE)
+            .con("confirmado", pedido.getEstado()==EstadoPedido.CONFIRMADO)
+            .con("entregado", pedido.getEstado()==EstadoPedido.ENTREGADO)
+            .con("puntuacionPedido", pedido.getPuntuacion())
+            .con("detallePuntuacion", oGuion(pedido.getDetallePuntuacion()))
+            ;
     }
 
     static List<Modelo> parseModel(List<Pedido> pedidos){
@@ -154,6 +160,10 @@ public interface Modelos {
             .con("cuerpo", notificacion.getCuerpo())
             .con(parseModel(notificacion.getFechaHora()))
         ;
+    }
+
+    static String oGuion(String s){
+        return ifEmpty(s, "-");
     }
 
     static String ifEmpty(String actual, String defaultValue){

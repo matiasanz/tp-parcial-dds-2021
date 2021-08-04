@@ -32,6 +32,9 @@ public class Pedido extends Identificado {
     @JoinColumn(name = "cliente")
     Cliente cliente;
 
+    Float puntuacion;
+    String detallePuntuacion;
+
     public Pedido(){}
     public Pedido(double precio, String direccion, Local local, List<Item> items, Cliente cliente){
         this.precio = precio;
@@ -101,5 +104,21 @@ public class Pedido extends Identificado {
 
     public void setLocal(Local local) {
         this.local=local;
+    }
+
+    public Float getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(Float puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
+    public String getDetallePuntuacion() {
+        return detallePuntuacion;
+    }
+
+    public void setDetallePuntuacion(String detallePuntuacion) {
+        this.detallePuntuacion = detallePuntuacion;
     }
 }

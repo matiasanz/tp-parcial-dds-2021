@@ -12,6 +12,7 @@ import spark.Response;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static Controladores.Utils.Modelos.unparseEnum;
 
@@ -33,7 +34,8 @@ public class LocalesController {
                  categorias.add(0, categoria);
              });
 
-        return new ModelAndView(new Modelo("Locales", locales).con("categorias", categorias), Templates.LOCALES);
+        List<Modelo> modelosLocales = locales.stream().map(Modelos::parseModel).collect(Collectors.toList());
+        return new ModelAndView(new Modelo("Locales", modelosLocales).con("categorias", categorias), Templates.LOCALES);
     }
 
     private boolean perteneceACategoria(Local local, String categoria){

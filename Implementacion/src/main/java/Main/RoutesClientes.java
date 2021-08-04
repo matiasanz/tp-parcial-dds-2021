@@ -43,6 +43,7 @@ public class RoutesClientes extends RoutesTemplate{
         service.post(URIs.PEDIDOS, localController::finalizarPedido, engine);
         service.get(URIs.PEDIDOS, pedidosController::getPedidos, engine);
         service.get("/pedidos/:id", pedidosController::getPedido, engine);
+        service.post(URIs.PEDIDOS+"/:numero", pedidosController::notificarEntregaPedido, engine);
         service.post("/suscripciones", localController::suscribirmeALocal, engine);
         service.post("/suscripciones/:idLocal", localController::desuscribirmeALocal, engine);
     }

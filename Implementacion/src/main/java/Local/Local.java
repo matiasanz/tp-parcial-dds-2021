@@ -1,6 +1,7 @@
 package Local;
 
 import MediosContacto.Notificacion;
+import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.Templates.Identificado;
@@ -51,7 +52,6 @@ public class Local extends Identificado {
             ;
     }
 
-
     public void agregarPedido(Pedido pedido){
         pedidosRecibidos.add(pedido);
     }
@@ -78,6 +78,13 @@ public class Local extends Identificado {
 
     public List<Pedido> pedidosDelMes(LocalDate fechaActual) {
         return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
+    }
+
+    public Double getPuntuacionMedia(){
+        return pedidosRecibidos.stream()
+            .filter(p->p.getEstado()== EstadoPedido.ENTREGADO)
+            .mapToDouble(Pedido::getPuntuacion)
+            .average().orElse(0);
     }
 
     //getters *****************************************************

@@ -27,6 +27,7 @@ public class Cliente extends Usuario {
     private List<String> direccionesConocidas = new ArrayList<>();
     @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente")
+    @OrderColumn(name="numero_pedido")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
     @ManyToOne (cascade = CascadeType.ALL)

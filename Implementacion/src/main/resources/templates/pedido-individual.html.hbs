@@ -1,27 +1,45 @@
     {{#partial "titulo"}}
-        <title>Pedido</title>
+        <title>Pedido #{{numero}}</title>
     {{/partial}}
 
     {{#partial "contenido"}}
-        <nav>
-            <H3>Pedido #{{numero}}</H3>
-            <section id="datos_pedido">
-                <ul>
-                    <li><strong>Local:</strong> {{local}}</li>
-                    <li><strong>Estado:</strong> {{estado}}</li>
-                    <li><strong>Precio:</strong> ${{importe}}</li>
-                    <li><strong>Direccion:</strong> {{direccion}}</li>
-                </ul>
-            </section>
-            <section id="items">
-                <p>Items:</p>
-                <ul>
-                    {{#items}}
-                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br></br>
-                    {{/items}}
-                </ul>
-            </section>
-        </nav>
+        <H2>Pedido #{{numero}} - [{{estado}}]</H2>
+
+        <section id="datos_pedido">
+            <h3>Datos del Pedido</h3>
+            <ul>
+                <li><strong>Local:</strong> {{local}}</li>
+                <li><strong>Precio:</strong> ${{importe}}</li>
+                <li><strong>Direccion:</strong> {{direccion}}</li>
+            </ul>
+        </section>
+        <section id="items">
+            <h3>Items:</h3>
+            <ul>
+                {{#items}}
+                    <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br>
+                {{/items}}
+            </ul>
+        </section>
+
+        {{#if confirmado}}
+            <div id="notificacion-entrega">
+                <h3>Notificar Entrega</h3>
+                <form action="/pedidos/{{numero}}" method="post">
+                    <input type="hidden" name="numero" value="{{numero}}" required>
+                    <label>Puntuación</label>
+                    <br>
+                    <input name="puntuacion" type="number" min="1" max="5" step="0.1">
+                    <br>
+                    <label>Crítica:</label>
+                    <br>
+                    <textarea name="critica" rows="3" class="auto_height"></textarea> <br>
+                    <br>
+                    <input type="submit" value="Enviar">
+                    <p class="msj_error">{{mensaje}}</p>
+                </form>
+            </div>
+        {{/if}}
 
     {{/partial}}
 

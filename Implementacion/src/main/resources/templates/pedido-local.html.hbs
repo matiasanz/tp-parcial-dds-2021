@@ -1,37 +1,51 @@
 {{#partial "titulo"}}
-    <title>Pedido</title>
+    <title>Pedido #{{numero}}</title>
 {{/partial}}
 
 {{#partial "contenido"}}
-    <nav>
-        <H3>Pedido #{{numero}} - [{{estado}}]</H3>
-        <div id="datos_pedido">
-            <ul>
-                <li><strong>Precio:</strong> ${{importe}}</li>
-                <li><strong>Direccion:</strong> {{direccion}}</li>
-            </ul>
-        </div>
-        <div id="items">
-            <p>Items:</p>
-            <ul>
-                {{#items}}
-                    <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br></br>
-                {{/items}}
-            </ul>
-        </div>
-        {{#if pendiente}}
-            <div id="accion">
-                <form action="/pedidos/{{numero}}" method="post">
-                    <select name="decisionPedido">
-                        <option hidden disabled selected>Elegir acción</option>
-                        <option value="CONFIRMADO">Confirmar</option>
-                        <option value="RECHAZADO">Rechazar</option>
-                    </select>
-                    <input type="submit" value="Enviar">
-                </form>
+        <H2>Pedido #{{numero}} - [{{estado}}]</H2>
+
+        <section>
+            <div id="datos_pedido">
+                <h3>Datos del pedido</h3>
+                <ul>
+                    <li><strong>Precio:</strong> ${{importe}}</li>
+                    <li><strong>Direccion:</strong> {{direccion}}</li>
+                </ul>
             </div>
-        {{/if}}
-    </nav>
+            <div id="items">
+                <h3>Items</h3>
+                <ul>
+                    {{#items}}
+                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br>
+                    {{/items}}
+                </ul>
+            </div>
+            {{#if pendiente}}
+                <div id="accion">
+                    <h3>Responder</h3>
+                    <form action="/pedidos/{{numero}}" method="post">
+                        <select name="decisionPedido">
+                            <option hidden disabled selected>Elegir acción</option>
+                            <option value="CONFIRMADO">Confirmar</option>
+                            <option value="RECHAZADO">Rechazar</option>
+                        </select>
+                        <input type="submit" value="Enviar">
+                    </form>
+                </div>
+            {{/if}}
+
+            {{#if entregado}}
+                <div id="critica">
+                    <h3>Calificacion</h3>
+                    <ul>
+                        <li><strong>Puntuacion: </strong>{{puntuacionPedido}}&#127860;</li>
+                        <li><strong>Detalle: </strong>{{detallePuntuacion}}</li>
+                    </ul>
+                </div>
+            {{/if}}
+        </section>
+
 {{/partial}}
 
 {{>layout_local.html.hbs}}
