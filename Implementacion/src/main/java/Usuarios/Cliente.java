@@ -31,6 +31,8 @@ public class Cliente extends Usuario {
         return carrito;
     }
 
+
+
     public List<String> getDireccionesConocidas() {
         return direccionesConocidas;
     }

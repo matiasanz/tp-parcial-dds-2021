@@ -3,6 +3,7 @@ package Controladores.Locales;
 import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Local.Duenio;
+import Mongo.MongoHandler;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import spark.ModelAndView;
@@ -19,6 +20,7 @@ import static Controladores.Utils.Modelos.parseModel;
 
 public class PedidosLocalController {
     private Autenticador<Duenio> autenticador;
+    MongoHandler mongoHandler = new MongoHandler();
     public PedidosLocalController(Autenticador<Duenio> autenticador){
         this.autenticador=autenticador;
     }
@@ -94,13 +96,19 @@ public class PedidosLocalController {
 
     public ModelAndView cambiarEstadoPedido(Request req, Response response) {
         List<Pedido> pedidos = autenticador.getUsuario(req).getLocal().getPedidosRecibidos();
-
         getNumeroPedido(req, response).ifPresent(
             nroPedido->{
                 try {
                     EstadoPedido estado = EstadoPedido.valueOf(req.queryParams("decisionPedido"));
-                    pedidos.get(nroPedido - 1).setEstado(estado);
-                } catch (NullPointerException | IllegalArgumentException e) {
+                    Pedido pedido = pedidos.get(nroPedido - 1);
+                    pedido.setEstado(estado);
+
+                    if(estado == EstadoPedido.RECHAZADO){
+                        mongoHandler.loguearPedidoRechazado(pedido);
+                    }
+                }
+
+                catch (NullPointerException | IllegalArgumentException e) {
                     response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 }
                 response.redirect("/pedidos/" + nroPedido);

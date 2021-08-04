@@ -1,11 +1,10 @@
 package Pedidos;
 
+import Mongo.MongoHandler;
 import Usuarios.Cliente;
-import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -29,6 +28,13 @@ public class Pedido extends Identificable {
         this.cliente = cliente;
     }
 
+    public Pedido(double precio, String direccion, Local local, Cliente cliente){
+        this.precio = precio;
+        this.direccion=direccion;
+        this.local = local;
+        this.cliente = cliente;
+    }
+
     public Double getImporte(){
         return precio;
     }
@@ -36,6 +42,7 @@ public class Pedido extends Identificable {
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
         cliente.notificar(notificacionResultadoPedido(cliente, estado));
+
     }
 
     public LocalDateTime getFechaInicio() {

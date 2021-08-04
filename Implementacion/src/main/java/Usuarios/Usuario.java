@@ -65,4 +65,3 @@ public abstract class Usuario extends Identificable {
         mediosDeContacto.forEach(n->n.notificar(this,mensaje));
     }
 }
-

@@ -36,11 +36,13 @@ public class LoginController {
     public ModelAndView tryLogin(Request req, Response res) {
         try{
             autenticador.autenticar(req,res);
+            errorHandler.notificarIntentoCorrecto(req);
             res.status(HttpURLConnection.HTTP_ACCEPTED);
             res.redirect(URIs.HOME);
 
         } catch(UsuarioInexistenteException | ContraseniaIncorrectaException e) {
             res.status(HttpURLConnection.HTTP_PROXY_AUTH);
+            errorHandler.notificarIntentoFallido(req);
             errorHandler.setMensaje(req, "El usuario y/o la contraseña ingresada son incorrectos");
             res.redirect(URIs.LOGIN);
         }
