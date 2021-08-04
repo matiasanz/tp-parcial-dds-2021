@@ -4,7 +4,6 @@ import Controladores.Autenticador;
 import Controladores.Utils.*;
 import Local.Duenio;
 import Local.Local;
-import MediosContacto.Notificacion;
 import Platos.Combo;
 import Platos.Plato;
 import Platos.PlatoSimple;
@@ -15,7 +14,6 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.net.HttpURLConnection;
 import java.util.Arrays;
 import java.util.LinkedList;

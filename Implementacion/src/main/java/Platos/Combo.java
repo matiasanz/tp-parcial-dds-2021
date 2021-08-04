@@ -1,12 +1,9 @@
 package Platos;
 
-import org.junit.Test;
-
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 @Entity
 @DiscriminatorValue("c")
 public class Combo extends Plato {
@@ -27,7 +24,7 @@ public class Combo extends Plato {
 
     @Override
     public Double getPrecioBase() {
-        return platos.stream().mapToDouble(Plato::getPrecio).sum();
+        return platos.stream().mapToDouble(Plato::getPrecioBase).sum();
     }
 
     public List<Plato> getPlatos() {
@@ -39,8 +36,8 @@ public class Combo extends Plato {
     }
 
     @Override
-    public String getTitulo(){
-        return "Combo "+ super.getTitulo();
+    public String getNombre(){
+        return "Combo "+ super.getNombre();
     }
 
     public void setPlatos(List<Plato> platos){

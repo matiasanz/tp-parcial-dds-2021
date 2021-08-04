@@ -8,24 +8,31 @@
         <section id="Registro-combos">
             <h2>Armar Combo</h2>
 
-            <form action="/platos" method="POST">
-                <input type="hidden" name="tipo" value="combo"><br>
+            <form action="/platos" method="POST" class="columnado">
+                <div id="datos-generales">
+                    <input type="hidden" name="tipo" value="combo">
 
-                <label>Nombre del combo: </label>
-                <input type="text" name="nombre" required><br>
-                <input type="text" name="descripcion">
+                    <label>Nombre del combo: </label><br>
+                    <input type="text" name="nombre" required><br>
+                    <label>Descripción: </label><br>
+                    <textarea name="descripcion" rows="3" class="auto_height"></textarea> <br>
 
-                <input type="submit" value="Crear combo"><p class="msj_error">{{mensaje}}</p><br>
+                    <input type="submit" value="Crear combo"><p class="msj_error">{{mensaje}}</p><br>
+                </div>
 
                 <div id="componentes">
-                    <h4>Componentes</h4>
+                    <h3>Componentes</h3>
+                    <ul>
                     {{#platosDelLocal}}
-                        <label>{{nombre}}</label>
-                        <input type="number" name="{{nombre}}" value="0" min="0">
-                        <br>
+                        <li>
+                            <label><a href="/platos/{{idPlato}}">{{nombre}}</a></label>
+                            <input type="number" name="{{nombre}}" value="0" min="0">
+                            <br>
+                        </li>
                     {{else}}
-                        <p>Aquí se verán sus platos</p>
+                        <p>Aún no se registraron platos</p>
                     {{/platosDelLocal}}
+                    </ul>
                 </div>
             </form>
         </section>

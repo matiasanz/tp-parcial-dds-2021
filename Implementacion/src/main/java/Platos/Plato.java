@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name="Platos")
 @DiscriminatorColumn(name="tipo_plato")
 public abstract class Plato extends Identificado {
+    @Access(AccessType.FIELD)
     String nombre;
     String descripcion;
     float descuento;
@@ -16,10 +17,7 @@ public abstract class Plato extends Identificado {
     public Plato(){}
     public Plato(String nombre, String descripcion){
         this.nombre=nombre;
-    }
-
-    public String getNombre(){
-        return nombre;
+        this.descripcion=descripcion;
     }
 
     public Double getPrecio(){
@@ -48,11 +46,11 @@ public abstract class Plato extends Identificado {
         this.descuento = descuento;
     }
 
-    public String getTitulo(){
-        return getNombre();
+    public String getNombre(){
+        return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setTitulo(String nombre) {
         this.nombre = nombre;
     }
 }

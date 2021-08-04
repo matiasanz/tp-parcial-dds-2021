@@ -1,6 +1,7 @@
 package Utils.Factory;
 
 import Local.*;
+import Platos.Combo;
 import Platos.Plato;
 import Platos.PlatoSimple;
 
@@ -29,8 +30,9 @@ public class ProveedorDeLocales {
 
     public static Local siNoCorroMePizza() {
         Local local = new Local("Si no corro me Pizza", "al fondo a la derecha", CategoriaLocal.PIZZERIA);
-        local.agregarPlato(ProveedorDePlatos.hamburguesa());
-        local.agregarPlato(ProveedorDePlatos.combo());
+        Combo combo = ProveedorDePlatos.combo();
+        combo.getPlatos().forEach(local::agregarPlato);
+        local.agregarPlato(combo);
         return local;
     }
 }

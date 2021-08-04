@@ -12,18 +12,18 @@ public class PlatoRunner {
     public static void main(String[] args){
         PlatoSimple platoSimple = new PlatoSimple();
         platoSimple.setPrecioBase(897.5);
-        platoSimple.setNombre("hamburguesa");
+        platoSimple.setTitulo("hamburguesa");
         platoSimple.setDescripcion("Medallon de carne entre panes");
         platoSimple.setIngredientes(Arrays.asList("pan", "carne"));
 
         PlatoSimple platoSimple2 = new PlatoSimple();
         platoSimple2.setPrecioBase(90.5);
-        platoSimple2.setNombre("papas noisette");
+        platoSimple2.setTitulo("papas noisette");
         platoSimple2.setDescripcion("papas redondas");
         platoSimple2.setIngredientes(Arrays.asList("papas sin cascara"));
 
         Combo combo = new Combo();
-        combo.setNombre("hamburguesa con papas");
+        combo.setTitulo("hamburguesa con papas");
         combo.setPlatos(Arrays.asList(platoSimple,platoSimple2));
 
 

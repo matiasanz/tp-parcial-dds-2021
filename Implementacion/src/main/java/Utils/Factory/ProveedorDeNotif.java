@@ -4,14 +4,12 @@ import Local.Local;
 import MediosContacto.Notificacion;
 import Pedidos.EstadoPedido;
 import Platos.Plato;
-import Platos.PlatoSimple;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Cliente;
 import Usuarios.Usuario;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 public class ProveedorDeNotif {
     public static Notificacion notificacionAscensoDeCategoria(Cliente cliente, CategoriaCliente categoria){

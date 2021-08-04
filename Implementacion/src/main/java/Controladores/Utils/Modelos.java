@@ -12,7 +12,9 @@ import com.sun.xml.internal.ws.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import Local.CategoriaLocal;
 
@@ -57,7 +59,7 @@ public interface Modelos {
     }
 
     static Modelo parseModel(Plato plato){
-        Modelo modelo = new Modelo("nombre", plato.getTitulo())
+        Modelo modelo = new Modelo("nombre", plato.getNombre())
             .con("precio", plato.getPrecio())
             .con("precioBase", plato.getPrecioBase())
             .con("idPlato", plato.getId())
@@ -67,12 +69,26 @@ public interface Modelos {
         ;
 
         if(plato instanceof Combo){
-            modelo.con("componentes", ((Combo) plato).getPlatos());
+            modelo.con("componentes", parseComponentes(((Combo) plato).getPlatos()));
         } else if(plato instanceof PlatoSimple){
             modelo.con("ingredientes", String.join(", ", ((PlatoSimple) plato).getIngredientes()));
         }
 
         return modelo;
+    }
+
+    static List<Modelo> parseComponentes(List<Plato> componentes){
+        List<Modelo> modelos = new LinkedList<>();
+
+        componentes
+            .stream()
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+            .forEach((componente, cantidad)-> {
+                Modelo modeloComponente = parseModel(componente).con("cantidad", cantidad);
+                modelos.add(modeloComponente);
+            });
+
+        return modelos;
     }
 
     static Modelo parseModel(Carrito carrito){
