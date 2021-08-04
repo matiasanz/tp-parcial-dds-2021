@@ -37,7 +37,7 @@ public interface Modelos {
 
     static Modelo parseModel(Cliente cliente){
         return new Modelo("mailCliente", cliente.getMail())
-            .con("categoriaCliente", cliente.getCategoria().toString())
+            .con("categoriaCliente", cliente.getCategoria().getNombre())
             .con("descuentosCliente", cliente.getCupones().stream().map(CuponDescuento::getDetalle).collect(Collectors.toList()))
             .con("username", cliente.getUsername())
             .con("direcciones", cliente.getDireccionesConocidas())
@@ -84,7 +84,6 @@ public interface Modelos {
             .con("items"         , carrito.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("precioBase"    , carrito.getPrecioBase())
             .con("dtoCategoria"  , carrito.descuentoPorCategoria())
-            .con("dtoCupon"      , carrito.descuentoPorCupon())
             .con("precioFinal"   , carrito.getPrecioFinal())
             ;
     }

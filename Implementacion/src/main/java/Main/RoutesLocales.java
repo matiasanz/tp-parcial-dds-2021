@@ -10,7 +10,6 @@ import Local.Duenio;
 import Repositorios.RepoDuenios;
 import Repositorios.RepoLocales;
 import spark.Service;
-import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class RoutesLocales extends RoutesTemplate{
@@ -27,8 +26,8 @@ public class RoutesLocales extends RoutesTemplate{
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
-    public RoutesLocales() {
-        super(8081, autenticador, new LocalSignupController(repoContactos, repoLocales));
+    public RoutesLocales(int puerto) {
+        super(puerto, autenticador, new LocalSignupController(repoContactos, repoLocales));
     }
 
     @Override
@@ -42,6 +41,6 @@ public class RoutesLocales extends RoutesTemplate{
         service.get("/platos/nuevo", platosController::formularioCreacionPlato, engine);
         service.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);
         service.get("/platos/:id", platosController::getPlato, engine);
-        service.post("/platos/:id/descuento", platosController::agregarDescuento, engine);
+        service.post("/platos/:id/descuento", platosController::setDescuento, engine);
     }
 }

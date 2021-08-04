@@ -87,19 +87,7 @@ public class Carrito extends Identificado {
     }
 
     public Double getPrecioFinal(){
-        return getSubtotal() - descuentoPorCupon();
-    }
-
-    public Double getSubtotal(){
-        return getPrecioBase() - descuentoPorCategoria();
-    }
-
-    public Double getPrecioBase(){
-        return items.stream().mapToDouble(Item::getPrecio).sum();
-    }
-
-    public Double descuentoPorCupon(){
-        return cupon.calcularSobre(getSubtotal());
+        return subtotal() - descuentoPorCupon();
     }
 
     public Double descuentoPorCategoria(){
@@ -109,4 +97,17 @@ public class Carrito extends Identificado {
     public Cliente getCliente() {
         return cliente;
     }
+
+    public Double descuentoPorCupon(){
+        return cupon.calcularSobre(subtotal());
+    }
+
+    private Double subtotal(){
+        return getPrecioBase() - descuentoPorCategoria();
+    }
+
+    public Double getPrecioBase(){
+        return items.stream().mapToDouble(Item::getPrecio).sum();
+    }
+
 }

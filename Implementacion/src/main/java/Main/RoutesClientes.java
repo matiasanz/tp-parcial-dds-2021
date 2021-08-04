@@ -28,8 +28,8 @@ public class RoutesClientes extends RoutesTemplate{
     private final LocalController localController = new LocalController(repoLocales, autenticadorClientes);
     private final PedidosController pedidosController = new PedidosController(autenticadorClientes);
 
-    public RoutesClientes() {
-        super(8080, autenticadorClientes, signupController);
+    public RoutesClientes(int puerto) {
+        super(puerto, autenticadorClientes, signupController);
     }
 
     @Override
@@ -43,5 +43,7 @@ public class RoutesClientes extends RoutesTemplate{
         service.post(URIs.PEDIDOS, localController::finalizarPedido, engine);
         service.get(URIs.PEDIDOS, pedidosController::getPedidos, engine);
         service.get("/pedidos/:id", pedidosController::getPedido, engine);
+        service.post("/suscripciones", localController::suscribirmeALocal, engine);
+        service.post("/suscripciones/:idLocal", localController::desuscribirmeALocal, engine);
     }
 }

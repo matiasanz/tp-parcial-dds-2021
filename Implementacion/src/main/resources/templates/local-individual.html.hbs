@@ -15,6 +15,26 @@
                     </ul>
                 </div>
 
+                <div id="suscripcion">
+                    <H3>Suscripción</H3>
+                    {{#unless suscripto}}
+                        <p>
+                           Al suscribirte a un local, recibirás notificaciones <br>
+                           de descuentos y nuevos platos en el menú
+                        </p>
+
+                        <form action="/suscripciones" method="post">
+                            <input type="hidden" name="idLocal" value="{{idLocal}}">
+                            <input type="submit" value="Suscribirse">
+                        </form>
+                    {{else}}
+                        <p>Ud. se encuentra suscripto a este local</p>
+                        <form action="/suscripciones/{{idLocal}}" method="post">
+                            <input type="submit" value="Desuscribirse">
+                        </form>
+                    {{/unless}}
+                </div>
+
                 <div id="Menu">
                     <h3>Menu:</h3>
                     <ul>
@@ -25,6 +45,7 @@
                         {{/Platos}}
                     </ul>
                 </div>
+
             </section>
 
             <section id="carrito">
@@ -64,7 +85,7 @@
 
                 <div id="precio">
                     <p>Precio Base: ${{precioBase}}</p>
-                    <p>>     Descuento por cliente {{categoria}}: ${{dtoCategoria}}</p>
+                    <p>>     Descuento por cliente {{categoriaCliente}}: ${{dtoCategoria}}</p>
                     <p>Monto a abonar: <strong>${{precioFinal}}</strong></p>
                 </div>
 
@@ -83,9 +104,9 @@
                         <label for="cupon">Usar cupón</label>
                         <select id="cupon" name="descuento" form="form_envio">
                             <option value=-1>Sin cupón</option>
-                            {{#descuentos}}
+                            {{#descuentosCliente}}
                                 <option value={{idCupon}}>{{detalle}}</option><br>
-                            {{/descuentos}}
+                            {{/descuentosCliente}}
                         </select>
                         <br>
                         <input type="submit" value="Finalizar" form="form_envio"><p class="msj_error">{{error}}</p><br>

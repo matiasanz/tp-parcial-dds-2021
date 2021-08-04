@@ -40,7 +40,7 @@ public abstract class RoutesTemplate {
     }
 
     public void execute() {
-        System.out.println("Iniciando servidor");
+        System.out.println("Iniciando servidor "+puerto);
 
         Service service = Service
             .ignite()
@@ -75,7 +75,7 @@ public abstract class RoutesTemplate {
 
         this.rutasPropias(service);
 
-        System.out.println("Servidor iniciado correctamente");
+        System.out.println("Servidor "+puerto+" iniciado correctamente");
     }
 
     protected abstract void rutasPropias(Service service);
@@ -93,6 +93,7 @@ public abstract class RoutesTemplate {
         PerThreadEntityManagers.closeEntityManager();
     }
 
+    //Por si nos olvidamos de cerrarlo
     private ModelAndView finalizar(Request req, Response res){
         System.exit(0);
         return null;

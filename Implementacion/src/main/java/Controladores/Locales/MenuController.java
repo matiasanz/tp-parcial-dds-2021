@@ -4,6 +4,7 @@ import Controladores.Autenticador;
 import Controladores.Utils.*;
 import Local.Duenio;
 import Local.Local;
+import MediosContacto.Notificacion;
 import Platos.Combo;
 import Platos.Plato;
 import Platos.PlatoSimple;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static Controladores.Utils.Modelos.parseModel;
+import static Utils.Factory.ProveedorDeNotif.notificacionDescuento;
 
 public class MenuController implements Transaccional {
     private Autenticador<Duenio> autenticador;
@@ -140,14 +142,20 @@ public class MenuController implements Transaccional {
         }
     }
 
-    public ModelAndView agregarDescuento(Request req, Response res){
+    public ModelAndView setDescuento(Request req, Response res){
+        Local local = autenticador.getUsuario(req).getLocal();
         Optional<Plato> platoOp = findPlato(req, res);
         platoOp.ifPresent(
             plato -> {
                 try {
-                    withTransaction(()->
-                        plato.setDescuento(new Float(req.queryParams("descuento"))/100)
-                    );
+                    withTransaction(()-> {
+                        float descuento = new Float(req.queryParams("descuento"));
+
+                        plato.setDescuento(descuento / 100);
+                        if (descuento > 0) {
+                            local.notificarSuscriptores(notificacionDescuento(descuento, plato, local));
+                        }
+                    });
 
                     res.status(HttpURLConnection.HTTP_OK);
                 } catch (NumberFormatException e){

@@ -1,7 +1,5 @@
-package Runners;
+package db.Runners;
 
-import Local.CategoriaLocal;
-import Local.Duenio;
 import MediosContacto.MedioDeContacto;
 import MediosContacto.NotificadorMail;
 import MediosContacto.NotificadorPush;
@@ -10,14 +8,9 @@ import Pedidos.Cupones.CuponDescuentoPorcentaje;
 import Pedidos.Cupones.CuponSaldo;
 import Pedidos.Cupones.SinCupon;
 import Pedidos.EstadoPedido;
-import Pedidos.Item;
-import Pedidos.Pedido;
-import Platos.Combo;
-import Platos.PlatoSimple;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Frecuente;
 import Usuarios.Cliente;
-import Usuarios.Usuario;
 import Utils.Factory.*;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 

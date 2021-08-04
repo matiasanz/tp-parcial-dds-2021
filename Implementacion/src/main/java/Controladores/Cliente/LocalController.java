@@ -11,17 +11,18 @@ import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
-import Utils.Exceptions.DatosInvalidosException;
-import Utils.Exceptions.LocalInexistenteException;
-import Utils.Exceptions.PedidoIncompletoException;
-import Utils.Exceptions.PlatoInexistenteException;
+import Utils.Exceptions.*;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
+import javax.jws.WebParam;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static Controladores.Utils.Modelos.parseModel;
@@ -48,10 +49,9 @@ public class LocalController implements Transaccional {
         Carrito carrito = cliente.getCarrito(local.get());
 
         Modelo modelo = parseModel(local.get())
+            .con("suscripto", local.get().esSuscriptor(cliente))
             .con(parseModel(carrito))
-            .con("categoria", cliente.getCategoria().getNombre())
-            .con("direcciones", cliente.getDireccionesConocidas())
-            .con("descuentos", cliente.getCupones())
+            .con(parseModel(cliente))
             .con("error", errorHandler.getMensaje(req));
 
         return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
@@ -188,17 +188,46 @@ public class LocalController implements Transaccional {
             return Optional
                 .ofNullable(req.queryParams("descuento"))
                 .map(Long::parseLong)
-                .map(idCupon ->
+                .flatMap(idCupon ->
                     cliente.getCupones()
                         .stream()
                         .filter(c->c.matchId(idCupon))
                         .findFirst()
-                        .orElseGet(SinCupon::new)
-                ).get();
+                ).orElseGet(SinCupon::new);
 
         } catch (NumberFormatException e){
             throw new DatosInvalidosException();
         }
 
+    }
+
+    public ModelAndView suscribirmeALocal(Request req, Response res){
+        setSuscripcion(req, res, (cliente, local)->local.agregarSuscriptor(cliente));
+        return null;
+    }
+
+    public ModelAndView desuscribirmeALocal(Request req, Response res){
+        setSuscripcion(req, res, (cliente, local)->local.eliminarSuscriptor(cliente));
+        return null;
+    }
+
+    private void setSuscripcion(Request req, Response res, BiConsumer<Cliente, Local> setteo){
+        Cliente cliente = autenticadorClientes.getUsuario(req);
+        try{
+            long idLocal = Long.parseLong(getParam("idLocal", req));
+
+            Local local = repoLocales.getLocal(idLocal);
+            withTransaction(()->{
+                setteo.accept(cliente, local);
+            });
+            res.redirect(URIs.LOCAL(idLocal));
+            res.status(200);
+        } catch (NumberFormatException | LocalInexistenteException | UsuarioYaSuscritoException e){
+            res.redirect(URIs.LOCALES, HttpURLConnection.HTTP_BAD_REQUEST);
+        }
+    }
+
+    private String getParam(String param, Request req){
+        return Optional.ofNullable(req.params(param)).orElse(req.queryParams(param));
     }
 }

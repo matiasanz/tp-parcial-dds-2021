@@ -1,15 +1,21 @@
 package Local;
 
+import MediosContacto.Notificacion;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.Templates.Identificado;
+import Usuarios.Cliente;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
+import Utils.Exceptions.UsuarioYaSuscritoException;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static Utils.Factory.ProveedorDeNotif.notificacionCambioDeDireccion;
+import static Utils.Factory.ProveedorDeNotif.notificacionNuevoPlato;
 
 @Entity
 @Table(name="Locales")
@@ -24,6 +30,12 @@ public class Local extends Identificado {
     List<Plato> menu = new ArrayList<>();
     @Enumerated(EnumType.ORDINAL)
     CategoriaLocal categoria;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="Suscripciones"
+        , joinColumns = @JoinColumn(name="local")
+        , inverseJoinColumns = @JoinColumn(name="suscriptor"))
+    List<Cliente> suscriptores = new LinkedList<>();
 
     public Local(){}
     public Local(String nombre, String direccion, CategoriaLocal categoria) {
@@ -79,17 +91,48 @@ public class Local extends Identificado {
             throw new PlatoRepetidoException(plato.getNombre());
 
         menu.add(plato);
+        notificarSuscriptores(notificacionNuevoPlato(plato, this));
     }
 
     public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion=direccion;
+    public void setDireccion(String nuevaDireccion) {
+        String direccionAnterior = getDireccion();
+        this.direccion = nuevaDireccion;
+
+        notificarSuscriptores(notificacionCambioDeDireccion(this, direccionAnterior));
     }
 
     public void setCategoria(CategoriaLocal categoria){
         this.categoria=categoria;
+    }
+
+    public void setSuscriptores(List<Cliente> suscriptores){
+        this.suscriptores=suscriptores;
+    }
+
+    public List<Cliente> getSuscriptores(){
+        return suscriptores;
+    }
+
+    public void agregarSuscriptor(Cliente nuevoSuscriptor) {
+        if(esSuscriptor(nuevoSuscriptor))
+            throw new UsuarioYaSuscritoException(this, nuevoSuscriptor);
+
+        suscriptores.add(nuevoSuscriptor);
+    }
+
+    public boolean esSuscriptor(Cliente cliente){
+        return suscriptores.stream().anyMatch(cliente::matchId);
+    }
+
+    public void eliminarSuscriptor(Cliente cli) {
+        suscriptores.removeIf(cli::matchId);
+    }
+
+    public void notificarSuscriptores(Notificacion notificacion){
+        suscriptores.forEach(s->s.notificar(notificacion));
     }
 }
