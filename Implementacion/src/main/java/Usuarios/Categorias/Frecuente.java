@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 public class Frecuente extends CategoriaCliente{
 
     @Transient
-    static int pedidosParaCambio = 30;
+    static int pedidosParaCambio = 25;
     @Transient
     static int cadaCuantosDescuento = 15;
 
@@ -36,10 +36,6 @@ public class Frecuente extends CategoriaCliente{
         return new Habitual();
     }
 
-    public int getPedidosHechos() {
-        return pedidosHechos;
-    }
-
     public void notificarPedido(Pedido pedido, Cliente cliente) {
         pedidosHechos++ ;
 
@@ -48,4 +44,10 @@ public class Frecuente extends CategoriaCliente{
         }
     }
 
+    private void setPedidosHechos(int pedidosHechos){
+        this.pedidosHechos=pedidosHechos;
+    }
+    private int getPedidosHechos() {
+        return pedidosHechos;
+    }
 }

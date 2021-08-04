@@ -3,8 +3,8 @@ package db.Runners;
 import MediosContacto.MedioDeContacto;
 import MediosContacto.NotificadorMail;
 import MediosContacto.NotificadorPush;
-import Pedidos.Cupones.CuponDescuento;
-import Pedidos.Cupones.CuponDescuentoPorcentaje;
+import Pedidos.Cupones.Cupon;
+import Pedidos.Cupones.CuponPorcentajeDescuento;
 import Pedidos.Cupones.CuponSaldo;
 import Pedidos.Cupones.SinCupon;
 import Pedidos.EstadoPedido;
@@ -32,8 +32,8 @@ public class ClienteRunner {
 
         CuponSaldo cuponSaldo = new CuponSaldo(500);
         SinCupon sinCupon = new SinCupon();
-        CuponDescuentoPorcentaje cuponDescuentoPorcentaje= new CuponDescuentoPorcentaje(25,7);
-        List<CuponDescuento> cupones = Arrays.asList(cuponSaldo,sinCupon,cuponDescuentoPorcentaje);
+        CuponPorcentajeDescuento cuponDescuentoPorcentaje= new CuponPorcentajeDescuento(25,7);
+        List<Cupon> cupones = Arrays.asList(cuponSaldo,sinCupon,cuponDescuentoPorcentaje);
 
         cliente.setCupones(cupones);
 

@@ -4,13 +4,11 @@ import Pedidos.Carrito;
 import Usuarios.Cliente;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Sin_cupon")
-public class SinCupon extends CuponDescuento {
+public class SinCupon extends Cupon {
     @Override
     public Double calcularSobre(double precio) {
         return 0.0;

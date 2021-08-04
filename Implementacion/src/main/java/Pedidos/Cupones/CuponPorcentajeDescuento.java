@@ -8,9 +8,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="CuponesPorcentajeDto")
-public class CuponDescuentoPorcentaje extends CuponDescuento {
-    public CuponDescuentoPorcentaje(){}
-    public CuponDescuentoPorcentaje(float porcentaje, int cuantosPedidos){
+public class CuponPorcentajeDescuento extends Cupon {
+    public CuponPorcentajeDescuento(){}
+    public CuponPorcentajeDescuento(float porcentaje, int cuantosPedidos){
         this.porcentaje = porcentaje;
         this.porCuantosPedidos = cuantosPedidos;
     }
@@ -26,7 +26,7 @@ public class CuponDescuentoPorcentaje extends CuponDescuento {
 
     @Override
     public String getDetalle(){
-        return porcentaje+"% en "+ porCuantosPedidos +" pedido/s ("+usosRestantes()+" restantes)";
+        return porcentaje*100+"% en "+ porCuantosPedidos +" pedido/s ("+usosRestantes()+" restantes)";
     }
 
     @Override

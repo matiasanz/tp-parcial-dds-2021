@@ -1,8 +1,8 @@
 package db;
 
 import Local.Local;
-import Pedidos.Cupones.CuponDescuento;
-import Pedidos.Cupones.CuponDescuentoPorcentaje;
+import Pedidos.Cupones.Cupon;
+import Pedidos.Cupones.CuponPorcentajeDescuento;
 import Pedidos.Cupones.CuponSaldo;
 import Pedidos.Cupones.SinCupon;
 import Pedidos.Item;
@@ -97,13 +97,13 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
 
     @Test
     public void persistirDescuentoPorcentaje(){
-        CuponDescuento descuento = new CuponDescuentoPorcentaje(.5f, 1);
+        Cupon descuento = new CuponPorcentajeDescuento(.5f, 1);
         assertPersistible(descuento);
     }
 
     @Test
     public void persistirDescuentoSaldo(){
-        CuponDescuento descuento = new CuponSaldo(30.0);
+        Cupon descuento = new CuponSaldo(30.0);
         entityManager().persist(descuento);
         assertNotNull(descuento.getId());
     }
@@ -113,7 +113,7 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
         assertPersistible(new SinCupon());
     }
 
-    private void assertPersistible(CuponDescuento obj){
+    private void assertPersistible(Cupon obj){
         entityManager().persist(obj);
         assertNotNull(obj.getId());
     }

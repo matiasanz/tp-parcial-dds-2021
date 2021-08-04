@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="CuponesSaldo")
-public class CuponSaldo extends CuponDescuento{
+public class CuponSaldo extends Cupon {
     private Double saldo;
     private Double cuantoGasto = 0.0;
 
