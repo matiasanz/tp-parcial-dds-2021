@@ -3,26 +3,56 @@
 {{/partial}}
 
 {{#partial "contenido"}}
-    <nav>
-        <H3>{{nombre}}</H3>
-        <section id="plato">
-            Datos del plato:
-            <ul>
-                <li><Strong>Precio: </Strong>${{precio}}</li>
-            </ul>
-        </section>
+    <H2>
+        {{nombre}}
+        {{#if tieneDescuento}}
+            <span class="msj_positivo"> {{descuentoPlato}}% OFF</span>
+        {{/if}}
+    </H2>
 
-        <section id="compra">
+    <section class="columnado">
+        <div id="plato">
+            <h3>Datos del plato:</h3>
+            <ul>
+                <li>
+                    <Strong>Precio: </Strong>${{precio}}
+                    {{#if tieneDescuento}}
+                        <del class="msj_positivo"> ${{precioBase}}</del>
+                    {{/if}}
+                </li>
+
+                <li><Strong>Descripción: </Strong>{{descripcion}}</li>
+
+                {{#if ingredientes}}
+                    <li><Strong>Ingredientes: </Strong>{{ingredientes}}</li>
+                {{/if}}
+                {{#if componentes}}
+                    <li><Strong>Componentes: </Strong>
+                        <ul>
+                        {{#componentes}}
+                            <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a>: {{cantidad}} u.</li>
+                        {{else}}
+                            <p>Los componentes de este combo han sido eliminados</p>
+                        {{/componentes}}
+                        </ul>
+                    </li>
+                {{/if}}
+
+            </ul>
+        </div>
+
+        <div id="compra">
+            <h3>Carrito</h3>
             <form action="/locales/{{idLocal}}/carrito" method="POST">
                 <input type="hidden" name="idPlato" value="{{idPlato}}" />
-                <label>Cantidad</label>
+                <label>Cantidad</label><br>
                 <input type="number" min="1" name="cantidad" required> <br>
-                <label>Aclaraciones</label>
-                <textarea name="aclaraciones" id="idAclaraciones" rows="1" class="auto_height"></textarea> <br>
+                <label>Aclaraciones</label><br>
+                <textarea name="aclaraciones" id="idAclaraciones" rows="3" class="auto_height"></textarea> <br>
                 <input type="submit" value="Agregar al carrito"><p class="msj_error">{{mensaje}}</p>
             </form>
-        </section>
-    </nav>
+        </div>
+    </section>
 {{/partial}}
 
 {{>layout_cliente.html.hbs}}

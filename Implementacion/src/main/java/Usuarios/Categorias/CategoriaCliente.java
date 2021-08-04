@@ -1,10 +1,18 @@
 package Usuarios.Categorias;
 
 import Pedidos.Pedido;
+import Repositorios.Templates.Identificado;
 import Usuarios.Cliente;
+
+import javax.persistence.*;
+
 import static Utils.Factory.ProveedorDeNotif.notificacionAscensoDeCategoria;
 
-public abstract class CategoriaCliente {
+@Entity
+@Table(name="CategoriasClientes")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "detalle")
+public abstract class CategoriaCliente extends Identificado {
 
     public abstract String getNombre();
 

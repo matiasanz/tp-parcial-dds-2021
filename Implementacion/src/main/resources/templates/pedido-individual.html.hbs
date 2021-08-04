@@ -1,28 +1,79 @@
     {{#partial "titulo"}}
-        <title>Pedido</title>
+        <title>Pedido #{{numero}}</title>
     {{/partial}}
 
     {{#partial "contenido"}}
-        <nav>
-            <H3>Pedido #{{numero}}</H3>
-            <section id="datos_pedido">
-                <ul>
-                    <li><strong>Local:</strong> {{local}}</li>
-                    <li><strong>Estado:</strong> {{estado}}</li>
-                    <li><strong>Precio:</strong> ${{importe}}</li>
-                    <li><strong>Direccion:</strong> {{direccion}}</li>
-                </ul>
-            </section>
-            <section id="items">
-                <p>Items:</p>
-                <ul>
-                    {{#items}}
-                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br></br>
-                    {{/items}}
-                </ul>
-            </section>
-        </nav>
+        <H2>Pedido #{{numero}} - [{{estado}}]</H2>
 
+        <section class="columnado">
+
+            <div id="columna-izq">
+                <section id="datos_pedido">
+                    <h3>Datos del Pedido</h3>
+                    <ul>
+                        <li><strong>Local:</strong> <a href="/locales/{{idLocal}}">{{local}}</a></li>
+                        <li><strong>Precio:</strong> ${{importe}}</li>
+                        <li><strong>Direccion:</strong> {{direccion}}</li>
+                    </ul>
+                </section>
+
+                {{#if confirmado}}
+                    <section id="notificacion-entrega">
+                        <h3>Notificar Entrega</h3>
+                        <form action="/pedidos/{{numero}}" method="post">
+                            <input type="hidden" name="numero" value="{{numero}}" required>
+                            <label>Puntuación</label>
+                            <br>
+                            <input name="puntuacion" type="number" min="1" max="5" step="0.1" required>
+                            <br>
+                            <label>Crítica:</label>
+                            <br>
+                            <textarea name="critica" rows="3" class="auto_height"></textarea> <br>
+                            <br>
+                            <input type="submit" value="Enviar">
+                            <p class="msj_error">{{mensaje}}</p>
+                        </form>
+                    </section>
+                {{/if}}
+                {{#if entregado}}
+                    <section id="notificacion-entrega">
+                        <h3>Calificación</h3>
+                        <ul>
+                            <li>Puntuación: {{puntuacionPedido}}&#127860;</li>
+                            <li>Crítica: {{detallePuntuacion}}</li>
+                        </ul>
+                    </section>
+                {{/if}}
+            </div>
+
+            <div id="columna-der">
+                <section id="items">
+                    <h3>Items:</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th> Plato</th>
+                            <th> Aclaraciones</th>
+                            <th> Cantidad</th>
+                            <th> Precio Unitario</th>
+                            <th> Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#items}}
+                            <tr>
+                                <td><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{plato}}</a></td>
+                                <td>{{aclaraciones}}</td>
+                                <td>{{cantidad}}</td>
+                                <td>${{precioUnitario}}</td>
+                                <td>${{precioTotal}}</td>
+                            </tr>
+                        {{/items}}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </section>
     {{/partial}}
 
     {{>layout_cliente.html.hbs}}

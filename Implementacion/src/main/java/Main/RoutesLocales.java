@@ -7,15 +7,15 @@ import Controladores.Locales.LocalSignupController;
 import Controladores.Locales.PedidosLocalController;
 import Controladores.Utils.URIs;
 import Local.Duenio;
-import Repositorios.RepoContactos;
+import Repositorios.RepoDuenios;
 import Repositorios.RepoLocales;
-import spark.Spark;
+import spark.Service;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class RoutesLocales extends RoutesTemplate{
     //Repositorios
     private static final RepoLocales repoLocales = RepoLocales.instance;
-    private static final RepoContactos repoContactos = RepoContactos.instance;
+    private static final RepoDuenios repoContactos = RepoDuenios.instance;
     private static final Autenticador<Duenio> autenticador = new Autenticador<>(repoContactos);
 
     //Controladores
@@ -26,28 +26,21 @@ public class RoutesLocales extends RoutesTemplate{
     //Spark
     private final HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
-    public RoutesLocales() {
-        super(8081, autenticador, new LocalSignupController(repoContactos, repoLocales));
-    }
-
-    //Ejecutable
-    public static void main(String[] args) {
-        Bootstrap.main(args);
-        new RoutesLocales().execute(args);
+    public RoutesLocales(int puerto) {
+        super(puerto, autenticador, new LocalSignupController(repoContactos, repoLocales));
     }
 
     @Override
-    public void rutasPropias(){
-        Spark.get(URIs.HOME, duenioLocalController::getHomeLocal, engine);
-        Spark.post("/local", duenioLocalController::actualizarLocal, engine);
-        Spark.get("/pedidos", pedidosLocalController::getPedidos, engine);
-        Spark.get("/pedidos/:nroPedido", pedidosLocalController::getPedido, engine);
-        Spark.post("/pedidos/:nroPedido", pedidosLocalController::cambiarEstadoPedido, engine);
-        Spark.post("/platos", platosController::agregarPlato, engine);
-        Spark.get("/platos/nuevo", platosController::formularioCreacionPlato, engine);
-        Spark.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);
-        Spark.post("/platos/nuevo-combo", platosController::agregarPlatoACombo, engine);
-        Spark.get("/platos/:id", platosController::getPlato, engine);
-        Spark.post("/platos/:id/descuento", platosController::agregarDescuento, engine);
+    public void rutasPropias(Service service){
+        service.get(URIs.HOME, duenioLocalController::getHomeLocal, engine);
+        service.post("/local", duenioLocalController::actualizarLocal, engine);
+        service.get("/pedidos", pedidosLocalController::getPedidos, engine);
+        service.get("/pedidos/:nroPedido", pedidosLocalController::getPedido, engine);
+        service.post("/pedidos/:nroPedido", pedidosLocalController::cambiarEstadoPedido, engine);
+        service.post("/platos", platosController::agregarPlato, engine);
+        service.get("/platos/nuevo", platosController::formularioCreacionPlato, engine);
+        service.get("/platos/nuevo-combo", platosController::formularioCreacionCombo, engine);
+        service.get("/platos/:id", platosController::getPlato, engine);
+        service.post("/platos/:id/descuento", platosController::setDescuento, engine);
     }
 }

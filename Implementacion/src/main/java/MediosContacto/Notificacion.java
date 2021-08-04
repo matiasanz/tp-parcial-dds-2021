@@ -1,10 +1,18 @@
 package MediosContacto;
 
+import Repositorios.Templates.Identificado;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
-public class Notificacion {
-    Long id;
+
+@Entity
+@Table(name="Notificaciones")
+@DiscriminatorColumn(name="medio")
+public class Notificacion extends Identificado {
+
     String asunto;
     String cuerpo;
+    @Column
     LocalDateTime fechaHora = LocalDateTime.now();
 
     public void setAsunto(String asunto) {
@@ -19,13 +27,12 @@ public class Notificacion {
         this.fechaHora = fechaHora;
     }
 
+
+    public Notificacion(){}
+
     public Notificacion(String asunto, String cuerpo){
         this.asunto=asunto;
         this.cuerpo=cuerpo;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getAsunto() {

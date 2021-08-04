@@ -2,15 +2,21 @@ package Usuarios;
 
 import MediosContacto.MedioDeContacto;
 import MediosContacto.Notificacion;
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
-public abstract class Usuario extends Identificable {
+@Entity
+@Table(name="Usuarios")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipo")
+public abstract class Usuario extends Identificado {
+    public Usuario(){}
     public Usuario(String username, String contrasenia, String nombre, String apellido, String mail){
         this.username=username;
         this.password=contrasenia;
@@ -26,7 +32,11 @@ public abstract class Usuario extends Identificable {
     public String nombre;
     private String apellido;
 
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name="cliente")
     private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name="cliente")
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
     //Credenciales
@@ -47,6 +57,30 @@ public abstract class Usuario extends Identificable {
     }
     public String getMail() { return mail; }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setMediosDeContacto(List<MedioDeContacto> mediosDeContacto) {
+        this.mediosDeContacto = mediosDeContacto;
+    }
+
     //Notificaciones
     public List<Notificacion> getNotificacionesPush() {
         return notificacionesPush;
@@ -64,4 +98,10 @@ public abstract class Usuario extends Identificable {
     public void notificar(Notificacion mensaje){
         mediosDeContacto.forEach(n->n.notificar(this,mensaje));
     }
+
+    public List<MedioDeContacto> getMediosDeContacto() {
+        return mediosDeContacto;
+    }
 }
+
+

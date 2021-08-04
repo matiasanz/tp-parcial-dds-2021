@@ -1,6 +1,7 @@
 package Repositorios.Templates;
 
-import java.util.ArrayList;
+import Repositorios.Templates.Colecciones.Coleccion;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -10,19 +11,24 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public abstract class RepoMemoria<T extends Identificable>{
-    private List<T> contenido = new ArrayList<>();
+public abstract class Repo<T extends Identificado>{
 
-    public void agregar(T elemento){
-        contenido.add(elemento);
+    private Coleccion<T> contenido;
+
+    public Repo(Coleccion<T> coleccion){
+        this.contenido=coleccion;
     }
 
     public List<T> getAll(){
-        return contenido;
+        return contenido.getAll();
+    }
+
+    public void agregar(T elemento){
+        contenido.agregar(elemento);
     }
 
     public Optional<T> find(long id){
-        return findBy(id, Identificable::getId);
+        return findBy(id, Identificado::getId);
     }
 
     protected <S> Optional<T> findBy(S valor, Function<T, S> getter){
@@ -34,7 +40,7 @@ public abstract class RepoMemoria<T extends Identificable>{
     }
 
     protected Optional<T> findBy(Predicate<T> predicate){
-        return contenido.stream().filter(predicate).findAny();
+        return getAll().stream().filter(predicate).findAny();
     }
 
     public <U extends Comparable<U>>

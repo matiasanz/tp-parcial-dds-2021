@@ -1,27 +1,44 @@
 package Local;
 
+import MediosContacto.Notificacion;
+import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
-import Platos.ComboBorrador;
 import Platos.Plato;
-import Repositorios.Templates.Identificable;
-import Usuarios.Categorias.CategoriaCliente;
+import Repositorios.Templates.Identificado;
+import Usuarios.Cliente;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
-import Utils.Factory.ProveedorDeNotif;
+import Utils.Exceptions.UsuarioYaSuscritoException;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Local extends Identificable {
+import static Utils.Factory.ProveedorDeNotif.notificacionCambioDeDireccion;
+import static Utils.Factory.ProveedorDeNotif.notificacionNuevoPlato;
+
+@Entity
+@Table(name="Locales")
+public class Local extends Identificado {
     String nombre;
     String direccion;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="local")
     List<Pedido> pedidosRecibidos = new LinkedList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="local")
     List<Plato> menu = new ArrayList<>();
-    List<String> fotos = new LinkedList<>(); //TODO
+    @Enumerated(EnumType.ORDINAL)
     CategoriaLocal categoria;
-    ComboBorrador borrador = new ComboBorrador(this);
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="Suscripciones"
+        , joinColumns = @JoinColumn(name="local")
+        , inverseJoinColumns = @JoinColumn(name="suscriptor"))
+    List<Cliente> suscriptores = new LinkedList<>();
+
+    public Local(){}
     public Local(String nombre, String direccion, CategoriaLocal categoria) {
         this.nombre = nombre;
         this.direccion = direccion;
@@ -34,7 +51,6 @@ public class Local extends Identificable {
             .collect(Collectors.toList())
             ;
     }
-
 
     public void agregarPedido(Pedido pedido){
         pedidosRecibidos.add(pedido);
@@ -56,8 +72,19 @@ public class Local extends Identificable {
         return menu;
     }
 
+    public void setMenu(List<Plato> menu) {
+        this.menu = menu;
+    }
+
     public List<Pedido> pedidosDelMes(LocalDate fechaActual) {
         return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
+    }
+
+    public Double getPuntuacionMedia(){
+        return pedidosRecibidos.stream()
+            .filter(p->p.getEstado()== EstadoPedido.ENTREGADO)
+            .mapToDouble(Pedido::getPuntuacion)
+            .average().orElse(0);
     }
 
     //getters *****************************************************
@@ -71,25 +98,48 @@ public class Local extends Identificable {
             throw new PlatoRepetidoException(plato.getNombre());
 
         menu.add(plato);
+        notificarSuscriptores(notificacionNuevoPlato(plato, this));
     }
 
     public String getDireccion() {
         return direccion;
     }
 
-    public ComboBorrador getBorrador(){
-        return borrador;
-    }
+    public void setDireccion(String nuevaDireccion) {
+        String direccionAnterior = getDireccion();
+        this.direccion = nuevaDireccion;
 
-    public void resetBorrador(){
-        borrador = new ComboBorrador(this);
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion=direccion;
+        notificarSuscriptores(notificacionCambioDeDireccion(this, direccionAnterior));
     }
 
     public void setCategoria(CategoriaLocal categoria){
         this.categoria=categoria;
+    }
+
+    public void setSuscriptores(List<Cliente> suscriptores){
+        this.suscriptores=suscriptores;
+    }
+
+    public List<Cliente> getSuscriptores(){
+        return suscriptores;
+    }
+
+    public void agregarSuscriptor(Cliente nuevoSuscriptor) {
+        if(esSuscriptor(nuevoSuscriptor))
+            throw new UsuarioYaSuscritoException(this, nuevoSuscriptor);
+
+        suscriptores.add(nuevoSuscriptor);
+    }
+
+    public boolean esSuscriptor(Cliente cliente){
+        return suscriptores.stream().anyMatch(cliente::matchId);
+    }
+
+    public void eliminarSuscriptor(Cliente cli) {
+        suscriptores.removeIf(cli::matchId);
+    }
+
+    public void notificarSuscriptores(Notificacion notificacion){
+        suscriptores.forEach(s->s.notificar(notificacion));
     }
 }

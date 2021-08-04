@@ -8,27 +8,51 @@ import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Primerizo;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
+@DiscriminatorValue("c")
 public class Cliente extends Usuario {
     public Cliente(String usuario, String contrasenia, String nombre, String apellido, String mail, String direccion){
         super(usuario, contrasenia, nombre, apellido, mail);
         direccionesConocidas.add(direccion);
-        agregarDescuento(new SinCupon());
     }
 
-    private Map<Long, Carrito> carritos = new HashMap<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="cliente")
+    private List<Carrito> carritos = new LinkedList<>();
 
+    @ElementCollection
+    @JoinTable(name="DireccionXCliente", joinColumns=@JoinColumn(name="cliente"))
     private List<String> direccionesConocidas = new ArrayList<>();
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
+
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name="categoria")
     public CategoriaCliente categoria = new Primerizo();
-    public int cantidadComprasHechas;
+
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente")
     private List<CuponDescuento> cupones = new ArrayList<>();
 
+    public void setCupones(List<CuponDescuento> cupones) {
+        this.cupones = cupones;
+    }
+
+    public Cliente() {}
+
     public Carrito getCarrito(Local local) {
-        Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
-        carritos.put(local.getId(), carrito);
-        return carrito;
+        //Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
+        //carritos.put(local.getId(), carrito);
+        Optional<Carrito> carrito = carritos.stream().filter(c->c.getLocal().matchId(local.getId())).findFirst();
+        if(!carrito.isPresent()){
+            Carrito nuevoCarrito = new Carrito(this, local);
+            carritos.add(nuevoCarrito);
+            return nuevoCarrito;
+        }
+        return carrito.get();
     }
 
 
@@ -45,10 +69,6 @@ public class Cliente extends Usuario {
         this.categoria = categoria;
     }
 
-    public int getCantidadComprasHechas() {
-        return cantidadComprasHechas;
-    }
-
     public List<Pedido> getPedidosRealizados() {
         return pedidosRealizados;
     }
@@ -62,11 +82,11 @@ public class Cliente extends Usuario {
         return cupones;
     }
 
-    public void agregarDescuento(CuponDescuento descuento){
+    public void agregarCupon(CuponDescuento descuento){
         cupones.add(descuento);
     }
 
-    public void quitarDescuento(CuponDescuento descuento) {
+    public void quitarCupon(CuponDescuento descuento) {
         cupones.remove(descuento);
     }
 
@@ -76,6 +96,18 @@ public class Cliente extends Usuario {
 
     public void agregarDireccion(String direccion) {
         direccionesConocidas.add(direccion);
+    }
+
+    public List<Carrito> getCarritos() {
+        return carritos;
+    }
+
+    public void setCarritos(List<Carrito> carritos) {
+        this.carritos = carritos;
+    }
+
+    public void devolverCarrito(Carrito carrito) {
+        carritos.removeIf(carrito::matchId);
     }
 }
 

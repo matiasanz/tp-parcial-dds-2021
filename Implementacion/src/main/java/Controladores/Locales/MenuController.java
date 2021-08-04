@@ -5,11 +5,9 @@ import Controladores.Utils.*;
 import Local.Duenio;
 import Local.Local;
 import Platos.Combo;
-import Platos.ComboBorrador;
 import Platos.Plato;
 import Platos.PlatoSimple;
 import Repositorios.RepoLocales;
-import Utils.Exceptions.NombreOcupadoException;
 import Utils.Exceptions.PlatoInexistenteException;
 import Utils.Exceptions.PlatoRepetidoException;
 import spark.ModelAndView;
@@ -18,11 +16,14 @@ import spark.Response;
 
 import java.net.HttpURLConnection;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import static Controladores.Utils.Modelos.parseModel;
+import static Utils.Factory.ProveedorDeNotif.notificacionDescuento;
 
-public class MenuController {
+public class MenuController implements Transaccional {
     private Autenticador<Duenio> autenticador;
     private ErrorHandler errorHandler = new ErrorHandler();
 
@@ -57,7 +58,7 @@ public class MenuController {
         );
 
         try{
-            local.agregarPlato(platoSimple);
+            withTransaction(()->local.agregarPlato(platoSimple));
             response.redirect("/platos/"+platoSimple.getId());
         } catch (PlatoRepetidoException e){
             errorHandler.setMensaje(request, e.getMessage());
@@ -75,46 +76,29 @@ public class MenuController {
 
     public ModelAndView formularioCreacionCombo(Request req, Response res) {
 
-        ComboBorrador borrador = autenticador.getUsuario(req).getLocal().getBorrador();
+        Local local = autenticador.getUsuario(req).getLocal();
 
-        Modelo modelo = new Modelo("idLocal", borrador.getLocal().getId())
-            .con("nombre", borrador.getNombre())
-            .con("componentes", borrador.getPlatos())
-            .con("platosDelLocal", borrador.getLocal().getMenu())
+        Modelo modelo = new Modelo("idLocal", local.getId())
+            .con("platosDelLocal", local.getMenu())
             .con("mensaje", errorHandler.getMensaje(req))
         ;
 
         return new ModelAndView(modelo, "combo-nuevo-local.html.hbs");
     }
 
-    public ModelAndView agregarPlatoACombo(Request req, Response res) {
-        Local local = autenticador.getUsuario(req).getLocal();
-        ComboBorrador borrador = local.getBorrador();
-
-        try {
-            Plato plato = local.getPlato(Long.parseLong(req.queryParams("idPlato")));
-            borrador.agregarPlato(plato);
-            res.status(HttpURLConnection.HTTP_OK);
-        } catch (PlatoInexistenteException | NumberFormatException e) {
-            res.status(HttpURLConnection.HTTP_BAD_REQUEST);
-        }
-
-        res.redirect(URIs.CREACION_COMBO);
-        return null;
-    }
-
     public ModelAndView agregarCombo(Request req, Response res) {
         Local local = autenticador.getUsuario(req).getLocal();
 
-        ComboBorrador borrador = local.getBorrador();
-
         try {
-            borrador.setNombre(req.queryParams("nombre"));
-            Combo nuevoCombo = borrador.crearCombo();
-            local.agregarPlato(nuevoCombo);
-            local.resetBorrador();
+            Combo nuevoCombo = comboFromRequest(req, local);
+
+            withTransaction( () -> {
+                local.agregarPlato(nuevoCombo);
+            });
+
             res.status(HttpURLConnection.HTTP_OK);
             res.redirect("/platos/"+nuevoCombo.getId());
+
         } catch (RuntimeException e) {
             errorHandler.setMensaje(req, e.getMessage());
             //TODO: Cambiar runtimeException por ComboInvalidoException o una cosa asi
@@ -122,7 +106,26 @@ public class MenuController {
             res.redirect(URIs.CREACION_COMBO);
         }
 
+
         return null;
+    }
+
+    private Combo comboFromRequest(Request req, Local local) {
+        List<Plato> platos = new LinkedList<>();
+
+        local.getMenu().forEach( plato->{
+
+            int cantidad = Optional.of(req)
+                .map( r-> r.queryParams(plato.getNombre()))
+                .map(Integer::valueOf)
+                .orElse(0);
+
+            for(int i=0; i<cantidad; i++){
+                platos.add(plato);
+            }
+        });
+
+        return new Combo(req.queryParams("nombre"), req.queryParams("descripcion"), platos);
     }
 
     public ModelAndView getPlato(Request request, Response response) {
@@ -137,12 +140,21 @@ public class MenuController {
         }
     }
 
-    public ModelAndView agregarDescuento(Request req, Response res){
+    public ModelAndView setDescuento(Request req, Response res){
+        Local local = autenticador.getUsuario(req).getLocal();
         Optional<Plato> platoOp = findPlato(req, res);
         platoOp.ifPresent(
             plato -> {
                 try {
-                    plato.setDescuento(new Float(req.queryParams("descuento"))/100);
+                    withTransaction(()-> {
+                        float descuento = new Float(req.queryParams("descuento"));
+
+                        plato.setDescuento(descuento / 100);
+                        if (descuento > 0) {
+                            local.notificarSuscriptores(notificacionDescuento(descuento, plato, local));
+                        }
+                    });
+
                     res.status(HttpURLConnection.HTTP_OK);
                 } catch (NumberFormatException e){
                     res.status(HttpURLConnection.HTTP_BAD_REQUEST);
@@ -151,8 +163,6 @@ public class MenuController {
                 res.redirect("/platos/"+plato.getId());
             }
         );
-
-
 
         return null;
     }

@@ -1,33 +1,28 @@
 package Controladores.Cliente;
 
 import Controladores.Autenticador;
-import Controladores.Utils.ErrorHandler;
-import Controladores.Utils.Modelo;
-import Controladores.Utils.Templates;
-import Controladores.Utils.URIs;
+import Controladores.Utils.*;
 import Local.Local;
 import Pedidos.Carrito;
 import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.SinCupon;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
-import Utils.Exceptions.LocalInexistenteException;
-import Utils.Exceptions.PedidoIncompletoException;
-import Utils.Exceptions.PlatoInexistenteException;
+import Utils.Exceptions.*;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.BiConsumer;
 
 import static Controladores.Utils.Modelos.parseModel;
 
-public class LocalController {
+public class LocalController implements Transaccional {
 
     public LocalController(RepoLocales repoLocales, Autenticador<Cliente> autenticador){
         this.repoLocales = repoLocales;
@@ -49,10 +44,9 @@ public class LocalController {
         Carrito carrito = cliente.getCarrito(local.get());
 
         Modelo modelo = parseModel(local.get())
+            .con("suscripto", local.get().esSuscriptor(cliente))
             .con(parseModel(carrito))
-            .con("categoria", cliente.getCategoria().getNombre())
-            .con("direcciones", cliente.getDireccionesConocidas())
-            .con("descuentos", cliente.getCupones())
+            .con(parseModel(cliente))
             .con("error", errorHandler.getMensaje(req));
 
         return new ModelAndView(modelo, Templates.LOCAL_INDIVIDUAL);
@@ -73,15 +67,18 @@ public class LocalController {
     }
 
     public ModelAndView agregarItem(Request request, Response response) {
-        findCarrito(request.params("idLocal"), request, response).ifPresent(
-            carrito -> {
-                Local local = carrito.getLocal();
-                Plato plato = local.getPlato(Long.parseLong(request.queryParams("idPlato")));
-                int cantidad = Integer.parseInt(request.queryParams("cantidad"));
-                String aclaraciones = request.queryParams("aclaraciones");
-                carrito.conItem(new Item(plato, cantidad, aclaraciones));
-                response.redirect(URIs.LOCAL(local.getId()));
-            }
+        findCarrito(request.params("idLocal"), request, response)
+            .ifPresent(
+                carrito -> {
+                    Local local = carrito.getLocal();
+                    Plato plato = local.getPlato(Long.parseLong(request.queryParams("idPlato")));
+                    int cantidad = Integer.parseInt(request.queryParams("cantidad"));
+                    String aclaraciones = request.queryParams("aclaraciones");
+
+                    withTransaction(()->carrito.conItem(new Item(plato, cantidad, aclaraciones)));
+
+                    response.redirect(URIs.LOCAL(local.getId()));
+                }
         );
 
         return null;
@@ -93,7 +90,7 @@ public class LocalController {
             carrito -> {
                 try {
                     int numero = Integer.parseInt(request.params("item"));
-                    carrito.sacarItem(numero);
+                    withTransaction(()->carrito.sacarItem(numero));
                     response.status(HttpURLConnection.HTTP_OK);
                 } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     errorHandler.setMensaje(request, "Se produjo un error al intentar eliminar item");
@@ -115,17 +112,19 @@ public class LocalController {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
                 CuponDescuento descuento = leerCupon(request);
-                Pedido pedido = carrito.conDireccion(leerDireccion(request))
-                    .conCupon(descuento)
-                    .build();
 
-                cliente.agregarPedido(pedido);
+                withTransaction(()-> {
+                    Pedido pedido = carrito.conDireccion(leerDireccion(request))
+                        .conCupon(descuento)
+                        .build();
 
-                int numeroDePedido = cliente.getPedidosRealizados().size();
-                response.redirect(URIs.PEDIDO((long) numeroDePedido));
-                carrito.vaciar();
+                    cliente.agregarPedido(pedido);
 
-            } catch (PedidoIncompletoException e){
+                    int numeroDePedido = cliente.getPedidosRealizados().size();
+                    response.redirect(URIs.PEDIDO(numeroDePedido));
+                    cliente.devolverCarrito(carrito);
+                });
+            } catch (PedidoIncompletoException | DatosInvalidosException e){
                 errorHandler.setMensaje(request, e.getMessage());
                 response.status(HttpURLConnection.HTTP_BAD_REQUEST);
                 Long id = Long.parseLong(idLocal);
@@ -137,7 +136,6 @@ public class LocalController {
     }
 
 //TODO: Auxiliares ************************************************
-
 
     private Optional<Local> findLocal(String idLocalString, Request req, Response res){
         Local local = null;
@@ -154,10 +152,18 @@ public class LocalController {
     }
 
     private Optional<Carrito> findCarrito(String idLocal, Request req, Response res){
-        return findLocal(idLocal, req, res).map(local->{
-            Cliente cliente = autenticadorClientes.getUsuario(req);
-            return cliente.getCarrito(local);
-        });
+        Cliente cliente = autenticadorClientes.getUsuario(req);
+        Optional<Local> local = findLocal(idLocal, req, res);
+
+        if(local.isPresent()){
+            withTransaction(()-> {
+                cliente.getCarrito(local.get());
+            });
+
+            return local.map(cliente::getCarrito);
+        }
+
+        return Optional.empty();
     }
 
     private Long parseIdFromParams(String id, Request req){
@@ -167,6 +173,11 @@ public class LocalController {
     private String leerDireccion(Request request){
         String direccion = request.queryParams("direccion");
         Cliente cliente = autenticadorClientes.getUsuario(request);
+
+        if(direccion==null){
+            throw new PedidoIncompletoException("direccion");
+        }
+
         if(!cliente.getDireccionesConocidas().contains(direccion)){
             cliente.agregarDireccion(direccion);
         }
@@ -174,26 +185,53 @@ public class LocalController {
         return direccion;
     }
 
-    private CuponDescuento leerCupon(Request request){
-        return getAtributoDeLista(request
-            , "descuento"
-            , Cliente::getCupones
-        );
+    private CuponDescuento leerCupon(Request req){
+        Cliente cliente = autenticadorClientes.getUsuario(req);
+
+        try{
+            return Optional
+                .ofNullable(req.queryParams("descuento"))
+                .map(Long::parseLong)
+                .flatMap(idCupon ->
+                    cliente.getCupones()
+                        .stream()
+                        .filter(c->c.matchId(idCupon))
+                        .findFirst()
+                ).orElseGet(SinCupon::new);
+
+        } catch (NumberFormatException e){
+            throw new DatosInvalidosException();
+        }
+
     }
 
-    private <T> T getAtributoDeLista(Request req, String atributo, Function<Cliente, List<T>> obtencion){
+    public ModelAndView suscribirmeALocal(Request req, Response res){
+        setSuscripcion(req, res, (cliente, local)->local.agregarSuscriptor(cliente));
+        return null;
+    }
+
+    public ModelAndView desuscribirmeALocal(Request req, Response res){
+        setSuscripcion(req, res, (cliente, local)->local.eliminarSuscriptor(cliente));
+        return null;
+    }
+
+    private void setSuscripcion(Request req, Response res, BiConsumer<Cliente, Local> setteo){
+        Cliente cliente = autenticadorClientes.getUsuario(req);
         try{
-            Cliente cliente = autenticadorClientes.getUsuario(req);
+            long idLocal = Long.parseLong(getParam("idLocal", req));
 
-            List<T> lista = obtencion.apply(cliente);
-
-            T elem = lista.get(Integer.parseInt(req.queryParams(atributo)));
-            lista.remove(elem);
-            lista.add(0, elem);
-            return elem;
-
-        } catch (NumberFormatException |IndexOutOfBoundsException e){
-            throw new PedidoIncompletoException(atributo);
+            Local local = repoLocales.getLocal(idLocal);
+            withTransaction(()->{
+                setteo.accept(cliente, local);
+            });
+            res.redirect(URIs.LOCAL(idLocal));
+            res.status(200);
+        } catch (NumberFormatException | LocalInexistenteException | UsuarioYaSuscritoException e){
+            res.redirect(URIs.LOCALES, HttpURLConnection.HTTP_BAD_REQUEST);
         }
+    }
+
+    private String getParam(String param, Request req){
+        return Optional.ofNullable(req.params(param)).orElse(req.queryParams(param));
     }
 }

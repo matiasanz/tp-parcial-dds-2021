@@ -1,40 +1,56 @@
 package Platos;
 
-import Repositorios.Templates.Identificable;
+import Repositorios.Templates.Identificado;
 
-import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
+import javax.persistence.*;
 
-public abstract class Plato extends Identificable {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name="Platos")
+@DiscriminatorColumn(name="tipo_plato")
+public abstract class Plato extends Identificado {
+    @Access(AccessType.FIELD)
     String nombre;
-    List<String> fotos = new LinkedList<>(); //TODO
+    String descripcion;
     float descuento;
 
-    public Plato(String nombre){
+    public Plato(){}
+    public Plato(String nombre, String descripcion){
         this.nombre=nombre;
-    }
-
-    public String getNombre(){
-        return nombre;
-    }
-    public List<String> getFotos(){
-        return fotos;
+        this.descripcion=descripcion;
     }
 
     public Double getPrecio(){
         return getPrecioBase()*(1.0-descuento);
     }
 
-    protected abstract Double getPrecioBase();
+    public abstract Double getPrecioBase();
 
-    public abstract String getDescripcion();
+    public String getDescripcion(){
+        return descripcion;
+    }
+
+    public void setDescripcion(String nuevaDescripcion){
+        this.descripcion=nuevaDescripcion;
+    }
 
     public boolean mismoNombre(Plato plato) {
         return getNombre().equalsIgnoreCase(plato.getNombre());
     }
 
+    public float getDescuento() {
+        return descuento;
+    }
+
     public void setDescuento(float descuento) {
         this.descuento = descuento;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public void setTitulo(String nombre) {
+        this.nombre = nombre;
     }
 }

@@ -3,25 +3,27 @@ import Local.Local;
 import MediosContacto.Notificacion;
 import Pedidos.*;
 import Pedidos.Cupones.CuponDescuento;
+import Platos.Combo;
 import Platos.Plato;
+import Platos.PlatoSimple;
 import Usuarios.Cliente;
 import com.sun.xml.internal.ws.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import Local.CategoriaLocal;
 
 public interface Modelos {
 
     static List<String> getCategorias(){
-        List<String> categorias = Arrays.stream(CategoriaLocal.values())
+        return Arrays.stream(CategoriaLocal.values())
             .map(Modelos::parseModel)
             .collect(Collectors.toList());
-
-        return categorias;
     }
 
     static String parseModel(Enum<?> unEnum){
@@ -37,7 +39,7 @@ public interface Modelos {
 
     static Modelo parseModel(Cliente cliente){
         return new Modelo("mailCliente", cliente.getMail())
-            .con("categoriaCliente", cliente.getCategoria().toString())
+            .con("categoriaCliente", cliente.getCategoria().getNombre())
             .con("descuentosCliente", cliente.getCupones().stream().map(CuponDescuento::getDetalle).collect(Collectors.toList()))
             .con("username", cliente.getUsername())
             .con("direcciones", cliente.getDireccionesConocidas())
@@ -53,16 +55,41 @@ public interface Modelos {
             .con("categoriaLocal", parseModel(local.getCategoria()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion())
+            .con("puntuacion", local.getPuntuacionMedia())
         ;
     }
 
     static Modelo parseModel(Plato plato){
-        return new Modelo("nombre", plato.getNombre())
+        Modelo modelo = new Modelo("nombre", plato.getNombre())
             .con("precio", plato.getPrecio())
+            .con("precioBase", plato.getPrecioBase())
             .con("idPlato", plato.getId())
-            .con("descripcion", plato.getDescripcion())
-            .con("fotos", plato.getFotos())
+            .con("descripcion", textoOpcional(plato.getDescripcion()))
+            .con("tieneDescuento", plato.getDescuento()>0)
+            .con("descuentoPlato", plato.getDescuento()*100.0)
         ;
+
+        if(plato instanceof Combo){
+            modelo.con("componentes", parseComponentes(((Combo) plato).getPlatos()));
+        } else if(plato instanceof PlatoSimple){
+            modelo.con("ingredientes", String.join(", ", ((PlatoSimple) plato).getIngredientes()));
+        }
+
+        return modelo;
+    }
+
+    static List<Modelo> parseComponentes(List<Plato> componentes){
+        List<Modelo> modelos = new LinkedList<>();
+
+        componentes
+            .stream()
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+            .forEach((componente, cantidad)-> {
+                Modelo modeloComponente = parseModel(componente).con("cantidad", cantidad);
+                modelos.add(modeloComponente);
+            });
+
+        return modelos;
     }
 
     static Modelo parseModel(Carrito carrito){
@@ -74,25 +101,34 @@ public interface Modelos {
             .con("items"         , carrito.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("precioBase"    , carrito.getPrecioBase())
             .con("dtoCategoria"  , carrito.descuentoPorCategoria())
-            .con("dtoCupon"      , carrito.descuentoPorCupon())
             .con("precioFinal"   , carrito.getPrecioFinal())
             ;
     }
 
     static Modelo parseModel(Item item){
         return new Modelo("plato", item.getPlato().getNombre())
-            .con("aclaraciones", item.getAclaraciones())
-            .con("cantidad", item.getCantidad());
+            .con("aclaraciones", textoOpcional(item.getAclaraciones()))
+            .con("cantidad", item.getCantidad())
+            .con("precioUnitario", item.precioUnitario())
+            .con("precioTotal", item.getPrecio())
+            .con("idPlato", item.getPlato().getId())
+            ;
     }
 
     static Modelo parseModel(Pedido pedido){
         return new Modelo("local", pedido.getLocal().getNombre())
-            .con("importe", pedido.getImporte())
+            .con("importe", pedido.getPrecioAbonado())
             .con("items", pedido.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("estado", parseModel(pedido.getEstado()))
             .con(parseModel(pedido.getFechaInicio()))
             .con("direccion", pedido.getDireccion())
-            .con("pendiente", pedido.getEstado()== EstadoPedido.PENDIENTE);
+            .con("pendiente", pedido.getEstado()==EstadoPedido.PENDIENTE)
+            .con("confirmado", pedido.getEstado()==EstadoPedido.CONFIRMADO)
+            .con("entregado", pedido.getEstado()==EstadoPedido.ENTREGADO)
+            .con("puntuacionPedido", pedido.getPuntuacion())
+            .con("detallePuntuacion", textoOpcional(pedido.getDetallePuntuacion()))
+            .con("idLocal", pedido.getLocal().getId())
+            ;
     }
 
     static List<Modelo> parseModel(List<Pedido> pedidos){
@@ -129,5 +165,16 @@ public interface Modelos {
             .con("cuerpo", notificacion.getCuerpo())
             .con(parseModel(notificacion.getFechaHora()))
         ;
+    }
+
+    static String textoOpcional(String s){
+        return ifEmpty(s, "-");
+    }
+
+    static String ifEmpty(String actual, String defaultValue){
+        return actual==null || actual.isEmpty()? defaultValue: actual;
+    }
+    static <T> T ifNull(T object, T defaultValue){
+        return (object==null)? defaultValue: object;
     }
 }

@@ -3,24 +3,52 @@
 {{/partial}}
 
 {{#partial "contenido"}}
-    <nav>
-        <H3>{{nombre}}</H3>
+    <H2>
+        {{nombre}}
+        {{#if tieneDescuento}}
+            <span class="msj_positivo"> {{descuentoPlato}}% OFF</span>
+        {{/if}}
+    </H2>
+    <section class="columnado">
         <div id="plato">
-            Datos del plato:
+            <h3>Datos del plato:</h3>
+
             <ul>
-                <li><Strong>Descripcion: </Strong>{{descripcion}}</li>
-                <li><Strong>Precio: </Strong>${{precio}}</li>
+                <li>
+                    <Strong>Precio: </Strong>${{precio}}
+                    {{#if tieneDescuento}}
+                        <del class="msj_positivo"> ${{precioBase}}</del>
+                    {{/if}}
+                </li>
+
+                <li><Strong>Descripción: </Strong>{{descripcion}}</li>
+
+                {{#if ingredientes}}
+                    <li><Strong>Ingredientes: </Strong>{{ingredientes}}</li>
+                {{/if}}
+                {{#if componentes}}
+                    <li><Strong>Componentes: </Strong>
+                        <ul>
+                            {{#componentes}}
+                                <li><a href="/platos/{{idPlato}}">{{nombre}}</a>: {{cantidad}} u.</li>
+                            {{else}}
+                                <p>Los componentes de este combo han sido eliminados</p>
+                            {{/componentes}}
+                        </ul>
+                    </li>
+                {{/if}}
             </ul>
         </div>
 
         <div id="descuentos">
+            <H3>Descuento:</H3>
             <form method="post" action="/platos/{{idPlato}}/descuento">
                 <label>Agregar descuento (%): </label>
-                <input name=descuento type="number" min=0 max=100>
+                <input name=descuento type="number" min=0 max=100 step="0.01" value={{descuentoPlato}}>
                 <input type="submit" value="Confirmar">
             </form>
         </div>
-    </nav>
+    </section>
 
 {{/partial}}
 {{>layout_local.html.hbs}}

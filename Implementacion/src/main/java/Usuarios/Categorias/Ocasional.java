@@ -3,6 +3,11 @@ package Usuarios.Categorias;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("o")
 public class Ocasional extends CategoriaCliente{
     static int pedidosParaCambio = 10;
     static float porcentajeDescuento = 0.1f;

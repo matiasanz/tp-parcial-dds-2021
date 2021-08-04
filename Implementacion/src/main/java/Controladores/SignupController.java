@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static Utils.Factory.ProveedorDeNotif.notificacionBienvenida;
 
-public abstract class SignupController<T extends Usuario> {
+public abstract class SignupController<T extends Usuario> implements Transaccional {
     private RepoUsuarios<T> repoUsuarios;
     private Autenticador<T> autenticador;
 
@@ -57,9 +57,9 @@ public abstract class SignupController<T extends Usuario> {
 
             agregarMediosDeComunicacion(nuevoUsuario, queryParams);
 
-            nuevoUsuario.notificar(notificacionBienvenida(nuevoUsuario));
+            withTransaction(()->repoUsuarios.agregar(nuevoUsuario));
 
-            repoUsuarios.agregar(nuevoUsuario);
+            nuevoUsuario.notificar(notificacionBienvenida(nuevoUsuario));
 
             autenticador.autenticar(req, res);
 
@@ -75,6 +75,7 @@ public abstract class SignupController<T extends Usuario> {
         return null;
     }
 
+    //Esto no es de aca
     public ModelAndView getNotificaciones(Request req, Response res){
         List<Modelo> notificaciones = autenticador.getUsuario(req).getNotificacionesPush()
             .stream().map(Modelos::parseModel).collect(Collectors.toList());

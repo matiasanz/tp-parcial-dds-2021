@@ -1,7 +1,13 @@
 package MediosContacto;
 
+import Repositorios.Templates.Identificado;
 import Usuarios.Usuario;
 
-public interface MedioDeContacto {
-    public void notificar(Usuario usuario, Notificacion notificacion);
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="medio")
+public abstract class MedioDeContacto extends Identificado {
+    public abstract void notificar(Usuario usuario, Notificacion notificacion);
 }

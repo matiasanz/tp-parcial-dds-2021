@@ -20,7 +20,7 @@ public class MongoHandler {
         String collectionName = "rechazados";
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document documento = new Document()
-                .append("precio",pedido.getImporte())
+                .append("precio",pedido.getPrecioAbonado())
                 .append("direccion",pedido.getDireccion())
                 .append("local",pedido.getLocal().getNombre())
                 .append("cliente",pedido.getCliente().getUsername())

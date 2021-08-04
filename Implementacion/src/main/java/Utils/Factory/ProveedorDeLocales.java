@@ -1,9 +1,9 @@
 package Utils.Factory;
 
 import Local.*;
+import Platos.Combo;
 import Platos.Plato;
 import Platos.PlatoSimple;
-import static Utils.Factory.ProveedorDeContactos.contactoStub;
 
 import java.util.Arrays;
 
@@ -26,5 +26,13 @@ public class ProveedorDeLocales {
     public static Local mcConals(){
         Local local3 = new Local("McConals", "alla a la vuelta", CategoriaLocal.COMIDA_RAPIDA);
         return local3;
+    }
+
+    public static Local siNoCorroMePizza() {
+        Local local = new Local("Si no corro me Pizza", "al fondo a la derecha", CategoriaLocal.PIZZERIA);
+        Combo combo = ProveedorDePlatos.combo();
+        combo.getPlatos().forEach(local::agregarPlato);
+        local.agregarPlato(combo);
+        return local;
     }
 }

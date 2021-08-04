@@ -9,8 +9,8 @@ public interface URIs {
     String SIGNUP = "/signup";
     String PEDIDOS = "/pedidos";
     String NOTIFICACIONES = "/notificaciones";
-    static String PEDIDO(Long id) {
-        return PEDIDOS+"/"+id;
+    static String PEDIDO(int nro) {
+        return PEDIDOS+"/"+nro;
     }
 
     //Cliente

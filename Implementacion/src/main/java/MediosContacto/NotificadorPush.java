@@ -2,7 +2,12 @@ package MediosContacto;
 
 import Usuarios.Usuario;
 
-public class NotificadorPush implements MedioDeContacto{
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("push")
+public class NotificadorPush extends MedioDeContacto{
 
     @Override
     public void notificar(Usuario usuario, Notificacion notificacion) {

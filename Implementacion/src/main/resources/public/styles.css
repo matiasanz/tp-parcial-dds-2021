@@ -13,12 +13,16 @@ footer{
     text-align: center;
 }
 
+textarea{
+    resize: none;
+}
+
 /* Barra de navegacion *****************************************/
 
 header{
     left: 0;
     top: 0;
-    position: absolute;
+    position: fixed;
     border-bottom: solid 1px;
     background-color:white;
     height: 3em;
@@ -45,7 +49,7 @@ header .topnav a{
 }
 
 main{
-    margin-top: 5em;
+    margin-top: 4.5em;
     margin-left: 2em;
     display: flex;
     flex-direction: column;
@@ -75,7 +79,7 @@ main h2{
     justify-content: space-around;
 }
 
-.sangria{
+.sangria{ /*también se usa en signup*/
     margin-left: 10em;
 }
 
@@ -92,4 +96,9 @@ td, th {
     border: 1px solid black;
     text-align: center;
     padding: 0.5em;
+}
+
+/* Descuentos ********************************/
+.msj_positivo{
+    color: #07d407;
 }

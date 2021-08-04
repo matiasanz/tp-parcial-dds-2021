@@ -5,39 +5,36 @@
     {{/partial}}
 
     {{#partial "contenido"}}
-        <section id="Registro-combos">
-            <form action="/platos" method="POST">
-            <h2>Crear Plato</h2>
-            >
-                <label>Nombre del combo: </label>
-                <input type="text" name="nombre" required><br>
+        <h2>Armar Combo</h2>
 
-                <input type="hidden" name="tipo" value="combo"><br>
+        <form action="/platos" method="POST" class="columnado">
+            <div id="componentes">
+                <h3>Componentes</h3>
+                <ul>
+                    {{#platosDelLocal}}
+                        <li>
+                            <label><a href="/platos/{{idPlato}}">{{nombre}}</a></label>
+                            <input type="number" name="{{nombre}}" value="0" min="0">
+                            <br>
+                        </li>
+                    {{else}}
+                        <p>Aún no se registraron platos</p>
+                    {{/platosDelLocal}}
+                </ul>
+            </div>
+
+            <div id="presentacion">
+                <h3>Presentación</h3>
+                <input type="hidden" name="tipo" value="combo">
+
+                <label>Nombre del combo: </label><br>
+                <input type="text" name="nombre" required><br>
+                <label>Descripción: </label><br>
+                <textarea name="descripcion" rows="3" class="auto_height"></textarea> <br>
 
                 <input type="submit" value="Crear combo"><p class="msj_error">{{mensaje}}</p><br>
-            </form>
-        </section>
-
-        <section>
-            <h3>Componentes: </h3>
-
-            <ul>
-                {{#componentes}}
-                    <li>{{nombre}}</li>
-                {{/componentes}}
-            </ul>
-
-            <form action="/platos/nuevo-combo" method="POST">
-                <label>Agregar plato:</label>
-                <select name="idPlato">
-                    {{#platosDelLocal}}
-                        <option value={{id}}>{{nombre}}</option>
-                    {{/platosDelLocal}}
-                </select>
-                <input type="submit">
-            </form>
-
-        </section>
+            </div>
+        </form>
     {{/partial}}
 
 {{> layout_local.html.hbs }}

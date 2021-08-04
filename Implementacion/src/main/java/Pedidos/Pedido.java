@@ -3,46 +3,53 @@ package Pedidos;
 import Mongo.MongoHandler;
 import Usuarios.Cliente;
 import Local.Local;
-import Repositorios.Templates.Identificable;
-
+import Repositorios.Templates.Identificado;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
-public class Pedido extends Identificable {
-    Double precio;
+@Entity
+@Table(name="Pedidos")
+public class Pedido extends Identificado {
+    Double precioAbonado;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="pedido")
     List<Item> items = new LinkedList<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "local")
     Local local;
+    @Enumerated(EnumType.ORDINAL)
     EstadoPedido estado = EstadoPedido.PENDIENTE;
+
+    @Column
     LocalDateTime fechaHora = LocalDateTime.now();
+
     String direccion;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente")
     Cliente cliente;
 
+    Float puntuacion;
+    String detallePuntuacion;
+
+    public Pedido(){}
     public Pedido(double precio, String direccion, Local local, List<Item> items, Cliente cliente){
-        this.precio = precio;
+        this.precioAbonado = precio;
         this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
         this.cliente = cliente;
     }
 
-    public Pedido(double precio, String direccion, Local local, Cliente cliente){
-        this.precio = precio;
-        this.direccion=direccion;
-        this.local = local;
-        this.cliente = cliente;
-    }
-
-    public Double getImporte(){
-        return precio;
+    public Double getPrecioAbonado(){
+        return precioAbonado;
     }
 
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
-        cliente.notificar(notificacionResultadoPedido(cliente, estado));
-
     }
 
     public LocalDateTime getFechaInicio() {
@@ -77,5 +84,49 @@ public class Pedido extends Identificable {
 
     public Cliente getCliente() {
         return cliente;
+    }
+
+    public void setCliente(Cliente cliente){
+        this.cliente=cliente;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setPrecioAbonado(Double precio) {
+        this.precioAbonado = precio;
+    }
+
+    public void setLocal(Local local) {
+        this.local=local;
+    }
+
+    public Float getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(Float puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
+    public String getDetallePuntuacion() {
+        return detallePuntuacion;
+    }
+
+    public void setDetallePuntuacion(String detallePuntuacion) {
+        this.detallePuntuacion = detallePuntuacion;
+    }
+
+    public void agregarItem(Item item){
+        items.add(item);
+    }
+
+    public Double precioBase() {
+        return items.stream().mapToDouble(Item::getPrecio).sum();
     }
 }

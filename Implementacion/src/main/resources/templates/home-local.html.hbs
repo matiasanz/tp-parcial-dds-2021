@@ -4,47 +4,51 @@
 
     {{#partial "contenido"}}
         <H2>{{nombre}}</H2>
-        <section id="info-local">
-            <h3>Datos del Local:</h3>
-            <form method="post" action="/local">
-                <li>
-                    <Strong>Direccion: </Strong>
-                    <input type="text" name="nuevaDireccion" value="{{Direccion}}">
-                </li>
-                <br>
-                <li>
-                    <strong>Categoría:</strong>
-                    <select name=nuevaCategoria>
-                        <option value="{{categoriaLocal}}">{{categoriaLocal}}</option>
-                        {{#masCategorias}}
-                            <option value="{{this}}">{{this}}</option>
-                        {{/masCategorias}}
-                    </select>
-                </li>
+        <section class="columnado">
+            <div id="info-local">
+                <h3>Datos del Local:</h3>
+                <form method="post" action="/local">
+                    <li>
+                        <Strong>Direccion: </Strong>
+                        <input type="text" name="nuevaDireccion" value="{{Direccion}}">
+                    </li>
+                    <br>
+                    <li>
+                        <strong>Categoría:</strong>
+                        <select name=nuevaCategoria>
+                            <option value="{{categoriaLocal}}">{{categoriaLocal}}</option>
+                            {{#masCategorias}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/masCategorias}}
+                        </select>
+                    </li>
+                    <br>
+                    <input type="submit" value="Actualizar">
+                </form>
 
-                <input type="submit" value="Actualizar">
-            </form>
-        </section>
+                <H3>Puntuación media: </H3>{{puntuacion}} &#127860;
+            </div>
 
-        <section id="Menu">
-            <h3>Menu:</h3>
-            <ul>
-                {{#Platos}}
-                    <li><a href="/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
-                {{else}}
-                    <p>Aún no se registraron platos</p>
-                {{/Platos}}
-            </ul>
+            <div id="Menu">
+                <h3>Menu:</h3>
+                <ul>
+                    {{#Platos}}
+                        <li><a href="/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
+                    {{else}}
+                        <p>Aquí se verán sus platos</p>
+                    {{/Platos}}
+                </ul>
 
 
-            <form method="get" action="/platos/nuevo">
-                <button type="submit">Agregar Plato</button>
-            </form>
+                <form method="get" action="/platos/nuevo">
+                    <button type="submit">Agregar Plato</button>
+                </form>
 
-            <form method="get" action="/platos/nuevo-combo">
-                <button type="submit">Armar Combo</button>
-            </form>
+                <form method="get" action="/platos/nuevo-combo">
+                    <button type="submit">Armar Combo</button>
+                </form>
 
+            </div>
         </section>
     {{/partial}}
 
