@@ -54,7 +54,7 @@ public class PedidosController implements Transaccional{
             int nro = Integer.parseInt(req.queryParams("numero"));
             Pedido pedido = cliente.getPedidosRealizados().get(nro - 1);
 
-            res.redirect(URIs.PEDIDO(pedido.getId()));
+            res.redirect(URIs.PEDIDO(nro));
 
             Float puntuacion = req.queryMap("puntuacion").floatValue();
 

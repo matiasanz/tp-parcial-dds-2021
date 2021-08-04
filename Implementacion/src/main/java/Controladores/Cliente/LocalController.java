@@ -121,7 +121,7 @@ public class LocalController implements Transaccional {
                     cliente.agregarPedido(pedido);
 
                     int numeroDePedido = cliente.getPedidosRealizados().size();
-                    response.redirect(URIs.PEDIDO((long) numeroDePedido));
+                    response.redirect(URIs.PEDIDO(numeroDePedido));
                     cliente.devolverCarrito(carrito);
                 });
             } catch (PedidoIncompletoException | DatosInvalidosException e){

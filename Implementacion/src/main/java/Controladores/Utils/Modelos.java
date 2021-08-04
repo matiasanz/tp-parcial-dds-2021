@@ -64,7 +64,7 @@ public interface Modelos {
             .con("precio", plato.getPrecio())
             .con("precioBase", plato.getPrecioBase())
             .con("idPlato", plato.getId())
-            .con("descripcion", oGuion(plato.getDescripcion()))
+            .con("descripcion", textoOpcional(plato.getDescripcion()))
             .con("tieneDescuento", plato.getDescuento()>0)
             .con("descuentoPlato", plato.getDescuento()*100.0)
         ;
@@ -107,8 +107,11 @@ public interface Modelos {
 
     static Modelo parseModel(Item item){
         return new Modelo("plato", item.getPlato().getNombre())
-            .con("aclaraciones", oGuion(item.getAclaraciones()))
-            .con("cantidad", item.getCantidad());
+            .con("aclaraciones", textoOpcional(item.getAclaraciones()))
+            .con("cantidad", item.getCantidad())
+            .con("precioUnitario", item.precioUnitario())
+            .con("precioTotal", item.getPrecio())
+            ;
     }
 
     static Modelo parseModel(Pedido pedido){
@@ -122,7 +125,7 @@ public interface Modelos {
             .con("confirmado", pedido.getEstado()==EstadoPedido.CONFIRMADO)
             .con("entregado", pedido.getEstado()==EstadoPedido.ENTREGADO)
             .con("puntuacionPedido", pedido.getPuntuacion())
-            .con("detallePuntuacion", oGuion(pedido.getDetallePuntuacion()))
+            .con("detallePuntuacion", textoOpcional(pedido.getDetallePuntuacion()))
             ;
     }
 
@@ -162,7 +165,7 @@ public interface Modelos {
         ;
     }
 
-    static String oGuion(String s){
+    static String textoOpcional(String s){
         return ifEmpty(s, "-");
     }
 

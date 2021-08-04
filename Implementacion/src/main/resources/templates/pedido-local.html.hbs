@@ -5,45 +5,68 @@
 {{#partial "contenido"}}
         <H2>Pedido #{{numero}} - [{{estado}}]</H2>
 
-        <section>
-            <div id="datos_pedido">
-                <h3>Datos del pedido</h3>
-                <ul>
-                    <li><strong>Precio:</strong> ${{importe}}</li>
-                    <li><strong>Direccion:</strong> {{direccion}}</li>
-                </ul>
-            </div>
-            <div id="items">
-                <h3>Items</h3>
-                <ul>
-                    {{#items}}
-                        <li>{{plato}} | {{cantidad}} u. | aclaraciones: {{aclaraciones}}</li><br>
-                    {{/items}}
-                </ul>
-            </div>
-            {{#if pendiente}}
-                <div id="accion">
-                    <h3>Responder</h3>
-                    <form action="/pedidos/{{numero}}" method="post">
-                        <select name="decisionPedido">
-                            <option hidden disabled selected>Elegir acción</option>
-                            <option value="CONFIRMADO">Confirmar</option>
-                            <option value="RECHAZADO">Rechazar</option>
-                        </select>
-                        <input type="submit" value="Enviar">
-                    </form>
-                </div>
-            {{/if}}
+        <section class="columnado">
 
-            {{#if entregado}}
-                <div id="critica">
-                    <h3>Calificacion</h3>
+            <div id="columna-izq">
+                <section id="datos_pedido">
+                    <h3>Datos del Pedido</h3>
                     <ul>
-                        <li><strong>Puntuacion: </strong>{{puntuacionPedido}}&#127860;</li>
-                        <li><strong>Detalle: </strong>{{detallePuntuacion}}</li>
+                        <li><strong>Precio:</strong> ${{importe}}</li>
+                        <li><strong>Direccion:</strong> {{direccion}}</li>
                     </ul>
-                </div>
-            {{/if}}
+                </section>
+
+                {{#if pendiente}}
+                    <div id="respuesta">
+                        <h3>Responder</h3>
+                        <form action="/pedidos/{{numero}}" method="post">
+                            <select name="decisionPedido">
+                                <option hidden disabled selected>Elegir acción</option>
+                                <option value="CONFIRMADO">Confirmar</option>
+                                <option value="RECHAZADO">Rechazar</option>
+                            </select>
+                            <input type="submit" value="Enviar">
+                        </form>
+                    </div>
+                {{/if}}
+                {{#if entregado}}
+                    <div id="critica">
+                        <h3>Calificacion</h3>
+                        <ul>
+                            <li><strong>Puntuacion: </strong>{{puntuacionPedido}}&#127860;</li>
+                            <li><strong>Detalle: </strong>{{detallePuntuacion}}</li>
+                        </ul>
+                    </div>
+                {{/if}}
+            </div>
+
+            <div id="columna-der">
+                <section id="items">
+                    <h3>Items:</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th> Plato</th>
+                            <th> Aclaraciones</th>
+                            <th> Cantidad</th>
+                            <th> Precio Unitario</th>
+                            <th> Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#items}}
+                            <tr>
+                                <td>{{plato}}</td>
+                                <td>{{aclaraciones}}</td>
+                                <td>{{cantidad}}</td>
+                                <td>${{precioUnitario}}</td>
+                                <td>${{precioTotal}}</td>
+                            </tr>
+                        {{/items}}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
         </section>
 
 {{/partial}}
