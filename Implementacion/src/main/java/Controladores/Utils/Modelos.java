@@ -111,6 +111,7 @@ public interface Modelos {
             .con("cantidad", item.getCantidad())
             .con("precioUnitario", item.precioUnitario())
             .con("precioTotal", item.getPrecio())
+            .con("idPlato", item.getPlato().getId())
             ;
     }
 
@@ -126,6 +127,7 @@ public interface Modelos {
             .con("entregado", pedido.getEstado()==EstadoPedido.ENTREGADO)
             .con("puntuacionPedido", pedido.getPuntuacion())
             .con("detallePuntuacion", textoOpcional(pedido.getDetallePuntuacion()))
+            .con("idLocal", pedido.getLocal().getId())
             ;
     }
 

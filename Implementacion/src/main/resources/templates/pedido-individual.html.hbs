@@ -11,7 +11,7 @@
                 <section id="datos_pedido">
                     <h3>Datos del Pedido</h3>
                     <ul>
-                        <li><strong>Local:</strong> {{local}}</li>
+                        <li><strong>Local:</strong> <a href="/locales/{{idLocal}}">{{local}}</a></li>
                         <li><strong>Precio:</strong> ${{importe}}</li>
                         <li><strong>Direccion:</strong> {{direccion}}</li>
                     </ul>
@@ -62,7 +62,7 @@
                         <tbody>
                         {{#items}}
                             <tr>
-                                <td>{{plato}}</td>
+                                <td><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{plato}}</a></td>
                                 <td>{{aclaraciones}}</td>
                                 <td>{{cantidad}}</td>
                                 <td>${{precioUnitario}}</td>
