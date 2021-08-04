@@ -1,12 +1,10 @@
 package Pedidos;
 
-import MediosContacto.MongoHandler;
+import Mongo.MongoHandler;
 import Usuarios.Cliente;
-import Utils.Exceptions.PedidoNoEntregadoException;
 import Local.Local;
 import Repositorios.Templates.Identificable;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -42,13 +40,9 @@ public class Pedido extends Identificable {
     }
 
     public void setEstado(EstadoPedido estado) {
-        MongoHandler mongoHandler = new MongoHandler();
         this.estado = estado;
         cliente.notificar(notificacionResultadoPedido(cliente, estado));
 
-        if(estado == EstadoPedido.RECHAZADO){
-            mongoHandler.insertarPedido(this);
-        }
     }
 
     public LocalDateTime getFechaInicio() {

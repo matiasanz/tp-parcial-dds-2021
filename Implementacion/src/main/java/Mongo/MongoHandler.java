@@ -1,4 +1,4 @@
-package MediosContacto;
+package Mongo;
 
 import Controladores.Utils.Modelos;
 import Pedidos.Pedido;
@@ -9,11 +9,13 @@ import org.bson.Document;
 import com.mongodb.client.MongoCursor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MongoHandler {
     MongoClient mongoClient = new MongoClient("localhost",27017);
 
-    public void insertarPedido(Pedido pedido){
+    public void loguearPedidoRechazado(Pedido pedido){
         MongoDatabase database = mongoClient.getDatabase("pedidos");
         String collectionName = "rechazados";
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -27,7 +29,7 @@ public class MongoHandler {
         collection.insertOne(documento);
     }
 
-    public void insertarUsuario(int intentos, String nombre) {
+    public void loguearUsuarioSospechoso(int intentos, String nombre) {
         MongoDatabase database = mongoClient.getDatabase("logueos_fallidos");
         String collectionName = "usuarios_sospechosos";
         LocalDateTime fecha = LocalDateTime.now();
@@ -41,17 +43,19 @@ public class MongoHandler {
         collection.insertOne(documento);
     }
 
-    public void muestraRegistros(String databaseName, String collectionName){
+    public List<String> getRegistros(String databaseName, String collectionName){
         MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection(collectionName);
         MongoCursor<Document> cursor = collection.find().iterator();
+        List<String> registros = new ArrayList<>();
         try {
             while (cursor.hasNext()) {
-                System.out.println(cursor.next().toJson());
+                registros.add(cursor.next().toJson());
             }
         } finally {
             cursor.close();
         }
+        return registros;
     }
 
     public void vaciarColeccion(String databaseName, String collectionName){
@@ -62,7 +66,4 @@ public class MongoHandler {
             collection.deleteOne(cursor.next());
         }
     }
-
-
-
 }

@@ -1,8 +1,7 @@
 package Controladores.Utils;
 
-import MediosContacto.MongoHandler;
+import Mongo.MongoHandler;
 import spark.Request;
-import spark.Response;
 
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class ErrorHandler {
         int intentos = getIntentosAcumulados(req)+1;
         System.out.println("usuario :" + req.queryParams("username"));
         if(intentos>=2){
-            mongoHandler.insertarUsuario(intentos,req.queryParams("username"));
+            mongoHandler.loguearUsuarioSospechoso(intentos,req.queryParams("username"));
         }
 
         req.session().attribute(INTENTOS_TOKEN, intentos);
