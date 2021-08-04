@@ -113,7 +113,7 @@ public interface Modelos {
 
     static Modelo parseModel(Pedido pedido){
         return new Modelo("local", pedido.getLocal().getNombre())
-            .con("importe", pedido.getImporte())
+            .con("importe", pedido.getPrecioAbonado())
             .con("items", pedido.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("estado", parseModel(pedido.getEstado()))
             .con(parseModel(pedido.getFechaInicio()))

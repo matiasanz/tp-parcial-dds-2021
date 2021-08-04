@@ -17,13 +17,8 @@ import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
-import javax.jws.WebParam;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import static Controladores.Utils.Modelos.parseModel;
 
@@ -72,18 +67,19 @@ public class LocalController implements Transaccional {
     }
 
     public ModelAndView agregarItem(Request request, Response response) {
-        withTransaction(()->{
-            findCarrito(request.params("idLocal"), request, response).ifPresent(
+        findCarrito(request.params("idLocal"), request, response)
+            .ifPresent(
                 carrito -> {
                     Local local = carrito.getLocal();
                     Plato plato = local.getPlato(Long.parseLong(request.queryParams("idPlato")));
                     int cantidad = Integer.parseInt(request.queryParams("cantidad"));
                     String aclaraciones = request.queryParams("aclaraciones");
-                    carrito.conItem(new Item(plato, cantidad, aclaraciones));
+
+                    withTransaction(()->carrito.conItem(new Item(plato, cantidad, aclaraciones)));
+
                     response.redirect(URIs.LOCAL(local.getId()));
                 }
-            );
-        });
+        );
 
         return null;
     }
@@ -126,7 +122,7 @@ public class LocalController implements Transaccional {
 
                     int numeroDePedido = cliente.getPedidosRealizados().size();
                     response.redirect(URIs.PEDIDO((long) numeroDePedido));
-                    carrito.vaciar();
+                    cliente.devolverCarrito(carrito);
                 });
             } catch (PedidoIncompletoException | DatosInvalidosException e){
                 errorHandler.setMensaje(request, e.getMessage());
@@ -156,10 +152,18 @@ public class LocalController implements Transaccional {
     }
 
     private Optional<Carrito> findCarrito(String idLocal, Request req, Response res){
-        return findLocal(idLocal, req, res).map(local->{
-            Cliente cliente = autenticadorClientes.getUsuario(req);
-            return cliente.getCarrito(local);
-        });
+        Cliente cliente = autenticadorClientes.getUsuario(req);
+        Optional<Local> local = findLocal(idLocal, req, res);
+
+        if(local.isPresent()){
+            withTransaction(()-> {
+                cliente.getCarrito(local.get());
+            });
+
+            return local.map(cliente::getCarrito);
+        }
+
+        return Optional.empty();
     }
 
     private Long parseIdFromParams(String id, Request req){

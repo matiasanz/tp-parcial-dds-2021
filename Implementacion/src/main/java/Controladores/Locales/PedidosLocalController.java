@@ -56,7 +56,7 @@ public class PedidosLocalController implements Transaccional {
         long cantidadPendientes = contarEnEstado(pedidos, EstadoPedido.PENDIENTE);
 
         return new Modelo("cantidadTotal", totales)
-            .con("gananciaTotal", entregados.stream().mapToDouble(Pedido::getImporte).sum())
+            .con("gananciaTotal", entregados.stream().mapToDouble(Pedido::getPrecioAbonado).sum())
             .con("cantidadConfirmados", cantidadConfirmados)
             .con("cantidadEntregados", entregados.size())
             .con("cantidadRechazados", cantidadRechazados)

@@ -19,15 +19,14 @@ public class Cliente extends Usuario {
         direccionesConocidas.add(direccion);
     }
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy="cliente")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="cliente")
     private List<Carrito> carritos = new LinkedList<>();
 
     @ElementCollection
     @JoinTable(name="DireccionXCliente", joinColumns=@JoinColumn(name="cliente"))
     private List<String> direccionesConocidas = new ArrayList<>();
-    @OneToMany (cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente")
-    @OrderColumn(name="numero_pedido")
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
     @ManyToOne (cascade = CascadeType.ALL)
@@ -103,6 +102,10 @@ public class Cliente extends Usuario {
 
     public void setCarritos(List<Carrito> carritos) {
         this.carritos = carritos;
+    }
+
+    public void devolverCarrito(Carrito carrito) {
+        carritos.removeIf(carrito::matchId);
     }
 }
 

@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name="Pedidos")
 public class Pedido extends Identificado {
-    Double precio;
+    Double precioAbonado;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="pedido")
     List<Item> items = new LinkedList<>();
@@ -37,15 +37,15 @@ public class Pedido extends Identificado {
 
     public Pedido(){}
     public Pedido(double precio, String direccion, Local local, List<Item> items, Cliente cliente){
-        this.precio = precio;
+        this.precioAbonado = precio;
         this.direccion=direccion;
         this.local = local;
         this.items.addAll(items);
         this.cliente = cliente;
     }
 
-    public Double getImporte(){
-        return precio;
+    public Double getPrecioAbonado(){
+        return precioAbonado;
     }
 
     public void setEstado(EstadoPedido estado) {
@@ -98,8 +98,8 @@ public class Pedido extends Identificado {
         this.items = items;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setPrecioAbonado(Double precio) {
+        this.precioAbonado = precio;
     }
 
     public void setLocal(Local local) {
@@ -120,5 +120,13 @@ public class Pedido extends Identificado {
 
     public void setDetallePuntuacion(String detallePuntuacion) {
         this.detallePuntuacion = detallePuntuacion;
+    }
+
+    public void agregarItem(Item item){
+        items.add(item);
+    }
+
+    public Double precioBase() {
+        return items.stream().mapToDouble(Item::getPrecio).sum();
     }
 }

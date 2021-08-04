@@ -8,43 +8,32 @@ import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Table(name="carritos")
 public class Carrito extends Identificado {
 
-    //Pedido pedido = new Pedido() //TODO y vaciar hace =new Pedido()
+    @OneToOne(cascade = CascadeType.ALL)
+    Pedido pedido = new Pedido();
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Cliente cliente;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Local local;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="carrito")
-    private List<Item> items = new LinkedList<>();
-    @Transient
-    private String direccion;
     @Transient
     private CuponDescuento cupon = new SinCupon();
 
     public Carrito(Cliente cliente, Local local){
-        this.cliente = cliente;
-        this.local=local;
+        pedido.setCliente(cliente);
+        pedido.setLocal(local);
     }
 
-    public Carrito() {
-    }
+    public Carrito() {}
 
     public Carrito conDireccion(String direccion){
-        this.direccion = direccion;
+        pedido.setDireccion(direccion);
         return this;
     }
 
     public Carrito conItem(Item item){
-        items.add(item);
+        pedido.agregarItem(item);
         return this;
     }
 
@@ -53,39 +42,37 @@ public class Carrito extends Identificado {
         return this;
     }
 
-    public void vaciar(){
-        items = new ArrayList<>();
-        direccion=null;
-    }
-
     public Pedido build(){
         validarPedido();
-        Pedido pedido = new Pedido(getPrecioFinal(), direccion,  local, items, cliente);
-        local.agregarPedido(pedido);
-        cupon.notificarUso(cliente, this);
+        pedido.setPrecioAbonado(getPrecioFinal());
+        pedido.getLocal().agregarPedido(pedido);
+        pedido.getItems().forEach(Item::notificarCompra);
+        cupon.notificarUso(pedido.getCliente(), this);
         return pedido;
     }
 
     private void validarPedido() {
-        if(local==null) throw new PedidoIncompletoException("local");
+        String direccion = pedido.getDireccion();
+        if(pedido.getLocal()==null) throw new PedidoIncompletoException("local");
         if(direccion==null || direccion.isEmpty()) throw new PedidoIncompletoException("direccion");
-        if(items.isEmpty()) throw new PedidoIncompletoException("items");
+        if(pedido.getItems().isEmpty()) throw new PedidoIncompletoException("items");
     }
 
+    //TODO
     public void sacarItem(int numero) {
-        items.remove(numero);
+        pedido.getItems().remove(numero);
     }
 
     public Local getLocal(){
-        return local;
+        return pedido.getLocal();
     }
 
     public List<Item> getItems(){
-        return items;
+        return pedido.getItems();
     }
 
     public String getDireccion(){
-        return direccion;
+        return pedido.getDireccion();
     }
 
     public Double getPrecioFinal(){
@@ -93,11 +80,11 @@ public class Carrito extends Identificado {
     }
 
     public Double descuentoPorCategoria(){
-        return cliente.descuentoPorCategoria(getPrecioBase());
+        return getCliente().descuentoPorCategoria(getPrecioBase());
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return pedido.getCliente();
     }
 
     public Double descuentoPorCupon(){
@@ -109,7 +96,7 @@ public class Carrito extends Identificado {
     }
 
     public Double getPrecioBase(){
-        return items.stream().mapToDouble(Item::getPrecio).sum();
+        return pedido.precioBase();
     }
 
 }

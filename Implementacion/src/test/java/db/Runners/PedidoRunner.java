@@ -23,7 +23,7 @@ public class PedidoRunner {
         Pedido pedido = new Pedido();
         pedido.setEstado(EstadoPedido.PENDIENTE);
         Cliente cliente = new Cliente("matiasanz", "123", "matias", "godinez", "_@mail.com", "Mi casa");
-        pedido.setPrecio(550.98);
+        pedido.setPrecioAbonado(550.98);
         pedido.setCliente(cliente);
         pedido.setDireccion("rivadavia 8973");
         pedido.setItems(items);
