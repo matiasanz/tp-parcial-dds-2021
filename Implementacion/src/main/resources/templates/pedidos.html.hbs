@@ -9,7 +9,7 @@
         <ul>
             {{#pedidos}}
                 <li>
-                    <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - [{{estado}}]</h3>
+                    <h3> <a href="/pedidos/{{numero}}"> Pedido #{{numero}}</a> - <span class="{{estado}}">{{estado}}</span></h3>
                     <strong> Fecha: </strong> {{fecha}} <br>
                     <strong> Local: </strong> {{local}} <br>
                     <strong> Importe: </strong> ${{importe}} <br>

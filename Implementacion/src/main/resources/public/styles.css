@@ -98,7 +98,44 @@ td, th {
     padding: 0.5em;
 }
 
+table .linea-divisoria{
+    border-top: 0.2em solid black;
+}
+
 /* Descuentos ********************************/
 .msj_positivo{
     color: #07d407;
+}
+
+/* Notificaciones ***************************/
+.notificacion{
+    width: 30em;
+}
+
+.notificacion h3{
+    background-color: #dad6d0;
+}
+.notificacion p{
+    text-align: justify;
+}
+
+/* Estados de Pedidos ***********************/
+.Pendiente{
+    background-color: rgb(255,196,12);
+    font-family: Stencil, serif;
+}
+
+.Rechazado{
+    background-color: red;
+    font-family: Stencil, serif;
+}
+
+.Entregado{
+    background-color: #09a709;
+    font-family: Stencil, serif;
+}
+
+.Confirmado{
+    background-color: #07c3c3;
+    font-family: Stencil, serif;
 }

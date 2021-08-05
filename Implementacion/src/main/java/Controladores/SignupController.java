@@ -57,9 +57,10 @@ public abstract class SignupController<T extends Usuario> implements Transaccion
 
             agregarMediosDeComunicacion(nuevoUsuario, queryParams);
 
-            withTransaction(()->repoUsuarios.agregar(nuevoUsuario));
-
-            nuevoUsuario.notificar(notificacionBienvenida(nuevoUsuario));
+            withTransaction(()->{
+                repoUsuarios.agregar(nuevoUsuario);
+                nuevoUsuario.notificar(notificacionBienvenida(nuevoUsuario));
+            });
 
             autenticador.autenticar(req, res);
 

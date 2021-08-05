@@ -45,8 +45,6 @@ public class InformeSaldoController implements Transaccional {
     }
 
     protected Double calcularSaldoAFavor(Local local, LocalDate mes){
-        System.out.println(local.getPedidosRecibidos().stream().map(Modelos::parseModel)
-        .map(Map::toString).collect(Collectors.toList()));
         return local
             .pedidosDelMes(mes)
             .stream()

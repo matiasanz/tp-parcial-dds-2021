@@ -3,7 +3,7 @@
     {{/partial}}
 
     {{#partial "contenido"}}
-        <H2>Pedido #{{numero}} - [{{estado}}]</H2>
+        <H2>Pedido #{{numero}} - <span class="{{estado}}">{{estado}}</span></H2>
 
         <section class="columnado">
 
@@ -69,6 +69,29 @@
                                 <td>${{precioTotal}}</td>
                             </tr>
                         {{/items}}
+                        <tr class="linea-divisoria">
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${{precioBase}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Descuento</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="msj_positivo">${{descuentoPedido}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Precio Final</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${{importe}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </section>

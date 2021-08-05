@@ -4,18 +4,23 @@
 {{#partial "contenido"}}
     <h2>Notificaciones</h2>
 
-    <section id="notificaciones">
-        <ul>
-            {{#notificaciones}}
-                <li>
-                    <h3><strong>{{asunto}}</strong> [{{fecha}} - {{hora}}]</h3>
-                    <p>{{cuerpo}}</p><br>
-                </li>
-            {{else}}
-                <p class="vacia">No tiene ninguna notificacion</p>
-            {{/notificaciones}}
-        </ul>
+    <section id="notificaciones" class="alineado-izq">
+        {{#if notificaciones}}
+            <ul>
+                {{#notificaciones}}
+                    <li>
+                        <article class="notificacion">
+                            <h3><strong>{{asunto}}</strong> [{{fecha}} - {{hora}}]</h3>
+                            <p>{{cuerpo}}</p><br>
+                        </article>
+                    </li>
+                {{/notificaciones}}
+            </ul>
+        {{else}}
+            <p class="vacia">Aún no ha recibido ninguna notificación</p>
+        {{/if}}
     </section>
+
 {{/partial}}
 
 {{#if local}}
