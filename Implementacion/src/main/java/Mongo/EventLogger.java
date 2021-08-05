@@ -13,7 +13,7 @@ public class EventLogger {
     //*************************** Singletons ******************************
     //Medio que no hace falta, ya que ambos se usan en un solo lugar, pero puse aca para tener a mano los nombres
     public static EventLogger autenticacionLogger = new EventLogger("usuarios_sospechosos");
-    public static EventLogger pedidosRechazadosLogger = new EventLogger("rechazados");
+    public static EventLogger pedidosRechazadosLogger = new EventLogger("pedidos_rechazados");
     public static boolean mongoHabilitado = true;
 
     //*********************************************************************
