@@ -10,16 +10,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EventLogger {
-    //*************************** Singletons ******************************
-    //Medio que no hace falta, ya que ambos se usan en un solo lugar, pero puse aca para tener a mano los nombres
+
     public static EventLogger autenticacionLogger = new EventLogger("usuarios_sospechosos");
     public static EventLogger pedidosRechazadosLogger = new EventLogger("pedidos_rechazados");
     public static boolean mongoHabilitado = true;
 
-    //*********************************************************************
-
     private final String dataBase = "pedi2YaDBMongo"; //Es una sola
-    private final String nombreColeccion; //Trabajo con la coleccion que me pasan por constructor
+    private final String nombreColeccion; 
     private final MongoClient mongoClient = new MongoClient("localhost",27017);
 
     public EventLogger(String nombreColeccion){
