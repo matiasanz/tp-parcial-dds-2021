@@ -1,4 +1,4 @@
-package db.Runners;
+package db.Inserciones;
 
 import Platos.Combo;
 import Platos.PlatoSimple;

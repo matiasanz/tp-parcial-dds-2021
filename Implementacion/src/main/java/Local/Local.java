@@ -72,9 +72,6 @@ public class Local extends Identificado {
         return menu;
     }
 
-    public void setMenu(List<Plato> menu) {
-        this.menu = menu;
-    }
 
     public List<Pedido> pedidosDelMes(LocalDate fechaActual) {
         return getPedidosRecibidos().stream().filter(pedido -> pedido.mismoMesQue(fechaActual)).collect(Collectors.toList());
@@ -82,9 +79,30 @@ public class Local extends Identificado {
 
     public Double getPuntuacionMedia(){
         return pedidosRecibidos.stream()
-            .filter(p->p.getEstado()== EstadoPedido.ENTREGADO)
+            .filter(Pedido::estaCalificado)
             .mapToDouble(Pedido::getPuntuacion)
-            .average().orElse(0);
+            .average()
+            .orElse(0);
+    }
+
+    //Suscripciones
+    public void agregarSuscriptor(Cliente nuevoSuscriptor) {
+        if(esSuscriptor(nuevoSuscriptor))
+            throw new UsuarioYaSuscritoException(this, nuevoSuscriptor);
+
+        suscriptores.add(nuevoSuscriptor);
+    }
+
+    public boolean esSuscriptor(Cliente cliente){
+        return suscriptores.stream().anyMatch(cliente::matchId);
+    }
+
+    public void eliminarSuscriptor(Cliente cli) {
+        suscriptores.removeIf(cli::matchId);
+    }
+
+    public void notificarSuscriptores(Notificacion notificacion){
+        suscriptores.forEach(s->s.notificar(notificacion));
     }
 
     //getters *****************************************************
@@ -109,7 +127,9 @@ public class Local extends Identificado {
         String direccionAnterior = getDireccion();
         this.direccion = nuevaDireccion;
 
-        notificarSuscriptores(notificacionCambioDeDireccion(this, direccionAnterior));
+        if(direccionAnterior!=null){
+            notificarSuscriptores(notificacionCambioDeDireccion(this, direccionAnterior));
+        }
     }
 
     public void setCategoria(CategoriaLocal categoria){
@@ -124,22 +144,8 @@ public class Local extends Identificado {
         return suscriptores;
     }
 
-    public void agregarSuscriptor(Cliente nuevoSuscriptor) {
-        if(esSuscriptor(nuevoSuscriptor))
-            throw new UsuarioYaSuscritoException(this, nuevoSuscriptor);
-
-        suscriptores.add(nuevoSuscriptor);
+    private void setMenu(List<Plato> menu) {
+        this.menu = menu;
     }
 
-    public boolean esSuscriptor(Cliente cliente){
-        return suscriptores.stream().anyMatch(cliente::matchId);
-    }
-
-    public void eliminarSuscriptor(Cliente cli) {
-        suscriptores.removeIf(cli::matchId);
-    }
-
-    public void notificarSuscriptores(Notificacion notificacion){
-        suscriptores.forEach(s->s.notificar(notificacion));
-    }
 }

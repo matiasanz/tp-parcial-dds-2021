@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name="Pedidos")
 public class Pedido extends Identificado {
     Double precioAbonado;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="pedido")
     List<Item> items = new LinkedList<>();
 
@@ -115,6 +115,14 @@ public class Pedido extends Identificado {
 
     public String getDetallePuntuacion() {
         return detallePuntuacion;
+    }
+
+    public Double getDescuento(){
+        return precioBase() - precioAbonado;
+    }
+
+    public boolean estaCalificado(){
+        return puntuacion!=null;
     }
 
     public void setDetallePuntuacion(String detallePuntuacion) {

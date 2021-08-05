@@ -1,4 +1,4 @@
-package db.Runners;
+package db.Inserciones;
 
 import MediosContacto.MedioDeContacto;
 import MediosContacto.NotificadorMail;

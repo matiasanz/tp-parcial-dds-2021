@@ -1,4 +1,4 @@
-package db.Runners;
+package db.Inserciones;
 
 import Local.Local;
 import Utils.Factory.ProveedorDeLocales;

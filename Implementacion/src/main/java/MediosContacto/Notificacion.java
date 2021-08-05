@@ -11,22 +11,10 @@ import java.time.LocalDateTime;
 public class Notificacion extends Identificado {
 
     String asunto;
+    @Column(length = 480)
     String cuerpo;
     @Column
     LocalDateTime fechaHora = LocalDateTime.now();
-
-    public void setAsunto(String asunto) {
-        this.asunto = asunto;
-    }
-
-    public void setCuerpo(String cuerpo) {
-        this.cuerpo = cuerpo;
-    }
-
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
-    }
-
 
     public Notificacion(){}
 
@@ -47,9 +35,16 @@ public class Notificacion extends Identificado {
         return fechaHora;
     }
 
-    public String toString(){
-            return "["+getAsunto()+"] "+getCuerpo();
-        }
+    private void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
 
+    private void setCuerpo(String cuerpo) {
+        this.cuerpo = cuerpo;
+    }
+
+    private void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
 
 }

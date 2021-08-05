@@ -1,6 +1,6 @@
 package Utils.Factory;
 
-import Local.Local;
+import Local.*;
 import MediosContacto.Notificacion;
 import Pedidos.EstadoPedido;
 import Platos.Plato;
@@ -13,15 +13,25 @@ import java.time.LocalDateTime;
 
 public class ProveedorDeNotif {
     public static Notificacion notificacionAscensoDeCategoria(Cliente cliente, CategoriaCliente categoria){
-        return new Notificacion("Ascendiste de categoria!", "Tu categoria nueva es: "+ categoria.getNombre());
+        return new Notificacion("¡Ascendiste de categoria!", espaciado(
+            saludar(cliente)
+            , "Al alcanzar los"
+            , Integer.toString(cliente.getPedidosRealizados().size())
+            , "pedidos, has ascendido de categoría a"
+            , categoria.getNombre()+"."
+            , "¡Felicidades! Sigue así y recibirás más descuentos en las próximas compras"
+            )
+        ) ;
     }
 
     public static Notificacion notificacionBienvenida(Usuario nuevoCliente) {
-        return new Notificacion("Registro Usuario", String.join(" ",
+        return new Notificacion("Registro Usuario", espaciado(
             saludar(nuevoCliente)
             , "Le informamos que su usuario"
             , entreComillas(nuevoCliente.getUsername())
-            , "ha sido creado correctamente. Le damos la bienvenida!")
+            , "ha sido creado correctamente. Le damos la bienvenida a la plataforma y"
+            , "le agradecemos por confiar en nuestra plataforma"
+            )
         );
     }
 
@@ -30,26 +40,23 @@ public class ProveedorDeNotif {
 
         return new Notificacion("Pedido "+estadoPedido, espaciado(
             saludar(usuario)
-            , "Le informamos que su pedido ha sido"
+            , "Le informamos que su pedido al local ha sido"
             , estadoPedido.toLowerCase()
-        ));
+            )
+        );
     }
 
     public static Notificacion notificacionNuevoPlato(Plato plato, Local local){
         return new Notificacion("Nuevo plato", espaciado(
             "Le informamos que el local"
             , local.getNombre()
-            , "tiene un nuevo plato"
-            , entreComillas(plato.getNombre())
+            , "ha sacado a la venta un nuevo plato:"
+            , entreComillas(plato.getNombre())+"."
+            , "¡Sea el primero en disfrutarlo!"
             )
         );
     }
 
-    private static String saludar(Usuario usuario){
-        int queHoraEs = LocalDateTime.now().getHour();
-
-        return espaciado(getSaludo(queHoraEs), usuario.getNombre()+".");
-    }
 
     public static Notificacion notificacionDescuento(Float descuento, Plato plato, Local local) {
         return new Notificacion("Descuento", espaciado("Hay un descuento de "
@@ -58,16 +65,33 @@ public class ProveedorDeNotif {
 
     public static Notificacion notificacionCambioDeDireccion(Local local, String direccionAnterior) {
         return new Notificacion("Cambio de direccion", espaciado(
-                "El local "+local.getDireccion()
-                + ", del que sos suscriptor,"
-                , "ha cambiado su dirección, de"
-                , direccionAnterior
-                , "a"
-                , local.getDireccion()
+
+            "Le informamos que el local"
+            , local.getDireccion() + ", del que ud. es suscriptor,"
+            , "ha cambiado su dirección, de"
+            , direccionAnterior
+            , "a"
+            , local.getDireccion()
             )
         );
     }
 
+    public static Notificacion notificacionSaldoAFavor(Duenio duenio, Double saldo) {
+        return new Notificacion("Saldo fin de mes"
+            , espaciado(saludar(duenio)
+            , "Le informamos que a la fecha ha acumulado un saldo a favor de"
+            , saldo.toString()
+            , "por los descuentos en sus pedidos, el cual será descontado de la cuota mensual,"
+            , "cuyo monto próntamente se le hará llegar."
+            , "Nuevamente, le agradecemos por confiar en nuestra plataforma")
+        );
+    }
+
+    private static String saludar(Usuario usuario){
+        int queHoraEs = LocalDateTime.now().getHour();
+
+        return espaciado(getSaludo(queHoraEs), usuario.getNombre()+".");
+    }
 
     private static String getSaludo(int queHoraEs){
         if(queHoraEs>=6 &&queHoraEs<=13)

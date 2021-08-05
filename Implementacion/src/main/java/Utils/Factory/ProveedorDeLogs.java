@@ -1,6 +1,7 @@
 package Utils.Factory;
 
 import Controladores.Utils.Modelos;
+import Local.Duenio;
 import Pedidos.Pedido;
 import org.bson.Document;
 
@@ -22,6 +23,14 @@ public class ProveedorDeLogs {
             .append("intentos",intentos);
     }
 
+    public static Document logSaldoAFavor(Duenio duenio, Double saldo) {
+        return documentoFechado()
+            .append("duenio", duenio.getNombre()+" "+duenio.getApellido())
+            .append("mail", duenio.getMail())
+            .append("local", duenio.getLocal().getNombre())
+            .append("saldo a favor", saldo)
+        ;
+    }
 
     private static Document documentoFechado(){
         LocalDateTime fecha = LocalDateTime.now();
