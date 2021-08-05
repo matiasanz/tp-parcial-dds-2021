@@ -3,11 +3,11 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="CuponesPorcentajeDto")
+@AttributeOverride(name="cliente", column=@Column(name="cliente"))
 public class CuponPorcentajeDescuento extends Cupon {
     public CuponPorcentajeDescuento(){}
     public CuponPorcentajeDescuento(float porcentaje, int cuantosPedidos){

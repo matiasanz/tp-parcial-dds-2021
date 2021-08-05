@@ -4,11 +4,14 @@ import Pedidos.Carrito;
 import Usuarios.Cliente;
 
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="CuponesSaldo")
+@AttributeOverride(name="cliente", column=@Column(name="cliente"))
 public class CuponSaldo extends Cupon {
     private Double saldo;
     private Double cuantoGasto = 0.0;
