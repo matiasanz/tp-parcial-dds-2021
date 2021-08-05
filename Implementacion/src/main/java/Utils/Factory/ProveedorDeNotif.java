@@ -2,6 +2,7 @@ package Utils.Factory;
 
 import Local.*;
 import MediosContacto.Notificacion;
+import Pedidos.Cupones.Cupon;
 import Pedidos.EstadoPedido;
 import Platos.Plato;
 import Usuarios.Categorias.CategoriaCliente;
@@ -87,23 +88,31 @@ public class ProveedorDeNotif {
         );
     }
 
-    private static String saludar(Usuario usuario){
-        int queHoraEs = LocalDateTime.now().getHour();
-
-        return espaciado(getSaludo(queHoraEs), usuario.getNombre()+".");
-    }
-
     private static String getSaludo(int queHoraEs){
         if(queHoraEs>=6 &&queHoraEs<=13)
             return "Buenos días";
         else
             return "Buenas "
-                + (queHoraEs<=20 && queHoraEs>13? "tardes": "noches");
+                    + (queHoraEs<=20 && queHoraEs>13? "tardes": "noches");
     }
 
+    private static String saludar(Usuario usuario) {
+        int queHoraEs = LocalDateTime.now().getHour();
+
+        return espaciado(getSaludo(queHoraEs), usuario.getNombre() + ".");
+    }
+
+    public static Notificacion notificacionCuponRecibido(Cliente cliente, Cupon cupon){
+        return new Notificacion("Cupon Otorgado", espaciado(saludar(cliente)
+            ,"Has sido beneficiado con un cupon", cupon.getDetalle()+". ¡Enhorabuena!"));
+    }
+
+
     private static String entreComillas(String s){
+
         return "'"+s+"'";
     }
+
 
     private static String espaciado(String ... strings){
         return String.join(" ", strings);

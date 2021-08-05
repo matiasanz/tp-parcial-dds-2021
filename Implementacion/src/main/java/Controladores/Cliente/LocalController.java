@@ -4,7 +4,7 @@ import Controladores.Autenticador;
 import Controladores.Utils.*;
 import Local.Local;
 import Pedidos.Carrito;
-import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.Cupon;
 import Pedidos.Cupones.SinCupon;
 import Pedidos.Item;
 import Pedidos.Pedido;
@@ -111,7 +111,7 @@ public class LocalController implements Transaccional {
             try {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
-                CuponDescuento descuento = leerCupon(request);
+                Cupon descuento = leerCupon(request);
 
                 withTransaction(()-> {
                     Pedido pedido = carrito.conDireccion(leerDireccion(request))
@@ -185,7 +185,7 @@ public class LocalController implements Transaccional {
         return direccion;
     }
 
-    private CuponDescuento leerCupon(Request req){
+    private Cupon leerCupon(Request req){
         Cliente cliente = autenticadorClientes.getUsuario(req);
 
         try{

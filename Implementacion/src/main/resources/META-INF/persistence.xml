@@ -8,9 +8,9 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>Pedidos.Cupones.CuponDescuento</class>
+        <class>Pedidos.Cupones.Cupon</class>
         <class>Pedidos.Cupones.CuponSaldo</class>
-        <class>Pedidos.Cupones.CuponDescuentoPorcentaje</class>
+        <class>Pedidos.Cupones.CuponPorcentajeDescuento</class>
         <class>Pedidos.Cupones.SinCupon</class>
         <class>Usuarios.Categorias.CategoriaCliente</class>
         <class>Usuarios.Categorias.Primerizo</class>
@@ -32,7 +32,6 @@
         <class>MediosContacto.NotificadorPush</class>
         <class>MediosContacto.NotificadorMail</class>
         <class>Pedidos.Carrito</class>
-        <class>Pedidos.Critica</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -55,7 +54,7 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="use_sql_comments" value="true"/>
             <!-- PONER CREATE PARA LA PRIMERA VEZ,SINO TE IMPORTA TABLAS EN OTRAS BASES DE DATOS -->
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
 
     </persistence-unit>

@@ -1,7 +1,7 @@
 package Pedidos;
 
 import Local.Local;
-import Pedidos.Cupones.CuponDescuento;
+import Pedidos.Cupones.Cupon;
 import Pedidos.Cupones.SinCupon;
 import Repositorios.Templates.Identificado;
 import Usuarios.Cliente;
@@ -18,7 +18,7 @@ public class Carrito extends Identificado {
     Pedido pedido = new Pedido();
 
     @Transient
-    private CuponDescuento cupon = new SinCupon();
+    private Cupon cupon = new SinCupon();
 
     public Carrito(Cliente cliente, Local local){
         pedido.setCliente(cliente);
@@ -37,7 +37,7 @@ public class Carrito extends Identificado {
         return this;
     }
 
-    public Carrito conCupon(CuponDescuento cupon){
+    public Carrito conCupon(Cupon cupon){
         this.cupon = cupon;
         return this;
     }

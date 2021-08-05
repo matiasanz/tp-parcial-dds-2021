@@ -104,9 +104,9 @@
                         <label for="cupon">Usar cupón</label>
                         <select id="cupon" name="descuento" form="form_envio">
                             <option value=-1>Sin cupón</option>
-                            {{#descuentosCliente}}
+                            {{#cupones}}
                                 <option value={{idCupon}}>{{detalle}}</option><br>
-                            {{/descuentosCliente}}
+                            {{/cupones}}
                         </select>
                         <br>
                         <input type="submit" value="Finalizar" form="form_envio"><p class="msj_error">{{error}}</p><br>

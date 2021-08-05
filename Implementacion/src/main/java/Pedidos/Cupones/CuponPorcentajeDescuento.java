@@ -3,14 +3,14 @@ package Pedidos.Cupones;
 import Pedidos.Carrito;
 import Usuarios.Cliente;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="CuponesPorcentajeDto")
-public class CuponDescuentoPorcentaje extends CuponDescuento {
-    public CuponDescuentoPorcentaje(){}
-    public CuponDescuentoPorcentaje(float porcentaje, int cuantosPedidos){
+@AttributeOverride(name="cliente", column=@Column(name="cliente"))
+public class CuponPorcentajeDescuento extends Cupon {
+    public CuponPorcentajeDescuento(){}
+    public CuponPorcentajeDescuento(float porcentaje, int cuantosPedidos){
         this.porcentaje = porcentaje;
         this.porCuantosPedidos = cuantosPedidos;
     }
@@ -26,7 +26,7 @@ public class CuponDescuentoPorcentaje extends CuponDescuento {
 
     @Override
     public String getDetalle(){
-        return porcentaje+"% en "+ porCuantosPedidos +" pedido/s ("+usosRestantes()+" restantes)";
+        return porcentaje*100+"% en "+ porCuantosPedidos +" pedido/s ("+usosRestantes()+" restantes)";
     }
 
     @Override

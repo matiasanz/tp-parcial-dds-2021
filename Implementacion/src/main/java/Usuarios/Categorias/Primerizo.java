@@ -5,12 +5,14 @@ import Usuarios.Cliente;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("p")
 public class Primerizo extends CategoriaCliente {
 
-    static private float porcentajeDescuento = 0.3f;
+    @Transient
+    static int pedidosParaCambio = 5;
 
     @Override
     public String getNombre() {
@@ -19,7 +21,7 @@ public class Primerizo extends CategoriaCliente {
 
     @Override
     public double descuentoPorCategoria(double precio, Cliente cliente) {
-        return porcentajeDescuento*precio;
+        return 0.0;
     }
 
     public CategoriaCliente siguienteCategoria(){
@@ -27,6 +29,8 @@ public class Primerizo extends CategoriaCliente {
     }
 
     public void notificarPedido(Pedido pedido, Cliente cliente){
-        cambiarDeCategoria(cliente, siguienteCategoria());
+        if(cliente.getPedidosRealizados().size()<=pedidosParaCambio){
+            cambiarDeCategoria(cliente, siguienteCategoria());
+        }
     }
 }

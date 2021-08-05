@@ -59,7 +59,7 @@ public abstract class SignupController<T extends Usuario> implements Transaccion
 
             withTransaction(()->{
                 repoUsuarios.agregar(nuevoUsuario);
-                nuevoUsuario.notificar(notificacionBienvenida(nuevoUsuario));
+                darBienvenida(nuevoUsuario);
             });
 
             autenticador.autenticar(req, res);
@@ -88,6 +88,10 @@ public abstract class SignupController<T extends Usuario> implements Transaccion
         if(aceptaMedio("notif_mail", req)){
             nuevoUsuario.agregarMedioDeContacto(notificadorMail);
         }
+    }
+
+    protected void darBienvenida(T nuevoUsuario){
+        nuevoUsuario.notificar(notificacionBienvenida(nuevoUsuario));
     }
 
     protected abstract T crearUsuario(Map<String, String> queryParams);

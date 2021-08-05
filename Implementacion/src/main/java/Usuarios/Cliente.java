@@ -2,8 +2,7 @@ package Usuarios;
 
 import Local.Local;
 import Pedidos.Carrito;
-import Pedidos.Cupones.CuponDescuento;
-import Pedidos.Cupones.SinCupon;
+import Pedidos.Cupones.Cupon;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Primerizo;
@@ -11,6 +10,7 @@ import Usuarios.Categorias.Primerizo;
 import javax.persistence.*;
 import java.util.*;
 
+import static Utils.Factory.ProveedorDeNotif.notificacionCuponRecibido;
 @Entity
 @DiscriminatorValue("c")
 public class Cliente extends Usuario {
@@ -19,7 +19,7 @@ public class Cliente extends Usuario {
         direccionesConocidas.add(direccion);
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="cliente")
     private List<Carrito> carritos = new LinkedList<>();
 
@@ -33,11 +33,11 @@ public class Cliente extends Usuario {
     @JoinColumn(name="categoria")
     public CategoriaCliente categoria = new Primerizo();
 
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cliente")
-    private List<CuponDescuento> cupones = new ArrayList<>();
+    private List<Cupon> cupones = new ArrayList<>();
 
-    public void setCupones(List<CuponDescuento> cupones) {
+    public void setCupones(List<Cupon> cupones) {
         this.cupones = cupones;
     }
 
@@ -78,15 +78,16 @@ public class Cliente extends Usuario {
         categoria.notificarPedido(pedido, this);
     }
 
-    public List<CuponDescuento> getCupones(){
+    public List<Cupon> getCupones(){
         return cupones;
     }
 
-    public void agregarCupon(CuponDescuento descuento){
-        cupones.add(descuento);
+    public void agregarCupon(Cupon cupon){
+        cupones.add(cupon);
+        notificar(notificacionCuponRecibido(this, cupon));
     }
 
-    public void quitarCupon(CuponDescuento descuento) {
+    public void quitarCupon(Cupon descuento) {
         cupones.remove(descuento);
     }
 
@@ -98,11 +99,11 @@ public class Cliente extends Usuario {
         direccionesConocidas.add(direccion);
     }
 
-    public List<Carrito> getCarritos() {
+    private List<Carrito> getCarritos() {
         return carritos;
     }
 
-    public void setCarritos(List<Carrito> carritos) {
+    private void setCarritos(List<Carrito> carritos) {
         this.carritos = carritos;
     }
 
