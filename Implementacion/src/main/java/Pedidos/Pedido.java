@@ -1,6 +1,5 @@
 package Pedidos;
 
-import Mongo.MongoHandler;
 import Usuarios.Cliente;
 import Local.Local;
 import Repositorios.Templates.Identificado;

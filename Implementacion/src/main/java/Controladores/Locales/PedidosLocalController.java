@@ -4,7 +4,7 @@ import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Transaccional;
 import Local.Duenio;
-import Mongo.MongoHandler;
+import Mongo.EventLogger;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
@@ -19,11 +19,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static Controladores.Utils.Modelos.parseModel;
+import static Utils.Factory.ProveedorDeLogs.logPedidoRechazado;
 import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class PedidosLocalController implements Transaccional {
     private Autenticador<Duenio> autenticador;
-    MongoHandler mongoHandler = new MongoHandler();
+    EventLogger logger = EventLogger.pedidosRechazadosLogger;
     public PedidosLocalController(Autenticador<Duenio> autenticador){
         this.autenticador=autenticador;
     }
@@ -112,7 +113,7 @@ public class PedidosLocalController implements Transaccional {
                     });
 
                     if(estado == EstadoPedido.RECHAZADO){
-                        mongoHandler.loguearPedidoRechazado(pedido);
+                        logger.loguear(logPedidoRechazado(pedido));
                     }
 
                 } catch (NullPointerException | IllegalArgumentException e) {

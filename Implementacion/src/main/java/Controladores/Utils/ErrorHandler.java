@@ -1,15 +1,16 @@
 package Controladores.Utils;
 
-import Mongo.MongoHandler;
+import Mongo.EventLogger;
 import spark.Request;
 
 import java.util.Optional;
 
+import static Utils.Factory.ProveedorDeLogs.logFalloAutenticacion;
+
 public class ErrorHandler {
     private final String ERROR_TOKEN = "error";
-    //TODO: Ver si se puede pasar algun redirect: hay bastante codigo repetido
 
-    MongoHandler mongoHandler = new MongoHandler();
+    EventLogger logger = EventLogger.autenticacionLogger;
 
     public void setMensaje(Request req, String mensaje){
         req.session().attribute(ERROR_TOKEN, mensaje);
@@ -25,9 +26,9 @@ public class ErrorHandler {
 
     public void notificarIntentoFallido(Request req){
         int intentos = getIntentosAcumulados(req)+1;
-        System.out.println("usuario :" + req.queryParams("username"));
-        if(intentos>=2){
-            mongoHandler.loguearUsuarioSospechoso(intentos,req.queryParams("username"));
+
+        if(intentos>=5){
+            logger.loguear(logFalloAutenticacion(intentos,req.queryParams("username")));
         }
 
         req.session().attribute(INTENTOS_TOKEN, intentos);
