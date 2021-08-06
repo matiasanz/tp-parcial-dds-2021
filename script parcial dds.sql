@@ -174,8 +174,20 @@ VALUES(9,'pollo, mostaza, papas, manteca, sal, queso, leche');
 INSERT INTO prueba.usuarios(tipo,apellido,mail,nombre,password,username,local_id)
 VALUES('d','Martinez','rm@gmail.com','romina','123','romi',3);
 
+INSERT INTO prueba.mediodecontacto(medio,cliente)
+VALUES ('push',1);
+
+INSERT INTO prueba.mediodecontacto(medio,cliente)
+VALUES ('mail',1);
+
 INSERT INTO prueba.usuarios(tipo,apellido,mail,nombre,password,username,categoria)
 VALUES('c','Anzorandia','manz@gmail.com','matias','123','mati',1);
+
+INSERT INTO prueba.mediodecontacto(medio,cliente)
+VALUES ('mail',2);
+
+INSERT INTO prueba.mediodecontacto(medio,cliente)
+VALUES ('push',2);
 
 #inserto direcciones conocidas de cliente matias
 INSERT INTO prueba.direccionxcliente(cliente,direccionesConocidas)
@@ -186,3 +198,12 @@ VALUES(1,'Chiclana 876');
 
 INSERT INTO prueba.direccionxcliente(cliente,direccionesConocidas)
 VALUES(1,'Montes de Oca 4256');
+
+INSERT INTO prueba.direccionxcliente(cliente,direccionesConocidas)
+VALUES(2,'Caseros 300');
+
+INSERT INTO prueba.direccionxcliente(cliente,direccionesConocidas)
+VALUES(2,'Saenz 8746');
+
+INSERT INTO prueba.direccionxcliente(cliente,direccionesConocidas)
+VALUES(2,'Jujuy 8536');
