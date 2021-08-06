@@ -13,14 +13,17 @@ public class EventLogger {
 
     public static EventLogger autenticacionLogger = new EventLogger("usuarios_sospechosos");
     public static EventLogger pedidosRechazadosLogger = new EventLogger("pedidos_rechazados");
-    public static boolean mongoHabilitado = true;
+    public static boolean mongoHabilitado = false;
 
     private final String dataBase = "pedi2YaDBMongo"; //Es una sola
     private final String nombreColeccion; 
-    private final MongoClient mongoClient = new MongoClient("localhost",27017);
+    private MongoClient mongoClient = null;
 
     public EventLogger(String nombreColeccion){
         this.nombreColeccion = nombreColeccion;
+        if(mongoHabilitado){
+            this.mongoClient = new MongoClient("localhost",27017);
+        }
     }
 
     public void loguear(Document document){

@@ -111,11 +111,11 @@ public class LocalController implements Transaccional {
                 Carrito carrito = cliente.getCarrito(local);
 
                 withTransaction(()-> {
-                    Pedido pedido = carrito.conDireccion(leerDireccion(request))
+                    Pedido pedido = carrito
+                        .conDireccion(leerDireccion(request))
                         .build();
-
                     cliente.agregarPedido(pedido);
-
+                    pedido.getLocal().agregarPedido(pedido);
                     int numeroDePedido = cliente.getPedidosRealizados().size();
                     response.redirect(URIs.PEDIDO(numeroDePedido));
                     cliente.devolverCarrito(carrito);

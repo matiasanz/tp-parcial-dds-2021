@@ -101,6 +101,7 @@ public interface Modelos {
             .con("items"         , carrito.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("precioBase"    , carrito.getPrecioBase())
             .con("dtoCategoria"  , carrito.descuentoPorCategoria())
+            .con("precioFinal", carrito.getPrecio())
             ;
     }
 

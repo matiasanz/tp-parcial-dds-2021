@@ -12,11 +12,14 @@ import java.util.List;
 @Table(name="carritos")
 public class Carrito extends Identificado {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     Pedido pedido = new Pedido();
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    Cliente cliente;
+
     public Carrito(Cliente cliente, Local local){
-        pedido.setCliente(cliente);
+        this.cliente = cliente;
         pedido.setLocal(local);
     }
 
@@ -34,8 +37,8 @@ public class Carrito extends Identificado {
 
     public Pedido build(){
         validarPedido();
+        pedido.setCliente(cliente);
         pedido.setPrecioAbonado(getPrecio());
-        pedido.getLocal().agregarPedido(pedido);
         pedido.getItems().forEach(Item::notificarCompra);
         return pedido;
     }
@@ -69,15 +72,14 @@ public class Carrito extends Identificado {
     }
 
     public Cliente getCliente() {
-        return pedido.getCliente();
+        return cliente;
     }
 
-    private Double getPrecio(){
+    public Double getPrecio(){
         return getPrecioBase() - descuentoPorCategoria();
     }
 
     public Double getPrecioBase(){
         return pedido.precioBase();
     }
-
 }

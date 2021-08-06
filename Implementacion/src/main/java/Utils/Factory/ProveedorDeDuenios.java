@@ -9,6 +9,7 @@ import Platos.Plato;
 import Platos.PlatoSimple;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class ProveedorDeDuenios {
@@ -18,7 +19,7 @@ public class ProveedorDeDuenios {
         Duenio yo = new Duenio("romi", "123", "romina", "gutierrez", "_@mail.com", local);
         yo.setLocal(local);
         yo.agregarMedioDeContacto(new NotificadorPush());
-        new Carrito(ProveedorDeClientes.matias(), local).conDireccion("la esquina de mi barrio").conItem(new Item(new PlatoSimple("algo rico", "-", 40.0, Collections.EMPTY_LIST), 89, "-")).build();
+        new Carrito(ProveedorDeClientes.matias(), local).conDireccion("la esquina de mi barrio").conItem(new Item(new PlatoSimple("algo rico", "-", 40.0, new ArrayList<>()), 89, "-")).build();
         return yo;
     }
 

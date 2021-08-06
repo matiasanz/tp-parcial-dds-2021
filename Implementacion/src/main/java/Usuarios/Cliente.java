@@ -17,7 +17,7 @@ public class Cliente extends Usuario {
         direccionesConocidas.add(direccion);
     }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="cliente")
     private List<Carrito> carritos = new LinkedList<>();
 
@@ -34,8 +34,6 @@ public class Cliente extends Usuario {
     public Cliente() {}
 
     public Carrito getCarrito(Local local) {
-        //Carrito carrito = carritos.getOrDefault(local.getId(), new Carrito(this, local));
-        //carritos.put(local.getId(), carrito);
         Optional<Carrito> carrito = carritos.stream().filter(c->c.getLocal().matchId(local.getId())).findFirst();
         if(!carrito.isPresent()){
             Carrito nuevoCarrito = new Carrito(this, local);
