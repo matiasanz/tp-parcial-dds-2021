@@ -80,6 +80,9 @@ public abstract class SignupController<T extends Usuario> implements Transaccion
     public ModelAndView getNotificaciones(Request req, Response res){
         List<Modelo> notificaciones = autenticador.getUsuario(req).getNotificacionesPush()
             .stream().map(Modelos::parseModel).collect(Collectors.toList());
+
+        Collections.reverse(notificaciones);
+
         return new ModelAndView(modeloBase().con("notificaciones", notificaciones), "notificaciones-cliente.html.hbs");
     }
 
