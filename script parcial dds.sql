@@ -105,6 +105,21 @@ VALUES('c','Ravioles a la York',0,'Ravioles a la York',3);
 INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,local)
 VALUES('c','Costillas de Cerdo con Salsa Blanca y Pure',0,'Costillas Power',3);
 
+INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tortilla de Papas',0,'Tortilla Española',250,3);
+
+INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Salmon Rosado',0,'Salmon',2500,3);
+
+INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tarta de Jamon y Queso',0,'Tarta de JyQ',800,3);
+
+INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Mollejas al Verdeo',25,'Mollejas al Verdeo',1000,3);
+
+INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Riñoncitos a la Provenzal',25,'Riñoncitos a la Provenzal',1340,3);
+
 #inserto platoxcombo
 INSERT INTO prueba.platoxcombo(combo,platos_id)
 VALUES(8,4);
