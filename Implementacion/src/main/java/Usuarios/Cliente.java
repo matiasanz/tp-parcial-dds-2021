@@ -55,8 +55,6 @@ public class Cliente extends Usuario {
         return carrito.get();
     }
 
-
-
     public List<String> getDireccionesConocidas() {
         return direccionesConocidas;
     }

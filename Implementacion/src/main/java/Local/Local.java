@@ -105,6 +105,11 @@ public class Local extends Identificado {
         suscriptores.forEach(s->s.notificar(notificacion));
     }
 
+    public Double promedioDePrecios(){
+        return getMenu().stream().mapToDouble(Plato::getPrecio)
+            .average().orElse(0);
+    }
+
     //getters *****************************************************
 
     public Plato getPlato(Long idPlato) {

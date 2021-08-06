@@ -61,6 +61,7 @@ public interface Modelos {
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion())
             .con("puntuacion", local.getPuntuacionMedia())
+            .con("precioPromedio", local.promedioDePrecios())
         ;
     }
 
