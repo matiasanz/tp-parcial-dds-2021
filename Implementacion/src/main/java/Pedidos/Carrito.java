@@ -34,6 +34,7 @@ public class Carrito extends Identificado {
 
     public Pedido build(){
         validarPedido();
+        pedido.setPrecioAbonado(getPrecio());
         pedido.getLocal().agregarPedido(pedido);
         pedido.getItems().forEach(Item::notificarCompra);
         return pedido;
@@ -71,7 +72,7 @@ public class Carrito extends Identificado {
         return pedido.getCliente();
     }
 
-    private Double subtotal(){
+    private Double getPrecio(){
         return getPrecioBase() - descuentoPorCategoria();
     }
 
