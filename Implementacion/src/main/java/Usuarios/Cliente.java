@@ -2,7 +2,6 @@ package Usuarios;
 
 import Local.Local;
 import Pedidos.Carrito;
-import Pedidos.Cupones.Cupon;
 import Pedidos.Pedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Primerizo;
@@ -10,7 +9,6 @@ import Usuarios.Categorias.Primerizo;
 import javax.persistence.*;
 import java.util.*;
 
-import static Utils.Factory.ProveedorDeNotif.notificacionCuponRecibido;
 @Entity
 @DiscriminatorValue("c")
 public class Cliente extends Usuario {
@@ -32,14 +30,6 @@ public class Cliente extends Usuario {
     @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name="categoria")
     public CategoriaCliente categoria = new Primerizo();
-
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "cliente")
-    private List<Cupon> cupones = new ArrayList<>();
-
-    public void setCupones(List<Cupon> cupones) {
-        this.cupones = cupones;
-    }
 
     public Cliente() {}
 
@@ -76,18 +66,6 @@ public class Cliente extends Usuario {
         categoria.notificarPedido(pedido, this);
     }
 
-    public List<Cupon> getCupones(){
-        return cupones;
-    }
-
-    public void agregarCupon(Cupon cupon){
-        cupones.add(cupon);
-        notificar(notificacionCuponRecibido(this, cupon));
-    }
-
-    public void quitarCupon(Cupon descuento) {
-        cupones.remove(descuento);
-    }
 
     public Double descuentoPorCategoria(Double precio) {
         return categoria.descuentoPorCategoria(precio, this);

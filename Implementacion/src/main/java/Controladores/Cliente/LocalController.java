@@ -4,8 +4,6 @@ import Controladores.Autenticador;
 import Controladores.Utils.*;
 import Local.Local;
 import Pedidos.Carrito;
-import Pedidos.Cupones.Cupon;
-import Pedidos.Cupones.SinCupon;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Plato;
@@ -111,11 +109,9 @@ public class LocalController implements Transaccional {
             try {
                 Cliente cliente = autenticadorClientes.getUsuario(request);
                 Carrito carrito = cliente.getCarrito(local);
-                Cupon descuento = leerCupon(request);
 
                 withTransaction(()-> {
                     Pedido pedido = carrito.conDireccion(leerDireccion(request))
-                        .conCupon(descuento)
                         .build();
 
                     cliente.agregarPedido(pedido);
@@ -183,26 +179,6 @@ public class LocalController implements Transaccional {
         }
 
         return direccion;
-    }
-
-    private Cupon leerCupon(Request req){
-        Cliente cliente = autenticadorClientes.getUsuario(req);
-
-        try{
-            return Optional
-                .ofNullable(req.queryParams("descuento"))
-                .map(Long::parseLong)
-                .flatMap(idCupon ->
-                    cliente.getCupones()
-                        .stream()
-                        .filter(c->c.matchId(idCupon))
-                        .findFirst()
-                ).orElseGet(SinCupon::new);
-
-        } catch (NumberFormatException e){
-            throw new DatosInvalidosException();
-        }
-
     }
 
     public ModelAndView suscribirmeALocal(Request req, Response res){

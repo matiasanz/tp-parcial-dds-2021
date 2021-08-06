@@ -1,10 +1,6 @@
 package db;
 
 import Local.Local;
-import Pedidos.Cupones.Cupon;
-import Pedidos.Cupones.CuponPorcentajeDescuento;
-import Pedidos.Cupones.CuponSaldo;
-import Pedidos.Cupones.SinCupon;
 import Pedidos.Item;
 import Pedidos.Pedido;
 import Platos.Combo;
@@ -95,28 +91,6 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
         local.getMenu().forEach(this::assertPersistible);
     }
 
-    @Test
-    public void persistirDescuentoPorcentaje(){
-        Cupon descuento = new CuponPorcentajeDescuento(.5f, 1);
-        assertPersistible(descuento);
-    }
-
-    @Test
-    public void persistirDescuentoSaldo(){
-        Cupon descuento = new CuponSaldo(30.0);
-        entityManager().persist(descuento);
-        assertNotNull(descuento.getId());
-    }
-
-    @Test
-    public void persistirSinDescuento(){
-        assertPersistible(new SinCupon());
-    }
-
-    private void assertPersistible(Cupon obj){
-        entityManager().persist(obj);
-        assertNotNull(obj.getId());
-    }
 
     @Test
     public void persistirCategorias(){

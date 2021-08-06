@@ -2,7 +2,6 @@ package Utils.Factory;
 
 import Local.*;
 import MediosContacto.Notificacion;
-import Pedidos.Cupones.Cupon;
 import Pedidos.EstadoPedido;
 import Platos.Plato;
 import Usuarios.Categorias.CategoriaCliente;
@@ -100,11 +99,6 @@ public class ProveedorDeNotif {
         int queHoraEs = LocalDateTime.now().getHour();
 
         return espaciado(getSaludo(queHoraEs), usuario.getNombre() + ".");
-    }
-
-    public static Notificacion notificacionCuponRecibido(Cliente cliente, Cupon cupon){
-        return new Notificacion("Cupon Otorgado", espaciado(saludar(cliente)
-            ,"Has sido beneficiado con un cupon", cupon.getDetalle()+". ¡Enhorabuena!"));
     }
 
 

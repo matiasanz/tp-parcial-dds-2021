@@ -2,7 +2,6 @@ package Controladores.Utils;
 import Local.Local;
 import MediosContacto.Notificacion;
 import Pedidos.*;
-import Pedidos.Cupones.Cupon;
 import Platos.Combo;
 import Platos.Plato;
 import Platos.PlatoSimple;
@@ -40,7 +39,6 @@ public interface Modelos {
     static Modelo parseModel(Cliente cliente){
         return new Modelo("mailCliente", cliente.getMail())
             .con("categoriaCliente", cliente.getCategoria().getNombre())
-            .con("cupones", cliente.getCupones().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("username", cliente.getUsername())
             .con("direcciones", cliente.getDireccionesConocidas())
             .con("apellidoCliente", cliente.getApellido())
@@ -49,10 +47,6 @@ public interface Modelos {
         ;
     }
 
-    static Modelo parseModel(Cupon cupon){
-        return new Modelo("idCupon", cupon.getId())
-            .con("detalle", cupon.getDetalle());
-    }
 
     static Modelo parseModel(Local local){
         return new Modelo("nombre", local.getNombre())
@@ -107,7 +101,6 @@ public interface Modelos {
             .con("items"         , carrito.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("precioBase"    , carrito.getPrecioBase())
             .con("dtoCategoria"  , carrito.descuentoPorCategoria())
-            .con("precioFinal"   , carrito.getPrecioFinal())
             ;
     }
 

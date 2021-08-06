@@ -3,10 +3,6 @@ package db.Inserciones;
 import MediosContacto.MedioDeContacto;
 import MediosContacto.NotificadorMail;
 import MediosContacto.NotificadorPush;
-import Pedidos.Cupones.Cupon;
-import Pedidos.Cupones.CuponPorcentajeDescuento;
-import Pedidos.Cupones.CuponSaldo;
-import Pedidos.Cupones.SinCupon;
 import Pedidos.EstadoPedido;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Categorias.Frecuente;
@@ -30,12 +26,6 @@ public class ClienteRunner {
         cliente.setPassword("90");
         cliente.setMail("fede@gmail.com");
 
-        CuponSaldo cuponSaldo = new CuponSaldo(500);
-        SinCupon sinCupon = new SinCupon();
-        CuponPorcentajeDescuento cuponDescuentoPorcentaje= new CuponPorcentajeDescuento(25,7);
-        List<Cupon> cupones = Arrays.asList(cuponSaldo,sinCupon,cuponDescuentoPorcentaje);
-
-        cliente.setCupones(cupones);
 
         cliente.agregarNotificacionPush(ProveedorDeNotif.notificacionResultadoPedido(cliente, EstadoPedido.PENDIENTE));
 

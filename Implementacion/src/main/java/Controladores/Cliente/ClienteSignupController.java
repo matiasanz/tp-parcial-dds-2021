@@ -1,7 +1,6 @@
 package Controladores.Cliente;
 
 import Controladores.SignupController;
-import Pedidos.Cupones.CuponPorcentajeDescuento;
 import Repositorios.Templates.RepoUsuarios;
 import Usuarios.Cliente;
 
@@ -28,6 +27,5 @@ public class ClienteSignupController extends SignupController<Cliente> {
     @Override
     protected void darBienvenida(Cliente cliente){
         super.darBienvenida(cliente);
-       // cliente.agregarCupon(new CuponPorcentajeDescuento(0.1f, 2));
     }
 }
