@@ -17,7 +17,7 @@ public class Cliente extends Usuario {
         direccionesConocidas.add(direccion);
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="cliente")
     private List<Carrito> carritos = new LinkedList<>();
 
