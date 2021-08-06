@@ -89,6 +89,14 @@ main h2{
     margin-bottom: 1em;
 }
 
+.local-listado{
+    text-align: justify;
+}
+
+.local-listado p{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 /* Tabla carrito *******************************/
 table {
     font-family: arial, sans-serif;

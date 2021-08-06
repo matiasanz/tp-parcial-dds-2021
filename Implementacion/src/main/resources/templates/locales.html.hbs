@@ -21,10 +21,26 @@
 
         <div id="locales">
             <ul>
+                <hr>
                 {{#Locales}}
-                    <li><a href="/locales/{{idLocal}}">{{nombre}}</a> {{puntuacion}} &#127860;</li>
+                    <li>
+                        <article class="local-listado">
+                            <h3><a href="/locales/{{idLocal}}">{{nombre}}</a></h3>
+                            <p>
+                                <strong>Puntuación Media:</strong> {{puntuacion}} &#127860;
+                                <br>
+                                <Strong>Direccion:       </Strong> {{Direccion}}
+                                <br>
+                                <strong>Categoría:       </strong> {{categoriaLocal}}
+                                <br>
+                            </p>
+                        </article>
+                    </li>
+
+                <hr>
                 {{else}}
                     <p class="vacia">No se encontró ningún local asociado a la categoría {{categoria}}</p>
+                <hr>
                 {{/Locales}}
             </ul>
         </div>
