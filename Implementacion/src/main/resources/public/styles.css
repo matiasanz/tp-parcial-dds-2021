@@ -83,6 +83,12 @@ main h2{
     margin-left: 10em;
 }
 
+/* locales ************************************/
+.buscador{
+    width: 25em;
+    margin-bottom: 1em;
+}
+
 /* Tabla carrito *******************************/
 table {
     font-family: arial, sans-serif;

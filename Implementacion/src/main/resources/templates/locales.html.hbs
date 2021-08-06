@@ -1,31 +1,37 @@
-    {{#partial "titulo"}}
-        <title>Locales</title>
-    {{/partial}}
+{{#partial "titulo"}}
+    <title>Locales</title>
+{{/partial}}
 
-    {{#partial "contenido"}}
-        <h2>Locales</h2>
-        <section class="centrado">
-            <div id="categorias">
-                <form id="filtro_categorias" action="/locales" method="GET">
-                    <label> Categorías </label>
-                    <select name="categoria" form="filtro_categorias" onchange="this.form.submit()">
-                        {{#categorias}}
-                            <option value="{{this}}">{{this}}</option>
-                        {{/categorias}}
-                    </select>
-                </form>
-            </div>
+{{#partial "sources"}}
+    <script type="text/javascript" src="/js/functions.js"></script>
+{{/partial}}
 
-            <div id="locales">
-                <ul>
-                    {{#Locales}}
-                        <li><a href="/locales/{{idLocal}}">{{nombre}}</a> {{puntuacion}} &#127860;</li>
-                    {{else}}
-                        <p class="vacia">Ningún local se encuentra asociado a la categoría {{categoria}}</p>
-                    {{/Locales}}
-                </ul>
-            </div>
-        </section>
-    {{/partial}}
+{{#partial "contenido"}}
+    <h2>Locales</h2>
+    <section class="centrado">
+        <div id="categorias">
+            <form id="filtro" action="/locales" method="GET">
+                <input type="text" name="nombre" value="{{ultimoBuscado}}" placeholder="Nombre del local" class="buscador" onkeyup="esperarYEnviar(1, this)">
+                <br>
+                <label> Categorías </label>
+                <select name="categoria" form="filtro" onchange="this.form.submit()">
+                    {{#categorias}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/categorias}}
+                </select>
+            </form>
+        </div>
+
+        <div id="locales">
+            <ul>
+                {{#Locales}}
+                    <li><a href="/locales/{{idLocal}}">{{nombre}}</a> {{puntuacion}} &#127860;</li>
+                {{else}}
+                    <p class="vacia">No se encontró ningún local asociado a la categoría {{categoria}}</p>
+                {{/Locales}}
+            </ul>
+        </div>
+    </section>
+{{/partial}}
 
 {{>layout_cliente.html.hbs}}
