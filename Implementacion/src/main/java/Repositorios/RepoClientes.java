@@ -6,12 +6,18 @@ import Usuarios.Cliente;
 import Utils.Exceptions.ClienteInexistenteException;
 
 public class RepoClientes extends RepoUsuarios<Cliente> {
-    public static RepoClientes instance = new RepoClientes(new DB<>(Cliente.class));
+    public static RepoClientes instance;
 
-    public RepoClientes(Coleccion coleccion){
+    private RepoClientes(Coleccion coleccion){
         super(coleccion);
     }
 
+    public static RepoClientes getInstance(){
+        if(instance==null){
+            instance = new RepoClientes(new DB<>(Cliente.class));
+        }
+        return instance;
+    }
 
 
     public Cliente getCliente(String usuario){

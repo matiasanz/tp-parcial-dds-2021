@@ -40,7 +40,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         Duenio romi = ProveedorDeDuenios.romina();
 
         try{
-            RepoClientes.instance.agregar(matias);
+            RepoClientes.getInstance().agregar(matias);
             RepoDuenios.instance.agregar(romi);
             RepoLocales.instance.agregar(romi.getLocal());
         }
