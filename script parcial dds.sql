@@ -115,10 +115,10 @@ INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,loc
 VALUES('p','Tarta de Jamon y Queso',0,'Tarta de JyQ',800,3);
 
 INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
-VALUES('p','Mollejas al Verdeo',25,'Mollejas al Verdeo',1000,3);
+VALUES('p','Mollejas al Verdeo',0.25,'Mollejas al Verdeo',1000,3);
 
 INSERT INTO prueba.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
-VALUES('p','Riñoncitos a la Provenzal',25,'Riñoncitos a la Provenzal',1340,3);
+VALUES('p','Riñoncitos a la Provenzal',0.25,'Riñoncitos a la Provenzal',1340,3);
 
 #inserto platoxcombo
 INSERT INTO prueba.platoxcombo(combo,platos_id)
