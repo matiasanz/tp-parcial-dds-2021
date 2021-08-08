@@ -1,9 +1,8 @@
-package TareaProgramada;
+package ReporteMensual;
 
-import Controladores.Utils.Modelos;
 import Controladores.Utils.Transaccional;
 import Local.*;
-import Mongo.EventLogger;
+import Mongo.Logger;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Repositorios.RepoDuenios;
@@ -12,16 +11,14 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import static Utils.Factory.ProveedorDeLogs.logSaldoAFavor;
 
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static Utils.Factory.ProveedorDeNotif.notificacionSaldoAFavor;
 
 public class InformeSaldoController implements Transaccional {
     RepoDuenios repoDuenios;
-    EventLogger logger;
+    Logger logger;
 
-    public InformeSaldoController(RepoDuenios repoDuenios, EventLogger logger){
+    public InformeSaldoController(RepoDuenios repoDuenios, Logger logger){
         this.repoDuenios=repoDuenios;
         this.logger = logger;
     }

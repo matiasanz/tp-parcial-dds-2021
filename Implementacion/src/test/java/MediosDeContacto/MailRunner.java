@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Test;
 
 
-public class MailSenderTest {
+public class MailRunner {
 
     static NotificadorMail notificadorMail = new NotificadorMail();
 

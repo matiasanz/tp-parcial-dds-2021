@@ -21,7 +21,4 @@ public abstract class Identificado implements Identificable{
         this.id=id;
     }
 
-    public boolean matchId(Identificado identificado) {
-        return matchId(identificado.getId());
-    }
 }

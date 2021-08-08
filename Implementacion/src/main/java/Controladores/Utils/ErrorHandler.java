@@ -1,6 +1,7 @@
 package Controladores.Utils;
 
-import Mongo.EventLogger;
+import Mongo.Logger;
+import Mongo.Loggers;
 import spark.Request;
 
 import java.util.Optional;
@@ -10,7 +11,7 @@ import static Utils.Factory.ProveedorDeLogs.logFalloAutenticacion;
 public class ErrorHandler {
     private final String ERROR_TOKEN = "error";
 
-    EventLogger logger = EventLogger.autenticacionLogger;
+    Logger logger = Loggers.loggerSeguridad;
 
     public void setMensaje(Request req, String mensaje){
         req.session().attribute(ERROR_TOKEN, mensaje);

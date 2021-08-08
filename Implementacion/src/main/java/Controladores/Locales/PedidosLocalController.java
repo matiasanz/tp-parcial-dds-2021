@@ -4,7 +4,8 @@ import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Transaccional;
 import Local.Duenio;
-import Mongo.EventLogger;
+import Mongo.Logger;
+import Mongo.Loggers;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Usuarios.Cliente;
@@ -24,7 +25,8 @@ import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class PedidosLocalController implements Transaccional {
     private Autenticador<Duenio> autenticador;
-    EventLogger logger = EventLogger.pedidosRechazadosLogger;
+    Logger logger = Loggers.loggerEventos;
+
     public PedidosLocalController(Autenticador<Duenio> autenticador){
         this.autenticador=autenticador;
     }

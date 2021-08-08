@@ -26,6 +26,16 @@ public class DB<T extends Identificado>
                 .getResultList();
         }
 
+        @Override
+        public void eliminar(T elem) {
+            entityManager().remove(elem);
+        }
+
+        @Override
+        public void borrarTodo() {
+            entityManager().createQuery("delete from "+clase.getSimpleName());
+        }
+
         public void agregar(T elem){
             entityManager().persist(elem);
         }

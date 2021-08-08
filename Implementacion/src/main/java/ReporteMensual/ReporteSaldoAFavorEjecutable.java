@@ -1,10 +1,10 @@
-package TareaProgramada;
+package ReporteMensual;
 
-import Mongo.EventLogger;
+import Mongo.Logger;
+import Mongo.Loggers;
 import Repositorios.RepoDuenios;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
@@ -12,14 +12,9 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 public class ReporteSaldoAFavorEjecutable {
     private static final RepoDuenios repoDuenios = RepoDuenios.instance;
-    private static final EventLogger logger
-        = new EventLogger("reporte_saldo_a_favor");
+    private static final Logger logger = Loggers.loggerReportes;
 
     public static void main(String[] args) throws SchedulerException {
-        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-
-        scheduler.start();
-
         JobDetail job = newJob(RecomendacionSemanal.class)
             .withIdentity("reporte_saldo_a_favor")
             .build();
@@ -29,6 +24,8 @@ public class ReporteSaldoAFavorEjecutable {
 //            .withSchedule(cronSchedule("0 59 23 L * ?"))
             .build();
 
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        scheduler.start();
         scheduler.scheduleJob(job,trigger);
     }
 

@@ -1,7 +1,6 @@
 package Main;
 
-import Mongo.EventLogger;
-import TareaProgramada.ReporteSaldoAFavorEjecutable;
+import ReporteMensual.ReporteSaldoAFavorEjecutable;
 import org.quartz.SchedulerException;
 
 public class MainClass {
