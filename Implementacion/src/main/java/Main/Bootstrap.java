@@ -41,7 +41,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
         try{
             RepoClientes.getInstance().agregar(matias);
-            RepoDuenios.instance.agregar(romi);
+            RepoDuenios.getInstance().agregar(romi);
             RepoLocales.instance.agregar(romi.getLocal());
         }
         catch(NombreOcupadoException n){
