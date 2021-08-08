@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 @Entity
 public class Item extends Identificado {
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "plato")
     private Plato plato;
     private Integer cantidad;

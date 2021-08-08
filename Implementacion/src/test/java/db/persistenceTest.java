@@ -91,7 +91,6 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
         local.getMenu().forEach(this::assertPersistible);
     }
 
-
     @Test
     public void persistirCategorias(){
         assertPersistible(new Frecuente());
