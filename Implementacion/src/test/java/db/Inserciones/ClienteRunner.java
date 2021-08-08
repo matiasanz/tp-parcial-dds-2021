@@ -1,5 +1,6 @@
 package db.Inserciones;
 
+import Controladores.Utils.Transaccional;
 import MediosContacto.MedioDeContacto;
 import MediosContacto.NotificadorMail;
 import MediosContacto.NotificadorPush;
@@ -15,8 +16,8 @@ import javax.persistence.EntityTransaction;
 import java.util.Arrays;
 import java.util.List;
 
-public class ClienteRunner {
-    public static void main(String[] args){
+public class ClienteRunner implements Transaccional {
+    public static void main(String[] args) {
         Cliente cliente = new Cliente();
         CategoriaCliente frecuente = new Frecuente();
         cliente.setCategoria(frecuente);
@@ -41,6 +42,10 @@ public class ClienteRunner {
 
         transaction.begin();
         en.persist(cliente);
+        transaction.commit();
+
+        transaction.begin();
+        PerThreadEntityManagers.getEntityManager().remove(cliente);
         transaction.commit();
     }
 }
