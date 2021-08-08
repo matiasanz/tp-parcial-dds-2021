@@ -28,7 +28,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
     private void cargarLocales(){
         try{
-            RepoLocales repo = RepoLocales.instance;
+            RepoLocales repo = RepoLocales.getInstance();
             repo.agregar(ProveedorDeLocales.cincoEsquinas());
             repo.agregar(ProveedorDeLocales.leble());
             repo.agregar(ProveedorDeLocales.mcConals());
@@ -42,7 +42,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
         try{
             RepoClientes.getInstance().agregar(matias);
             RepoDuenios.getInstance().agregar(romi);
-            RepoLocales.instance.agregar(romi.getLocal());
+            RepoLocales.getInstance().agregar(romi.getLocal());
         }
         catch(NombreOcupadoException n){
 

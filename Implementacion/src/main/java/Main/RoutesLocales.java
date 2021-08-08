@@ -14,7 +14,7 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class RoutesLocales extends RoutesTemplate{
     //Repositorios
-    private static final RepoLocales repoLocales = RepoLocales.instance;
+    private static final RepoLocales repoLocales = RepoLocales.getInstance();
     private static final RepoDuenios repoContactos = RepoDuenios.getInstance();
     private static final Autenticador<Duenio> autenticador = new Autenticador<>(repoContactos);
 
