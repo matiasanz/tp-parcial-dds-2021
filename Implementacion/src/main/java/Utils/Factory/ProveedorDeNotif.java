@@ -76,7 +76,7 @@ public class ProveedorDeNotif {
         );
     }
 
-    public static Notificacion notificacionSaldoAFavor(Duenio duenio, Double saldo) {
+    public static Notificacion notificacionSaldoAFavor(Encargado duenio, Double saldo) {
         return new Notificacion("Saldo fin de mes"
             , espaciado(saludar(duenio)
             , "Le informamos que a la fecha ha acumulado un saldo a favor de"

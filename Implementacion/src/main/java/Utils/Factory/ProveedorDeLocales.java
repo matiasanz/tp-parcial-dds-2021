@@ -10,8 +10,9 @@ import Platos.PlatoSimple;
 import java.util.Arrays;
 import java.util.List;
 
+import static Utils.Factory.ProveedorDePlatos.ingredientes;
+
 public class ProveedorDeLocales {
-    private static Plato platoStub = new PlatoSimple("Fideos con tuco", "Tallarines con salsa de tomate y ajo", 900.0, ingredientes("fideos", "tuco"));
 
     public static Local cincoEsquinas() {
         Local local = new Local("5 esquinas", "Calle falsa 123", CategoriaLocal.PARRILLA);
@@ -35,7 +36,7 @@ public class ProveedorDeLocales {
 
     public static Local leble(){
         Local local2 = new Local("Leble", "Gualeguaychu 123", CategoriaLocal.DE_AUTOR);
-        local2.agregarPlato(platoStub);
+        local2.agregarPlato(new PlatoSimple("Fideos con tuco", "Tallarines con salsa de tomate y ajo", 900.0, ingredientes("fideos", "tuco")));
         return local2;
     }
 
@@ -49,9 +50,5 @@ public class ProveedorDeLocales {
         combo.getPlatos().forEach(local::agregarPlato);
         local.agregarPlato(combo);
         return local;
-    }
-
-    private static List<String> ingredientes(String ... ingredientes){
-        return Arrays.asList(ingredientes);
     }
 }

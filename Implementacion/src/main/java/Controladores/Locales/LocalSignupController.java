@@ -4,27 +4,27 @@ import Controladores.SignupController;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Local.CategoriaLocal;
-import Local.Duenio;
+import Local.Encargado;
 import Local.Local;
-import Repositorios.RepoDuenios;
+import Repositorios.RepoEncargados;
 import Repositorios.RepoLocales;
 
 import java.util.*;
 
 //TODO: Rehacer
-public class LocalSignupController extends SignupController<Duenio> {
+public class LocalSignupController extends SignupController<Encargado> {
     private RepoLocales repoLocales;
 
-    public LocalSignupController(RepoDuenios repoContactos, RepoLocales repoLocales){
+    public LocalSignupController(RepoEncargados repoContactos, RepoLocales repoLocales){
         super(repoContactos);
         this.repoLocales = repoLocales;
     }
 
     @Override
-    protected Duenio crearUsuario(Map<String, String> req) {
+    protected Encargado crearUsuario(Map<String, String> req) {
         Local local = crearLocal(req);
 
-        Duenio contacto = new Duenio(
+        Encargado contacto = new Encargado(
             req.get("username")
             , req.get("password")
             , req.get("nombre")

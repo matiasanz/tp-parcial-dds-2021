@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("h")
 public class Habitual extends CategoriaCliente {
 
-    static double precioMinimoDescuento = 700.0;
+    static double precioMinimoDescuento = 1500.0;
 
     @Override
     public String getNombre(){
@@ -23,7 +23,7 @@ public class Habitual extends CategoriaCliente {
     }
 
     private float porcentajeDescuento(double importe){
-        return importe>precioMinimoDescuento? 0.5f: 0f;
+        return importe>precioMinimoDescuento? 0.15f: 0f;
     }
 
     @Override

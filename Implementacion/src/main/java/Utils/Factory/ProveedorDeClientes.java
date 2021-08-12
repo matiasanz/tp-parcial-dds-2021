@@ -3,6 +3,8 @@ package Utils.Factory;
 import Local.*;
 import Pedidos.Pedido;
 import MediosContacto.NotificadorPush;
+import Usuarios.Categorias.CategoriaCliente;
+import Usuarios.Categorias.Primerizo;
 import Usuarios.Cliente;
 
 public class ProveedorDeClientes {
@@ -15,5 +17,11 @@ public class ProveedorDeClientes {
         yo.getDireccionesConocidas().add("La casa de mi tia");
         yo.agregarMedioDeContacto(new NotificadorPush());
         return yo;
+    }
+
+    public static Cliente clienteConCategoria(CategoriaCliente categoria) {
+        Cliente cliente = new Cliente("lucho", "ddsutn2021", "luciano", "s", "luciano@surimail.com", "lucholandia 2452");
+        cliente.setCategoria(categoria);
+        return cliente;
     }
 }

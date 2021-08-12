@@ -2,7 +2,7 @@ package Controladores.Locales;
 
 import Controladores.Autenticador;
 import Controladores.Utils.*;
-import Local.Duenio;
+import Local.Encargado;
 import Local.Local;
 import Platos.Combo;
 import Platos.Plato;
@@ -24,10 +24,10 @@ import static Controladores.Utils.Modelos.parseModel;
 import static Utils.Factory.ProveedorDeNotif.notificacionDescuento;
 
 public class MenuController implements Transaccional {
-    private Autenticador<Duenio> autenticador;
+    private Autenticador<Encargado> autenticador;
     private ErrorHandler errorHandler = new ErrorHandler();
 
-    public MenuController(RepoLocales repo, Autenticador<Duenio> autenticador) {
+    public MenuController(RepoLocales repo, Autenticador<Encargado> autenticador) {
         this.autenticador = autenticador;
     }
 

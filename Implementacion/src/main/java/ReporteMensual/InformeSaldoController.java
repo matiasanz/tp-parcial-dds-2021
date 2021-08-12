@@ -5,7 +5,7 @@ import Local.*;
 import Mongo.Logger;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
-import Repositorios.RepoDuenios;
+import Repositorios.RepoEncargados;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import static Utils.Factory.ProveedorDeLogs.logSaldoAFavor;
@@ -15,10 +15,10 @@ import java.time.LocalDate;
 import static Utils.Factory.ProveedorDeNotif.notificacionSaldoAFavor;
 
 public class InformeSaldoController implements Transaccional {
-    RepoDuenios repoDuenios;
+    RepoEncargados repoDuenios;
     Logger logger;
 
-    public InformeSaldoController(RepoDuenios repoDuenios, Logger logger){
+    public InformeSaldoController(RepoEncargados repoDuenios, Logger logger){
         this.repoDuenios=repoDuenios;
         this.logger = logger;
     }
@@ -26,7 +26,7 @@ public class InformeSaldoController implements Transaccional {
     public void execute(){
         LocalDate fechaActual = LocalDate.now();
 
-        for (Duenio duenio : repoDuenios.getAll()) {
+        for (Encargado duenio : repoDuenios.getAll()) {
             Local local = duenio.getLocal();
 
             PerThreadEntityManagers.getEntityManager().refresh(local);
