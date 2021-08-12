@@ -128,13 +128,10 @@ public class Local extends Identificado {
         return direccion;
     }
 
-    public void setDireccion(String nuevaDireccion) {
+    public void actualizarDireccion(String nuevaDireccion){
         String direccionAnterior = getDireccion();
-        this.direccion = nuevaDireccion;
-
-        if(direccionAnterior!=null){
-            notificarSuscriptores(notificacionCambioDeDireccion(this, direccionAnterior));
-        }
+        setDireccion(nuevaDireccion); //No puedo ponerlo en el setter, porque lo usa hibernate
+        notificarSuscriptores(notificacionCambioDeDireccion(this, direccionAnterior));
     }
 
     public void setCategoria(CategoriaLocal categoria){
@@ -155,5 +152,9 @@ public class Local extends Identificado {
 
     public void setNombre(String nombre){
         this.nombre = nombre;
+    }
+
+    private void setDireccion(String nuevaDireccion) {
+        this.direccion = nuevaDireccion;
     }
 }

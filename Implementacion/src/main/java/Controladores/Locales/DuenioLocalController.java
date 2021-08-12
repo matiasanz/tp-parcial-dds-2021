@@ -37,7 +37,7 @@ public class DuenioLocalController implements Transaccional {
         Local local = autenticador.getUsuario(req).getLocal();
         try{
             withTransaction(()-> {
-                    local.setDireccion(req.queryParams("nuevaDireccion"));
+                    local.actualizarDireccion(req.queryParams("nuevaDireccion"));
                     local.setCategoria(leerCategoria(req));
                 }
             );
