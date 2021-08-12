@@ -153,4 +153,7 @@ public class Local extends Identificado {
         this.menu = menu;
     }
 
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
 }

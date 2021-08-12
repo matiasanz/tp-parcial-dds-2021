@@ -28,4 +28,9 @@ public class ProveedorDePlatos {
         );
     }
 
+    public static Plato platoConNombre(String s) {
+        Plato plato = hamburguesa();
+        plato.setNombre(s);
+        return plato;
+    }
 }

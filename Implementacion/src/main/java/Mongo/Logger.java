@@ -33,7 +33,7 @@ public class Logger {
         coleccion.eliminar(log);
     }
 
-    public void eliminarLogs(){
+    public void destruir(){
         coleccion.borrarTodo();
     }
 

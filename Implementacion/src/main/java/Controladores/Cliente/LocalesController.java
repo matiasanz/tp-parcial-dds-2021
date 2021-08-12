@@ -66,6 +66,6 @@ public class LocalesController {
     }
 
     private boolean matchNombre(Local local, String nombre){
-        return local.getNombre().toUpperCase().matches(".*"+nombre.toUpperCase()+".*");
+        return local.getNombre().toUpperCase().contains(nombre.toUpperCase());
     }
 }

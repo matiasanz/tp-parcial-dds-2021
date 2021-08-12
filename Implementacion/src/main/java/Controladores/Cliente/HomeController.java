@@ -35,23 +35,23 @@ public class HomeController {
         return new ModelAndView(modelo, Templates.HOME);
     }
 
-    private List<Object> armarTop(List<?> lista){
+    protected List<Object> armarTop(List<?> lista){
         return lista.stream().limit(5).collect(Collectors.toList());
     }
 
-    private List<Local> rankingLocales(){
+    protected List<Local> rankingLocales(){
         return repoLocales.ordenadosPor(this::cantidadPedidosMensuales);
     }
 
-    private List<String> rankingCategorias(){
+    protected List<String> rankingCategorias(){
         return pedidosPorCategoria().entrySet().stream()
-            .sorted(Map.Entry.comparingByValue())
+            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
             .map(Modelos::parseModel)
             .collect(Collectors.toList());
     }
 
-    private Map<CategoriaLocal, Integer> pedidosPorCategoria(){
+    protected Map<CategoriaLocal, Integer> pedidosPorCategoria(){
         Map<CategoriaLocal, Integer> pedidosPorCategoria = new HashMap<>();
 
         repoLocales.stream().forEach(local-> {

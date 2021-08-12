@@ -1,11 +1,9 @@
 package Mongo;
 
-import com.google.gson.Gson;
 import org.bson.Document;
 import org.junit.After;
 import org.junit.Test;
 
-import javax.print.Doc;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -15,7 +13,7 @@ public class LoggerTest {
 
     @After
     public void clean(){
-        logger.eliminarLogs();
+        logger.destruir();
     }
 
     @Test

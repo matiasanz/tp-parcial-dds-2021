@@ -47,4 +47,8 @@ public abstract class Repo<T extends Identificado>{
     List<T> ordenadosPor(Function<T, U> keyExtractor){
         return stream().sorted(Comparator.comparing(keyExtractor).reversed()).collect(Collectors.toList());
     }
+
+    public void setFuente(Coleccion<T> coleccion){
+        this.contenido = coleccion;
+    }
 }
