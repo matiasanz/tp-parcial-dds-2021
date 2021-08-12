@@ -14,8 +14,6 @@ import static Utils.Factory.ProveedorDeNotif.notificacionAscensoDeCategoria;
 @DiscriminatorColumn(name = "detalle")
 public abstract class CategoriaCliente extends Identificado {
 
-    public abstract String getNombre();
-
     public abstract double descuentoPorCategoria(double precio);
 
     public abstract void notificarPedido(Pedido pedido, Cliente cliente);
@@ -23,5 +21,9 @@ public abstract class CategoriaCliente extends Identificado {
     public void cambiarDeCategoria(Cliente cliente, CategoriaCliente siguiente){
         cliente.setCategoria(siguiente);
         cliente.notificar(notificacionAscensoDeCategoria(cliente, siguiente));
+    }
+
+    public String getNombre(){
+        return this.getClass().getSimpleName();
     }
 }

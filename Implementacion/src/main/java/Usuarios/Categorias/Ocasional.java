@@ -10,21 +10,24 @@ import javax.persistence.Transient;
 @Entity
 @DiscriminatorValue("o")
 public class Ocasional extends CategoriaCliente{
+
     @Transient
-    public static int pedidosParaCambio = 10;
+    public static int pedidosParaCambio = 15;
     @Transient
-    static float porcentajeDescuento = 0.1f;
+    static float porcentajeDescuento = 0.15f;
+
+    @Transient
+    public static double precioMinimoDescuento = 1500.0;
 
     private int pedidosHechos = 0;
 
     @Override
-    public String getNombre(){
-        return "ocasional";
+    public double descuentoPorCategoria(double importe) {
+        return porcentajeDescuento(importe)*importe;
     }
 
-    @Override
-    public double descuentoPorCategoria(double precio) {
-        return porcentajeDescuento*precio;
+    private float porcentajeDescuento(double importe){
+        return importe>=precioMinimoDescuento? porcentajeDescuento: 0f;
     }
 
     public CategoriaCliente siguienteCategoria(){

@@ -3,6 +3,10 @@ package Controladores;
 import Controladores.Utils.Modelo;
 import Local.CategoriaLocal;
 import Pedidos.EstadoPedido;
+import Usuarios.Categorias.Frecuente;
+import Usuarios.Categorias.Habitual;
+import Usuarios.Categorias.Ocasional;
+import Usuarios.Categorias.Primerizo;
 import org.junit.Test;
 
 import static Controladores.Utils.Modelos.unparseEnum;
@@ -29,5 +33,13 @@ public class ModelosTest {
         String nombreAmigable = "Pendiente";
         assertEquals(nombreAmigable, parseModel(EstadoPedido.PENDIENTE));
         assertEquals(EstadoPedido.PENDIENTE, EstadoPedido.valueOf(unparseEnum(nombreAmigable)));
+    }
+
+    @Test
+    public void nombresDeCategorias(){
+        assertEquals("Primerizo", new Primerizo().getNombre());
+        assertEquals("Ocasional", new Ocasional().getNombre());
+        assertEquals("Habitual", new Habitual().getNombre());
+        assertEquals("Frecuente", new Frecuente().getNombre());
     }
 }

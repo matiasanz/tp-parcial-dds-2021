@@ -9,10 +9,12 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -64,32 +66,43 @@ public class CategoriasTest {
 
     @Test
     public void primerizoNoTieneNingunDescuento(){
-        rangoPrecios().forEach(
+        rangoPrecios(1, 10000).forEach(
             precio ->
             assertEquals(0.0, primerizo.descuentoPorCategoria(precio), 0)
         );
     }
 
     @Test
-    public void ocasionalCalculaBienElDescuento(){
-        double maxError = 0.00001;
-        assertEquals(10.0, ocasional.descuentoPorCategoria(100.0), maxError);
-        assertEquals(50.0, ocasional.descuentoPorCategoria(500.0), maxError);
-        assertEquals(100.0, ocasional.descuentoPorCategoria(1000.0), maxError);
+    public void habitualCalculaBienElDescuento(){
+        throw new PendingException("test habitual");
     }
 
     @Test
     public void frecuenteCalculaBienElDescuento(){
-        throw new PendingException("TO-DO");
+        Frecuente categoria = frecuente;
+        double maxError = 0.00001;
+        assertEquals(10.0, categoria.descuentoPorCategoria(100.0), maxError);
+        assertEquals(50.0, categoria.descuentoPorCategoria(500.0), maxError);
+        assertEquals(100.0, categoria.descuentoPorCategoria(1000.0), maxError);
     }
 
     @Test
-    public void habitualCalculaBienElDescuento(){
-        throw new PendingException("TO-DO");
+    public void ocasionalCalculaBienElDescuento(){
+        Double minimoDescuento = Ocasional.precioMinimoDescuento;
+        rangoPrecios(0, minimoDescuento).forEach(
+            precio -> assertEquals(0, ocasional.descuentoPorCategoria(precio), 0)
+        );
+
+        rangoPrecios(minimoDescuento, 10000).forEach(
+            precio -> assertEquals(precio*0.15, ocasional.descuentoPorCategoria(precio), 0.0001)
+        );
     }
 
-    private List<Double> rangoPrecios(){
-        return IntStream.range(0, 100).mapToDouble(d->d*100).boxed().collect(Collectors.toList());
+
+
+    private List<Double> rangoPrecios(double min, double max){
+        return max<=min? new LinkedList<>()
+         : Stream.concat(Stream.of(min), rangoPrecios(min+100, max).stream()).collect(Collectors.toList());
     }
     private void subirDeCategoriaValidando(CategoriaCliente categoriaActual, Cliente cliente, int pedidosCambio){
         for(int i=1; i<=pedidosCambio; i++){

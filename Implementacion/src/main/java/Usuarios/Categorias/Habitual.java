@@ -5,29 +5,28 @@ import Usuarios.Cliente;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("h")
 public class Habitual extends CategoriaCliente {
 
-    static double precioMinimoDescuento = 1500.0;
+    private int pedidosHechos = 0;
 
-    @Override
-    public String getNombre(){
-        return "Habitual";
-    }
+    @Transient
+    public static int cadaCuantosDescuento = 5;
 
     @Override
     public double descuentoPorCategoria(double importe) {
-        return porcentajeDescuento(importe)*importe;
+        return tocaDescuento()? importe: 0;
     }
 
-    private float porcentajeDescuento(double importe){
-        return importe>precioMinimoDescuento? 0.15f: 0f;
+    private boolean tocaDescuento(){
+        return pedidosHechos % cadaCuantosDescuento == 0;
     }
 
     @Override
     public void notificarPedido(Pedido pedido, Cliente cliente){
-        //Estado final
+        pedidosHechos++;
     }
 }

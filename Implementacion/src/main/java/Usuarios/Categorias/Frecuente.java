@@ -13,31 +13,24 @@ public class Frecuente extends CategoriaCliente{
 
     @Transient
     public static int pedidosParaCambio = 25;
+
     @Transient
-    static int cadaCuantosDescuento = 5;
+    public static float porcentajeDescuento = 0.1f;
 
-    int pedidosHechos = 0;
-
-    @Override
-    public String getNombre(){
-        return "Frecuente";
-    }
+    private int pedidosHechos = 0;
 
     @Override
-    public double descuentoPorCategoria(double importe) {
-        return tocaDescuento()? importe: 0;
-    }
-
-    private boolean tocaDescuento(){
-        return pedidosHechos % cadaCuantosDescuento == 0;
+    public double descuentoPorCategoria(double precio) {
+        return porcentajeDescuento*precio;
     }
 
     public CategoriaCliente siguienteCategoria(){
         return new Habitual();
     }
 
+    @Override
     public void notificarPedido(Pedido pedido, Cliente cliente) {
-        pedidosHechos++ ;
+        pedidosHechos++;
 
         if (pedidosHechos >= pedidosParaCambio) {
             cambiarDeCategoria(cliente, siguienteCategoria());
