@@ -6,6 +6,7 @@ import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -81,5 +82,15 @@ public class Carrito extends Identificado {
 
     public Double getPrecioBase(){
         return pedido.precioBase();
+    }
+
+    public Carrito conItems(List<Item> items) {
+        pedido.setItems(items);
+        return this;
+    }
+
+    public Carrito conLocal(Local local) {
+        pedido.setLocal(local);
+        return this;
     }
 }

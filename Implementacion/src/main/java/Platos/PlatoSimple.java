@@ -16,9 +16,9 @@ public class PlatoSimple extends Plato {
         super();
     }
 
-    public PlatoSimple(String nombre, String descripcion, Double precio,  List<String> ingredientes){
+    public PlatoSimple(String nombre, String descripcion, Double precioBase,  List<String> ingredientes){
         super(nombre, descripcion);
-        this.precioBase = precio;
+        this.precioBase = precioBase;
         setIngredientes(ingredientes);
     }
 
