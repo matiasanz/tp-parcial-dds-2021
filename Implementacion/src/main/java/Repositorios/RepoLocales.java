@@ -10,10 +10,17 @@ import Utils.Exceptions.NombreOcupadoException;
 import java.util.List;
 
 public class RepoLocales extends Repo<Local> {
-    public static RepoLocales instance = new RepoLocales(new DB<>(Local.class));
+    public static RepoLocales instance;
 
-    public RepoLocales(Coleccion<Local> coleccion) {
+    private RepoLocales(Coleccion<Local> coleccion) {
         super(coleccion);
+    }
+
+    public static RepoLocales getInstance(){
+        if(instance==null){
+            instance = new RepoLocales(new DB<>(Local.class));
+        }
+        return instance;
     }
 
     public Local getLocal(long id){

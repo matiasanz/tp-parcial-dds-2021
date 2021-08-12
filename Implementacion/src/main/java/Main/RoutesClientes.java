@@ -17,9 +17,9 @@ import static spark.Spark.after;
 
 public class RoutesClientes extends RoutesTemplate{
     //Repositorios
-    private static final RepoClientes repoClientes = RepoClientes.instance;
+    private static final RepoClientes repoClientes = RepoClientes.getInstance();
     private static final Autenticador<Cliente> autenticadorClientes = new Autenticador<>(repoClientes);
-    private final RepoLocales repoLocales = RepoLocales.instance;
+    private final RepoLocales repoLocales = RepoLocales.getInstance();
 
     //Controladores
     private static final ClienteSignupController signupController = new ClienteSignupController(repoClientes);
