@@ -16,7 +16,7 @@ public abstract class CategoriaCliente extends Identificado {
 
     public abstract String getNombre();
 
-    public abstract double descuentoPorCategoria(double precio, Cliente cliente);
+    public abstract double descuentoPorCategoria(double precio);
 
     public abstract void notificarPedido(Pedido pedido, Cliente cliente);
 

@@ -2,6 +2,7 @@ package Controladores;
 
 import Controladores.Utils.Modelo;
 import Local.CategoriaLocal;
+import Pedidos.EstadoPedido;
 import org.junit.Test;
 
 import static Controladores.Utils.Modelos.unparseEnum;
@@ -17,9 +18,16 @@ public class ModelosTest {
     }
 
     @Test
-    public void cualquierEnumSeCapitaliza(){
+    public void categoriaLocalSeParseaBien(){
         String nombreAmigable = "Comida rapida";
         assertEquals(nombreAmigable, parseModel(CategoriaLocal.COMIDA_RAPIDA));
         assertEquals(CategoriaLocal.COMIDA_RAPIDA, CategoriaLocal.valueOf(unparseEnum(nombreAmigable)));
+    }
+
+    @Test
+    public void EstadoPedidoSeParseaBien(){
+        String nombreAmigable = "Pendiente";
+        assertEquals(nombreAmigable, parseModel(EstadoPedido.PENDIENTE));
+        assertEquals(EstadoPedido.PENDIENTE, EstadoPedido.valueOf(unparseEnum(nombreAmigable)));
     }
 }

@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 public class Primerizo extends CategoriaCliente {
 
     @Transient
-    static int pedidosParaCambio = 5;
+    public static int pedidosParaCambio = 5;
 
     @Override
     public String getNombre() {
@@ -20,7 +20,7 @@ public class Primerizo extends CategoriaCliente {
     }
 
     @Override
-    public double descuentoPorCategoria(double precio, Cliente cliente) {
+    public double descuentoPorCategoria(double precio) {
         return 0.0;
     }
 
@@ -29,7 +29,7 @@ public class Primerizo extends CategoriaCliente {
     }
 
     public void notificarPedido(Pedido pedido, Cliente cliente){
-        if(cliente.getPedidosRealizados().size()<=pedidosParaCambio){
+        if(cliente.getPedidosRealizados().size()>=pedidosParaCambio){
             cambiarDeCategoria(cliente, siguienteCategoria());
         }
     }

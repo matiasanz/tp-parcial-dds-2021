@@ -66,7 +66,7 @@ public class Cliente extends Usuario {
 
 
     public Double descuentoPorCategoria(Double precio) {
-        return categoria.descuentoPorCategoria(precio, this);
+        return categoria.descuentoPorCategoria(precio);
     }
 
     public void agregarDireccion(String direccion) {

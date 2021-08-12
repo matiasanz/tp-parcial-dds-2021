@@ -12,9 +12,9 @@ import javax.persistence.Transient;
 public class Frecuente extends CategoriaCliente{
 
     @Transient
-    static int pedidosParaCambio = 25;
+    public static int pedidosParaCambio = 25;
     @Transient
-    static int cadaCuantosDescuento = 15;
+    static int cadaCuantosDescuento = 5;
 
     int pedidosHechos = 0;
 
@@ -24,11 +24,11 @@ public class Frecuente extends CategoriaCliente{
     }
 
     @Override
-    public double descuentoPorCategoria(double importe, Cliente cliente) {
-        return leTocaDescuento(cliente)? importe: 0;
+    public double descuentoPorCategoria(double importe) {
+        return tocaDescuento()? importe: 0;
     }
 
-    private boolean leTocaDescuento(Cliente cliente){
+    private boolean tocaDescuento(){
         return pedidosHechos % cadaCuantosDescuento == 0;
     }
 
@@ -39,7 +39,7 @@ public class Frecuente extends CategoriaCliente{
     public void notificarPedido(Pedido pedido, Cliente cliente) {
         pedidosHechos++ ;
 
-        if (cliente.getPedidosRealizados().size() > pedidosParaCambio) {
+        if (pedidosHechos >= pedidosParaCambio) {
             cambiarDeCategoria(cliente, siguienteCategoria());
         }
     }

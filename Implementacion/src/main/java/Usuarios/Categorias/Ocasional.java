@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 @DiscriminatorValue("o")
 public class Ocasional extends CategoriaCliente{
     @Transient
-    static int pedidosParaCambio = 10;
+    public static int pedidosParaCambio = 10;
     @Transient
     static float porcentajeDescuento = 0.1f;
 
@@ -23,7 +23,7 @@ public class Ocasional extends CategoriaCliente{
     }
 
     @Override
-    public double descuentoPorCategoria(double precio, Cliente cliente) {
+    public double descuentoPorCategoria(double precio) {
         return porcentajeDescuento*precio;
     }
 
@@ -33,7 +33,7 @@ public class Ocasional extends CategoriaCliente{
 
     public void notificarPedido(Pedido pedido, Cliente cliente) {
         pedidosHechos++;
-        if (pedidosHechos > pedidosParaCambio) {
+        if (pedidosHechos >= pedidosParaCambio) {
             cambiarDeCategoria(cliente, siguienteCategoria());
         }
     }

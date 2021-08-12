@@ -18,7 +18,7 @@ public class Habitual extends CategoriaCliente {
     }
 
     @Override
-    public double descuentoPorCategoria(double importe, Cliente cliente) {
+    public double descuentoPorCategoria(double importe) {
         return porcentajeDescuento(importe)*importe;
     }
 

@@ -8,7 +8,7 @@ import Utils.Exceptions.ClienteInexistenteException;
 public class RepoClientes extends RepoUsuarios<Cliente> {
     public static RepoClientes instance;
 
-    private RepoClientes(Coleccion coleccion){
+    private RepoClientes(Coleccion<Cliente> coleccion){
         super(coleccion);
     }
 
