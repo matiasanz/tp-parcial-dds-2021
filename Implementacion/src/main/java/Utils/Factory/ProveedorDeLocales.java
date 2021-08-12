@@ -6,13 +6,14 @@ import Platos.Plato;
 import Platos.PlatoSimple;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ProveedorDeLocales {
-    private static Plato platoStub = new PlatoSimple("Fideos con tuco","Tallarines con salsa de tomate y ajo",  900.0,Arrays.asList("fideos", "tuco"));
+    private static Plato platoStub = new PlatoSimple("Fideos con tuco","Tallarines con salsa de tomate y ajo",  900.0,ingredientes("fideos", "tuco"));
 
     public static Local cincoEsquinas(){
         Local local = new Local("5 esquinas", "Calle falsa 123", CategoriaLocal.PARRILLA);
-        local.agregarPlato(platoStub);
+        local.agregarPlato(new PlatoSimple("bombon suizo", "bocha de helado bañado en chocolate", 200.0, ingredientes("helado", "chocolate")));
 
         return local;
     }
@@ -23,9 +24,8 @@ public class ProveedorDeLocales {
         return local2;
     }
 
-    public static Local mcConals(){
-        Local local3 = new Local("McConals", "alla a la vuelta", CategoriaLocal.COMIDA_RAPIDA);
-        return local3;
+    public static Local localSinPlatos(){
+        return new Local("McConals", "alla a la vuelta", CategoriaLocal.COMIDA_RAPIDA);
     }
 
     public static Local siNoCorroMePizza() {
@@ -34,5 +34,9 @@ public class ProveedorDeLocales {
         combo.getPlatos().forEach(local::agregarPlato);
         local.agregarPlato(combo);
         return local;
+    }
+
+    private static List<String> ingredientes(String ... ingredientes){
+        return Arrays.asList(ingredientes);
     }
 }

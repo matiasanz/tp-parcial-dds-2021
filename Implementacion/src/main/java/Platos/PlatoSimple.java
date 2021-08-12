@@ -9,7 +9,7 @@ import java.util.List;
 public class PlatoSimple extends Plato {
     @ElementCollection
     @CollectionTable(name="IngredientesXPlato", joinColumns = @JoinColumn(name="plato"))
-    List<String> ingredientes = new ArrayList<>(); //TODO: mostrar
+    List<String> ingredientes;
     Double precioBase;
 
     public PlatoSimple(){
@@ -19,7 +19,7 @@ public class PlatoSimple extends Plato {
     public PlatoSimple(String nombre, String descripcion, Double precio,  List<String> ingredientes){
         super(nombre, descripcion);
         this.precioBase = precio;
-        this.ingredientes.addAll(ingredientes);
+        setIngredientes(ingredientes);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class PlatoSimple extends Plato {
     }
 
 
-    public void setIngredientes(List<String> ingredientes) {
-        this.ingredientes = ingredientes;
+    public void setIngredientes(List<String> nuevosIngredientes) {
+        this.ingredientes = new ArrayList<>(nuevosIngredientes);
     }
 
     public void setPrecioBase(Double precioBase) {

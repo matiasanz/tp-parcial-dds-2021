@@ -50,7 +50,7 @@ public abstract class Plato extends Identificado {
         return nombre;
     }
 
-    public void setTitulo(String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 }
