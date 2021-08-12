@@ -38,7 +38,7 @@ public class ProveedorDeNotif {
     public static Notificacion notificacionResultadoPedido(Usuario usuario, EstadoPedido estado){
         String estadoPedido = StringUtils.capitalize(estado.name());
 
-        return new Notificacion("Pedido "+estadoPedido, espaciado(
+        return new Notificacion("Pedido "+estadoPedido.toLowerCase(), espaciado(
             saludar(usuario)
             , "Le informamos que su pedido al local ha sido"
             , estadoPedido.toLowerCase()
@@ -80,20 +80,14 @@ public class ProveedorDeNotif {
         return new Notificacion("Saldo fin de mes"
             , espaciado(saludar(duenio)
             , "Le informamos que a la fecha ha acumulado un saldo a favor de"
-            , saldo.toString()
+            , "$"+saldo.toString()
             , "por los descuentos en sus pedidos, el cual será descontado de la cuota mensual,"
             , "cuyo monto próntamente se le hará llegar."
             , "Nuevamente, le agradecemos por confiar en nuestra plataforma")
         );
     }
 
-    private static String getSaludo(int queHoraEs){
-        if(queHoraEs>=6 &&queHoraEs<=13)
-            return "Buenos días";
-        else
-            return "Buenas "
-                    + (queHoraEs<=20 && queHoraEs>13? "tardes": "noches");
-    }
+    // Auxiliares **************************************************************************
 
     private static String saludar(Usuario usuario) {
         int queHoraEs = LocalDateTime.now().getHour();
@@ -101,6 +95,13 @@ public class ProveedorDeNotif {
         return espaciado(getSaludo(queHoraEs), usuario.getNombre() + ".");
     }
 
+    private static String getSaludo(int queHoraEs){
+        if(queHoraEs>=6 &&queHoraEs<=13)
+            return "Buenos días";
+        else
+            return "Buenas "
+                + (queHoraEs<=20 && queHoraEs>13? "tardes": "noches");
+    }
 
     private static String entreComillas(String s){
 

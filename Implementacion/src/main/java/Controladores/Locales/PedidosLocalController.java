@@ -56,9 +56,9 @@ public class PedidosLocalController implements Transaccional {
 
         List<Pedido> entregados = pedidosEnEstado(pedidos, EstadoPedido.ENTREGADO);
 
-        long cantidadRechazados = contarEnEstado(pedidos, EstadoPedido.RECHAZADO);
-        long cantidadConfirmados = contarEnEstado(pedidos, EstadoPedido.CONFIRMADO);
-        long cantidadPendientes = contarEnEstado(pedidos, EstadoPedido.PENDIENTE);
+        int cantidadRechazados = contarEnEstado(pedidos, EstadoPedido.RECHAZADO);
+        int cantidadConfirmados = contarEnEstado(pedidos, EstadoPedido.CONFIRMADO);
+        int cantidadPendientes = contarEnEstado(pedidos, EstadoPedido.PENDIENTE);
 
         return new Modelo("cantidadTotal", totales)
             .con("gananciaTotal", entregados.stream().mapToDouble(Pedido::getPrecioAbonado).sum())
@@ -81,7 +81,7 @@ public class PedidosLocalController implements Transaccional {
     private List<Pedido> pedidosEnEstado(List<Pedido> pedidos, EstadoPedido estado){
         return pedidos.stream().filter(p->p.getEstado()==estado).collect(Collectors.toList());
     }
-    private long contarEnEstado(List<Pedido> pedidos, EstadoPedido estado){
+    private int contarEnEstado(List<Pedido> pedidos, EstadoPedido estado){
         return pedidosEnEstado(pedidos, estado).size();
     }
 

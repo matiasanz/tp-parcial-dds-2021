@@ -17,11 +17,15 @@ public class Carrito extends Identificado {
     Pedido pedido = new Pedido();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="cliente")
     Cliente cliente;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    Local local;
+
     public Carrito(Cliente cliente, Local local){
-        this.cliente = cliente;
-        pedido.setLocal(local);
+        conCliente(cliente);
+        conLocal(local);
     }
 
     public Carrito() {}
@@ -38,6 +42,7 @@ public class Carrito extends Identificado {
 
     public Pedido build(){
         validarPedido();
+        pedido.setLocal(local);
         pedido.setCliente(cliente);
         pedido.setPrecioAbonado(getPrecio());
         pedido.getItems().forEach(Item::notificarCompra);
@@ -46,18 +51,21 @@ public class Carrito extends Identificado {
 
     private void validarPedido() {
         String direccion = pedido.getDireccion();
-        if(pedido.getLocal()==null) throw new PedidoIncompletoException("local");
+        if(local==null) throw new PedidoIncompletoException("local");
         if(direccion==null || direccion.isEmpty()) throw new PedidoIncompletoException("direccion");
         if(pedido.getItems().isEmpty()) throw new PedidoIncompletoException("items");
     }
 
-    //TODO
+    private void conCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public void sacarItem(int numero) {
         pedido.getItems().remove(numero);
     }
 
     public Local getLocal(){
-        return pedido.getLocal();
+        return local;
     }
 
     public List<Item> getItems(){
@@ -90,7 +98,7 @@ public class Carrito extends Identificado {
     }
 
     public Carrito conLocal(Local local) {
-        pedido.setLocal(local);
+        this.local = local;
         return this;
     }
 }
