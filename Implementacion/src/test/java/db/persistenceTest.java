@@ -12,7 +12,7 @@ import Usuarios.Categorias.Ocasional;
 import Usuarios.Categorias.Primerizo;
 import Usuarios.Cliente;
 import Utils.Factory.ProveedorDeClientes;
-import Utils.Factory.ProveedorDeDuenios;
+import Utils.Factory.ProveedorDeEncargados;
 import Utils.Factory.ProveedorDeLocales;
 import Utils.Factory.ProveedorDePlatos;
 import org.junit.After;
@@ -81,7 +81,7 @@ public class persistenceTest extends AbstractPersistenceTest implements WithGlob
 
     @Test
     public void persistirUnDuenio(){
-        assertPersistible(ProveedorDeDuenios.romina());
+        assertPersistible(ProveedorDeEncargados.romina());
     }
 
     @Test

@@ -1,11 +1,10 @@
 package Utils.Factory;
 
 import Controladores.Utils.Modelos;
-import Local.Duenio;
+import Local.Encargado;
 import Pedidos.Pedido;
 import org.bson.Document;
 
-import javax.print.Doc;
 import java.time.LocalDateTime;
 
 public class ProveedorDeLogs {
@@ -23,7 +22,7 @@ public class ProveedorDeLogs {
             .append("intentos",intentos);
     }
 
-    public static Document logSaldoAFavor(Duenio duenio, Double saldo) {
+    public static Document logSaldoAFavor(Encargado duenio, Double saldo) {
         return documentoFechado()
             .append("duenio", duenio.getNombre()+" "+duenio.getApellido())
             .append("mail", duenio.getMail())

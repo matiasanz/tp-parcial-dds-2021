@@ -1,13 +1,13 @@
 package db;
 
-import Local.Duenio;
+import Local.Encargado;
 import Repositorios.Templates.Colecciones.ColeccionMemoria;
 import Repositorios.Templates.Colecciones.DB;
 import Repositorios.Templates.Identificado;
 import Repositorios.Templates.Repo;
 import Usuarios.Cliente;
 import Utils.Factory.ProveedorDeClientes;
-import Utils.Factory.ProveedorDeDuenios;
+import Utils.Factory.ProveedorDeEncargados;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,10 +19,10 @@ import static org.junit.Assert.assertNotNull;
 
 public class RepoTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
     private DB<Cliente> clientes = new DB<>(Cliente.class);
-    private DB<Duenio> duenios = new DB<>(Duenio.class);
+    private DB<Encargado> duenios = new DB<>(Encargado.class);
 
     Cliente cliente = ProveedorDeClientes.matias();
-    Duenio duenio = ProveedorDeDuenios.romina();
+    Encargado duenio = ProveedorDeEncargados.romina();
 
     @Before
     public void init(){

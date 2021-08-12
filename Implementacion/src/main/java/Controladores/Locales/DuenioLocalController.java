@@ -15,17 +15,17 @@ import static Controladores.Utils.Modelos.*;
 
 public class DuenioLocalController implements Transaccional {
 
-    Autenticador<Duenio> autenticador;
+    Autenticador<Encargado> autenticador;
     RepoLocales repoLocales;
     private ErrorHandler errorHandler = new ErrorHandler();
 
-    public DuenioLocalController(Autenticador<Duenio> autenticador, RepoLocales repoLocales) {
+    public DuenioLocalController(Autenticador<Encargado> autenticador, RepoLocales repoLocales) {
         this.autenticador = autenticador;
         this.repoLocales = repoLocales;
     }
 
     public ModelAndView getHomeLocal(Request req, Response res) {
-        Duenio duenio = autenticador.getUsuario(req);
+        Encargado duenio = autenticador.getUsuario(req);
 
         Modelo modelo = parseModel(duenio.getLocal())
             .con("masCategorias", getCategorias());

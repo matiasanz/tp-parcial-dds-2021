@@ -3,7 +3,7 @@ package Controladores.Locales;
 import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Transaccional;
-import Local.Duenio;
+import Local.Encargado;
 import Mongo.Logger;
 import Mongo.Loggers;
 import Pedidos.EstadoPedido;
@@ -24,15 +24,15 @@ import static Utils.Factory.ProveedorDeLogs.logPedidoRechazado;
 import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class PedidosLocalController implements Transaccional {
-    private Autenticador<Duenio> autenticador;
+    private Autenticador<Encargado> autenticador;
     Logger logger = Loggers.loggerEventos;
 
-    public PedidosLocalController(Autenticador<Duenio> autenticador){
+    public PedidosLocalController(Autenticador<Encargado> autenticador){
         this.autenticador=autenticador;
     }
 
     public ModelAndView getPedidos(Request req, Response res) {
-        Duenio duenio = autenticador.getUsuario(req);
+        Encargado duenio = autenticador.getUsuario(req);
 
         LocalDate fechaInicio = getFechaParam("fechaMin", req).orElse(LocalDate.MIN);
         LocalDate fechaFin = getFechaParam("fechaMax", req).orElse(LocalDate.MAX);
@@ -86,7 +86,7 @@ public class PedidosLocalController implements Transaccional {
     }
 
     public ModelAndView getPedido(Request request, Response response) {
-        Duenio duenio = autenticador.getUsuario(request);
+        Encargado duenio = autenticador.getUsuario(request);
 
         try {
             int nroPedido = Integer.parseInt(request.params("nroPedido"));

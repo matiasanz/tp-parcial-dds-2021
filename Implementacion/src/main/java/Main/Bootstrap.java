@@ -1,13 +1,13 @@
 package Main;
 
 import Repositorios.RepoClientes;
-import Repositorios.RepoDuenios;
+import Repositorios.RepoEncargados;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
-import Local.Duenio;
+import Local.Encargado;
 import Utils.Exceptions.NombreOcupadoException;
 import Utils.Factory.ProveedorDeClientes;
-import Utils.Factory.ProveedorDeDuenios;
+import Utils.Factory.ProveedorDeEncargados;
 import Utils.Factory.ProveedorDeLocales;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -37,11 +37,11 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
 
     private void cargarUsuarios(){
         Cliente matias = ProveedorDeClientes.matias();
-        Duenio romi = ProveedorDeDuenios.romina();
+        Encargado romi = ProveedorDeEncargados.romina();
 
         try{
             RepoClientes.getInstance().agregar(matias);
-            RepoDuenios.getInstance().agregar(romi);
+            RepoEncargados.getInstance().agregar(romi);
             RepoLocales.getInstance().agregar(romi.getLocal());
         }
         catch(NombreOcupadoException n){
