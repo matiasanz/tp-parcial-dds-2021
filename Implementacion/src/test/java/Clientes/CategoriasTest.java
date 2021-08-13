@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -76,7 +79,20 @@ public class CategoriasTest {
 
     @Test
     public void habitualCalculaBienElDescuento(){
-        throw new PendingException("test habitual");
+
+        BiConsumer<Integer, Boolean> assertDescuento = (cantidad, debeAplicarlo) -> {
+            habitual.setPedidosHechos(cantidad);
+            Function<Double, Double> descuentoPorPrecio = p-> debeAplicarlo? p: 0;
+            assertDescuentoPorPrecio(habitual, descuentoPorPrecio);
+        };
+
+        assertDescuento.accept(0, true);
+
+        for(int i=1; i<Habitual.cadaCuantosDescuento; i++){
+            assertDescuento.accept(i, false);
+        }
+
+        assertDescuento.accept(Habitual.cadaCuantosDescuento, true);
     }
 
     @Test
@@ -100,12 +116,17 @@ public class CategoriasTest {
         );
     }
 
-
+    private void assertDescuentoPorPrecio(CategoriaCliente categoria, Function<Double, Double> descuentoEsperado){
+        rangoPrecios(0, 10000).forEach(
+            precio -> assertEquals(descuentoEsperado.apply(precio), categoria.descuentoPorCategoria(precio), 0)
+        );
+    }
 
     private List<Double> rangoPrecios(double min, double max){
         return max<=min? new LinkedList<>()
          : Stream.concat(Stream.of(min), rangoPrecios(min+100, max).stream()).collect(Collectors.toList());
     }
+
     private void subirDeCategoriaValidando(CategoriaCliente categoriaActual, Cliente cliente, int pedidosCambio){
         for(int i=1; i<=pedidosCambio; i++){
             assertEquals(categoriaActual.getNombre(), cliente.getCategoria().getNombre());

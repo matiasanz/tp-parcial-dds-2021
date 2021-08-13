@@ -29,4 +29,12 @@ public class Habitual extends CategoriaCliente {
     public void notificarPedido(Pedido pedido, Cliente cliente){
         pedidosHechos++;
     }
+
+    public void setPedidosHechos(int cuantos) {
+        this.pedidosHechos=cuantos;
+    }
+
+    public int getPedidosHechos(){
+        return pedidosHechos;
+    }
 }
