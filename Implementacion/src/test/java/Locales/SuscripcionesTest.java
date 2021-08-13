@@ -38,16 +38,16 @@ public class SuscripcionesTest {
     public void alCambiarLaDireccionSeNotificaSuscriptores() {
         String asunto = "Cambio de Direccion";
         local.actualizarDireccion("saraza 275");
-        assertNotificacionRecibida(asunto, suscriptor1, true);
-        assertNotificacionRecibida(asunto, suscriptor2, true);
+        assertUnicaNotificacionRecibida(asunto, suscriptor1);
+        assertUnicaNotificacionRecibida(asunto, suscriptor2);
     }
 
     @Test
     public void alAgregarNuevoPlatoSeNotificaSuscriptores() {
         String asunto = "Nuevo Plato";
         local.agregarPlato(ProveedorDePlatos.hamburguesa());
-        assertNotificacionRecibida(asunto, suscriptor1, true);
-        assertNotificacionRecibida(asunto, suscriptor2, true);
+        assertUnicaNotificacionRecibida(asunto, suscriptor1);
+        assertUnicaNotificacionRecibida(asunto, suscriptor2);
     }
 
     @Test
@@ -57,17 +57,17 @@ public class SuscripcionesTest {
         local.agregarPlato(ProveedorDePlatos.combo());
         assertEquals(0, suscriptor1.getNotificacionesPush().size());
         assertEquals(2, suscriptor2.getNotificacionesPush().size());
-        assertNotificacionRecibida("Cambio de Direccion", suscriptor2, false);
-        assertNotificacionRecibida("Nuevo Plato", suscriptor2, false);
+        assertNotificacionRecibida("Cambio de Direccion", suscriptor2);
+        assertNotificacionRecibida("Nuevo Plato", suscriptor2);
     }
 
-    private void assertNotificacionRecibida(String asunto, Cliente cliente, boolean unica){
+    private void assertUnicaNotificacionRecibida(String asunto, Cliente cliente){
+        assertEquals(1, cliente.getNotificacionesPush().size());
+        assertNotificacionRecibida(asunto, cliente);
+    }
+
+    private void assertNotificacionRecibida(String asunto, Cliente cliente){
         List<Notificacion> notificaciones = cliente.getNotificacionesPush();
-
         assertTrue(notificaciones.stream().map(Notificacion::getAsunto).anyMatch(asunto::equals));
-
-        if(unica){
-            assertEquals(1, notificaciones.size());
-        }
     }
 }
