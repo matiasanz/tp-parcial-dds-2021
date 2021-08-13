@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class ProveedorDeLogs {
     public static Document logPedidoRechazado(Pedido pedido){
-        return documentoFechado()
+        return logConAsunto("rechazados")
             .append("precio",pedido.getPrecioAbonado())
             .append("direccion",pedido.getDireccion())
             .append("local",pedido.getLocal().getNombre())
@@ -17,13 +17,13 @@ public class ProveedorDeLogs {
     }
 
     public static Document logFalloAutenticacion(int intentos, String usuarioIngresado) {
-        return documentoFechado()
+        return logConAsunto("seguridad")
             .append("usuario",usuarioIngresado)
             .append("intentos",intentos);
     }
 
     public static Document logSaldoAFavor(Encargado duenio, Double saldo) {
-        return documentoFechado()
+        return logConAsunto("reportes")
             .append("duenio", duenio.getNombre()+" "+duenio.getApellido())
             .append("mail", duenio.getMail())
             .append("local", duenio.getLocal().getNombre())
@@ -34,5 +34,9 @@ public class ProveedorDeLogs {
     private static Document documentoFechado(){
         LocalDateTime fecha = LocalDateTime.now();
         return new Document(Modelos.parseModel(fecha));
+    }
+
+    private static Document logConAsunto(String asunto){
+        return documentoFechado().append("asunto",asunto);
     }
 }

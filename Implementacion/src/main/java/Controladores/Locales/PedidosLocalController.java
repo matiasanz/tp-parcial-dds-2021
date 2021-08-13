@@ -25,7 +25,7 @@ import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class PedidosLocalController implements Transaccional {
     private Autenticador<Encargado> autenticador;
-    Logger logger = Loggers.loggerEventos;
+    Logger logger = Loggers.logger;
 
     public PedidosLocalController(Autenticador<Encargado> autenticador){
         this.autenticador=autenticador;

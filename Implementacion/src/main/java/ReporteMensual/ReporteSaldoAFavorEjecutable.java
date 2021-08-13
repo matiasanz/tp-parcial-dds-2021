@@ -12,7 +12,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 public class ReporteSaldoAFavorEjecutable {
     private static final RepoEncargados repoDuenios = RepoEncargados.getInstance();
-    private static final Logger logger = Loggers.loggerReportes;
+    private static final Logger logger = Loggers.logger;
 
     public static void main(String[] args) throws SchedulerException {
         JobDetail job = newJob(RecomendacionSemanal.class)

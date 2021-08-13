@@ -11,7 +11,7 @@ import static Utils.Factory.ProveedorDeLogs.logFalloAutenticacion;
 public class ErrorHandler {
     private final String ERROR_TOKEN = "error";
 
-    Logger logger = Loggers.loggerSeguridad;
+    Logger logger = Loggers.logger;
 
     public void setMensaje(Request req, String mensaje){
         req.session().attribute(ERROR_TOKEN, mensaje);

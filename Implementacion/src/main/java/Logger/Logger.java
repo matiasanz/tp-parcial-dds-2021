@@ -7,17 +7,15 @@ import java.util.List;
 
 public class Logger {
 
-    private final String asunto;
     protected final Coleccion<Document> coleccion;
 
-    public Logger(String asunto, Coleccion<Document> coleccion){
-        this.asunto = asunto;
+    public Logger(Coleccion<Document> coleccion){
         this.coleccion = coleccion;
     }
 
     public void loguear(Document document){
         coleccion.agregar(document);
-        System.out.println(celeste("Log["+asunto+"] "+document.toJson()));
+        System.out.println(celeste("Log["+document.getString("asunto")+"] "+document.toJson()));
     }
 
     public List<Document> getLogs(){
