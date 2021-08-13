@@ -1,3 +1,5 @@
+package Clientes;
+
 import MediosContacto.NotificadorPush;
 import Pedidos.Pedido;
 import Usuarios.Categorias.*;

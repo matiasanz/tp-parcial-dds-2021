@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ColeccionMemoria<T extends Identificable> implements Coleccion<T>{
+    static Long id = 0L;
+
     private List<T> contenido = new LinkedList<>();
 
     public ColeccionMemoria(T ... elems){
@@ -20,6 +22,7 @@ public class ColeccionMemoria<T extends Identificable> implements Coleccion<T>{
 
     public void agregar(T elem){
         contenido.add(elem);
+        elem.setId(id++);
     }
 
     public void eliminar(T elem){

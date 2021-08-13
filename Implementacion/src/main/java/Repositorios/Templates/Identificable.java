@@ -10,4 +10,6 @@ public interface Identificable {
     default boolean matchId(Identificable elem){
         return matchId(elem.getId());
     }
+
+    void setId(Long id);
 }

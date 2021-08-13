@@ -2,7 +2,7 @@ package ReporteMensual;
 
 import Controladores.Utils.Transaccional;
 import Local.*;
-import Mongo.Logger;
+import Logger.Logger;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Repositorios.RepoEncargados;

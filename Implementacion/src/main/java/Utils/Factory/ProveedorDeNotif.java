@@ -47,7 +47,7 @@ public class ProveedorDeNotif {
     }
 
     public static Notificacion notificacionNuevoPlato(Plato plato, Local local){
-        return new Notificacion("Nuevo plato", espaciado(
+        return new Notificacion("Nuevo Plato", espaciado(
             "Le informamos que el local"
             , local.getNombre()
             , "ha sacado a la venta un nuevo plato:"
@@ -64,7 +64,7 @@ public class ProveedorDeNotif {
     }
 
     public static Notificacion notificacionCambioDeDireccion(Local local, String direccionAnterior) {
-        return new Notificacion("Cambio de direccion", espaciado(
+        return new Notificacion("Cambio de Direccion", espaciado(
 
             "Le informamos que el local"
             , local.getDireccion() + ", del que ud. es suscriptor,"

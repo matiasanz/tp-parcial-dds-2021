@@ -1,4 +1,4 @@
-package Mongo;
+package Logger;
 
 import org.bson.Document;
 import org.junit.After;

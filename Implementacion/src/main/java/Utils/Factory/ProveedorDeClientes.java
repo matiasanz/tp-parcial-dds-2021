@@ -24,4 +24,10 @@ public class ProveedorDeClientes {
         cliente.setCategoria(categoria);
         return cliente;
     }
+
+    public static Cliente clienteNotificable(String nombre) {
+        Cliente cliente = new Cliente(nombre, nombre, nombre, "Krycek", nombre+"@mail.com", "figorilla 2363");
+        cliente.agregarMedioDeContacto(new NotificadorPush());
+        return cliente;
+    }
 }

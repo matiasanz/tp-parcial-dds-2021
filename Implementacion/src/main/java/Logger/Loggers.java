@@ -1,4 +1,4 @@
-package Mongo;
+package Logger;
 
 import Repositorios.Templates.Colecciones.MongoDB;
 import org.bson.Document;

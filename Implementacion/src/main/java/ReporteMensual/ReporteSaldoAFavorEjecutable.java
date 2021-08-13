@@ -1,7 +1,7 @@
 package ReporteMensual;
 
-import Mongo.Logger;
-import Mongo.Loggers;
+import Logger.Logger;
+import Logger.Loggers;
 import Repositorios.RepoEncargados;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
