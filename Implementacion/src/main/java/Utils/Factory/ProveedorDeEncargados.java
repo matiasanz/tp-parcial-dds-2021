@@ -6,6 +6,7 @@ import MediosContacto.NotificadorPush;
 import Pedidos.Carrito;
 import Pedidos.Item;
 import Platos.PlatoSimple;
+import Usuarios.Usuario;
 
 import java.util.ArrayList;
 
@@ -25,5 +26,10 @@ public class ProveedorDeEncargados {
         stub.agregarMedioDeContacto(new NotificadorPush());
 
         return stub;
+    }
+
+    public static Encargado encargadoConMail(String mail) {
+        String nombre = mail.substring(0, mail.indexOf('@'));
+        return new Encargado(nombre,nombre, nombre, "Azarova", mail, null);
     }
 }

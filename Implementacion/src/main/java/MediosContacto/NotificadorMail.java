@@ -1,36 +1,33 @@
 package MediosContacto;
 
 import Utils.Exceptions.MailNoEnviadoException;
-import com.sun.activation.registries.MailcapParseException;
 import Usuarios.Usuario;
-import Utils.Exceptions.PendingException;
+
 import javax.mail.MessagingException;
 
 // [START simple_includes]
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 // [END simple_includes]
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.servlet.http.HttpServletResponse;
 
 @Entity
 @DiscriminatorValue("mail")
 public class NotificadorMail extends MedioDeContacto{
 
-    final static String nombre = "Pedidos Ya";
-    final static String direccionEmail = "pedidos.ya.rym@gmail.com";
-    final static String password = "Pedidos123!!";
+    protected final static String nombre = "Pedidos Ya";
+    protected final static String direccionEmail = "pedidos.ya.rym@gmail.com";
+    protected final static String password = "Pedidos123!!";
 
     @Override
     public void notificar(Usuario usuario, Notificacion mensaje) {
-        Session autenticador = crearAutenticador(direccionEmail, password);
+
+        Session autenticador = Session.getDefaultInstance(getProperties(), getAutenticador());
 
         try {
             Message msg = crearMensaje(mensaje, usuario, autenticador);
@@ -50,18 +47,15 @@ public class NotificadorMail extends MedioDeContacto{
         return msg;
     }
 
-    private Session crearAutenticador(String mail, String contrasenia){
-        Session sesion = Session.getDefaultInstance(getProperties(), new javax.mail.Authenticator() {
+    protected Authenticator getAutenticador(){
+        return new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail, contrasenia);
+                return new PasswordAuthentication(direccionEmail, password);
             }
-        });
-
-        return sesion;
-
+        };
     }
 
-    private Properties getProperties(){
+    protected Properties getProperties(){
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
