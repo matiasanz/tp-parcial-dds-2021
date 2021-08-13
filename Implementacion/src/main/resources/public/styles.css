@@ -4,13 +4,17 @@ html{
 }
 
 body{
-    max-height: 99%;
-    overflow-y: auto;
-    margin-top: 0;
+    margin-top: 50px;
     padding-top: 0.001em;
     background-color: white;
-    margin-bottom: 0.5em;
 }
+
+.cuerpo{
+    margin-top: 0;
+    overflow-y: auto;
+    max-height: 99.9%;
+}
+
 /********/
 .msj_error{
     color: red;
@@ -62,8 +66,15 @@ header .topnav a{
 
 }
 
+header .topnav a:hover{
+    background-color: #ec9da0;
+}
+
+header .topnav .active{
+    background-color: #570a0a;
+}
+
 main{
-    margin-top: 4.5em;
     margin-left: 2em;
     display: flex;
     flex-direction: column;
@@ -93,7 +104,7 @@ main h2{
     justify-content: space-around;
 }
 
-.sangria{ /*también se usa en signup*/
+.sangria{ /*tambiÃƒÂ©n se usa en signup*/
     margin-left: 10em;
 }
 

@@ -1,9 +1,9 @@
 
 {{#partial "topnav"}}
-    <a href="/home">Inicio</a>
-    <a href="/locales">Locales</a>
-    <a href="/pedidos">Pedidos</a>
-    <a href="/notificaciones">Notificaciones</a>
+    <a {{#block "nav-inicio"}}{{/block}} href="/home">Inicio</a>
+    <a {{#block "nav-locales"}}{{/block}} href="/locales">Locales</a>
+    <a {{#block "nav-pedidos"}}{{/block}} href="/pedidos">Pedidos</a>
+    <a {{#block "nav-notificaciones"}}{{/block}} href="/notificaciones">Notificaciones</a>
     <a href="/logout">Salir</a>
 {{/partial}}
 
