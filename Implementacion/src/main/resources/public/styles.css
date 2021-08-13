@@ -1,3 +1,17 @@
+html{
+    background-color: #570a0a;
+    overflow:  hidden;
+}
+
+body{
+    max-height: 99%;
+    overflow-y: auto;
+    margin-top: 0;
+    padding-top: 0.001em;
+    background-color: white;
+    margin-bottom: 0.5em;
+}
+/********/
 .msj_error{
     color: red;
     font-style: italic;
@@ -24,7 +38,7 @@ header{
     top: 0;
     position: fixed;
     border-bottom: solid 1px;
-    background-color:white;
+    background-color:#ca002f;
     height: 3em;
     width: 100%;
 }
@@ -40,7 +54,7 @@ header .topnav{
 
 header .topnav a{
     font-family: arial sans-serif;
-    color: black;
+    color: #f2f2f2;
     text-align: center;
     padding: 14px 14px;
     text-decoration: none;
