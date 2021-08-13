@@ -64,7 +64,7 @@ html{
 }
 
 body{
-    margin-top: 50px;
+    margin-top: 40px;
     background-color: white;
 }
 
@@ -181,4 +181,43 @@ table .linea-divisoria{
 .Confirmado{
     background-color: #07c3c3;
     font-family: Stencil, serif;
+}
+
+/***************************************/
+.form-signup{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-signup label{
+    display: inline-block;
+    width: 150px;
+}
+
+.form-signup article{
+    border: 1px solid #00000026;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.form-signup article h3{
+    text-align: center;
+}
+
+.form-signup label+input{
+    margin-bottom: 0.5em;
+}
+
+.columnas-juntas{
+    display: flex;
+    justify-content: space-evenly
+}
+
+.form-signup input[type=submit]{
+    margin: 2em auto;
+    width: 20em;
+}
+
+.form-signup .msj_error{
+    margin: 0 auto;
 }

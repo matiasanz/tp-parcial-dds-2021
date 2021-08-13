@@ -4,58 +4,61 @@
 {{#partial "contenido"}}
     <section id="Registro-clientes">
         <h2>Registrarse</h2>
-        <form action="/signup" method="POST">
-            <article>
-                <h3>Datos personales</h3>
-                <label>Nombre: </label>
-                <input type="text" name="nombre" required pattern="[a-zA-Záéíóúñ]*"><br>
+        <form action="/signup" method="POST" class="form-signup">
+            <div class="columnas-juntas">
+                <article>
+                    <h3>Datos personales</h3>
+                    <label>Nombre: </label>
+                    <input type="text" name="nombre" required pattern="[a-zA-Záéíóúñ]*"><br>
 
-                <label>Apellido: </label>
-                <input type="text" name="apellido" required pattern="[a-zA-Záéíóúñ]*"><br>
+                    <label>Apellido: </label>
+                    <input type="text" name="apellido" required pattern="[a-zA-Záéíóúñ]*"><br>
 
-                <label>Direccion: </label>
-                <input type="text" name="direccion" required><br>
+                    <label>Direccion: </label>
+                    <input type="text" name="direccion" required><br>
 
-                <label>Correo Electrónico: </label>
-                <input type="text" name="mail" required><br>
+                    <label>Correo Electrónico: </label>
+                    <input type="text" name="mail" required><br>
 
-                <input name="notif_mail" type="checkbox"> Deseo recibir las notificaciones también por mail<br>
-            </article>
+                    <input name="notif_mail" type="checkbox"> Deseo recibir las notificaciones también por mail<br>
+                </article>
 
-            <article>
-                <h3>Datos de autenticación</h3>
+                <article>
+                    <h3>Datos de autenticación</h3>
 
-                <label>Nuevo Usuario: </label>
-                <input type="text" name="username" required="required" pattern="[a-zA-Z]*"><br>
+                    <label>Nuevo Usuario: </label>
+                    <input type="text" name="username" required="required" pattern="[a-zA-Z]*"><br>
 
-                <label>Nueva Contraseña: </label>
-                <input type="password" name="password" required="required"><br>
+                    <label>Nueva Contraseña: </label>
+                    <input type="password" name="password" required="required"><br>
 
-                <label>Repita la contraseña: </label>
-                <input type="password" name="contraseniaDuplicada" required="required">
-                <br>
+                    <label>Repita la contraseña: </label>
+                    <input type="password" name="contraseniaDuplicada" required="required">
+                    <br>
 
-            </article>
+                </article>
 
-            {{#if local}}
-            <article>
-                <h3>Datos del Local</h3>
-                <label>Nombre: </label>
-                <input type="text" name="nombreLocal" required><br>
+                {{#if local}}
+                    <article>
+                        <h3>Datos del Local</h3>
+                        <label>Nombre: </label>
+                        <input type="text" name="nombreLocal" required><br>
 
-                <label>Calle: </label>
-                <input type="text" name="calleLocal" required><br>
+                        <label>Calle: </label>
+                        <input type="text" name="calleLocal" required><br>
 
-                <label>Categoria </label>
-                <select class="form-control" name="categoriaLocal" required>
-                    {{#categorias}}
-                        <option value="{{this}}">{{this}}</option>
-                    {{/categorias}}
-                </select>
-            </article>
-            <br>
-            {{/if}}
-            <input type="submit" value="Registrarme"><p class="msj_error">{{mensaje}}</p><br>
+                        <label>Categoria </label>
+                        <select class="form-control" name="categoriaLocal" required>
+                            {{#categorias}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/categorias}}
+                        </select>
+                    </article>
+                    <br>
+                {{/if}}
+            </div>
+            <input type="submit" value="Registrarme">
+            <p class="msj_error">{{mensaje}}</p>
         </form>
     </section>
 {{/partial}}
