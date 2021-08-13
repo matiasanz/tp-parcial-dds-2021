@@ -1,21 +1,3 @@
-html{
-    background-color: #570a0a;
-    overflow:  hidden;
-}
-
-body{
-    margin-top: 50px;
-    padding-top: 0.001em;
-    background-color: white;
-}
-
-.cuerpo{
-    margin-top: 0;
-    overflow-y: auto;
-    max-height: 99.9%;
-}
-
-/********/
 .msj_error{
     color: red;
     font-style: italic;
@@ -74,12 +56,34 @@ header .topnav .active{
     background-color: #570a0a;
 }
 
+/* Fondo *****************************************/
+
+html{
+    background-color: #570a0a;
+    overflow:  hidden;
+}
+
+body{
+    margin-top: 50px;
+    background-color: white;
+}
+
+.cuerpo{
+    margin-top: 0;
+    overflow-y: auto;
+    max-height: 99.9%;
+}
+
 main{
+    padding-top: 1em;
+
+    /*sangria general*/
     margin-left: 2em;
     display: flex;
     flex-direction: column;
 }
 
+/*Titulos*/
 main h2{
     text-align: center;
 }
@@ -104,7 +108,7 @@ main h2{
     justify-content: space-around;
 }
 
-.sangria{ /*tambiÃƒÂ©n se usa en signup*/
+.sangria{ /*tambiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©n se usa en signup*/
     margin-left: 10em;
 }
 
