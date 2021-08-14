@@ -8,6 +8,8 @@
         <H2>{{nombre}}</H2>
         <section class="columnado">
             <div id="info-local">
+                <H3>Puntuación media: {{puntuacion}} &#127860;</H3>
+
                 <h3>Datos del Local:</h3>
                 <form method="post" action="/local">
                     <li>
@@ -27,21 +29,10 @@
                     <br>
                     <input type="submit" value="Actualizar">
                 </form>
-
-                <H3>Puntuación media: </H3>{{puntuacion}} &#127860;
             </div>
 
             <div id="Menu">
                 <h3>Menu:</h3>
-                <ul>
-                    {{#Platos}}
-                        <li><a href="/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
-                    {{else}}
-                        <p>Aquí se verán sus platos</p>
-                    {{/Platos}}
-                </ul>
-
-
                 <form method="get" action="/platos/nuevo">
                     <button type="submit">Agregar Plato</button>
                 </form>
@@ -50,6 +41,16 @@
                     <button type="submit">Armar Combo</button>
                 </form>
 
+                <div class="item-container">
+                    {{#Platos}}
+                        <div>
+                            <a href="/platos/{{idPlato}}">{{nombre}}</a>
+                            <p>${{precio}}</p>
+                        </div>
+                    {{else}}
+                        <p>Aquí se verán sus platos</p>
+                    {{/Platos}}
+                </div>
             </div>
         </section>
     {{/partial}}

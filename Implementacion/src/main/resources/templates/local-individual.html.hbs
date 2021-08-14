@@ -37,13 +37,16 @@
 
                 <div id="Menu">
                     <h3>Menu:</h3>
-                    <ul>
+                    <div class="item-container">
                         {{#Platos}}
-                            <li><a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a> ........... ${{precio}}</li>
+                            <div>
+                                <a href="/locales/{{../idLocal}}/platos/{{idPlato}}">{{nombre}}</a>
+                                <p>${{precio}}</p>
+                            </div>
                         {{else}}
                             <p>Aún no se encuentran cargados los platos de este local, regrese más tarde</p>
                         {{/Platos}}
-                    </ul>
+                    </div>
                 </div>
 
             </section>

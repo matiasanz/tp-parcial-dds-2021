@@ -6,22 +6,21 @@
 {{#partial "contenido"}}
     <section id="Registro-platos">
         <h2>Crear Plato</h2>
-        <form action="/platos" method="POST">
-            <label>Nombre del plato: </label>
-            <input type="text" name="nombre"><br>
-
-            <label>Descripcion: </label>
-            <textarea name="descripcion" rows="3" class="auto_height"></textarea> <br>
-
-            <label>Precio: </label>
-            <input type="number" name="precio" step="0.10" min="0" required><br>
-
-            <label>Ingredientes: </label>
-            <input type="text" name="ingredientes" required><br>
-
-            <input type="hidden" name="tipo" value="simple" required><br>
-
-            <input type="submit" value="Crear Plato"><p class="msj_error">{{mensaje}}</p><br>
+        <form action="/platos" method="POST" class="form-plato">
+            <input type="text" name="nombre" placeholder="Nombre del Plato">
+            <br>
+            <textarea name="descripcion" rows="3" class="auto_height" placeholder="Descripción"></textarea>
+            <br>
+            <textarea name="ingredientes" required rows="3" placeholder="Ingrese los ingredientes separados por una coma"></textarea>
+            <br>
+            <input type="number" name="precio" step="0.10" min="0" required placeholder="Precio">
+            <br>
+            <input type="hidden" name="tipo" value="simple" required>
+            <br>
+            <div>
+                <input type="submit" value="Crear Plato"><p class="msj_error">{{mensaje}}</p>
+            </div>
+            <br>
         </form>
     </section>
 

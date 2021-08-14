@@ -8,27 +8,29 @@
         <h2>Armar Combo</h2>
 
         <form action="/platos" method="POST" class="columnado">
-            <div id="componentes">
+            <article id="componentes" class="form-articulado">
                 <h3>Componentes</h3>
                 <ul>
                     {{#platosDelLocal}}
                         <li>
-                            <label><a href="/platos/{{idPlato}}">{{nombre}}</a></label>
-                            <input type="number" name="{{nombre}}" value="0" min="0">
+                            <article>
+                                <label><a href="/platos/{{idPlato}}">{{nombre}}</a></label>
+                                <input type="number" name="{{nombre}}" value="0" min="0">
+                            </article>
                             <br>
                         </li>
                     {{else}}
                         <p>Aún no se registraron platos</p>
                     {{/platosDelLocal}}
                 </ul>
-            </div>
+            </article>
 
-            <div id="presentacion">
+            <div id="presentacion" class="borde-redondeado">
                 <h3>Presentación</h3>
                 <input type="hidden" name="tipo" value="combo">
 
                 <label>Nombre del combo: </label><br>
-                <input type="text" name="nombre" required><br>
+                <input type="text" name="nombre" maxlength="36" required><br>
                 <label>Descripción: </label><br>
                 <textarea name="descripcion" rows="3" class="auto_height"></textarea> <br>
 

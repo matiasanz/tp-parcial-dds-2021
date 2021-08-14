@@ -108,7 +108,7 @@ main h2{
     justify-content: space-around;
 }
 
-.sangria{ /*tambiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©n se usa en signup*/
+.sangria{ /*tambiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©n se usa en signup*/
     margin-left: 10em;
 }
 
@@ -124,6 +124,31 @@ main h2{
 
 .local-listado p{
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Menu ****************************************/
+.item-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 1em;
+    background-color: #ece5e570;
+    padding: 0.8em;
+    border-radius: 1em;
+}
+
+.item-container div {
+    word-wrap: break-word;
+    width: 6em;
+    height: 6em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 0.5em;
+    font-size: 1em;
 }
 
 /* Tabla carrito *******************************/
@@ -183,28 +208,28 @@ table .linea-divisoria{
     font-family: Stencil, serif;
 }
 
-/***************************************/
-.form-signup{
+/* Forms **************************************/
+.form-articulado{ /*signup y armado de combo*/
     display: flex;
     flex-direction: column;
 }
 
-.form-signup label{
+.form-articulado label{
     display: inline-block;
     width: 150px;
 }
 
-.form-signup article{
+.form-articulado article{
     border: 1px solid #00000026;
     padding: 1em;
     border-radius: 1em;
 }
 
-.form-signup article h3{
+.form-articulado article h3{
     text-align: center;
 }
 
-.form-signup label+input{
+.form-articulado label+input{
     margin-bottom: 0.5em;
 }
 
@@ -213,11 +238,34 @@ table .linea-divisoria{
     justify-content: space-evenly
 }
 
-.form-signup input[type=submit]{
+.form-articulado input[type=submit]{
     margin: 2em auto;
     width: 20em;
 }
 
-.form-signup .msj_error{
+.form-articulado .msj_error{
     margin: 0 auto;
+}
+
+.borde-redondeado{
+    border: 1px solid #00000026;
+    padding: 0 1em;
+    justify-content: space-around;
+    border-radius: 1em;
+}
+
+.borde-redondeado input, textarea{
+    margin: 0.5em 0;
+    width: 13em;
+}
+
+.form-plato{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #00000026;
+    border-radius: 1em;
+    padding: 1em;
+    align-items: center;
+    margin: 0 auto;
+    width: 13em;
 }
