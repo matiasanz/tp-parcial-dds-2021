@@ -15,10 +15,7 @@ import spark.Request;
 import spark.Response;
 
 import java.net.HttpURLConnection;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static Controladores.Utils.Modelos.parseModel;
 import static Utils.Factory.ProveedorDeNotif.notificacionDescuento;
@@ -50,11 +47,15 @@ public class MenuController implements Transaccional {
     public ModelAndView agregarPlatoSimple(Request request, Response response) {
         Local local = autenticador.getUsuario(request).getLocal();
 
+        List<String> ingredientes = new ArrayList<>(
+            Arrays.asList(request.queryParams("ingredientes").split(" "))
+        );
+
         PlatoSimple platoSimple = new PlatoSimple(
             request.queryParams("nombre")
             , request.queryParams("descripcion")
             , new Double(request.queryParams("precio"))
-            , Arrays.asList(request.queryParams("ingredientes"))
+            , ingredientes
         );
 
         try{
