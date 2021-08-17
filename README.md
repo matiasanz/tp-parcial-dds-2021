@@ -11,5 +11,8 @@
 ## Diagrama de Clases: 
   ![Diagrama de clases](/Diagramas/DC.png)
 
+## DER: 
+  ![DER](/Diagramas/DER.png)
+
 ## Diagrama de Secuencia de armado de un pedido: 
   ![Diagrama de secuencia](/Diagramas/DS-Creacion-Pedido.png)
