@@ -8,7 +8,8 @@ import java.util.List;
 @DiscriminatorValue("p")
 public class PlatoSimple extends Plato {
     @ElementCollection
-    @CollectionTable(name="IngredientesXPlato", joinColumns = @JoinColumn(name="plato"))
+    @CollectionTable(name="IngredienteXPlato", joinColumns = @JoinColumn(name="plato"))
+    @Column(name="ingrediente")
     List<String> ingredientes;
     Double precioBase;
 

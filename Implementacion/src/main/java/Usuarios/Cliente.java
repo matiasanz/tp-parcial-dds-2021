@@ -22,7 +22,8 @@ public class Cliente extends Usuario {
 
     @ElementCollection
     @JoinTable(name="DireccionXCliente", joinColumns=@JoinColumn(name="cliente"))
-    private List<String> direccionesConocidas = new ArrayList<>();
+    @Column(name="direccion")
+    private Set<String> direccionesConocidas = new HashSet<>();
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Pedido> pedidosRealizados = new LinkedList<>();
 
@@ -42,7 +43,7 @@ public class Cliente extends Usuario {
         return carrito.get();
     }
 
-    public List<String> getDireccionesConocidas() {
+    public Set<String> getDireccionesConocidas() {
         return direccionesConocidas;
     }
 
