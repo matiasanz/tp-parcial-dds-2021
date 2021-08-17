@@ -4,12 +4,12 @@
 * Anzorandía, Matías
 * Martínez, Romina
 
-## 📌 Enunciado: 
+## 📌 Consigna: 
     https://github.com/rominamartinez99/Parcial_DDS_2021/blob/main/Enunciado.pdf
- 
-## 📋 Requisitos: 
-- [X] (...)
-- [ ] (...)
 
-## Diagrama de Clases: :shipit:
+
+## Diagrama de Clases: 
   ![Diagrama de clases](/Diagramas/DC.png)
+
+## Diagrama de Secuencia de armado de un pedido: 
+  ![Diagrama de secuencia](/Diagramas/DS-Creacion-Pedido.png)
