@@ -33,10 +33,10 @@ public abstract class Usuario extends Identificado {
     private String apellido;
 
     @OneToMany (cascade = CascadeType.ALL)
-    @JoinColumn(name="cliente")
+    @JoinColumn(name="usuario")
     private List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
     @OneToMany (cascade = CascadeType.ALL)
-    @JoinColumn(name="cliente")
+    @JoinColumn(name="usuario")
     private List<Notificacion> notificacionesPush = new LinkedList<>();
 
     //Credenciales
