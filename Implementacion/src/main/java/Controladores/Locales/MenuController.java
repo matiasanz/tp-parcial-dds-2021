@@ -2,7 +2,7 @@ package Controladores.Locales;
 
 import Controladores.Autenticador;
 import Controladores.Utils.*;
-import Local.Encargado;
+import Usuarios.Encargado;
 import Local.Local;
 import Platos.Combo;
 import Platos.Plato;

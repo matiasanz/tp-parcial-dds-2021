@@ -6,7 +6,7 @@ import Controladores.Locales.MenuController;
 import Controladores.Locales.LocalSignupController;
 import Controladores.Locales.PedidosLocalController;
 import Controladores.Utils.URIs;
-import Local.Encargado;
+import Usuarios.Encargado;
 import Repositorios.RepoEncargados;
 import Repositorios.RepoLocales;
 import spark.Service;

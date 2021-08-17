@@ -6,6 +6,7 @@ import Logger.Logger;
 import Pedidos.EstadoPedido;
 import Pedidos.Pedido;
 import Repositorios.RepoEncargados;
+import Usuarios.Encargado;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import static Utils.Factory.ProveedorDeLogs.logSaldoAFavor;

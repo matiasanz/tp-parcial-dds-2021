@@ -16,7 +16,7 @@
         <class>Local.Local</class>
         <class>Usuarios.Usuario</class>
         <class>Usuarios.Cliente</class>
-        <class>Local.Encargado</class>
+        <class>Usuarios.Encargado</class>
         <class>Repositorios.Templates.Identificado</class>
         <class>Pedidos.Item</class>
         <class>Pedidos.Pedido</class>

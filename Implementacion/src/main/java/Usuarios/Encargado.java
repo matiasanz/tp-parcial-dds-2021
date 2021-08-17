@@ -1,5 +1,6 @@
-package Local;
+package Usuarios;
 
+import Local.Local;
 import MediosContacto.MedioDeContacto;
 import Platos.Combo;
 import Usuarios.Usuario;

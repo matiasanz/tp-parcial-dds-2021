@@ -1,7 +1,7 @@
 package Utils.Factory;
 
 import Controladores.Utils.Modelos;
-import Local.Encargado;
+import Usuarios.Encargado;
 import Pedidos.Pedido;
 import org.bson.Document;
 

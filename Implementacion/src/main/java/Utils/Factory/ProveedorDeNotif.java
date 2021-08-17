@@ -6,6 +6,7 @@ import Pedidos.EstadoPedido;
 import Platos.Plato;
 import Usuarios.Categorias.CategoriaCliente;
 import Usuarios.Cliente;
+import Usuarios.Encargado;
 import Usuarios.Usuario;
 import org.apache.commons.lang3.StringUtils;
 

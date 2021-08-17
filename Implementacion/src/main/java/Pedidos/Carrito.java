@@ -6,6 +6,7 @@ import Usuarios.Cliente;
 import Utils.Exceptions.PedidoIncompletoException;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class Carrito extends Identificado {
         pedido.setCliente(cliente);
         pedido.setPrecioAbonado(getPrecio());
         pedido.getItems().forEach(Item::notificarCompra);
+        pedido.setFechaHora(LocalDateTime.now());
         return pedido;
     }
 

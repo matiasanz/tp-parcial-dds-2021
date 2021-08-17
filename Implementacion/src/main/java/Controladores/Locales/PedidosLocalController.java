@@ -3,7 +3,7 @@ package Controladores.Locales;
 import Controladores.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Transaccional;
-import Local.Encargado;
+import Usuarios.Encargado;
 import Logger.Logger;
 import Logger.Loggers;
 import Pedidos.EstadoPedido;

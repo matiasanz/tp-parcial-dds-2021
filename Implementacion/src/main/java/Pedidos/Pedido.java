@@ -24,7 +24,7 @@ public class Pedido extends Identificado {
     EstadoPedido estado = EstadoPedido.PENDIENTE;
 
     @Column
-    LocalDateTime fechaHora = LocalDateTime.now();
+    LocalDateTime fechaHora;
 
     String direccion;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -51,11 +51,11 @@ public class Pedido extends Identificado {
         this.estado = estado;
     }
 
-    public LocalDateTime getFechaInicio() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public Boolean mismoMesQue(LocalDate fechaActual) {
+    public Boolean delMes(LocalDate fechaActual) {
         return fechaHora.getMonth() == fechaActual.getMonth()
             && fechaHora.getYear() == fechaActual.getYear();
     }
@@ -99,6 +99,10 @@ public class Pedido extends Identificado {
 
     public void setPrecioAbonado(Double precio) {
         this.precioAbonado = precio;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora){
+        this.fechaHora = fechaHora;
     }
 
     public void setLocal(Local local) {

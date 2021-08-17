@@ -7,16 +7,17 @@ import Platos.Combo;
 import Platos.Plato;
 import Platos.PlatoSimple;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static Utils.Factory.ProveedorDePlatos.ingredientes;
+import static Utils.Factory.ProveedorDePlatos.Lista;
 
 public class ProveedorDeLocales {
 
     public static Local cincoEsquinas() {
         Local local = new Local("5 esquinas", "Calle falsa 123", CategoriaLocal.PARRILLA);
-        local.agregarPlato(new PlatoSimple("bombon suizo", "bocha de helado bañado en chocolate", 200.0, ingredientes("helado", "chocolate")));
+        local.agregarPlato(new PlatoSimple("bombon suizo", "bocha de helado bañado en chocolate", 200.0, Lista("helado", "chocolate")));
 
         return local;
     }
@@ -28,6 +29,7 @@ public class ProveedorDeLocales {
         for(int i=0; i<n; i++){
             List<Item> items = Arrays.asList(new Item(plato, i, null));
             Pedido pedido = new Pedido(200.0,"San Pablo 350", local, items, null );
+            pedido.setFechaHora(LocalDateTime.now());
             pedido.setId((long) i);
             local.agregarPedido(pedido);
         }
@@ -36,7 +38,7 @@ public class ProveedorDeLocales {
 
     public static Local leble(){
         Local local2 = new Local("Leble", "Gualeguaychu 123", CategoriaLocal.DE_AUTOR);
-        local2.agregarPlato(new PlatoSimple("Fideos con tuco", "Tallarines con salsa de tomate y ajo", 900.0, ingredientes("fideos", "tuco")));
+        local2.agregarPlato(new PlatoSimple("Fideos con tuco", "Tallarines con salsa de tomate y ajo", 900.0, Lista("fideos", "tuco")));
         return local2;
     }
 

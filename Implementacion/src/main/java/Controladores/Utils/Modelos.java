@@ -121,7 +121,7 @@ public interface Modelos {
             .con("precioBase", pedido.precioBase())
             .con("items", pedido.getItems().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("estado", parseModel(pedido.getEstado()))
-            .con(parseModel(pedido.getFechaInicio()))
+            .con(parseModel(pedido.getFechaHora()))
             .con("direccion", pedido.getDireccion())
             .con("pendiente", pedido.getEstado()==EstadoPedido.PENDIENTE)
             .con("confirmado", pedido.getEstado()==EstadoPedido.CONFIRMADO)
