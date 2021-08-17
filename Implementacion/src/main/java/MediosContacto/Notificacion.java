@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="Notificaciones")
-@DiscriminatorColumn(name="medio")
 public class Notificacion extends Identificado {
 
     String asunto;
