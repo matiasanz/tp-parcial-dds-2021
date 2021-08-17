@@ -1,6 +1,6 @@
 package db;
 
-import Local.Encargado;
+import Usuarios.Encargado;
 import Repositorios.Templates.Colecciones.ColeccionMemoria;
 import Repositorios.Templates.Colecciones.DB;
 import Repositorios.Templates.Identificado;

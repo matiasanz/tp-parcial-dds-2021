@@ -4,7 +4,7 @@ import Repositorios.RepoClientes;
 import Repositorios.RepoEncargados;
 import Repositorios.RepoLocales;
 import Usuarios.Cliente;
-import Local.Encargado;
+import Usuarios.Encargado;
 import Utils.Exceptions.NombreOcupadoException;
 import Utils.Factory.ProveedorDeClientes;
 import Utils.Factory.ProveedorDeEncargados;

@@ -4,6 +4,7 @@ import Controladores.Autenticador;
 import Controladores.Utils.*;
 import Local.*;
 import Repositorios.RepoLocales;
+import Usuarios.Encargado;
 import Utils.Exceptions.DatosInvalidosException;
 import spark.ModelAndView;
 import spark.Request;

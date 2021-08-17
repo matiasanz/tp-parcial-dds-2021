@@ -36,14 +36,14 @@ public class ProveedorDePlatos {
     }
 
     public static PlatoSimple platoConPrecio(double precio) {
-        return new PlatoSimple("Matambrito", null, precio, ingredientes());
+        return new PlatoSimple("Matambrito", null, precio, Lista());
     }
 
-    protected static List<String> ingredientes(String ... ingredientes){
-        return new ArrayList<>(Arrays.asList(ingredientes));
+    protected static <T> List<T> Lista(T ... ts){
+        return new ArrayList<>(Arrays.asList(ts));
     }
 
     public static Combo comboConPlatos(Plato ... platos) {
-        return new Combo("picadita", "cositas varias", new ArrayList<>(Arrays.asList(platos)));
+        return new Combo("picadita", "cositas varias", Lista(platos));
     }
 }

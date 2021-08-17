@@ -4,7 +4,7 @@ import Controladores.SignupController;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Local.CategoriaLocal;
-import Local.Encargado;
+import Usuarios.Encargado;
 import Local.Local;
 import Repositorios.RepoEncargados;
 import Repositorios.RepoLocales;

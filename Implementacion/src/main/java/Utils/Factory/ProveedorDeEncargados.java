@@ -1,12 +1,11 @@
 package Utils.Factory;
 
-import Local.Encargado;
+import Usuarios.Encargado;
 import Local.*;
 import MediosContacto.NotificadorPush;
 import Pedidos.Carrito;
 import Pedidos.Item;
 import Platos.PlatoSimple;
-import Usuarios.Usuario;
 
 import java.util.ArrayList;
 

@@ -14,7 +14,7 @@ public class Item extends Identificado {
     private Plato plato;
     private Integer cantidad;
     private String aclaraciones;
-    private Double precioAbonado;
+    private Double precioAlMomentoDeCompra;
 
     public Item(){}
     public Item(Plato plato, int cantidad, String aclaraciones){
@@ -42,15 +42,15 @@ public class Item extends Identificado {
     }
 
     public Boolean adquirido(){
-        return precioAbonado !=null;
+        return precioAlMomentoDeCompra !=null;
     }
 
     public Double precioUnitario(){
-        return adquirido()? precioAbonado : plato.getPrecio();
+        return adquirido()? precioAlMomentoDeCompra : plato.getPrecio();
     }
 
     public void notificarCompra(){
-        this.precioAbonado = plato.getPrecio();
+        this.precioAlMomentoDeCompra = plato.getPrecio();
     }
 
     public void setAclaraciones(String aclaraciones){
@@ -59,10 +59,10 @@ public class Item extends Identificado {
     public void setCantidad(int cantidad){
         this.cantidad=cantidad;
     }
-    private Double getPrecioAbonado(){
-        return precioAbonado;
+    private Double getPrecioAlMomentoDeCompra(){
+        return precioAlMomentoDeCompra;
     }
-    private void setPrecioAbonado(double precioAbonado){
-        this.precioAbonado = precioAbonado;
+    private void setPrecioAlMomentoDeCompra(double precioAlMomentoDeCompra){
+        this.precioAlMomentoDeCompra = precioAlMomentoDeCompra;
     }
 }

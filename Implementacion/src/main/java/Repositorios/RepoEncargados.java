@@ -1,5 +1,5 @@
 package Repositorios;
-import Local.Encargado;
+import Usuarios.Encargado;
 import Repositorios.Templates.Colecciones.Coleccion;
 import Repositorios.Templates.Colecciones.DB;
 import Repositorios.Templates.RepoUsuarios;
