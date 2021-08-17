@@ -143,67 +143,67 @@ INSERT INTO pedidosYa.platoxcombo(combo,platos_id)
 VALUES(19,5);
 
 #inserto ingredientes a los platos
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(1,'pizza,queso,oregano,aceitunas');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(2,'pollo, mostaza');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(3,'pescado, sal, pan rallado');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(4,'rabas, oregano, queso, sal, pan rayado,ajo,perejil');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(5,'papas, manteca, sal, queso, leche');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(6,'supremas, pan rayado, queso fresco');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(7,'papas con cascara,sal');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(8,'papas con cascara,sal,rabas, oregano, queso, sal, pan rayado,ajo,perejil');
 
-INSERT INTO pedidosYa.ingredientesxplato(plato,ingredientes)
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(9,'pollo, mostaza, papas, manteca, sal, queso, leche');
 
 #inserto usuarios
 INSERT INTO pedidosYa.usuarios(tipo,apellido,mail,nombre,password,username,local_id)
 VALUES('d','Martinez','rm@gmail.com','romina','123','romi',3);
 
-INSERT INTO pedidosYa.mediodecontacto(medio,cliente)
+INSERT INTO pedidosYa.mediosdecontacto(medio,usuario)
 VALUES ('push',1);
 
-INSERT INTO pedidosYa.mediodecontacto(medio,cliente)
+INSERT INTO pedidosYa.mediosdecontacto(medio,usuario)
 VALUES ('mail',1);
 
 INSERT INTO pedidosYa.usuarios(tipo,apellido,mail,nombre,password,username,categoria)
 VALUES('c','Anzorandia','manz@gmail.com','matias','123','mati',1);
 
-INSERT INTO pedidosYa.mediodecontacto(medio,cliente)
+INSERT INTO pedidosYa.mediosdecontacto(medio,usuario)
 VALUES ('mail',2);
 
-INSERT INTO pedidosYa.mediodecontacto(medio,cliente)
+INSERT INTO pedidosYa.mediosdecontacto(medio,usuario)
 VALUES ('push',2);
 
 #inserto direcciones conocidas de cliente matias
-INSERT INTO pedidosYa.direccionxcliente(cliente,direccionesConocidas)
+INSERT INTO pedidosYa.direccionxcliente(cliente,direccion)
 VALUES(1,'Uspallata 300');
 
-INSERT INTO pedidosYa.direccionxcliente(cliente,direccionesConocidas)
+INSERT INTO pedidosYa.direccionxcliente(cliente,direccion)
 VALUES(1,'Chiclana 876');
 
-INSERT INTO pedidosYa.direccionxcliente(cliente,direccionesConocidas)
+INSERT INTO pedidosYa.direccionxcliente(cliente,direccion)
 VALUES(1,'Montes de Oca 4256');
 
-INSERT INTO pedidosYa.direccionxcliente(cliente,direccionesConocidas)
+INSERT INTO pedidosYa.direccionxcliente(cliente,direccion)
 VALUES(2,'Caseros 300');
 
-INSERT INTO pedidosYa.direccionxcliente(cliente,direccionesConocidas)
+INSERT INTO pedidosYa.direccionxcliente(cliente,direccion)
 VALUES(2,'Saenz 8746');
 
-INSERT INTO pedidosYa.direccionxcliente(cliente,direccionesConocidas)
+INSERT INTO pedidosYa.direccionxcliente(cliente,direccion)
 VALUES(2,'Jujuy 8536');
