@@ -1,24 +1,21 @@
 package Controladores.Cliente;
 
-import Controladores.Cliente.HomeController;
 import Controladores.Utils.Modelos;
-import Local.*;
+import Dominio.Local.*;
 import Repositorios.RepoLocales;
 import Repositorios.Templates.Colecciones.Coleccion;
 import Repositorios.Templates.Colecciones.ColeccionMemoria;
 import Repositorios.Templates.Colecciones.DB;
-import Utils.Factory.ProveedorDeLocales;
+import Dominio.Utils.Factory.ProveedorDeLocales;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

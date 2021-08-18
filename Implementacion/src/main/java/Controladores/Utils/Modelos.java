@@ -1,13 +1,15 @@
 package Controladores.Utils;
-import Local.Local;
-import MediosContacto.Notificacion;
-import Pedidos.*;
-import Platos.Combo;
-import Platos.Plato;
-import Platos.PlatoSimple;
-import Usuarios.Cliente;
+import Dominio.Local.Local;
+import Dominio.MediosContacto.Notificacion;
+import Dominio.Pedidos.*;
+import Dominio.Platos.Combo;
+import Dominio.Platos.Plato;
+import Dominio.Platos.PlatoSimple;
+import Dominio.Usuarios.Cliente;
 import com.sun.xml.internal.ws.util.StringUtils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import Local.CategoriaLocal;
+import Dominio.Local.CategoriaLocal;
 
 public interface Modelos {
 
@@ -167,6 +169,13 @@ public interface Modelos {
             .con("cuerpo", notificacion.getCuerpo())
             .con(parseModel(notificacion.getFechaHora()))
         ;
+    }
+
+    static Double redondear(double numero){
+        BigDecimal bd = BigDecimal.valueOf(numero);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+
+        return bd.doubleValue();
     }
 
     static String textoOpcional(String s){

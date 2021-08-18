@@ -1,15 +1,15 @@
 package Controladores.Locales;
 
-import Controladores.Autenticador;
+import Controladores.Templates.Autenticador;
 import Controladores.Utils.*;
-import Usuarios.Encargado;
-import Local.Local;
-import Platos.Combo;
-import Platos.Plato;
-import Platos.PlatoSimple;
+import Dominio.Usuarios.Encargado;
+import Dominio.Local.Local;
+import Dominio.Platos.Combo;
+import Dominio.Platos.Plato;
+import Dominio.Platos.PlatoSimple;
 import Repositorios.RepoLocales;
-import Utils.Exceptions.PlatoInexistenteException;
-import Utils.Exceptions.PlatoRepetidoException;
+import Dominio.Utils.Exceptions.PlatoInexistenteException;
+import Dominio.Utils.Exceptions.PlatoRepetidoException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -18,7 +18,7 @@ import java.net.HttpURLConnection;
 import java.util.*;
 
 import static Controladores.Utils.Modelos.parseModel;
-import static Utils.Factory.ProveedorDeNotif.notificacionDescuento;
+import static Dominio.Utils.Factory.ProveedorDeNotif.notificacionDescuento;
 
 public class MenuController implements Transaccional {
     private Autenticador<Encargado> autenticador;

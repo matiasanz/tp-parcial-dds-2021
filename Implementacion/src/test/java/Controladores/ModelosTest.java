@@ -1,12 +1,12 @@
 package Controladores;
 
 import Controladores.Utils.Modelo;
-import Local.CategoriaLocal;
-import Pedidos.EstadoPedido;
-import Usuarios.Categorias.Frecuente;
-import Usuarios.Categorias.Habitual;
-import Usuarios.Categorias.Ocasional;
-import Usuarios.Categorias.Primerizo;
+import Dominio.Local.CategoriaLocal;
+import Dominio.Pedidos.EstadoPedido;
+import Dominio.Usuarios.Categorias.Frecuente;
+import Dominio.Usuarios.Categorias.Habitual;
+import Dominio.Usuarios.Categorias.Ocasional;
+import Dominio.Usuarios.Categorias.Primerizo;
 import org.junit.Test;
 
 import static Controladores.Utils.Modelos.unparseEnum;

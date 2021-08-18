@@ -1,24 +1,17 @@
 package Clientes;
 
-import MediosContacto.NotificadorPush;
-import Pedidos.Pedido;
-import Usuarios.Categorias.*;
-import Usuarios.Cliente;
-import Usuarios.Usuario;
-import Utils.Exceptions.PendingException;
+import Dominio.MediosContacto.NotificadorPush;
+import Dominio.Pedidos.Pedido;
+import Dominio.Usuarios.Categorias.*;
+import Dominio.Usuarios.Cliente;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;

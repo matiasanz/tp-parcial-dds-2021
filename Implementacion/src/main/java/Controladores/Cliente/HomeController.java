@@ -1,10 +1,10 @@
 package Controladores.Cliente;
-import Controladores.Autenticador;
+import Controladores.Templates.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Controladores.Utils.Templates;
 import Repositorios.RepoLocales;
-import Usuarios.Cliente;
+import Dominio.Usuarios.Cliente;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -12,7 +12,7 @@ import spark.Response;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-import Local.*;
+import Dominio.Local.*;
 
 import static Controladores.Utils.Modelos.parseModel;
 

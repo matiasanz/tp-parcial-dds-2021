@@ -1,13 +1,11 @@
 package Locales;
 
-import Local.Local;
-import MediosContacto.Notificacion;
-import MediosContacto.NotificadorPush;
-import Usuarios.Cliente;
-import Utils.Factory.ProveedorDeClientes;
-import Utils.Factory.ProveedorDeLocales;
-import Utils.Factory.ProveedorDePlatos;
-import org.hamcrest.CoreMatchers;
+import Dominio.Local.Local;
+import Dominio.MediosContacto.Notificacion;
+import Dominio.Usuarios.Cliente;
+import Dominio.Utils.Factory.ProveedorDeClientes;
+import Dominio.Utils.Factory.ProveedorDeLocales;
+import Dominio.Utils.Factory.ProveedorDePlatos;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.List;

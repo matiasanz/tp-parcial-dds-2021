@@ -1,12 +1,12 @@
 package Controladores.Utils;
 
-import Logger.Logger;
-import Logger.Loggers;
+import Dominio.Logger.Logger;
+import Dominio.Logger.Loggers;
 import spark.Request;
 
 import java.util.Optional;
 
-import static Utils.Factory.ProveedorDeLogs.logFalloAutenticacion;
+import static Dominio.Utils.Factory.ProveedorDeLogs.logFalloAutenticacion;
 
 public class ErrorHandler {
     private final String ERROR_TOKEN = "error";

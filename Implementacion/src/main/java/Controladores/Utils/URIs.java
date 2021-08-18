@@ -1,7 +1,5 @@
 package Controladores.Utils;
 
-import Platos.Plato;
-
 public interface URIs {
     //Compartidas
     String LOGIN = "/";

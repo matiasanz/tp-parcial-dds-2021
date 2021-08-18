@@ -1,9 +1,9 @@
 package Repositorios.Templates;
 
 import Repositorios.Templates.Colecciones.Coleccion;
-import Usuarios.Usuario;
-import Utils.Exceptions.NombreOcupadoException;
-import Utils.Exceptions.UsuarioInexistenteException;
+import Dominio.Usuarios.Usuario;
+import Dominio.Utils.Exceptions.NombreOcupadoException;
+import Dominio.Utils.Exceptions.UsuarioInexistenteException;
 
 import java.util.Optional;
 

@@ -8,26 +8,26 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>Usuarios.Categorias.CategoriaCliente</class>
-        <class>Usuarios.Categorias.Primerizo</class>
-        <class>Usuarios.Categorias.Ocasional</class>
-        <class>Usuarios.Categorias.Habitual</class>
-        <class>Usuarios.Categorias.Frecuente</class>
-        <class>Local.Local</class>
-        <class>Usuarios.Usuario</class>
-        <class>Usuarios.Cliente</class>
-        <class>Usuarios.Encargado</class>
+        <class>Dominio.Usuarios.Categorias.CategoriaCliente</class>
+        <class>Dominio.Usuarios.Categorias.Primerizo</class>
+        <class>Dominio.Usuarios.Categorias.Ocasional</class>
+        <class>Dominio.Usuarios.Categorias.Habitual</class>
+        <class>Dominio.Usuarios.Categorias.Frecuente</class>
+        <class>Dominio.Local.Local</class>
+        <class>Dominio.Usuarios.Usuario</class>
+        <class>Dominio.Usuarios.Cliente</class>
+        <class>Dominio.Usuarios.Encargado</class>
         <class>Repositorios.Templates.Identificado</class>
-        <class>Pedidos.Item</class>
-        <class>Pedidos.Pedido</class>
-        <class>Platos.Plato</class>
-        <class>Platos.Combo</class>
-        <class>Platos.PlatoSimple</class>
-        <class>MediosContacto.Notificacion</class>
-        <class>MediosContacto.MedioDeContacto</class>
-        <class>MediosContacto.NotificadorPush</class>
-        <class>MediosContacto.NotificadorMail</class>
-        <class>Pedidos.Carrito</class>
+        <class>Dominio.Pedidos.Item</class>
+        <class>Dominio.Pedidos.Pedido</class>
+        <class>Dominio.Platos.Plato</class>
+        <class>Dominio.Platos.Combo</class>
+        <class>Dominio.Platos.PlatoSimple</class>
+        <class>Dominio.MediosContacto.Notificacion</class>
+        <class>Dominio.MediosContacto.MedioDeContacto</class>
+        <class>Dominio.MediosContacto.NotificadorPush</class>
+        <class>Dominio.MediosContacto.NotificadorMail</class>
+        <class>Dominio.Pedidos.Carrito</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

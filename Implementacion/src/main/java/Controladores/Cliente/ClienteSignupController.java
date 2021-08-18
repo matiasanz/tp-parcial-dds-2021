@@ -1,8 +1,8 @@
 package Controladores.Cliente;
 
-import Controladores.SignupController;
+import Controladores.Templates.SignupController;
 import Repositorios.Templates.RepoUsuarios;
-import Usuarios.Cliente;
+import Dominio.Usuarios.Cliente;
 
 import java.util.*;
 

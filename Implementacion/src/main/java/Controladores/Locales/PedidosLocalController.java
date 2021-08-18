@@ -1,14 +1,15 @@
 package Controladores.Locales;
 
-import Controladores.Autenticador;
+import Controladores.Templates.Autenticador;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Transaccional;
-import Usuarios.Encargado;
-import Logger.Logger;
-import Logger.Loggers;
-import Pedidos.EstadoPedido;
-import Pedidos.Pedido;
-import Usuarios.Cliente;
+import Dominio.Local.Local;
+import Dominio.Usuarios.Encargado;
+import Dominio.Logger.Logger;
+import Dominio.Logger.Loggers;
+import Dominio.Pedidos.EstadoPedido;
+import Dominio.Pedidos.Pedido;
+import Dominio.Usuarios.Cliente;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -20,8 +21,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static Controladores.Utils.Modelos.parseModel;
-import static Utils.Factory.ProveedorDeLogs.logPedidoRechazado;
-import static Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
+import static Dominio.Utils.Factory.ProveedorDeLogs.logPedidoRechazado;
+import static Dominio.Utils.Factory.ProveedorDeNotif.notificacionResultadoPedido;
 
 public class PedidosLocalController implements Transaccional {
     private Autenticador<Encargado> autenticador;
@@ -37,7 +38,7 @@ public class PedidosLocalController implements Transaccional {
         LocalDate fechaInicio = getFechaParam("fechaMin", req).orElse(LocalDate.MIN);
         LocalDate fechaFin = getFechaParam("fechaMax", req).orElse(LocalDate.MAX);
 
-        List<Pedido> pedidos = duenio.getLocal().pedidosEntreFechas(fechaInicio, fechaFin);
+        List<Pedido> pedidos = pedidosEntreFechas(duenio.getLocal(), fechaInicio, fechaFin);
 
         return new ModelAndView(
             new Modelo("pedidos", parseModel(pedidos)).con(armarEstadisticas(pedidos))
@@ -138,5 +139,13 @@ public class PedidosLocalController implements Transaccional {
             res.redirect("/pedidos");
             return Optional.empty();
         }
+    }
+
+    private List<Pedido> pedidosEntreFechas(Local local, LocalDate fechaInicio, LocalDate fechaFin){
+        return local.getPedidosRecibidos()
+            .stream().filter(p->p.entreFechas(fechaInicio, fechaFin))
+            .collect(Collectors.toList())
+            ;
+
     }
 }

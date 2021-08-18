@@ -1,8 +1,6 @@
 package Repositorios.Templates.Colecciones;
 
 import Repositorios.Templates.Identificable;
-import Repositorios.Templates.Identificado;
-import Usuarios.Cliente;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;

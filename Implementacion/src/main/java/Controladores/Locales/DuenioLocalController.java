@@ -1,11 +1,11 @@
 package Controladores.Locales;
 
-import Controladores.Autenticador;
+import Controladores.Templates.Autenticador;
 import Controladores.Utils.*;
-import Local.*;
+import Dominio.Local.*;
 import Repositorios.RepoLocales;
-import Usuarios.Encargado;
-import Utils.Exceptions.DatosInvalidosException;
+import Dominio.Usuarios.Encargado;
+import Dominio.Utils.Exceptions.DatosInvalidosException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

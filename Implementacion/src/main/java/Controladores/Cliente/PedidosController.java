@@ -1,11 +1,11 @@
 package Controladores.Cliente;
 
-import Controladores.Autenticador;
+import Controladores.Templates.Autenticador;
 import Controladores.Utils.*;
-import Pedidos.EstadoPedido;
-import Pedidos.Pedido;
-import Usuarios.Cliente;
-import Utils.Exceptions.PuntuacionInvalidaException;
+import Dominio.Pedidos.EstadoPedido;
+import Dominio.Pedidos.Pedido;
+import Dominio.Usuarios.Cliente;
+import Dominio.Utils.Exceptions.PuntuacionInvalidaException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

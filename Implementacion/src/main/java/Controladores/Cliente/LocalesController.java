@@ -3,7 +3,7 @@ package Controladores.Cliente;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
 import Controladores.Utils.Templates;
-import Local.Local;
+import Dominio.Local.Local;
 import Repositorios.RepoLocales;
 import spark.ModelAndView;
 import spark.Request;
@@ -12,8 +12,6 @@ import spark.Response;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static Controladores.Utils.Modelos.unparseEnum;

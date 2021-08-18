@@ -2,8 +2,8 @@ package Repositorios;
 import Repositorios.Templates.Colecciones.Coleccion;
 import Repositorios.Templates.Colecciones.DB;
 import Repositorios.Templates.RepoUsuarios;
-import Usuarios.Cliente;
-import Utils.Exceptions.ClienteInexistenteException;
+import Dominio.Usuarios.Cliente;
+import Dominio.Utils.Exceptions.ClienteInexistenteException;
 
 public class RepoClientes extends RepoUsuarios<Cliente> {
     public static RepoClientes instance;

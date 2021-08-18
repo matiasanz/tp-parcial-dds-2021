@@ -1,11 +1,10 @@
 package Repositorios;
-import Local.Local;
+import Dominio.Local.Local;
 import Repositorios.Templates.Colecciones.Coleccion;
-import Repositorios.Templates.Colecciones.ColeccionMemoria;
 import Repositorios.Templates.Colecciones.DB;
 import Repositorios.Templates.Repo;
-import Utils.Exceptions.LocalInexistenteException;
-import Utils.Exceptions.NombreOcupadoException;
+import Dominio.Utils.Exceptions.LocalInexistenteException;
+import Dominio.Utils.Exceptions.NombreOcupadoException;
 
 import java.util.List;
 

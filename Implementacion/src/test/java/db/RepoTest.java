@@ -1,13 +1,13 @@
 package db;
 
-import Usuarios.Encargado;
+import Dominio.Usuarios.Encargado;
 import Repositorios.Templates.Colecciones.ColeccionMemoria;
 import Repositorios.Templates.Colecciones.DB;
 import Repositorios.Templates.Identificado;
 import Repositorios.Templates.Repo;
-import Usuarios.Cliente;
-import Utils.Factory.ProveedorDeClientes;
-import Utils.Factory.ProveedorDeEncargados;
+import Dominio.Usuarios.Cliente;
+import Dominio.Utils.Factory.ProveedorDeClientes;
+import Dominio.Utils.Factory.ProveedorDeEncargados;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

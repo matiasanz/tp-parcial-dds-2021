@@ -1,11 +1,11 @@
 package Controladores.Locales;
 
-import Controladores.SignupController;
+import Controladores.Templates.SignupController;
 import Controladores.Utils.Modelo;
 import Controladores.Utils.Modelos;
-import Local.CategoriaLocal;
-import Usuarios.Encargado;
-import Local.Local;
+import Dominio.Local.CategoriaLocal;
+import Dominio.Usuarios.Encargado;
+import Dominio.Local.Local;
 import Repositorios.RepoEncargados;
 import Repositorios.RepoLocales;
 

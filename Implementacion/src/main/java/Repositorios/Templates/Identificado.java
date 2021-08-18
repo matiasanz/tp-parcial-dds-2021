@@ -1,7 +1,5 @@
 package Repositorios.Templates;
 
-import Usuarios.Cliente;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

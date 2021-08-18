@@ -1,15 +1,15 @@
 package Controladores.Cliente;
 
-import Controladores.Autenticador;
+import Controladores.Templates.Autenticador;
 import Controladores.Utils.*;
-import Local.Local;
-import Pedidos.Carrito;
-import Pedidos.Item;
-import Pedidos.Pedido;
-import Platos.Plato;
+import Dominio.Local.Local;
+import Dominio.Pedidos.Carrito;
+import Dominio.Pedidos.Item;
+import Dominio.Pedidos.Pedido;
+import Dominio.Platos.Plato;
 import Repositorios.RepoLocales;
-import Usuarios.Cliente;
-import Utils.Exceptions.*;
+import Dominio.Usuarios.Cliente;
+import Dominio.Utils.Exceptions.*;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

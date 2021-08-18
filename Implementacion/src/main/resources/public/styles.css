@@ -187,7 +187,7 @@ table .linea-divisoria{
     text-align: justify;
 }
 
-/* Estados de Pedidos ***********************/
+/* Estados de Dominio.Pedidos ***********************/
 .Pendiente{
     background-color: rgb(255,196,12);
     font-family: Stencil, serif;

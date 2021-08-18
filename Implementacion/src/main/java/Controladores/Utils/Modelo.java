@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 
+import static Controladores.Utils.Modelos.redondear;
+
 public class Modelo extends HashMap<String, Object>{
     public Modelo(){}
     public Modelo(String key, Object value){
@@ -27,13 +29,6 @@ public class Modelo extends HashMap<String, Object>{
 //      validarNoRepetidos(modelo);
         this.putAll(modelo);
         return this;
-    }
-
-    private Double redondear(double precio){
-        BigDecimal bd = BigDecimal.valueOf(precio);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-
-        return bd.doubleValue();
     }
 
     private void validarNoRepetidos(Modelo modelo){
