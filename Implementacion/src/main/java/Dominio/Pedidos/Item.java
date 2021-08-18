@@ -1,6 +1,6 @@
 package Dominio.Pedidos;
 
-import Dominio.Platos.Plato;
+import Dominio.Local.Platos.Plato;
 import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;

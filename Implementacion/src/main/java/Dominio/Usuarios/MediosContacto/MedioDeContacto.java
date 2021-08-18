@@ -1,4 +1,4 @@
-package Dominio.MediosContacto;
+package Dominio.Usuarios.MediosContacto;
 
 import Repositorios.Templates.Identificado;
 import Dominio.Usuarios.Usuario;

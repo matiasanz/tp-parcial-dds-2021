@@ -1,4 +1,4 @@
-package Dominio.MediosContacto;
+package Dominio.Usuarios.MediosContacto;
 
 import Dominio.Utils.Exceptions.MailNoEnviadoException;
 import Dominio.Usuarios.Usuario;

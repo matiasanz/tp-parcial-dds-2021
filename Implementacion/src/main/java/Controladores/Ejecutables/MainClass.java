@@ -9,7 +9,7 @@ public class MainClass {
 
     public static void main(String[] args) throws SchedulerException {
         Bootstrap.main(args);
-        ReporteSaldoAFavorEjecutable.execute(cadaNSegundos(5));
+        ReporteSaldoAFavorEjecutable.execute(cadaNSegundos(120));
         new RoutesClientes(8080).execute();
         new RoutesLocales(8081).execute();
     }

@@ -1,6 +1,6 @@
 package Clientes;
 
-import Dominio.MediosContacto.NotificadorPush;
+import Dominio.Usuarios.MediosContacto.NotificadorPush;
 import Dominio.Pedidos.Pedido;
 import Dominio.Usuarios.Categorias.*;
 import Dominio.Usuarios.Cliente;

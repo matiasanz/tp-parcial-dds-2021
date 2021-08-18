@@ -20,13 +20,13 @@
         <class>Repositorios.Templates.Identificado</class>
         <class>Dominio.Pedidos.Item</class>
         <class>Dominio.Pedidos.Pedido</class>
-        <class>Dominio.Platos.Plato</class>
-        <class>Dominio.Platos.Combo</class>
-        <class>Dominio.Platos.PlatoSimple</class>
-        <class>Dominio.MediosContacto.Notificacion</class>
-        <class>Dominio.MediosContacto.MedioDeContacto</class>
-        <class>Dominio.MediosContacto.NotificadorPush</class>
-        <class>Dominio.MediosContacto.NotificadorMail</class>
+        <class>Dominio.Local.Platos.Plato</class>
+        <class>Dominio.Local.Platos.Combo</class>
+        <class>Dominio.Local.Platos.PlatoSimple</class>
+        <class>Dominio.Usuarios.MediosContacto.Notificacion</class>
+        <class>Dominio.Usuarios.MediosContacto.MedioDeContacto</class>
+        <class>Dominio.Usuarios.MediosContacto.NotificadorPush</class>
+        <class>Dominio.Usuarios.MediosContacto.NotificadorMail</class>
         <class>Dominio.Pedidos.Carrito</class>
 
         <properties>

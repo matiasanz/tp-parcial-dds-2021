@@ -1,7 +1,7 @@
 package Locales;
 
 import Dominio.Local.Local;
-import Dominio.MediosContacto.Notificacion;
+import Dominio.Usuarios.MediosContacto.Notificacion;
 import Dominio.Usuarios.Cliente;
 import Dominio.Utils.Factory.ProveedorDeClientes;
 import Dominio.Utils.Factory.ProveedorDeLocales;

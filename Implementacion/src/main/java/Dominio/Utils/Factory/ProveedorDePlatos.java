@@ -1,8 +1,8 @@
 package Dominio.Utils.Factory;
 
-import Dominio.Platos.Combo;
-import Dominio.Platos.Plato;
-import Dominio.Platos.PlatoSimple;
+import Dominio.Local.Platos.Combo;
+import Dominio.Local.Platos.Plato;
+import Dominio.Local.Platos.PlatoSimple;
 
 import java.util.ArrayList;
 import java.util.Arrays;

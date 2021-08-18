@@ -1,8 +1,8 @@
 package Dominio.Local;
 
-import Dominio.MediosContacto.Notificacion;
+import Dominio.Usuarios.MediosContacto.Notificacion;
 import Dominio.Pedidos.Pedido;
-import Dominio.Platos.Plato;
+import Dominio.Local.Platos.Plato;
 import Repositorios.Templates.Identificado;
 import Dominio.Usuarios.Cliente;
 import Dominio.Utils.Exceptions.PlatoInexistenteException;

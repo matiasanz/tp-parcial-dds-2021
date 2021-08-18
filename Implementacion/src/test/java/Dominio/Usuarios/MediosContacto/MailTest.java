@@ -1,4 +1,4 @@
-package Dominio.MediosContacto;
+package Dominio.Usuarios.MediosContacto;
 
 import static org.junit.Assert.assertEquals;
 

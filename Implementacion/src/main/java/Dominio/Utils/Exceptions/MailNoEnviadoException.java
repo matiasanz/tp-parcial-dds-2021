@@ -1,6 +1,6 @@
 package Dominio.Utils.Exceptions;
 
-import Dominio.MediosContacto.Notificacion;
+import Dominio.Usuarios.MediosContacto.Notificacion;
 import Dominio.Usuarios.Usuario;
 
 public class MailNoEnviadoException extends RuntimeException{

@@ -3,9 +3,9 @@ package Dominio.Utils.Factory;
 import Dominio.Local.*;
 import Dominio.Pedidos.Item;
 import Dominio.Pedidos.Pedido;
-import Dominio.Platos.Combo;
-import Dominio.Platos.Plato;
-import Dominio.Platos.PlatoSimple;
+import Dominio.Local.Platos.Combo;
+import Dominio.Local.Platos.Plato;
+import Dominio.Local.Platos.PlatoSimple;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

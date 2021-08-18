@@ -1,9 +1,9 @@
 package Controladores.Templates;
 
 import Controladores.Utils.*;
-import Dominio.MediosContacto.NotificadorMail;
-import Dominio.MediosContacto.MedioDeContacto;
-import Dominio.MediosContacto.NotificadorPush;
+import Dominio.Usuarios.MediosContacto.NotificadorMail;
+import Dominio.Usuarios.MediosContacto.MedioDeContacto;
+import Dominio.Usuarios.MediosContacto.NotificadorPush;
 import Repositorios.Templates.RepoUsuarios;
 import Dominio.Usuarios.Usuario;
 import Dominio.Utils.Exceptions.ContraseniasDistintasException;

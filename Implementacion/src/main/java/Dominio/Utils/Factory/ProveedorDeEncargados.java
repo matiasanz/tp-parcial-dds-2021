@@ -2,10 +2,10 @@ package Dominio.Utils.Factory;
 
 import Dominio.Usuarios.Encargado;
 import Dominio.Local.*;
-import Dominio.MediosContacto.NotificadorPush;
+import Dominio.Usuarios.MediosContacto.NotificadorPush;
 import Dominio.Pedidos.Carrito;
 import Dominio.Pedidos.Item;
-import Dominio.Platos.PlatoSimple;
+import Dominio.Local.Platos.PlatoSimple;
 
 import java.util.ArrayList;
 

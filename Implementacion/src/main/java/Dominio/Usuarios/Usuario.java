@@ -1,7 +1,7 @@
 package Dominio.Usuarios;
 
-import Dominio.MediosContacto.MedioDeContacto;
-import Dominio.MediosContacto.Notificacion;
+import Dominio.Usuarios.MediosContacto.MedioDeContacto;
+import Dominio.Usuarios.MediosContacto.Notificacion;
 import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package Dominio.Platos;
+package Dominio.Local.Platos;
 
 import Repositorios.Templates.Identificado;
 

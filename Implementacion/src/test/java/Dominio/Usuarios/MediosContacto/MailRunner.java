@@ -1,4 +1,4 @@
-package Dominio.MediosContacto;
+package Dominio.Usuarios.MediosContacto;
 
 import Dominio.Usuarios.Usuario;
 import Dominio.Utils.Factory.ProveedorDeEncargados;

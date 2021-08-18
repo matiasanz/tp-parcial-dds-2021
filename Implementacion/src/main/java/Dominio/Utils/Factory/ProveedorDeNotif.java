@@ -2,9 +2,9 @@ package Dominio.Utils.Factory;
 
 import Controladores.Utils.Modelos;
 import Dominio.Local.*;
-import Dominio.MediosContacto.Notificacion;
+import Dominio.Usuarios.MediosContacto.Notificacion;
 import Dominio.Pedidos.EstadoPedido;
-import Dominio.Platos.Plato;
+import Dominio.Local.Platos.Plato;
 import Dominio.Usuarios.Categorias.CategoriaCliente;
 import Dominio.Usuarios.Cliente;
 import Dominio.Usuarios.Encargado;

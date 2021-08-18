@@ -1,7 +1,7 @@
 package Dominio.Utils.Factory;
 
 import Dominio.Local.*;
-import Dominio.MediosContacto.NotificadorPush;
+import Dominio.Usuarios.MediosContacto.NotificadorPush;
 import Dominio.Usuarios.Categorias.CategoriaCliente;
 import Dominio.Usuarios.Cliente;
 

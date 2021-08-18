@@ -1,7 +1,7 @@
 package Dominio.Pedidos;
 
-import Dominio.Platos.Combo;
-import Dominio.Platos.PlatoSimple;
+import Dominio.Local.Platos.Combo;
+import Dominio.Local.Platos.PlatoSimple;
 import Dominio.Usuarios.Categorias.Primerizo;
 import Dominio.Utils.Exceptions.PedidoIncompletoException;
 import Dominio.Utils.Factory.ProveedorDeClientes;

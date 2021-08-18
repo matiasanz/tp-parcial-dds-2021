@@ -6,7 +6,7 @@ import Dominio.Local.Local;
 import Dominio.Pedidos.Carrito;
 import Dominio.Pedidos.Item;
 import Dominio.Pedidos.Pedido;
-import Dominio.Platos.Plato;
+import Dominio.Local.Platos.Plato;
 import Repositorios.RepoLocales;
 import Dominio.Usuarios.Cliente;
 import Dominio.Utils.Exceptions.*;
