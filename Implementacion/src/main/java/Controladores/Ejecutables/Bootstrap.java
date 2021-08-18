@@ -1,4 +1,4 @@
-package Ejecutables;
+package Controladores.Ejecutables;
 
 import Repositorios.RepoClientes;
 import Repositorios.RepoEncargados;
@@ -15,8 +15,12 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
     public static void main(String[] args) {
-        new Bootstrap().run();
-        System.out.println("Boostrap complete");
+        try{
+            new Bootstrap().run();
+            System.out.println("*********** Boostrap complete ***********");
+        } catch (NombreOcupadoException e){
+            System.out.println("********* Bootstrap interrumpido ********");
+        }
     }
 
     public void run() {
@@ -27,25 +31,17 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
     }
 
     private void cargarLocales(){
-        try{
-            RepoLocales repo = RepoLocales.getInstance();
-            repo.agregar(ProveedorDeLocales.cincoEsquinas());
-            repo.agregar(ProveedorDeLocales.leble());
-            repo.agregar(ProveedorDeLocales.localSinPlatos());
-        } catch (NombreOcupadoException e){};
+        RepoLocales repo = RepoLocales.getInstance();
+        repo.agregar(ProveedorDeLocales.cincoEsquinas());
+        repo.agregar(ProveedorDeLocales.leble());
+        repo.agregar(ProveedorDeLocales.localSinPlatos());
     }
 
     private void cargarUsuarios(){
         Cliente matias = ProveedorDeClientes.matias();
         Encargado romi = ProveedorDeEncargados.romina();
 
-        try{
-            RepoClientes.getInstance().agregar(matias);
-            RepoEncargados.getInstance().agregar(romi);
-            RepoLocales.getInstance().agregar(romi.getLocal());
-        }
-        catch(NombreOcupadoException n){
-
-        }
+        RepoClientes.getInstance().agregar(matias);
+        RepoEncargados.getInstance().agregar(romi);
     }
 }

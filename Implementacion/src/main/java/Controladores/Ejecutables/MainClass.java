@@ -1,4 +1,4 @@
-package Ejecutables;
+package Controladores.Ejecutables;
 
 import Controladores.Locales.ReporteDeSaldo.ReporteSaldoAFavorEjecutable;
 import Controladores.Routes.RoutesClientes;
