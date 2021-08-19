@@ -16,6 +16,7 @@ import spark.Response;
 
 import java.net.HttpURLConnection;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,9 +48,13 @@ public class PedidosLocalController implements Transaccional {
     }
 
     private Optional<LocalDate> getFechaParam(String param, Request req){
-        return Optional
-            .ofNullable(req.queryParams(param))
-            .map(LocalDate::parse);
+        try {
+            return Optional
+                    .ofNullable(req.queryParams(param))
+                    .map(LocalDate::parse);
+        } catch (DateTimeParseException e) {
+            return Optional.empty();
+        }
     }
 
     private Modelo armarEstadisticas(List<Pedido> pedidos) {
@@ -112,7 +117,7 @@ public class PedidosLocalController implements Transaccional {
                     withTransaction(()->{
                         pedido.setEstado(estado);
                         Cliente cliente = pedido.getCliente();
-                        cliente.notificar(notificacionResultadoPedido(cliente, estado));
+                        cliente.notificar(notificacionResultadoPedido(cliente, pedido));
                     });
 
                     if(estado == EstadoPedido.RECHAZADO){

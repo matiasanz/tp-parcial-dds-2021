@@ -29,7 +29,7 @@ public class DuenioLocalController implements Transaccional {
         Encargado duenio = autenticador.getUsuario(req);
 
         Modelo modelo = parseModel(duenio.getLocal())
-            .con("masCategorias", getCategorias());
+            .con("masCategorias", getCategorias()).con("mensaje",errorHandler.getMensaje(req));
 
         return new ModelAndView(modelo, "home-local.html.hbs");
     }
@@ -37,14 +37,17 @@ public class DuenioLocalController implements Transaccional {
     public ModelAndView actualizarLocal(Request req, Response res) {
         Local local = autenticador.getUsuario(req).getLocal();
         try{
+            String direccion = req.queryParams("nuevaDireccion");
             withTransaction(()-> {
-                    local.actualizarDireccion(req.queryParams("nuevaDireccion"));
+                    if(!local.getDireccion().equals(direccion)) {
+                        local.actualizarDireccion(req.queryParams("nuevaDireccion"));
+                    }
                     local.setCategoria(leerCategoria(req));
                 }
             );
             res.status(200);
         } catch (DatosInvalidosException e){
-            //TODO Mensaje
+            errorHandler.setMensaje(req,e.getMessage());
             res.status(HttpURLConnection.HTTP_BAD_REQUEST);
         }
 

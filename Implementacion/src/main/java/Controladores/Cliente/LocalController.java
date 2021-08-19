@@ -131,7 +131,7 @@ public class LocalController implements Transaccional {
         return null;
     }
 
-//TODO: Auxiliares ************************************************
+//Auxiliares ************************************************
 
     private Optional<Local> findLocal(String idLocalString, Request req, Response res){
         Local local = null;

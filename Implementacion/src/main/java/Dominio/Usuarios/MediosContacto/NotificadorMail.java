@@ -20,7 +20,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("mail")
 public class NotificadorMail extends MedioDeContacto{
 
-    protected final static String nombre = "Dominio.Pedidos Ya";
+    protected final static String nombre = "Pedidos Ya";
     protected final static String direccionEmail = "pedidos.ya.rym@gmail.com";
     protected final static String password = "Pedidos123!!";
 

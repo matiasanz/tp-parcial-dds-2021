@@ -8,7 +8,7 @@ import org.quartz.SchedulerException;
 public class MainClass {
 
     public static void main(String[] args) throws SchedulerException {
-        Bootstrap.main(args);
+        //Bootstrap.main(args);
         ReporteSaldoAFavorEjecutable.execute(cadaNSegundos(120));
         new RoutesClientes(8080).execute();
         new RoutesLocales(8081).execute();

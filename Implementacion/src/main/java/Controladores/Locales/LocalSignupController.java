@@ -11,7 +11,6 @@ import Repositorios.RepoLocales;
 
 import java.util.*;
 
-//TODO: Rehacer
 public class LocalSignupController extends SignupController<Encargado> {
     private RepoLocales repoLocales;
 
@@ -41,7 +40,7 @@ public class LocalSignupController extends SignupController<Encargado> {
         return new Local(
             req.get("nombreLocal")
             , req.get("calleLocal")
-            , CategoriaLocal.valueOf(Modelos.unparseEnum(req.get("categoriaLocal"))) //TODO esto puede romper
+            , CategoriaLocal.valueOf(Modelos.unparseEnum(req.get("categoriaLocal")))
         );
     }
 

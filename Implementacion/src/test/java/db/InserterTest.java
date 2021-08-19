@@ -57,7 +57,7 @@ public class InserterTest implements Transaccional {
         cliente.setPassword("90");
         cliente.setMail("fede@gmail.com");
 
-        cliente.agregarNotificacionPush(ProveedorDeNotif.notificacionResultadoPedido(cliente, EstadoPedido.PENDIENTE));
+        cliente.agregarNotificacionPush(ProveedorDeNotif.notificacionBienvenida(cliente));
 
         NotificadorPush notificadorPush = new NotificadorPush();
         NotificadorMail notificadorMail =new NotificadorMail();

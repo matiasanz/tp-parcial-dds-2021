@@ -102,7 +102,6 @@ public class MenuController implements Transaccional {
 
         } catch (RuntimeException e) {
             errorHandler.setMensaje(req, e.getMessage());
-            //TODO: Cambiar runtimeException por ComboInvalidoException o una cosa asi
             res.status(HttpURLConnection.HTTP_BAD_REQUEST);
             res.redirect(URIs.CREACION_COMBO);
         }

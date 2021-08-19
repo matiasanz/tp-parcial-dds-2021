@@ -2,6 +2,7 @@ package Dominio.Utils.Factory;
 
 import Controladores.Utils.Modelos;
 import Dominio.Local.*;
+import Dominio.Pedidos.Pedido;
 import Dominio.Usuarios.MediosContacto.Notificacion;
 import Dominio.Pedidos.EstadoPedido;
 import Dominio.Local.Platos.Plato;
@@ -37,12 +38,12 @@ public class ProveedorDeNotif {
         );
     }
 
-    public static Notificacion notificacionResultadoPedido(Usuario usuario, EstadoPedido estado){
-        String estadoPedido = StringUtils.capitalize(estado.name());
+    public static Notificacion notificacionResultadoPedido(Usuario usuario, Pedido pedido){
+        String estadoPedido = StringUtils.capitalize(pedido.getEstado().name());
 
         return new Notificacion("Pedido "+estadoPedido.toLowerCase(), espaciado(
             saludar(usuario)
-            , "Le informamos que su pedido al local ha sido"
+            , "Le informamos que su pedido al local", pedido.getLocal().getNombre(), "ha sido"
             , estadoPedido.toLowerCase()
             )
         );
@@ -69,7 +70,7 @@ public class ProveedorDeNotif {
         return new Notificacion("Cambio de Direccion", espaciado(
 
             "Le informamos que el local"
-            , local.getDireccion() + ", del que ud. es suscriptor,"
+            , local.getNombre() + ", del que ud. es suscriptor,"
             , "ha cambiado su dirección, de"
             , direccionAnterior
             , "a"
