@@ -1,4 +1,4 @@
-package Dominio.Logger;
+package Repositorios.Logger;
 
 import org.bson.Document;
 import org.junit.After;

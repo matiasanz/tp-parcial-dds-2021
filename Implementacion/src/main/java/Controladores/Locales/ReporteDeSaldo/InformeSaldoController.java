@@ -2,7 +2,7 @@ package Controladores.Locales.ReporteDeSaldo;
 
 import Controladores.Utils.Transaccional;
 import Dominio.Local.*;
-import Dominio.Logger.Logger;
+import Repositorios.Logger.Logger;
 import Dominio.Pedidos.EstadoPedido;
 import Dominio.Pedidos.Pedido;
 import Repositorios.RepoEncargados;

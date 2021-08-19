@@ -1,7 +1,7 @@
 package Controladores.Locales.ReporteDeSaldo;
 
-import Dominio.Logger.Logger;
-import Dominio.Logger.Loggers;
+import Repositorios.Logger.Logger;
+import Repositorios.Logger.Loggers;
 import Repositorios.RepoEncargados;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;

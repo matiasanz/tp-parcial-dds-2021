@@ -1,7 +1,7 @@
 package Controladores.Utils;
 
-import Dominio.Logger.Logger;
-import Dominio.Logger.Loggers;
+import Repositorios.Logger.Logger;
+import Repositorios.Logger.Loggers;
 import spark.Request;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package Dominio.Logger;
+package Repositorios.Logger;
 
 import Repositorios.Templates.Colecciones.MongoDB;
 import org.bson.Document;

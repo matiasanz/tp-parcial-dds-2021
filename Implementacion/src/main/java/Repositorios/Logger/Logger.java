@@ -1,4 +1,4 @@
-package Dominio.Logger;
+package Repositorios.Logger;
 
 import Repositorios.Templates.Colecciones.Coleccion;
 import org.bson.Document;
