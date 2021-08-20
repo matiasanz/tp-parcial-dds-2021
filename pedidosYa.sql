@@ -144,31 +144,130 @@ VALUES(19,5);
 
 #inserto ingredientes a los platos
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(1,'pizza,queso,oregano,aceitunas');
+VALUES(1,'pizza');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(2,'pollo, mostaza');
+VALUES(1,'queso');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(3,'pescado, sal, pan rallado');
+VALUES(1,'oregano');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(4,'rabas, oregano, queso, sal, pan rayado,ajo,perejil');
+VALUES(1,'aceitunas');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(5,'papas, manteca, sal, queso, leche');
+VALUES(2,'pollo');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(6,'supremas, pan rayado, queso fresco');
+VALUES(2,'mostaza');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(3,'pescado');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(3,'sal');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(3,'pan rallado');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(4,'rabas');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(4,'oregano');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(4,'queso');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(4,'sal');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(4,'pan rayado');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(4,'ajo');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(4,'perejil');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(5,'papas');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(5,'manteca');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(5,'sal');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(5,'queso');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(5,'leche');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(6,'supremas');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(6,'pan rayado');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(6,'queso fresco');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
 VALUES(7,'papas con cascara,sal');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(8,'papas con cascara,sal,rabas, oregano, queso, sal, pan rayado,ajo,perejil');
+VALUES(7,'sal');
 
 INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
-VALUES(9,'pollo, mostaza, papas, manteca, sal, queso, leche');
+VALUES(8,'papas con cascara');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'sal');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'rabas');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'oregano');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'queso');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'sal');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'pan rayado');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'ajo,');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(8,'perejil');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(9,'pollo');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(9,'mostaza');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(9,'papas');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(9,'manteca');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(9,'sal');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(9,'queso');
+
+INSERT INTO pedidosYa.ingredientexplato(plato,ingrediente)
+VALUES(9,'leche');
 
 #inserto usuarios
 INSERT INTO pedidosYa.usuarios(tipo,apellido,mail,nombre,password,username,local_id)
