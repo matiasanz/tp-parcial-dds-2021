@@ -32,7 +32,7 @@ public class DB<T extends Identificable>
 
         @Override
         public void borrarTodo() {
-            entityManager().createQuery("delete from "+clase.getSimpleName());
+            getAll().forEach(entityManager()::remove);
         }
 
         public void agregar(T elem){
