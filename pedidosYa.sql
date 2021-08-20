@@ -120,6 +120,97 @@ VALUES('p','Mollejas al Verdeo',0.25,'Mollejas al Verdeo',1000,3);
 INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
 VALUES('p','Riñoncitos a la Provenzal',0.25,'Riñoncitos a la Provenzal',1340,3);
 
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Muzzarella',700,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Fugazzeta',980,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Cuatro Quesos',670,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Jamon y Morrones',1000,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Napolitana',899,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Capresse',567,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza de Anana',950,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Jamon Crudo y Rucula',1000,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Palmitos',789,1);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Champignones',800,1);
+
+#menu pizerias
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Muzzarella',700,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Fugazzeta',980,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Cuatro Quesos',670,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Jamon y Morrones',1000,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Napolitana',899,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Capresse',567,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza de Anana',950,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Jamon Crudo y Rucula',1000,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Palmitos',789,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Champignones',800,4);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Muzzarella',700,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Fugazzeta',980,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Cuatro Quesos',670,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Jamon y Morrones',1000,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Napolitana',899,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Capresse',567,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza de Anana',950,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Jamon Crudo y Rucula',1000,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Palmitos',789,9);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Champignones',800,9);
+
 #inserto platoxcombo
 INSERT INTO pedidosYa.platoxcombo(combo,platos_id)
 VALUES(8,4);
