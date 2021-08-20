@@ -1,37 +1,37 @@
 #inserto locales
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(1,'Av caseros 123','Mi Barrio Pizzeria') ;
+VALUES(0,'Av caseros 123','Mi Barrio Pizzeria') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(2,'Av Chiclana 2343','El Noble') ;
+VALUES(1,'Av Chiclana 2343','El Noble') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(2,'Monteagudo 345','Rotiseria Martinez') ;
+VALUES(1,'Monteagudo 345','Rotiseria Martinez') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(1,'Saenz 4567','La Fachada') ;
+VALUES(0,'Saenz 4567','La Fachada') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(11,'Famatina 234','Grido') ;
+VALUES(10,'Famatina 234','Grido') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(2,'Jose c Paz 1293','El Secreto de la Milanesa') ;
+VALUES(1,'Jose c Paz 1293','El Secreto de la Milanesa') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(11,'Colombre 3445','Chocorissimo') ;
+VALUES(10,'Colombre 3445','Chocorissimo') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(2,'Inclan 3456','Rotiseria Lo de Gustavo') ;
+VALUES(1,'Inclan 3456','Rotiseria Lo de Gustavo') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(1,'Cochabamba 998','Kentucky') ;
+VALUES(0,'Cochabamba 998','Kentucky') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(11,'Av La Rioja 1783','Nicolo') ;
+VALUES(10,'Av La Rioja 1783','Nicolo') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(11,'Av Rivadavia 2336','Faricci') ;
+VALUES(10,'Av Rivadavia 2336','Faricci') ;
 
 #inserto categorias clientes
 
