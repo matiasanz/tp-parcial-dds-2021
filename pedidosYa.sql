@@ -13,13 +13,13 @@ INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(1,'Saenz 4567','La Fachada') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(5,'Famatina 234','La Vendetta') ;
+VALUES(11,'Famatina 234','Grido') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(3,'Jose c Paz 1293','El Secreto de la Milanesa') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(3,'Colombre 3445','Dean & Dennys') ;
+VALUES(11,'Colombre 3445','Chocorissimo') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(7,'Inclan 3456','Rotiseria Casa China') ;
@@ -28,10 +28,10 @@ INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(1,'Cochabamba 998','Kentucky') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(2,'Av La Rioja 1783','La Farola') ;
+VALUES(11,'Av La Rioja 1783','Nicolo') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(3,'Av Rivadavia 2336','Faricci') ;
+VALUES(11,'Av Rivadavia 2336','Faricci') ;
 
 #inserto categorias clientes
 
@@ -149,6 +149,129 @@ VALUES('p','Pizza a la piedra',0.5,'Pizza Palmitos',789,1);
 
 INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
 VALUES('p','Pizza a la piedra',0.5,'Pizza Champignones',800,1);
+
+#menu heladerias
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate',500,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Vainilla',300,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Dulce de Leche',350,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Crema Americana',200,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Granizado',500,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Menta',600,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Banana Split',700,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Frutilla',500,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Agua',0.5,'Limon',500,5);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate Suizo',300,5);
+
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate',500,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Vainilla',300,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Dulce de Leche',350,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Crema Americana',200,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Granizado',500,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Menta',600,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Banana Split',700,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Frutilla',500,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Agua',0.5,'Limon',500,7);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate Suizo',300,7);
+
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate',500,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Vainilla',300,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Dulce de Leche',350,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Crema Americana',200,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Granizado',500,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Menta',600,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Banana Split',700,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Frutilla',500,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Agua',0.5,'Limon',500,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate Suizo',300,10);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate',500,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Vainilla',300,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Dulce de Leche',350,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Crema Americana',200,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Granizado',500,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Menta',600,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Banana Split',700,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Frutilla',500,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Agua',0.5,'Limon',500,11);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Helado de Crema',0.5,'Chocolate Suizo',300,11);
 
 #menu pizerias
 INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
