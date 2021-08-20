@@ -37,7 +37,7 @@ public class ProveedorDeLocales {
     }
 
     public static Local leble(){
-        Local local2 = new Local("Leble", "Gualeguaychu 123", CategoriaLocal.DE_AUTOR);
+        Local local2 = new Local("Leble", "Gualeguaychu 123", CategoriaLocal.ROTISERIA);
         local2.agregarPlato(new PlatoSimple("Fideos con tuco", "Tallarines con salsa de tomate y ajo", 900.0, Lista("fideos", "tuco")));
         return local2;
     }

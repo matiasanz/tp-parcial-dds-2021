@@ -4,7 +4,7 @@ INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(1,'Av caseros 123','Mi Barrio Pizzeria') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(3,'Av Chiclana 2343','El Noble') ;
+VALUES(2,'Av Chiclana 2343','El Noble') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(2,'Monteagudo 345','Rotiseria Martinez') ;
@@ -16,13 +16,13 @@ INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(11,'Famatina 234','Grido') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(3,'Jose c Paz 1293','El Secreto de la Milanesa') ;
+VALUES(2,'Jose c Paz 1293','El Secreto de la Milanesa') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(11,'Colombre 3445','Chocorissimo') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
-VALUES(7,'Inclan 3456','Rotiseria Casa China') ;
+VALUES(2,'Inclan 3456','Rotiseria Lo de Gustavo') ;
 
 INSERT INTO pedidosYa.locales(categoria,direccion,nombre)
 VALUES(1,'Cochabamba 998','Kentucky') ;
@@ -47,7 +47,7 @@ VALUES('f');
 INSERT INTO pedidosYa.categoriasclientes(detalle)
 VALUES('h');
 
-#inserto platos
+#menu rotiserias
 INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
 VALUES('p','Pizza a la piedra',0.5,'Pizza Muzzarella',980,3);
 
@@ -149,6 +149,178 @@ VALUES('p','Pizza a la piedra',0.5,'Pizza Palmitos',789,1);
 
 INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
 VALUES('p','Pizza a la piedra',0.5,'Pizza Champignones',800,1);
+
+#menu rotiserias
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Muzzarella',980,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pollo al Spiedo',0.25,'Pollo al Spiedo',500,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Filet de Merluza',0.25,'Filet de merluza',300,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Rabas',0.50,'Rabas a la Romana',1000,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Supremas de pollo con queso',0.25,'Supremas a la Fugazza',400,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Papas Fritas',0,'Papas Fritas con Guacamole',500,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Costillas de cerdo',0.50,'Costillas de Cerdo Grill',800,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Albondigas',0.50,'Albondigas Mortales',1000,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Ñoquis',0.50,'Ñoquis de la Casa',300,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Bifes a la Criolla',0.50,'Bifes a la Criolla',700,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Ravioles',0.25,'Ravioles de Verdura',850,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tacos',0,'Tacos al pastor',100,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tacos',0,'Tacos de Verdura',100,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Zapallitos',0,'Zapallitos Rellenos',100,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tortilla de Papas',0,'Tortilla Española',250,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Salmon Rosado',0,'Salmon',2500,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tarta de Jamon y Queso',0,'Tarta de JyQ',800,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Mollejas al Verdeo',0.25,'Mollejas al Verdeo',1000,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Riñoncitos a la Provenzal',0.25,'Riñoncitos a la Provenzal',1340,2);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Muzzarella',980,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pollo al Spiedo',0.25,'Pollo al Spiedo',500,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Filet de Merluza',0.25,'Filet de merluza',300,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Rabas',0.50,'Rabas a la Romana',1000,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Supremas de pollo con queso',0.25,'Supremas a la Fugazza',400,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Papas Fritas',0,'Papas Fritas con Guacamole',500,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Costillas de cerdo',0.50,'Costillas de Cerdo Grill',800,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Albondigas',0.50,'Albondigas Mortales',1000,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Ñoquis',0.50,'Ñoquis de la Casa',300,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Bifes a la Criolla',0.50,'Bifes a la Criolla',700,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Ravioles',0.25,'Ravioles de Verdura',850,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tacos',0,'Tacos al pastor',100,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tacos',0,'Tacos de Verdura',100,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Zapallitos',0,'Zapallitos Rellenos',100,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tortilla de Papas',0,'Tortilla Española',250,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Salmon Rosado',0,'Salmon',2500,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tarta de Jamon y Queso',0,'Tarta de JyQ',800,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Mollejas al Verdeo',0.25,'Mollejas al Verdeo',1000,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Riñoncitos a la Provenzal',0.25,'Riñoncitos a la Provenzal',1340,6);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pizza a la piedra',0.5,'Pizza Muzzarella',980,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Pollo al Spiedo',0.25,'Pollo al Spiedo',500,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Filet de Merluza',0.25,'Filet de merluza',300,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Rabas',0.50,'Rabas a la Romana',1000,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Supremas de pollo con queso',0.25,'Supremas a la Fugazza',400,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Papas Fritas',0,'Papas Fritas con Guacamole',500,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Costillas de cerdo',0.50,'Costillas de Cerdo Grill',800,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Albondigas',0.50,'Albondigas Mortales',1000,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Ñoquis',0.50,'Ñoquis de la Casa',300,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Bifes a la Criolla',0.50,'Bifes a la Criolla',700,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Ravioles',0.25,'Ravioles de Verdura',850,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tacos',0,'Tacos al pastor',100,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tacos',0,'Tacos de Verdura',100,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Zapallitos',0,'Zapallitos Rellenos',100,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tortilla de Papas',0,'Tortilla Española',250,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Salmon Rosado',0,'Salmon',2500,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Tarta de Jamon y Queso',0,'Tarta de JyQ',800,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Mollejas al Verdeo',0.25,'Mollejas al Verdeo',1000,8);
+
+INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
+VALUES('p','Riñoncitos a la Provenzal',0.25,'Riñoncitos a la Provenzal',1340,8);
 
 #menu heladerias
 INSERT INTO pedidosYa.platos(tipo_plato,descripcion,descuento,nombre,precioBase,local)
