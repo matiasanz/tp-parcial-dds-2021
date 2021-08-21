@@ -1,8 +1,11 @@
 package Dominio.Local.Platos;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @DiscriminatorValue("p")

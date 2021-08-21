@@ -2,6 +2,7 @@ package db;
 
 import Controladores.Utils.Transaccional;
 import Dominio.Local.Local;
+import Dominio.Usuarios.Encargado;
 import Dominio.Usuarios.MediosContacto.MedioDeContacto;
 import Dominio.Usuarios.MediosContacto.Notificacion;
 import Dominio.Usuarios.MediosContacto.NotificadorMail;
@@ -12,6 +13,7 @@ import Dominio.Pedidos.Pedido;
 import Dominio.Local.Platos.Combo;
 import Dominio.Local.Platos.Plato;
 import Dominio.Local.Platos.PlatoSimple;
+import Repositorios.Templates.Colecciones.DB;
 import Repositorios.Templates.Identificable;
 import Dominio.Usuarios.Categorias.CategoriaCliente;
 import Dominio.Usuarios.Categorias.Frecuente;
@@ -21,16 +23,24 @@ import Dominio.Utils.Factory.ProveedorDeLocales;
 import Dominio.Utils.Factory.ProveedorDeNotif;
 import Dominio.Utils.Factory.ProveedorDePlatos;
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 public class InserterTest implements Transaccional {
+    @BeforeClass
+    public static void cleanBefore(){
+        new InserterTest().clean();
+    }
+
     @After
     public void clean(){
         withTransaction(()->{
@@ -41,9 +51,22 @@ public class InserterTest implements Transaccional {
             deleteFrom(Plato.class);
             deleteFrom(Local.class);
             deleteFrom(Usuario.class);
+
         });
+
         entityManager().clear();
         entityManager().close();
+    }
+
+    @Test
+    public void estaVacio(){
+        Predicate<Class<?>> vacio = clase -> new DB(clase).getAll().isEmpty();
+
+        assert vacio.test(Cliente.class);
+        assert vacio.test(Encargado.class);
+        assert vacio.test(Pedido.class);
+        assert vacio.test(Local.class);
+        assert vacio.test(Plato.class);
     }
 
     @Test
@@ -143,6 +166,6 @@ public class InserterTest implements Transaccional {
     }
 
     private void deleteFrom(Class<?> entity){
-        entityManager().createQuery("delete from "+entity.getSimpleName());
+        new DB(entity).borrarTodo();
     }
 }
