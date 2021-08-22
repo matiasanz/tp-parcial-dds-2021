@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import Dominio.Local.CategoriaLocal;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 public interface Modelos {
 
@@ -57,7 +58,7 @@ public interface Modelos {
             .con("categoriaLocal", parseModel(local.getCategoria()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion())
-            .con("puntuacion", (puntuacion==0? "-": puntuacion+" &#127860;") )
+            .con("puntuacion", (puntuacion==0? null: puntuacion+" "+caracteresEspeciales("&#127860;")) )
             .con("precioPromedio", local.promedioDePrecios())
         ;
     }
@@ -188,5 +189,9 @@ public interface Modelos {
     }
     static <T> T ifNull(T object, T defaultValue){
         return (object==null)? defaultValue: object;
+    }
+
+    static String caracteresEspeciales(String s){
+        return StringEscapeUtils.escapeXml(StringEscapeUtils.unescapeXml(s));
     }
 }

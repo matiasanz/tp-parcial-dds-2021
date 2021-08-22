@@ -29,7 +29,7 @@
                         <article class="local-listado">
                             <h3><a href="/locales/{{idLocal}}">{{nombre}}</a></h3>
                             <p>
-                                <strong>Puntuación Media:</strong> {{puntuacion}}
+                                <strong>Puntuación Media:</strong> {{#if puntuacion}}{{puntuacion}}{{else}}-{{/if}}
                                 <br>
                                 <strong>Categoría:       </strong> {{categoriaLocal}}
                                 <br>

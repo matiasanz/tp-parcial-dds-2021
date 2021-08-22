@@ -8,7 +8,7 @@
         <H2>{{nombre}}</H2>
         <section class="columnado">
             <div id="info-local">
-                <H3>Puntuación media: {{puntuacion}}</H3>
+                <H3>Puntuación media: {{#if puntuacion}}{{puntuacion}}{{else}}-{{/if}}</H3>
 
                 <h3>Datos del Local:</h3>
                 <form method="post" action="/local">

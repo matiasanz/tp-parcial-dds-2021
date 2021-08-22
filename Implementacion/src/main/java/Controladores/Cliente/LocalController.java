@@ -10,12 +10,14 @@ import Dominio.Local.Platos.Plato;
 import Repositorios.RepoLocales;
 import Dominio.Usuarios.Cliente;
 import Dominio.Utils.Exceptions.*;
+import com.google.common.collect.Lists;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
@@ -45,7 +47,7 @@ public class LocalController implements Transaccional {
         Carrito carrito = cliente.getCarrito(local);
 
         Modelo modelo = parseModel(local)
-            .con("platosNuevos", local.getMenu().stream().filter(p->platoDeLaSemana(p, LocalDate.now())).map(Modelos::parseModel).collect(Collectors.toList()))
+            .con("platosNuevos", Lists.reverse(getPlatosNuevos(local)))
             .con("suscripto", local.esSuscriptor(cliente))
             .con(parseModel(carrito))
             .con(parseModel(cliente))
@@ -213,6 +215,10 @@ public class LocalController implements Transaccional {
 
     private String getParam(String param, Request req){
         return Optional.ofNullable(req.params(param)).orElse(req.queryParams(param));
+    }
+
+    private List<Modelo> getPlatosNuevos(Local local){
+        return local.getMenu().stream().filter(p->platoDeLaSemana(p, LocalDate.now())).map(Modelos::parseModel).collect(Collectors.toList());
     }
 
     protected boolean platoDeLaSemana(Plato plato, LocalDate fecha){
