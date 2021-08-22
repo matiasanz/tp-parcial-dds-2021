@@ -692,3 +692,8 @@ VALUES(2,'Saenz 8746');
 
 INSERT INTO pedidosYa.direccionxcliente(cliente,direccion)
 VALUES(2,'Jujuy 8536');
+
+UPDATE pedidosYa.platos
+	SET fechaCreacion = '2017-06-15'
+    where id>=0
+;
