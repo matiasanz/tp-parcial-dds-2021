@@ -51,7 +51,6 @@ public class InserterTest implements Transaccional {
             deleteFrom(Plato.class);
             deleteFrom(Local.class);
             deleteFrom(Usuario.class);
-
         });
 
         entityManager().clear();

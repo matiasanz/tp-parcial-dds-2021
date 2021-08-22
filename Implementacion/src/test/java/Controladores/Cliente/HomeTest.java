@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
 
-public class ClienteTest {
+public class HomeTest {
     static Coleccion<Local> coleccionMock = new ColeccionMemoria<>();
     static RepoLocales repoLocales = RepoLocales.getInstance();
     HomeController homeController = new HomeController(null, repoLocales);

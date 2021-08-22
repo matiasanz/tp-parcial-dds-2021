@@ -15,8 +15,10 @@ import spark.Request;
 import spark.Response;
 import sun.net.www.protocol.http.HttpURLConnection;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 import static Controladores.Utils.Modelos.parseModel;
 
@@ -32,17 +34,19 @@ public class LocalController implements Transaccional {
     private Autenticador<Cliente> autenticadorClientes;
 
     public ModelAndView getLocal(Request req, Response res){
-        Optional<Local> local = findLocal(req.params("id"), req, res);
+        Optional<Local> localHallado = findLocal(req.params("id"), req, res);
 
-        if(!local.isPresent()){
+        if(!localHallado.isPresent()){
             return null;
         }
 
         Cliente cliente = autenticadorClientes.getUsuario(req);
-        Carrito carrito = cliente.getCarrito(local.get());
+        Local local = localHallado.get();
+        Carrito carrito = cliente.getCarrito(local);
 
-        Modelo modelo = parseModel(local.get())
-            .con("suscripto", local.get().esSuscriptor(cliente))
+        Modelo modelo = parseModel(local)
+            .con("platosNuevos", local.getMenu().stream().filter(p->platoDeLaSemana(p, LocalDate.now())).map(Modelos::parseModel).collect(Collectors.toList()))
+            .con("suscripto", local.esSuscriptor(cliente))
             .con(parseModel(carrito))
             .con(parseModel(cliente))
             .con("error", errorHandler.getMensaje(req));
@@ -210,4 +214,9 @@ public class LocalController implements Transaccional {
     private String getParam(String param, Request req){
         return Optional.ofNullable(req.params(param)).orElse(req.queryParams(param));
     }
+
+    protected boolean platoDeLaSemana(Plato plato, LocalDate fecha){
+        return plato.getFechaCreacion().until(fecha).getDays()<7;
+    }
+
 }

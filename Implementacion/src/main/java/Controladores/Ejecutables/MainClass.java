@@ -8,13 +8,8 @@ import org.quartz.SchedulerException;
 public class MainClass {
 
     public static void main(String[] args) throws SchedulerException {
-        //Bootstrap.main(args);
-        ReporteSaldoAFavorEjecutable.execute(cadaNSegundos(120));
+        ReporteSaldoAFavorEjecutable.execute();
         new RoutesClientes(8080).execute();
         new RoutesLocales(8081).execute();
-    }
-
-    private static String cadaNSegundos(int segundos){
-        return "0/" +segundos+ " * * * * ?";
     }
 }

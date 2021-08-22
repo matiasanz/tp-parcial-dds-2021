@@ -3,6 +3,7 @@ package Dominio.Local.Platos;
 import Repositorios.Templates.Identificado;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -13,6 +14,8 @@ public abstract class Plato extends Identificado {
     String nombre;
     String descripcion;
     float descuento;
+    @Column
+    LocalDate fechaCreacion = LocalDate.now();
 
     public Plato(){}
     public Plato(String nombre, String descripcion){
@@ -52,5 +55,13 @@ public abstract class Plato extends Identificado {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public LocalDate getFechaCreacion(){
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDate fechaCreacion){
+        this.fechaCreacion = fechaCreacion;
     }
 }

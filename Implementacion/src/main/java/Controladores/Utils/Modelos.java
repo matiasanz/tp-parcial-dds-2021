@@ -51,12 +51,13 @@ public interface Modelos {
 
 
     static Modelo parseModel(Local local){
+        double puntuacion = local.getPuntuacionMedia();
         return new Modelo("nombre", local.getNombre())
             .con("idLocal", local.getId())
             .con("categoriaLocal", parseModel(local.getCategoria()))
             .con("Platos", local.getMenu().stream().map(Modelos::parseModel).collect(Collectors.toList()))
             .con("Direccion", local.getDireccion())
-            .con("puntuacion", local.getPuntuacionMedia())
+            .con("puntuacion", (puntuacion==0? "-": puntuacion+" &#127860;") )
             .con("precioPromedio", local.promedioDePrecios())
         ;
     }
