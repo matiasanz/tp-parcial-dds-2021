@@ -5,7 +5,7 @@
 * Martínez, Romina
 
 ## 📌 Consigna: 
-    https://github.com/rominamartinez99/Parcial_DDS_2021/blob/main/Enunciado.pdf
+    https://github.com/matiasanz/tp-parcial-dds-2021/blob/main/Enunciado.pdf
 
 
 ## Diagrama de Clases: 
