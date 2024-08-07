@@ -9,7 +9,7 @@ import Dominio.Utils.Exceptions.PuntuacionInvalidaException;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import sun.net.www.protocol.http.HttpURLConnection;
+import java.net.HttpURLConnection;
 
 import java.util.List;
 
