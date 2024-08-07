@@ -34,16 +34,16 @@ Mongo Client; MySQL, Mongo DB
   ![Cliente Sign up](/MISC/Capturas/cliente--signup.png)  
 
   - Inicio
-  ![Cliente inicio](/MISC/Capturas/cliente--home)
+  ![Cliente inicio](/MISC/Capturas/cliente--home.png)
 
   - Consultar Locales
-  ![Cliente locales](/MISC/Capturas/cliente--locales)
+  ![Cliente locales](/MISC/Capturas/cliente--locales.png)
 
   - Consultar Local
-  ![Cliente local](/MISC/Capturas/cliente--local)
+  ![Cliente local](/MISC/Capturas/cliente--local.png)
 
   - Agregar plato a pedido
-  ![Cliente comida simple](/MISC/Capturas/) 
+  ![Cliente comida simple](/MISC/Capturas/cliente--local--plato.png) 
 
   - Agregar combo a pedido
   ![Cliente combo](/MISC/Capturas/cliente--local--combo.png)
