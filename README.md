@@ -53,7 +53,7 @@ Mongo Client; MySQL, Mongo DB
 
   -  Calificar pedido recibido
   ![Cliente calificar pedido](/MISC/Capturas/cliente--calificar-pedido.png)
-  ![Cliente pedido calificado](/MISC/Capturas/cliente--pedido-calificado.png.png)
+  ![Cliente pedido calificado](/MISC/Capturas/cliente--pedido-calificado.png)
 
   - Consultar pedidos históricos
   ![Cliente pedidos](/MISC/Capturas/cliente--pedidos.png)
